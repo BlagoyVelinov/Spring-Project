@@ -16,7 +16,7 @@ public class MovieClass extends BaseEntity {
     }
 
     public MovieClass(MovieClassEnum name) {
-        this.setDescription(name);
+        this.setName(name);
     }
 
     public MovieClassEnum getName() {

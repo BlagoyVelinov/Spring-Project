@@ -12,6 +12,13 @@ public class Category extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Genre name;
 
+    public Category() {
+    }
+
+    public Category(Genre name) {
+        this.name = name;
+    }
+
     public Genre getName() {
         return name;
     }
