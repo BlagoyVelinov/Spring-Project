@@ -13,18 +13,20 @@ import java.util.Set;
 public class UserEntity extends BaseEntity {
 
     @Column(nullable = false, unique = true)
-    private String username;// Username must be between 5 and 20 characters.
-    @Column(name ="full_name", nullable = false)
-    private String fullName; // Full Name must be between 5 and 30 characters.
+    private String username;
+    @Column(name ="first_name", nullable = false)
+    private String firstName;
+    @Column(name ="last_name", nullable = false)
+    private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
     @Column(name = "is_active")
     private boolean isActive;
-    @Column(nullable = false)
+    @Column
     private LocalDateTime created;
-    @Column(nullable = false)
+    @Column
     private LocalDateTime modified;
     @Column(name = "image_url")
     private String imageUrl;
@@ -51,12 +53,21 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public UserEntity setFullName(String fullName) {
-        this.fullName = fullName;
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 

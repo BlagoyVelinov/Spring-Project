@@ -3,6 +3,9 @@
 <head>
     <head th:replace="~{fragments/commons::head}"></head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" th:href="@{/css/reset-css.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" href="/css/style-login-register.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -14,39 +17,108 @@
 <header class="navigation">
     <label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
     <ul>
-        <li><a href="/login"><img src="/images/login-icon.gif" alt="login"/></a></li>
+        <li><a th:href="@{/users/login}"><img src="/images/login-icon.gif" alt="login"/></a></li>
     </ul>
 </header>
-<div class="wrapper">
-    <form action="">
-        <h1>Register</h1>
-        <div class="input-box">
-            <input type="text" placeholder="Username" required>
-            <i class='bx bxs-user'></i>
+<div class="container">
+    <h2 class="text-center text-white">Register User</h2>
+    <form th:method="post"
+          th:action="@{/users/register}"
+          th:object="${registerDto}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="username" class="text-white font-weight-bold">Username</label>
+                <input id="username"
+                       name="username"
+                       th:field="*{username}"
+                       th:errorclass="is-invalid"
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="username" required="username"/>
+                <p th:if="${#fields.hasErrors('username')}"
+                   th:errors="*{username}" class="text-danger">
+                    Username is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="email" class="text-white font-weight-bold">Email</label>
+                <input id="email"
+                       name="email"
+                       th:field="*{email}"
+                       th:errorclass="is-invalid"
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="email" required="email"/>
+                <p th:if="${#fields.hasErrors('email')}"
+                   th:errors="*{email}" class="text-danger">
+                    Email is required.
+                </p>
+            </div>
         </div>
-        <div class="input-box">
-            <input type="email" placeholder="Email" required>
-            <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="firstName" class="text-white font-weight-bold">Full Name</label>
+                <input id="firstName"
+                       name="firstName"
+                       th:field="*{firstName}"
+                       th:errorclass="is-invalid"
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="First name" required="firstName"/>
+                <p th:if="${#fields.hasErrors('firstName')}"
+                   th:errors="*{firstName}" class="text-danger">
+                    First name is required.
+                </p>
+            </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="lastName" class="text-white font-weight-bold">Last Name</label>
+                            <input id="lastName"
+                                   name="lastName"
+                                   th:field="*{lastName}"
+                                   th:errorclass="is-invalid"
+                                   type="text" min="2" max="20" class="form-control"
+                                   placeholder="Last name" required="lastName"/>
+                            <p th:if="${#fields.hasErrors('lastName')}"
+                               th:errors="*{lastName}" class="text-danger">
+                                Last name is required.
+                            </p>
+                        </div>
         </div>
-        <div class="input-box">
-            <input type="text" placeholder="Full Name" required>
-            <i class='bx bxs-user'></i>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="password" class="text-white font-weight-bold">Password</label>
+                <input id="password"
+                       name="password"
+                       th:field="*{password}"
+                       th:errorclass="is-invalid"
+                       type="password" min="2" max="20" class="form-control"
+                       placeholder="Password" required="password"/>
+                <p th:if="${#fields.hasErrors('password')}"
+                   th:errors="*{password}" class="text-danger">
+                    Password is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="confirmPassword" class="text-white font-weight-bold justify-content-center">Confirm
+                    Password</label>
+                <input id="confirmPassword"
+                       name="confirmPassword"
+                       th:field="*{confirmPassword}"
+                       th:errorclass="is-invalid"
+                       type="password" min="2" max="20" class="form-control"
+                       placeholder="Confirm Password" required="confirmPassword"/>
+                <p th:if="${#fields.hasErrors('confirmPassword')}"
+                   th:errors="*{confirmPassword}" class="text-danger">
+                    Confirm Password is required.
+                </p>
+            </div>
         </div>
-        <div class="input-box">
-            <input type="password" placeholder="Password" required>
-            <i class='bx bxs-lock-alt'></i>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+                </div>
+            </div>
         </div>
-        <div class="input-box">
-            <input type="password" placeholder="Confirm Password" required>
-            <i class='bx bxs-lock-alt'></i>
-        </div>
-        <button type="submit" class="btn">Register</button>
-
     </form>
 </div>
-<script src="/js/script.js" type=""></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" type=""></script>
 </body>
-
 </html>

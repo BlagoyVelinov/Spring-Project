@@ -34,4 +34,9 @@ public class UserRoleServiceImpl implements UserRoleService {
     public UserRole getRoleByName(UserRoleEnum name) {
         return null;
     }
+
+    @Override
+    public List<UserRole> getAllRoles() {
+        return this.userRoleRepository.findAll();
+    }
 }
