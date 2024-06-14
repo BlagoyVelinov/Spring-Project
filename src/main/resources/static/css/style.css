@@ -542,3 +542,10 @@ a {
 	user-select: none;
 	border: 2px solid;
 }
+/*========================== about-us*/
+.content, .col-md-6, .bg-map-img {
+	display: block;
+	width: 95%;
+	max-width: 95%;
+	height: auto;
+}

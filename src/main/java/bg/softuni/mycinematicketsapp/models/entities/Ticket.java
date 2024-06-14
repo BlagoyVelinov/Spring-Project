@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
+import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -10,8 +11,9 @@ public class Ticket extends BaseEntity {
 
     @Column(name = "movie_name", nullable = false)
     private String movieName;
-    @Column(name = "city_name", nullable = false)
-    private String cityName;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CityName city;
     @Column(name = "number_of_room", nullable = false)
     private Integer numberRoom;
     @Column(name = "number_of_seat", nullable = false)
@@ -38,12 +40,12 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public String getCityName() {
-        return cityName;
+    public CityName getCity() {
+        return city;
     }
 
-    public Ticket setCityName(String cityName) {
-        this.cityName = cityName;
+    public Ticket setCity(CityName city) {
+        this.city = city;
         return this;
     }
 
