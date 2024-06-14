@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -21,11 +22,25 @@
 <body>
 <header>
     <nav id="header">
+
         <div class="row-1">
             <div class="fleft"><a href="/">Cinema <span>Tickets</span></a></div>
             <ul>
-                <li><a th:href="@{/users/login}"><img src="/images/login-icon.gif" alt="login"/></a></li>
-                <li><a th:href="@{/users/register}"><img src="/images/signup-green3.gif" alt="register"/></a></li>
+                <div class="form-inline my-2 my-lg-0 border px-3">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <div class="logged-user">
+                            <th:block sec:authentication="name"></th:block>
+                        </div>
+                        <form th:method="post"
+                              th:action="@{/users/logout}">
+                            <input type="submit" class="btn btn-info btn-logout" value="Logout"/>
+                        </form>
+                    </th:block>
+                </div>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <li><a th:href="@{/users/login}"><img src="/images/login-icon.gif" alt="login"/></a></li>
+                    <li><a th:href="@{/users/register}"><img src="/images/signup-green3.gif" alt="register"/></a></li>
+                </th:block>
             </ul>
         </div>
         <div class="row-2">

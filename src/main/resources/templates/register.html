@@ -46,7 +46,7 @@
                        name="email"
                        th:field="*{email}"
                        th:errorclass="is-invalid"
-                       type="text" min="2" max="20" class="form-control"
+                       type="email" min="2" max="20" class="form-control"
                        placeholder="email" required="email"/>
                 <p th:if="${#fields.hasErrors('email')}"
                    th:errors="*{email}" class="text-danger">

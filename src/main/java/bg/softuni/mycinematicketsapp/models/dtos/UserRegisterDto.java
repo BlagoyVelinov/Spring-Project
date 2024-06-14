@@ -17,7 +17,7 @@ import java.util.List;
 public class UserRegisterDto {
 
     @NotEmpty
-    @Size(min = 5, max = 20, message = "Username must be between 5 and 20 characters.")
+    @Size(min = 5, max = 30, message = "Username must be between 5 and 30 characters.")
     @UniqueUsername(message = "Username already exist!")
     private String username;
     @NotNull

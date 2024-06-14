@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.services;
+package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

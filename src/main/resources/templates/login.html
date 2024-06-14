@@ -3,6 +3,9 @@
 <head>
     <head th:replace="~{fragments/commons::head}"></head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" th:href="@{/css/reset-css.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" href="/css/style-login-register.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -17,30 +20,47 @@
         <li><a th:href="@{/users/register}"><img src="/images/signup-green3.gif" alt="login"/></a></li>
     </ul>
 </header>
-<div class="wrapper">
-    <form action="">
-        <h1>Login</h1>
-        <div class="input-box">
-            <input type="text" placeholder="Username" required>
-            <i class='bx bxs-user'></i>
+<div class="container">
+    <h2 class="text-center text-white">Login</h2>
+    <form th:method="post"
+          th:action="@{/users/login}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <small  class="text-danger">Incorrect username or password!</small>
+        <div class="form-group">
+            <label for="username" class="text-white font-weight-bold">Username</label>
+            <input id="username"
+                   name="username"
+                   type="text" min="2" max="50"
+                   class="form-control"
+                   placeholder="Username"/>
         </div>
-        <div class="input-box">
-            <input type="password" placeholder="Password" required>
-            <i class='bx bxs-lock-alt'></i>
+        <div class="form-group">
+            <label for="password" class="text-white font-weight-bold">Password</label>
+            <input id="password"
+                   name="password"
+                   type="password" min="2"
+                   max="20" class="form-control"
+                   placeholder="Password"/>
+
         </div>
-        <div class="remember-forgot">
-            <label><input type="checkbox">Remember Me</label>
-            <a href="/">Forgot Password</a>
+
+        <div class="remember-me">
+            <label><input type="checkbox"></label>
+            <span>Remember Me</span>
         </div>
-        <button type="submit" class="btn">Login</button>
-        <div class="register-link">
-            <p>Don't have an account? <a href="/register">Sign up</a></p>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Login"/>
+                </div>
+            </div>
         </div>
     </form>
 </div>
-<script src="/js/script.js" type=""></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" type=""></script>
+
+<div>
+    <footer> </footer>
 </div>
 </body>
 </html>

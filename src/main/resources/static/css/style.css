@@ -503,3 +503,42 @@ a {
 	margin: auto;
 }
 /*==================================================*/
+
+#header .row-1 .logged-user {
+	font-size: 33px;
+	line-height: 0.2em;
+	/*padding: 10px 1px 0px 61px;*/
+	float: left;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.51);
+	padding-left: -2rem;
+}
+.form-inline {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center
+}
+.btn:not(:disabled):not(.disabled) {
+	cursor: pointer;
+}
+.btn-logout {
+	display: inline-block;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	padding: .375rem .75rem;
+	font-size: 1.25rem;
+	border-radius: 0.5rem;
+	text-align-last: auto;
+	background-color: coral;
+	margin: -21px -14px -19px 12px;
+	user-select: none;
+	border: 2px solid;
+}
