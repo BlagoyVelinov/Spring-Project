@@ -6,24 +6,7 @@
 <div class="tail-top">
   <div class="tail-bottom">
     <div id="main">
-      <div id="header">
-        <div class="row-1">
-          <div class="fleft"><a href="/">Cinema <span>Tickets</span></a></div>
-          <ul>
-            <li><a href="/login"><img src="/images/login-icon.gif" alt="login"/></a></li>
-            <li><a href="/"><img src="/images/signup-green3.gif" alt="register"/></a></li>
-          </ul>
-        </div>
-        <div class="row-2">
-          <ul>
-            <li><a href="/index" class="active">Home</a></li>
-            <li><a href="/about-us">About</a></li>
-            <li><a href="/articles">Articles</a></li>
-            <li><a href="/contact-us">Contacts</a></li>
-            <li class="last"><a href="/trailer">Sitemap</a></li>
-          </ul>
-        </div>
-      </div>
+      <header th:replace="~{fragments/commons::nav}"></header>
       <div id="content">
         <div class="line-hor"></div>
         <div class="box">

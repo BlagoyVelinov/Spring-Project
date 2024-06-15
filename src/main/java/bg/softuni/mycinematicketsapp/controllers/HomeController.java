@@ -20,4 +20,18 @@ public class HomeController {
         return "about-us";
     }
 
+    @GetMapping("/contact-us")
+    public String contactUs() {
+        return "contact-us";
+    }
+
+    @GetMapping("/4-dx")
+    public String fourDx() {
+        return "4-dx";
+    }
+    @GetMapping("/imax")
+    public String imax() {
+        return "imax";
+    }
+
 }
