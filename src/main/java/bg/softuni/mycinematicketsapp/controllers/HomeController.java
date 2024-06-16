@@ -34,4 +34,9 @@ public class HomeController {
         return "imax";
     }
 
+    @GetMapping("/trailer")
+    public String trailer() {
+        return "trailer";
+    }
+
 }
