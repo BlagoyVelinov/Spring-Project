@@ -4,53 +4,170 @@
 <body id="page3">
 <!-- START PAGE SOURCE -->
 <div class="tail-top">
-  <div class="tail-bottom">
-    <div id="main">
-      <div id="header">
-        <div class="row-1">
-          <div class="fleft"><a href="/">Cinema <span>Tickets</span></a></div>
-          <ul>
-            <li><a href="/login"><img src="/images/login-icon.gif" alt="login"/></a></li>
-            <li><a href="/"><img src="/images/signup-green3.gif" alt="register"/></a></li>
-          </ul>
-        </div>
-        <div class="row-2">
-          <ul>
-            <li><a href="/index" class="active">Home</a></li>
-            <li><a href="/about-us">About</a></li>
-            <li><a href="/articles">Articles</a></li>
-            <li><a href="/contact-us">Contacts</a></li>
-            <li class="last"><a href="/trailer">Sitemap</a></li>
-          </ul>
-        </div>
-      </div>
-      <div id="content">
-        <div class="line-hor"></div>
-        <div class="box">
-          <div class="border-right">
-            <div class="border-left">
-              <div class="inner">
-                <h3>Our <span>Articles</span></h3>
-                <p>Praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
-              </div>
+    <div class="tail-bottom">
+        <div id="main">
+            <header th:replace="~{fragments/commons::nav}"></header>
+            <div id="content">
+                <div class="line-hor"></div>
+                <div class="box">
+                    <div class="border-right">
+                        <div class="border-left">
+                            <div class="inner">
+                                <div class="container-fluid static">
+                                    <div class="row mb-md">
+                                        <div class="col-md-12">
+                                            <h3>Cinema <span>Offers</span></h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/cheaper-tuesday" class="cinema-card card"
+                                               aria-label="3D ПРОМО ВТОРНИК Всеки вторник всички 3D прожекции на специална намалена цена.">
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/cheaper tuesday.jpg')" title="">
+                                                    <img src="/images/cheaper tuesday.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>3D ПРОМО ВТОРНИК</strong></p>
+                                                    <p class="card-text">Всеки вторник всички 3D прожекции на специална
+                                                        намалена цена.</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/cheaper-thursday" class="cinema-card card"
+                                      aria-label="НАМАЛЕН 2D ЧЕТВЪРТЪК Всеки четвъртък всички 2D прожекции на специална намалена цена">
+
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/cheaper-thursday.jpg')" title="">
+                                                    <img src="/images/cheaper-thursday.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>НАМАЛЕН 2D ЧЕТВЪРТЪК</strong></p>
+                                                    <p class="card-text">Всеки четвъртък всички 2D прожекции на
+                                                        специална намалена цена</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/birthday-in-cinema" class="cinema-card card"
+                                               aria-label="РОЖДЕН ДЕН НА КИНО Подарете на Вашето дете незабравим рожден ден на кино!">
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/Bday_in_cinema.jpg')" title="">
+                                                    <img src="/images/Bday_in_cinema.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>РОЖДЕН ДЕН НА КИНО</strong></p>
+                                                    <p class="card-text">Подарете на Вашето дете незабравим рожден ден
+                                                        на кино!</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-md">
+                                    </div>
+                                    <div class="row mb-md">
+                                        <div class="col-md-12">
+                                            <h3>For the<span> schools</span></h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/group-bookings" class="cinema-card card"
+                                               aria-label="ГРУПОВИ РЕЗЕРВАЦИИ Специални оферти за училища, учители и студенти">
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/group-bookings.jpg')" title="">
+                                                    <img src="/images/group-bookings.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>ГРУПОВИ РЕЗЕРВАЦИИ</strong></p>
+                                                    <p class="card-text">Специални оферти за училища, учители и
+                                                        студенти</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/imax-documentary" class="cinema-card card"
+                                               aria-label="НАУЧНОПОПУЛЯРНИ ФИЛМИ Специална селекция от IMAX 3D филми">
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/imax-cinema.jpeg')" title="">
+                                                    <img src="/images/imax-cinema.jpeg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>НАУЧНОПОПУЛЯРНИ ФИЛМИ</strong>
+                                                    </p>
+                                                    <p class="card-text">Специална селекция от IMAX 3D филми</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-md">
+                                    </div>
+                                    <div class="row mb-md">
+                                        <div class="col-md-12">
+                                            <h3>For the<span> Business</span></h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/vouchers-for-company" class="cinema-card card"
+                                               aria-label="ВАУЧЕРИ ЗА КОМПАНИИ Перфектният подарък за вашите служители и клиенти">
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/company-vouchers.jpg')" title="">
+                                                    <img src="/images/company-vouchers.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>ВАУЧЕРИ ЗА КОМПАНИИ</strong></p>
+                                                    <p class="card-text">Перфектният подарък за вашите служители и
+                                                        клиенти</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/rent-a-hall" class="cinema-card card"
+                                               aria-label="НАЕМ НА ЗАЛА Перфектни за корпоративни събития и презентации">
+                                                <div class="card-top"
+                                                     style="background-image: url('/images/rent-a-hall.jpg')" title="">
+                                                    <img src="/images/rent-a-hall.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>НАЕМ НА ЗАЛА</strong></p>
+                                                    <p class="card-text">Перфектни за корпоративни събития и
+                                                        презентации</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/cinema-advertising" class="cinema-card card"
+                                               aria-label="КИНО РЕКЛАМА Широка гама от възможности за реклама">
+                                                <div class="card-top" style="background-image:
+	  url('/images/cinema-advertising.jpg')" title="">
+                                                    <img src="/images/cinema-advertising.jpg"
+                                                         class="img-responsive visible-xs" alt="">
+                                                </div>
+                                                <div class="card-block">
+                                                    <p class="card-text mb-sm"><strong>КИНО РЕКЛАМА</strong></p>
+                                                    <p class="card-text">Широка гама от възможности за реклама</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <ul class="list">
+                        <li>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
+            <footer th:replace="~{fragments/commons::footer}"></footer>
         </div>
-        <div class="content">
-          <h3>Recent <span>Articles</span></h3>
-          <ul class="list">
-            <li><img src="images/3page-img1.jpg" alt="" /><a href="article.html">Article 1</a><br />
-              Rutrumcumsan faucibulus pellus pellentumsan laculis portor tor magnis facilis ligula vestibulum. Estorci consectetuer lacing tincidunt ligula lacing ac consequat nunc sus laoreet.</li>
-            <li><img src="images/3page-img2.jpg" alt="" /><a href="#">Article 2</a><br />
-              Rutrumcumsan faucibulus pellus pellentumsan laculis portor tor magnis facilis ligula vestibulum. Estorci consectetuer lacing tincidunt ligula lacing ac consequat nunc sus laoreet.</li>
-            <li><img src="images/3page-img3.jpg" alt="" /><a href="#">Article 3</a><br />
-              Rutrumcumsan faucibulus pellus pellentumsan laculis portor tor magnis facilis ligula vestibulum. Estorci consectetuer lacing tincidunt ligula lacing ac consequat nunc sus laoreet.</li>
-          </ul>
-        </div>
-      </div>
-      <footer th:replace="~{fragments/commons::footer}"></footer>
     </div>
-  </div>
 </div>
 <script type="text/javascript"> Cufon.now(); </script>
 <!-- END PAGE SOURCE -->
