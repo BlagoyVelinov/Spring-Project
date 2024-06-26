@@ -39,7 +39,8 @@
                 </div>
                 <th:block sec:authorize="!isAuthenticated()">
                     <li><a th:href="@{/users/login}"><img src="/images/login-icon.gif" alt="login"/></a></li>
-                    <li><a th:href="@{/users/register}"><img src="/images/signup-green3.gif" alt="register"/></a></li>
+                    <li><a th:href="@{/users/register}"><img src="/images/signup-green3.gif" alt="register"/></a>
+                    </li>
                 </th:block>
             </ul>
         </div>

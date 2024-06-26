@@ -1,7 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/commons::head}">
-    <link href="/css/style-program.css" rel="stylesheet" type="css"/>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <head th:replace="~{fragments/commons::head}"></head>
+    <link rel="stylesheet" href="/css/style-program.css"/>
 </head>
 <body id="page2">
 <!-- START PAGE SOURCE -->
@@ -15,7 +17,7 @@
                     <div class="border-right">
                         <div class="border-left">
                             <div class="inner">
-                                <h3>Projections <span>Today</span> - {dd/MM/yyyy}</h3>
+                                <h3 class="title">Projections <span>Today</span></h3>
                                 <div class="form-row m-5">
                                     <div class="col">
                                         <label for="dateOfProjection"></label>
@@ -23,29 +25,123 @@
                                                class="form-control"
                                                placeholder="Release date">
                                         <small id="dateOfProjectionError"
-                                               class="form-text bg-danger rounded">Release date cannot be in the
-                                            future</small>
+                                               class="form-text bg-danger rounded">Reserved date cannot be in the
+                                            past</small>
                                     </div>
+                                    <th:block sec:authorize="isAuthenticated()">
+                                    <div class="button-holder d-flex justify-content-center" sec:authorize="hasRole('ADMINISTRATOR')">
+                                        <a th:href="@{/movies/add-movie}">
+                                        <button type="submit">Add Movie</button>
+                                        </a>
+                                    </div>
+                                    </th:block>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="content">
-                    <h3>Our <span>Team</span></h3>
+                    <h3>dd/MM<span>/yyyy</span></h3>
                     <ul class="list">
-                        <li><img src="/images/2page-img1.jpg" alt=""/><a href="#">Team Member One</a><br/>
-                            Cursustellentesque enim justo vestasse vitae trices phasellus leo sociis leo magnisl.
-                            Malestibulusnatis quisque felit odio ut nunc convallis semper sente ris feugiat.
+                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>
+                            <a class="title-movie" href="/trailer">Name of movie</a><br/>
+                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
+                            <span data-v-048a28f8="" class="qb-movie-rating-info">
+                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"
+                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
+                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
+                               <!----><div data-v-048a28f8="" class="pt-xs">
+                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен
+                               <span data-v-048a28f8="" class="ml-xs">|</span>
+                               </span>
+                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
+                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
+                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg"> 12:20 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg">
+                                        14:30 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg"> 16:40 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg">
+                                        18:50 </a>
+                                </div>
+                                <div class="qb-movie-info-column">
+                                    <ul class="qb-movie-attributes"></ul>
+                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
+                                </div>
+                                <!----></div></div></span>
                         </li>
-                        <li><img src="/images/2page-img2.jpg" alt=""/><a href="#">Another Team Member</a><br/>
-                            Cursustellentesque enim justo vestasse vitae trices phasellus leo sociis leo magnisl.
-                            Malestibulusnatis quisque felit odio ut nunc convallis semper sente ris feugiat.
+
+
+                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>
+                            <a class="title-movie" href="/trailer">Name of movie</a><br/>
+                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
+                            <span data-v-048a28f8="" class="qb-movie-rating-info">
+                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"
+                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
+                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
+                               <!----><div data-v-048a28f8="" class="pt-xs">
+                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен
+                               <span data-v-048a28f8="" class="ml-xs">|</span>
+                               </span>
+                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
+                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
+                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg"> 12:20 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg">
+                                        14:30 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg"> 16:40 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg">
+                                        18:50 </a>
+                                </div>
+                                <div class="qb-movie-info-column">
+                                    <ul class="qb-movie-attributes"></ul>
+                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
+                                </div>
+                                <!----></div></div></span>
                         </li>
-                        <li><img src="/images/2page-img3.jpg" alt=""/><a href="#">Another Team Member</a><br/>
-                            Cursustellentesque enim justo vestasse vitae trices phasellus leo sociis leo magnisl.
-                            Malestibulusnatis quisque felit odio ut nunc convallis semper sente ris feugiat.
+
+
+
+                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>
+                            <a class="title-movie" href="/trailer">Name of movie</a><br/>
+                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
+                            <span data-v-048a28f8="" class="qb-movie-rating-info">
+                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"
+                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
+                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
+                               <!----><div data-v-048a28f8="" class="pt-xs">
+                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен
+                               <span data-v-048a28f8="" class="ml-xs">|</span>
+                               </span>
+                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
+                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
+                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg"> 12:20 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg">
+                                        14:30 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg"> 16:40 </a>
+                                    <a href="#"
+                                       class="btn btn-primary btn-lg">
+                                        18:50 </a>
+                                </div>
+                                <div class="qb-movie-info-column">
+                                    <ul class="qb-movie-attributes"></ul>
+                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
+                                </div>
+                                <!----></div></div></span>
                         </li>
+
                     </ul>
                 </div>
             </div>

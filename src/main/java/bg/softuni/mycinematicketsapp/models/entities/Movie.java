@@ -27,6 +27,8 @@ public class Movie extends BaseEntity {
     private String startMovieTime;
     @Column(name = "trailer_url", nullable = false)
     private String trailerUrl;
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
     @OneToMany
     @JoinTable(
             name = "movies_categories",
