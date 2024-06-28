@@ -115,4 +115,8 @@ public class UserRegisterDto {
         this.roles = roles;
         return this;
     }
+
+    public String fullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

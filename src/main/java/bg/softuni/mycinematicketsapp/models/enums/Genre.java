@@ -1,15 +1,15 @@
 package bg.softuni.mycinematicketsapp.models.enums;
 
 public enum Genre {
+    ACTION("Action"),
     ADVENTURE("Adventure"),
     ANIMATION("Animation"),
+    BULGARIAN("Bulgarian"),
     COMEDY("Comedy"),
     FAMILY("Family"),
+    FANTASY("Fantasy"),
     HORROR("Horror"),
-    ACTION("Action"),
-    FANTASY("Fantazy"),
-    MYSTERY("Mistery"),
-    BULGARIAN("Bulgarian"),
+    MYSTERY("Mystery"),
     ROMANTIC("Romantic"),
     THRILLER("Thriller");
 

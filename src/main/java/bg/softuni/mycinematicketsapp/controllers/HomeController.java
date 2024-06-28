@@ -39,4 +39,9 @@ public class HomeController {
         return "trailer";
     }
 
+    @GetMapping("/program/update-projection-time")
+    public String updateProjection() {
+        return "update-projection-time";
+    }
+
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/programs")
+@RequestMapping("/api/program")
 public class ProgramRestController {
 
     //TODO: This controller should be REST!!!

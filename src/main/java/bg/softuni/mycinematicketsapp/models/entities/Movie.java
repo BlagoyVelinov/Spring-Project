@@ -23,8 +23,6 @@ public class Movie extends BaseEntity {
     private String audio;
     @Column
     private String subtitles;
-    @Column(name = "start_movie_time")
-    private String startMovieTime;
     @Column(name = "trailer_url", nullable = false)
     private String trailerUrl;
     @Column(name = "image_url", nullable = false)
@@ -94,15 +92,6 @@ public class Movie extends BaseEntity {
         return this;
     }
 
-    public String getStartMovieTime() {
-        return startMovieTime;
-    }
-
-    public Movie setStartMovieTime(String startMovieTime) {
-        this.startMovieTime = startMovieTime;
-        return this;
-    }
-
     public String getTrailerUrl() {
         return trailerUrl;
     }
@@ -118,6 +107,15 @@ public class Movie extends BaseEntity {
 
     public Movie setGenreCategories(List<Category> genreCategories) {
         this.genreCategories = genreCategories;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public Movie setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }

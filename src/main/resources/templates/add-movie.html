@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="~{fragments/commons::head}"></head>
+    <link rel="stylesheet" href="/css/style-add-movie.css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Cinema Tickets</title>
 </head>
@@ -13,27 +14,128 @@
             <header th:replace="~{fragments/commons::nav}"></header>
             <div id="content">
                 <div class="line-hor"></div>
-
                 <div class="content">
-                    <h3>Contact <span>Form</span></h3>
-                    <form id="contacts-form"
-                          action="#">
-                        <fieldset>
-                            <div class="field">
-                                <label>Your Name:</label>
-                                <input type="text" value=""/>
+<!--                    <h3>Add <span>Movie</span></h3>-->
+                    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Movie</span></h1>
+                    <form class="welcome add-offer-form"
+                          th:method="post"
+                          th:action="@{/movies/add-movie}">
+
+                        <div class="form-group">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="name" class="h4 mb-2">Name</label>
                             </div>
-                            <div class="field">
-                                <label>Your E-mail:</label>
-                                <input type="text" value=""/>
+                            <input type="text" class="form-control"
+                                   id="name"
+                                   name="name"
+                            />
+                            <small class="text-danger">Name error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="movieLength" class="h4 mb-2">Movie Length</label>
                             </div>
-                            <div class="field">
-                                <label>Your Message:</label>
-                                <textarea cols="1" rows="1"></textarea>
+                            <input type="text" class="form-control"
+                                   id="movieLength"
+                                   name="movieLength"
+                            />
+                            <small class="text-danger">Movie Length error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="audio" class="h4 mb-2">Audio</label>
                             </div>
-                            <div class="wrapper"><a href="/" class="link2">
-                                <span> <span>Send Your Message</span> </span> </a></div>
-                        </fieldset>
+                            <input type="text" class="form-control"
+                                   id="audio"
+                                   name="audio"
+                            />
+                            <small class="text-danger">Audio error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="subtitles" class="h4 mb-2">Subtitles</label>
+                            </div>
+                            <input type="text" class="form-control"
+                                   id="subtitles"
+                                   name="subtitles"
+                            />
+                            <small class="text-danger">Subtitles error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="image" class="h4 mb-2">Image URL</label>
+                            </div>
+                            <textarea type="text" class="form-control"
+                                      id="image"
+                                      name="image">
+                            </textarea>
+                            <small class="text-danger">Image URL error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-white label-holder d-flex justify-content-center">
+                                <label for="projectionFormat" class="h4 mb-2">Projection Format</label>
+                            </div>
+                            <select class="browser-default custom-select"
+                                    id="projectionFormat"
+                                    name="projectionFormat">
+                                <option value="">Select Projection Format</option>
+                                <option value="D_2D">2D</option>
+                                <option value="D_3D">3D</option>
+                                <option value="D_4DX">4DX</option>
+                            </select>
+
+                            <small  class="text-danger">Projection Format error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-white label-holder d-flex justify-content-center">
+                                <label for="classMovie" class="h4 mb-2">Class Of Movie</label>
+                            </div>
+                            <select class="browser-default custom-select"
+                                    id="classMovie"
+                                    name="classMovie">
+                                <option value="">Select Class Movie</option>
+                                <option value="A_">A</option>
+                                <option value="B_">B</option>
+                                <option value="C_">C</option>
+                                <option value="D_">D</option>
+                                <option value="X_">X</option>
+                                <option value="N_A">N/A</option>
+                            </select>
+
+                            <small  class="text-danger">Class Movie error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-white label-holder d-flex justify-content-center">
+                                <label for="genre" class="h4 mb-2">Genre Of Movie</label>
+                            </div>
+                            <select class="browser-default custom-select" name="genre[]" id="genre" multiple="multiple">
+                                <option value="ACTION">Action</option>
+                                <option value="ADVENTURE">Adventure</option>
+                                <option value="ANIMATION">Animation</option>
+                                <option value="BULGARIAN">Bulgarian</option>
+                                <option value="COMEDY">Comedy</option>
+                                <option value="FAMILY">Family</option>
+                                <option value="FANTASY">Fantasy</option>
+                                <option value="HORROR">Horror</option>
+                                <option value="MYSTERY">Mystery</option>
+                                <option value="ROMANTIC">Romantic</option>
+                                <option value="THRILLER">Thriller</option>
+                            </select>
+
+                            <small  class="text-danger">Genre error message</small>
+                        </div>
+
+                        <div class="button-holder d-flex justify-content-center">
+                            <button type="submit" class="btn btn-info  mb-3">Add movie</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
