@@ -58,15 +58,27 @@
                                <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
                                 <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
                                 <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
-                                    <div class="form-row m-5">
-                                        <div class="col">
-                                            <label for="projectionTime"></label>
-                                            <input name="projectionTime" id="projectionTime" type="time"
-                                                   class="form-control"
-                                                   placeholder="Release date">
-                                            <small id="projectionTimeError"
-                                                   class="form-text bg-danger rounded"> Time must be between 10:00 and 21:00</small>
-                                        </div>
+                                    <div class="form-group">
+                                    <div class="text-white label-holder d-flex justify-content-center">
+                                        <label for="startMovie" class="h4 mb-2"></label>
+                                    </div>
+                                    <select class="browser-default custom-select" name="startMovie[]" id="startMovie"
+                                            multiple="multiple">
+                                        <option value="_10_20">10:20</option>
+                                        <option value="_11_50">11:50</option>
+                                        <option value="_12_20">12:20</option>
+                                        <option value="_13_50">13:50</option>
+                                        <option value="_14_20">14:20</option>
+                                        <option value="_15_50">15:50</option>
+                                        <option value="_16_20">16:20</option>
+                                        <option value="_17_50">17:50</option>
+                                        <option value="_18_20">18:20</option>
+                                        <option value="_19_50">19:50</option>
+                                        <option value="_20_20">20:20</option>
+                                        <option value="_20_50">20:50</option>
+                                    </select>
+
+                                    <small class="text-danger">Start Movie error message</small>
                                     </div>
 
                                     <th:block sec:authorize="isAuthenticated()">
@@ -81,10 +93,10 @@
                                     </form>
                                     </th:block>
                                 </div>
-                                <div class="qb-movie-info-column">
-                                    <ul class="qb-movie-attributes"></ul>
-                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
-                                </div>
+<!--                                <div class="qb-movie-info-column">-->
+<!--                                    <ul class="qb-movie-attributes"></ul>-->
+<!--                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>-->
+<!--                                </div>-->
                                 <!----></div></div></span>
                         </li>
 

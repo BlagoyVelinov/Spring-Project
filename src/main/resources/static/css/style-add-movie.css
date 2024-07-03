@@ -158,16 +158,6 @@ select.form-control:focus::-ms-value {
     background-color: #fff
 }
 
-.d-flex {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
-    display: flex !important
-}
-.justify-content-center {
-    -webkit-box-pack: center !important;
-    -ms-flex-pack: center !important;
-    justify-content: center !important
-}
 .custom-select {
     display: inline-block;
     width: 105%;
