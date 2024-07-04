@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.service;
+package bg.softuni.mycinematicketsapp.services;
 
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;

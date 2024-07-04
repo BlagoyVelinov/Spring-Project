@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.controllers;
+package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;

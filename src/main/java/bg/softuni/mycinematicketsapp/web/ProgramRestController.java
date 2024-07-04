@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.controllers;
+package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.services.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;

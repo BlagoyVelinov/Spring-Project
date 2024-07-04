@@ -40,11 +40,11 @@ public class SpringSecurityConfig {
                 authorizeRequests -> authorizeRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/users/register", "/users/login", "/users/login-error").permitAll()
-                        .requestMatchers("/offers/all-offers", "/programs/all-programs", "/trailer").permitAll()
+                        .requestMatchers("/offers/all-offers", "/trailer").permitAll()
                         .requestMatchers("/program", "/4-dx", "/imax", "/about-us", "/contact-us").permitAll()
                         .requestMatchers(HttpMethod.GET, "/offers/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers("/programs/add-movie", "/offers/add-offer","/program/update-projection-time")
+                        .requestMatchers("/program/add-movie", "/offers/add-offer","/program/update-projection-time")
                         .hasRole(UserRoleEnum.ADMINISTRATOR.name())
                         .anyRequest().authenticated()
         ).formLogin(

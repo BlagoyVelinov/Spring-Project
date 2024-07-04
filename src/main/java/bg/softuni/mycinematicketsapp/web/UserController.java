@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.controllers;
+package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import org.springframework.stereotype.Controller;
