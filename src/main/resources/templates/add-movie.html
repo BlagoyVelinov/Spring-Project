@@ -19,7 +19,8 @@
                     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Movie</span></h1>
                     <form class="welcome add-offer-form"
                           th:method="post"
-                          th:action="@{/movies/add-movie}">
+                          th:action="@{/movies/add-movie}"
+                          th:object="${createMovie}">
 
                         <div class="form-group">
                             <div class="label-holder text-white textCol d-flex justify-content-center">
@@ -28,8 +29,10 @@
                             <input type="text" class="form-control"
                                    id="name"
                                    name="name"
+                                   th:field="*{name}"
                             />
-                            <small class="text-danger">Name error message</small>
+                            <small th:if="${#fields.hasErrors('name')}"
+                                   th:errors="*{name}" class="text-danger">Name error message</small>
                         </div>
 
                         <div class="form-group">
@@ -39,8 +42,10 @@
                             <input type="text" class="form-control"
                                    id="movieLength"
                                    name="movieLength"
+                                   th:field="*{movieLength}"
                             />
-                            <small class="text-danger">Movie Length error message</small>
+                            <small th:if="${#fields.hasErrors('movieLength')}"
+                                   th:errors="*{movieLength}" class="text-danger">Movie Length error message</small>
                         </div>
 
                         <div class="form-group">
@@ -50,8 +55,10 @@
                             <input type="text" class="form-control"
                                    id="audio"
                                    name="audio"
+                                   th:field="*{audio}"
                             />
-                            <small class="text-danger">Audio error message</small>
+                            <small th:if="${#fields.hasErrors('audio')}"
+                                   th:errors="*{audio}" class="text-danger">Audio error message</small>
                         </div>
 
                         <div class="form-group">
@@ -61,19 +68,36 @@
                             <input type="text" class="form-control"
                                    id="subtitles"
                                    name="subtitles"
+                                   th:field="*{subtitles}"
                             />
-                            <small class="text-danger">Subtitles error message</small>
+                            <small th:if="${#fields.hasErrors('subtitles')}"
+                                   th:errors="*{subtitles}" class="text-danger">Subtitles error message</small>
                         </div>
 
                         <div class="form-group">
                             <div class="label-holder text-white textCol d-flex justify-content-center">
-                                <label for="image" class="h4 mb-2">Image URL</label>
+                                <label for="imageUrl" class="h4 mb-2">Image URL</label>
                             </div>
                             <textarea type="text" class="form-control"
-                                      id="image"
-                                      name="image">
+                                      id="imageUrl"
+                                      name="imageUrl"
+                                      th:field="*{imageUrl}">
                             </textarea>
-                            <small class="text-danger">Image URL error message</small>
+                            <small th:if="${#fields.hasErrors('imageUrl')}"
+                                   th:errors="*{imageUrl}" class="text-danger">Image URL error message</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="trailerUrl" class="h4 mb-2">Trailer URL</label>
+                            </div>
+                            <textarea type="text" class="form-control"
+                                      id="trailerUrl"
+                                      name="trailerUrl"
+                                      th:field="*{trailerUrl}">
+                            </textarea>
+                            <small th:if="${#fields.hasErrors('trailerUrl')}"
+                                   th:errors="*{trailerUrl}" class="text-danger">Trailer URL error message</small>
                         </div>
 
                         <div class="form-group">
@@ -82,14 +106,17 @@
                             </div>
                             <select class="browser-default custom-select"
                                     id="projectionFormat"
-                                    name="projectionFormat">
+                                    name="projectionFormat"
+                                    th:field="*{projectionFormat}">
+
                                 <option value="">Select Projection Format</option>
                                 <option value="D_2D">2D</option>
                                 <option value="D_3D">3D</option>
                                 <option value="D_4DX">4DX</option>
                             </select>
 
-                            <small  class="text-danger">Projection Format error message</small>
+                            <small th:if="${#fields.hasErrors('projectionFormat')}"
+                            th:errors="*{projectionFormat}" class="text-danger">Projection Format error message</small>
                         </div>
 
                         <div class="form-group">
@@ -98,7 +125,9 @@
                             </div>
                             <select class="browser-default custom-select"
                                     id="classMovie"
-                                    name="classMovie">
+                                    name="classMovie"
+                                    th:field="*{movieClass}">
+
                                 <option value="">Select Class Movie</option>
                                 <option value="A_">A</option>
                                 <option value="B_">B</option>
@@ -108,14 +137,19 @@
                                 <option value="N_A">N/A</option>
                             </select>
 
-                            <small  class="text-danger">Class Movie error message</small>
+                            <small th:if="${#fields.hasErrors('movieClass')}"
+                                   th:errors="*{movieClass}" class="text-danger">Class Movie error message</small>
                         </div>
 
                         <div class="form-group">
                             <div class="text-white label-holder d-flex justify-content-center">
-                                <label for="genre" class="h4 mb-2">Genre Of Movie</label>
+                                <label for="genreCategories" class="h4 mb-2">Genre Of Movie</label>
                             </div>
-                            <select class="browser-default custom-select" name="genre[]" id="genre" multiple="multiple">
+                            <select class="browser-default custom-select"
+                                    name="genreCategories[]"
+                                    id="genreCategories" multiple="multiple"
+                            th:field="*{genreCategories}">
+                                <option value="">Select Genre</option>
                                 <option value="ACTION">Action</option>
                                 <option value="ADVENTURE">Adventure</option>
                                 <option value="ANIMATION">Animation</option>
@@ -129,7 +163,8 @@
                                 <option value="THRILLER">Thriller</option>
                             </select>
 
-                            <small  class="text-danger">Genre error message</small>
+                            <small th:if="${#fields.hasErrors('genreCategories')}"
+                                   th:errors="*{genreCategories}" class="text-danger">Genre error message</small>
                         </div>
 
                         <div class="button-holder d-flex justify-content-center">

@@ -201,6 +201,14 @@ select.form-control:focus::-ms-value {
     opacity: 0
 }
 
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem
+}
+
 .alert-danger {
     color: #721c24;
     /*background-color: #f8d7da;*/
@@ -209,6 +217,13 @@ select.form-control:focus::-ms-value {
 .text-danger {
     color: #dc3545 !important;
     font-size: medium;
+}
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545
 }
 
 .btn {

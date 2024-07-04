@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryByGenre(Genre name) {
-        return null;
+    public List<Category> getCategoryByGenre(List<Genre> genreList) {
+        return this.categoryRepository.findAllByNameIn(genreList);
     }
 }
