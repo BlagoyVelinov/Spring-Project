@@ -56,30 +56,30 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
-                <label for="firstName" class="text-white font-weight-bold">Full Name</label>
-                <input id="firstName"
-                       name="firstName"
-                       th:field="*{firstName}"
+                <label for="name" class="text-white font-weight-bold">Name</label>
+                <input id="name"
+                       name="name"
+                       th:field="*{name}"
                        th:errorclass="is-invalid"
                        type="text" min="2" max="20" class="form-control"
-                       placeholder="First name" required="firstName"/>
-                <p th:if="${#fields.hasErrors('firstName')}"
-                   th:errors="*{firstName}" class="text-danger">
-                    First name is required.
+                       placeholder="name" required="name"/>
+                <p th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}" class="text-danger">
+                    Name is required.
                 </p>
             </div>
                         <div class="form-group col-md-6 mb-3">
-                            <label for="lastName" class="text-white font-weight-bold">Last Name</label>
-                            <input id="lastName"
-                                   name="lastName"
-                                   th:field="*{lastName}"
-                                   th:errorclass="is-invalid"
-                                   type="text" min="2" max="20" class="form-control"
-                                   placeholder="Last name" required="lastName"/>
-                            <p th:if="${#fields.hasErrors('lastName')}"
-                               th:errors="*{lastName}" class="text-danger">
-                                Last name is required.
-                            </p>
+                            <div class="col">
+                                <label for="birthdate"></label>
+                                <input name="birthdate" id="birthdate" type="date"
+                                       class="form-control"
+                                       placeholder="Birthdate"
+                                th:field="*{birthdate}">
+
+                                <small th:if="${#fields.hasErrors('birthdate')}"
+                                       th:errors="*{birthdate}" class="text-danger">
+                                    Birthdate cannot be in the present or future</small>
+                            </div>
                         </div>
         </div>
         <div class="row">
@@ -90,7 +90,7 @@
                        th:field="*{password}"
                        th:errorclass="is-invalid"
                        type="password" min="2" max="20" class="form-control"
-                       placeholder="Password" required="password"/>
+                       placeholder="password" required="password"/>
                 <p th:if="${#fields.hasErrors('password')}"
                    th:errors="*{password}" class="text-danger">
                     Password is required.
@@ -104,7 +104,7 @@
                        th:field="*{confirmPassword}"
                        th:errorclass="is-invalid"
                        type="password" min="2" max="20" class="form-control"
-                       placeholder="Confirm Password" required="confirmPassword"/>
+                       placeholder="confirm password" required="confirmPassword"/>
                 <p th:if="${#fields.hasErrors('confirmPassword')}"
                    th:errors="*{confirmPassword}" class="text-danger">
                     Confirm Password is required.

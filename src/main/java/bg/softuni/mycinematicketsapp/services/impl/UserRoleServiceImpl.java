@@ -32,7 +32,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public UserRole getRoleByName(UserRoleEnum name) {
-        return null;
+        return this.userRoleRepository.findByRole(name);
     }
 
     @Override

@@ -4,11 +4,10 @@ import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.validation.annotation.FieldMatch;
 import bg.softuni.mycinematicketsapp.validation.annotation.UniqueEmail;
 import bg.softuni.mycinematicketsapp.validation.annotation.UniqueUsername;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +24,12 @@ public class UserRegisterDto {
     @UniqueEmail(message = "Email address is already registered!")
     private String email;
     @NotEmpty
-    @Size(min = 5, max = 20, message = "First name must be between 5 and 20 characters.")
-    private String firstName;
-    @NotEmpty
-    @Size(min = 5, max = 20, message = "Last name must be between 5 and 20 characters.")
-    private String lastName;
+    @Size(min = 5, max = 30, message = "Name name must be between 5 and 30 characters.")
+    private String name;
+    @NotNull
+    @Past(message = "Birthdate cannot be in the present or future")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthdate;
     @NotEmpty
     @Size(min = 8, max = 20)
     private String password;
@@ -62,21 +62,21 @@ public class UserRegisterDto {
         return this;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public UserRegisterDto setFirstName(String firstName) {
-        this.firstName = firstName;
+    public UserRegisterDto setName(String name) {
+        this.name = name;
         return this;
     }
 
-    public String getLastName() {
-        return lastName;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public UserRegisterDto setLastName(String lastName) {
-        this.lastName = lastName;
+    public UserRegisterDto setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
         return this;
     }
 
@@ -114,9 +114,5 @@ public class UserRegisterDto {
     public UserRegisterDto setRoles(List<UserRole> roles) {
         this.roles = roles;
         return this;
-    }
-
-    public String fullName() {
-        return this.firstName + " " + this.lastName;
     }
 }

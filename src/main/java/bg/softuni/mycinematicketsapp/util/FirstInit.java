@@ -3,6 +3,7 @@ package bg.softuni.mycinematicketsapp.util;
 import bg.softuni.mycinematicketsapp.services.CategoryService;
 import bg.softuni.mycinematicketsapp.services.MovieClassService;
 import bg.softuni.mycinematicketsapp.services.UserRoleService;
+import bg.softuni.mycinematicketsapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,8 @@ public class FirstInit implements CommandLineRunner {
     private final CategoryService categoryService;
     private final MovieClassService movieClassService;
     @Autowired
-    public FirstInit(UserRoleService userRoleService, CategoryService categoryService, MovieClassService movieClassService) {
+    public FirstInit(UserRoleService userRoleService,
+                     CategoryService categoryService, MovieClassService movieClassService) {
         this.userRoleService = userRoleService;
         this.categoryService = categoryService;
         this.movieClassService = movieClassService;

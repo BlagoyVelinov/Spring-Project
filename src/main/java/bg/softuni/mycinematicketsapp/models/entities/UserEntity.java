@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.models.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,10 +15,10 @@ public class UserEntity extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(name ="first_name", nullable = false)
-    private String firstName;
-    @Column(name ="last_name", nullable = false)
-    private String lastName;
+    @Column(name ="name", nullable = false)
+    private String name;
+    @Column(name ="birthdate", nullable = false)
+    private LocalDate birthdate;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
@@ -53,21 +54,21 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public UserEntity setFirstName(String firstName) {
-        this.firstName = firstName;
+    public UserEntity setName(String name) {
+        this.name = name;
         return this;
     }
 
-    public String getLastName() {
-        return lastName;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public UserEntity setLastName(String lastName) {
-        this.lastName = lastName;
+    public UserEntity setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
         return this;
     }
 

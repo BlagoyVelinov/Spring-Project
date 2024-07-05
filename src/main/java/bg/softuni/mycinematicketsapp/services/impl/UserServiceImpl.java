@@ -42,9 +42,10 @@ public class UserServiceImpl implements UserService {
         this.appEventPublisher.publishEvent(new UserRegisteredEvent(
                 "UserService",
                 registerDto.getEmail(),
-                registerDto.fullName()
+                registerDto.getName()
         ));
     }
+
 
     private UserEntity mapUserDtoToUser(UserRegisterDto registerDto) {
 
