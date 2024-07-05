@@ -11,9 +11,9 @@ import java.util.Set;
 @Entity
 @Table(name = "programs")
 public class Program extends BaseEntity{
-    @Column(name = "date_of_projection_start", nullable = false)
+    @Column(name = "date_of_projection_start")
     private LocalDate dateOfProjectionStart;
-    @Column(name = "date_of_projection_end", nullable = false)
+    @Column(name = "date_of_projection_end")
     private LocalDate dateOfProjectionEnd;
     @Column(name = "start_projection_time")
     @Enumerated(EnumType.STRING)

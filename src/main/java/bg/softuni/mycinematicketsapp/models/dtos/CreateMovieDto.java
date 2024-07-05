@@ -27,17 +27,20 @@ public class CreateMovieDto {
     @NotEmpty
     @Size(min = 4, max = 10, message = "Subtitles length must be between 4 and 10 characters")
     private String subtitles;
+    @NotEmpty(message = "Description cannot be null ot empty!")
+    @Size(min = 5, message = "Description must be at least 5 characters!")
+    private String description;
     @NotEmpty
     @Size(min = 10, message = "Put correct imageUrl")
     private String imageUrl;
     @NotEmpty
     @Size(min = 10, message = "Put correct trailerUrl")
-    private String trailerUrl;
+    private String trailerUrl; //TODO: trailer трябва да мачва 'https://www.youtube.com/embed/mps1HbpECIA'
     @NotNull(message = "Please select a format of projection!")
     private ProjectionFormat projectionFormat;
     @NotNull(message = "Please select a class of the movie!")
     private MovieClassEnum movieClass;
-    @NotNull(message = "Please select min 1 category!")
+    @NotEmpty(message = "Please select min 1 category!")
     private List<Genre> genreCategories;
 
     public CreateMovieDto() {
@@ -77,6 +80,15 @@ public class CreateMovieDto {
 
     public CreateMovieDto setSubtitles(String subtitles) {
         this.subtitles = subtitles;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public CreateMovieDto setDescription(String description) {
+        this.description = description;
         return this;
     }
 

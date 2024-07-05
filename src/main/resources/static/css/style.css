@@ -656,6 +656,10 @@ a {
     user-select: none;
     border: 2px solid;
 }
+.btn:hover {
+    background-color: rgb(201, 16, 16);
+    cursor: pointer;
+}
 
 /*========================== index */
 .start-img {

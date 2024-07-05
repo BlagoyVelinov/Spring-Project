@@ -23,6 +23,8 @@ public class Movie extends BaseEntity {
     private String audio;
     @Column
     private String subtitles;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String description;
     @Column(name = "trailer_url", nullable = false)
     private String trailerUrl;
     @Column(name = "image_url", nullable = false)
@@ -89,6 +91,15 @@ public class Movie extends BaseEntity {
 
     public Movie setSubtitles(String subtitles) {
         this.subtitles = subtitles;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Movie setDescription(String description) {
+        this.description = description;
         return this;
     }
 
