@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services;
 
+import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.CreateMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Movie;
@@ -15,4 +16,9 @@ public interface MovieService {
     Movie getMovieById(long id);
 
     Set<MovieViewDto> getAllMoviesView();
+
+    void addBookingTimes(long movieId, BookingTimeDto bookingTimeDto);
+    void removeBookingTimes(long movieId, long bookingTimeId);
+
+    MovieViewDto getMovieViewById(long movieId);
 }

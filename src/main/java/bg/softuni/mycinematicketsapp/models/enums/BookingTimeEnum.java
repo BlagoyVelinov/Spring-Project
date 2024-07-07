@@ -1,6 +1,6 @@
 package bg.softuni.mycinematicketsapp.models.enums;
 
-public enum StartProjectionTimeEnum {
+public enum BookingTimeEnum {
     _10_20("10:20"),
     _11_50("11:50"),
     _12_20("12:20"),
@@ -16,7 +16,7 @@ public enum StartProjectionTimeEnum {
 
     private String value;
 
-    StartProjectionTimeEnum(String value) {
+    BookingTimeEnum(String value) {
         this.value = value;
     }
 
@@ -24,7 +24,7 @@ public enum StartProjectionTimeEnum {
         return value;
     }
 
-    public StartProjectionTimeEnum setValue(String value) {
+    public BookingTimeEnum setValue(String value) {
         this.value = value;
         return this;
     }

@@ -106,7 +106,7 @@
     color: #191919;
 }
 .btn-primary:hover, .btn-primary:focus {
-    background-color: #c26717;
+    /*background-color: #c26717;*/
     color: #000;
     border: 0;
 }
@@ -251,3 +251,8 @@ button:hover {
     color: #dc3545 !important;
     font-size: medium;
 }
+
+
+/*.ml-xs {*/
+/*    color: white;*/
+/*}*/

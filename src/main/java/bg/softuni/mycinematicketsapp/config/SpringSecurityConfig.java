@@ -43,6 +43,8 @@ public class SpringSecurityConfig {
                         .requestMatchers("/offers/all-offers", "/trailer").permitAll()
                         .requestMatchers("/program", "/4-dx", "/imax", "/about-us", "/contact-us").permitAll()
                         .requestMatchers(HttpMethod.GET, "/offers/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/trailer/**").permitAll()
+                        .requestMatchers("/tickets/buy-tickets").authenticated()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/program/add-movie", "/offers/add-offer","/program/update-projection-time")
                         .hasRole(UserRoleEnum.ADMINISTRATOR.name())

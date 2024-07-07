@@ -29,15 +29,22 @@ public class Movie extends BaseEntity {
     private String trailerUrl;
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
-    @OneToMany
+    @ManyToMany
     @JoinTable(
             name = "movies_categories",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> genreCategories;
+    @ManyToMany
+    @JoinTable(
+            name = "movies__booking_times",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "start_time_id"))
+    private List<BookingTime> bookingTimes;
 
     public Movie() {
         this.genreCategories = new ArrayList<>();
+        this.bookingTimes = new ArrayList<>();
     }
 
     public String getName() {
@@ -127,6 +134,15 @@ public class Movie extends BaseEntity {
 
     public Movie setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public List<BookingTime> getBookingTimes() {
+        return bookingTimes;
+    }
+
+    public Movie setBookingTimes(List<BookingTime> bookingTimes) {
+        this.bookingTimes = bookingTimes;
         return this;
     }
 }

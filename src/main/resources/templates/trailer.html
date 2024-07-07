@@ -11,35 +11,26 @@
             <div id="content">
                 <div class="line-hor"></div>
                 <div class="box">
+<!--                    https://www.youtube.com/embed/OzY2r2JXsDM-->
                     <div class="border-right">
                         <div class="border-left">
-                            <div class="inner">
-                                <h3>Toy <span>Story 4</span> - Trailer</h3>
+                            <div th:object="${movie}" class="inner">
+                                <h3 th:text="|${movie.name} - Trailer|">Name Movie - Trailer</h3>
                                 <li>
-                                    <iframe width="730" height="425" src="https://www.youtube.com/embed/OzY2r2JXsDM"
-
+                                    <iframe width="780" height="425" th:src="${movie.trailerUrl}"
                                             frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
                                              picture-in-picture; web-share"
                                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                                     </iframe>
-                                    <p>Egetnunc nunc mattitor curabiturpiscipis nec ac hac pellus sem intesque sociis.
-                                        Metusmetuer hendimentesque diam at orbi sempor.</p>
+                                    <p></p>
                                 </li>
-                                <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
+                                <p th:text="${movie.description}">
+                                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
                                     cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                                    placeat facere possimus,
-                                    omnis voluptas assumenda est, omnis dolor repellendus.
+                                    placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
                                     Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-                                    eveniet
-                                    ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-                                    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-                                    consequatur aut perferendis doloribus asperiores repellat.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                    ex ea commodo consequatuis aute irure dolor in reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur.</p>
+                                    eveniet</p>
                             </div>
                         </div>
                     </div>

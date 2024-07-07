@@ -20,13 +20,14 @@
                                 <h3 class="title">Projections <span>Today</span></h3>
                                 <div class="form-row m-5">
                                     <div class="col">
-                                        <label for="dateOfProjection"></label>
-                                        <input name="dateOfProjection" id="dateOfProjection" type="date"
+                                        <label for="dateInput"></label>
+                                        <input type="date" name="dateInput" id="dateInput"
                                                class="form-control"
-                                               placeholder="Release date">
-                                        <small id="dateOfProjectionError"
-                                               class="form-text bg-danger rounded">Reserved date cannot be in the
-                                            past</small>
+                                               placeholder="Select a date">
+
+                                        <small id="dateInputError"
+                                               class="form-text bg-danger rounded">
+                                            Reserved date cannot be in the past</small>
                                     </div>
                                     <th:block sec:authorize="isAuthenticated()">
                                         <div class="button-holder d-flex justify-content-center"
@@ -42,116 +43,121 @@
                     </div>
                 </div>
                 <div class="content">
-                    <h3>dd/MM<span>/yyyy</span></h3>
-                    <ul class="list">
-                        <li><img src="/images/insideOut2.jpeg" alt="Movie Pic" width="204px" height="219px"/>
-                            <a class="title-movie" href="/trailer">Name of movie</a><br/>
+<!--                    <div id="displayDate"></div>-->
+                    <h3 id="displayDate">dd/MM<span>/yyyy</span></h3>
+                    <ul th:each="movieView : ${allViewMovies}" class="list">
+                        <li><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px" height="219px"/>
+                            <a th:href="@{/trailer/{movieId}(movieId=*{movieView.id})}" th:text="${movieView.name}"
+                               class="title-movie">Name of movie</a><br/>
                             <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
                             <span data-v-048a28f8="" class="qb-movie-rating-info">
                                <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"
                                     type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
                                     class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
                                <!----><div data-v-048a28f8="" class="pt-xs">
-                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен
-                               <span data-v-048a28f8="" class="ml-xs">|</span>
+                               <span th:each="genre : ${movieView.genreCategories}" th:text="|${genre.value},|"
+                                     data-v-048a28f8="" tabindex="0" class="mr-sm">
+                                   Приключенски, Анимация, Комедия, Семеен
                                </span>
-                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
-                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
-                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 12:20 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 14:30 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 16:40 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg">
-                                        18:50 </a>
+                               <span data-v-048a28f8="" class="ml-xs">|</span>
+                               <span th:text="|${movieView.movieLength} min.|" data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
+                                <div th:text="${movieView.movieClass}" class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
+                                <div  data-v-048a28f8="" tabindex="0" class="npm-quickbook">
+
+                                    <a th:each="bookingTime : ${movieView.startProjectionTimeList}" th:href="@{/tickets/buy-tickets}"
+                                       class="btn btn-primary btn-lg" th:text="${bookingTime.value}"> 12:20 </a>
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 14:30 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 16:40 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 18:50 </a>-->
 
                                     <th:block sec:authorize="isAuthenticated()">
                                     <a sec:authorize="hasRole('ADMINISTRATOR')"
-                                       href="/program/update-projection-time"
+                                       th:href="@{/program/update-projection-time}"
                                        class="btn btn-primary btn-lg"> Update projection time </a>
 
-                                    <form method="delete"
-                                          action="@{/program/delete-movie/{movieId}(movieId=*{id})}">
+                                    <form th:method="delete"
+                                          th:action="@{/program/delete-movie/{movieId}(movieId=*{movieView.id})}">
                                     <a href="/program"
-                                       class="btn btn-primary-delete btn-lg"> Delete Movie </a>
+                                       class="btn btn-primary-delete btn-lg">Delete Movie</a>
                                     </form>
                                     </th:block>
                                 </div>
                                 <div class="qb-movie-info-column">
                                     <ul class="qb-movie-attributes"></ul>
-                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
+                                        <span th:text="|(AUD:${movieView.audio}. SUB:${movieView.subtitles}.)|" tabindex="0" aria-label="dubAbbr">
+                                            (ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
                                 </div>
                                 <!----></div></div></span>
                         </li>
 
 
-                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>
-                            <a class="title-movie" href="/trailer">Name of movie</a><br/>
-                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
-                            <span data-v-048a28f8="" class="qb-movie-rating-info">
-                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"
-                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
-                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
-                               <!----><div data-v-048a28f8="" class="pt-xs">
-                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен
-                               <span data-v-048a28f8="" class="ml-xs">|</span>
-                               </span>
-                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
-                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
-                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 12:20 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg">
-                                        14:30 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 16:40 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg">
-                                        18:50 </a>
-                                </div>
-                                <div class="qb-movie-info-column">
-                                    <ul class="qb-movie-attributes"></ul>
-                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
-                                </div>
-                                <!----></div></div></span>
-                        </li>
+<!--                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>-->
+<!--                            <a class="title-movie" href="/trailer">Name of movie</a><br/>-->
+<!--                            &lt;!&ndash; <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">&ndash;&gt;-->
+<!--                            <span data-v-048a28f8="" class="qb-movie-rating-info">-->
+<!--                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"-->
+<!--                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"-->
+<!--                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">-->
+<!--                               &lt;!&ndash;&ndash;&gt;<div data-v-048a28f8="" class="pt-xs">-->
+<!--                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен-->
+<!--                               <span data-v-048a28f8="" class="ml-xs">|</span>-->
+<!--                               </span>-->
+<!--                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>-->
+<!--                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>-->
+<!--                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 12:20 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg">-->
+<!--                                        14:30 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 16:40 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg">-->
+<!--                                        18:50 </a>-->
+<!--                                </div>-->
+<!--                                <div class="qb-movie-info-column">-->
+<!--                                    <ul class="qb-movie-attributes"></ul>-->
+<!--                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;&ndash;&gt;</div></div></span>-->
+<!--                        </li>-->
 
 
-                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>
-                            <a class="title-movie" href="/trailer">Name of movie</a><br/>
-                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
-                            <span data-v-048a28f8="" class="qb-movie-rating-info">
-                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"
-                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
-                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
-                               <!----><div data-v-048a28f8="" class="pt-xs">
-                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен
-                               <span data-v-048a28f8="" class="ml-xs">|</span>
-                               </span>
-                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>
-                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>
-                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 12:20 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg">
-                                        14:30 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg"> 16:40 </a>
-                                    <a href="#"
-                                       class="btn btn-primary btn-lg">
-                                        18:50 </a>
-                                </div>
-                                <div class="qb-movie-info-column">
-                                    <ul class="qb-movie-attributes"></ul>
-                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>
-                                </div>
-                                <!----></div></div></span>
-                        </li>
+<!--                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>-->
+<!--                            <a class="title-movie" href="/trailer">Name of movie</a><br/>-->
+<!--                            &lt;!&ndash; <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">&ndash;&gt;-->
+<!--                            <span data-v-048a28f8="" class="qb-movie-rating-info">-->
+<!--                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"-->
+<!--                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"-->
+<!--                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">-->
+<!--                               &lt;!&ndash;&ndash;&gt;<div data-v-048a28f8="" class="pt-xs">-->
+<!--                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен-->
+<!--                               <span data-v-048a28f8="" class="ml-xs">|</span>-->
+<!--                               </span>-->
+<!--                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>-->
+<!--                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>-->
+<!--                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 12:20 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg">-->
+<!--                                        14:30 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg"> 16:40 </a>-->
+<!--                                    <a href="#"-->
+<!--                                       class="btn btn-primary btn-lg">-->
+<!--                                        18:50 </a>-->
+<!--                                </div>-->
+<!--                                <div class="qb-movie-info-column">-->
+<!--                                    <ul class="qb-movie-attributes"></ul>-->
+<!--                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;&ndash;&gt;</div></div></span>-->
+<!--                        </li>-->
 
                     </ul>
                 </div>

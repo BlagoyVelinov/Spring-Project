@@ -3,7 +3,7 @@ package bg.softuni.mycinematicketsapp.models.dtos;
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
 import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;
-import bg.softuni.mycinematicketsapp.models.enums.StartProjectionTimeEnum;
+import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class MovieViewDto {
     private ProjectionFormat projectionFormat;
     private MovieClassEnum movieClass;
     private List<Genre> genreCategories;
-    private List<StartProjectionTimeEnum> startProjectionTimeList;
+    private List<BookingTimeEnum> startProjectionTimeList;
 
     public MovieViewDto() {
         this.genreCategories = new ArrayList<>();
@@ -127,11 +127,11 @@ public class MovieViewDto {
         return this;
     }
 
-    public List<StartProjectionTimeEnum> getStartProjectionTimeList() {
+    public List<BookingTimeEnum> getStartProjectionTimeList() {
         return startProjectionTimeList;
     }
 
-    public MovieViewDto setStartProjectionTimeList(List<StartProjectionTimeEnum> startProjectionTimeList) {
+    public MovieViewDto setStartProjectionTimeList(List<BookingTimeEnum> startProjectionTimeList) {
         this.startProjectionTimeList = startProjectionTimeList;
         return this;
     }

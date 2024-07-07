@@ -1,14 +1,35 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
+import bg.softuni.mycinematicketsapp.services.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Set;
 
 @Controller
 public class HomeController {
+    private final MovieService movieService;
+
+    @Autowired
+    public HomeController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @GetMapping("/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping("/program")
+    public String getProgram(Model model) {
+        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
+        model.addAttribute("allViewMovies", allMoviesView);
+        return "program";
     }
 
     @GetMapping("/about-us")
@@ -30,8 +51,10 @@ public class HomeController {
         return "imax";
     }
 
-    @GetMapping("/trailer")
-    public String trailer() {
+    @GetMapping("/trailer/{id}")
+    public String trailer(@PathVariable long id, Model model) {
+        MovieViewDto movieView = this.movieService.getMovieViewById(id);
+        model.addAttribute("movie", movieView);
         return "trailer";
     }
 

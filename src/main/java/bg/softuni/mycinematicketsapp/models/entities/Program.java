@@ -1,10 +1,9 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
-import bg.softuni.mycinematicketsapp.models.enums.StartProjectionTimeEnum;
+import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class Program extends BaseEntity{
     private LocalDate dateOfProjectionEnd;
     @Column(name = "start_projection_time")
     @Enumerated(EnumType.STRING)
-    private StartProjectionTimeEnum startProjectionTime;
+    private BookingTimeEnum startProjectionTime;
     @OneToMany
     private Set<Movie> movies;
 
@@ -43,11 +42,11 @@ public class Program extends BaseEntity{
         return this;
     }
 
-    public StartProjectionTimeEnum getStartProjectionTime() {
+    public BookingTimeEnum getStartProjectionTime() {
         return startProjectionTime;
     }
 
-    public Program setStartProjectionTime(StartProjectionTimeEnum startProjectionTime) {
+    public Program setStartProjectionTime(BookingTimeEnum startProjectionTime) {
         this.startProjectionTime = startProjectionTime;
         return this;
     }
