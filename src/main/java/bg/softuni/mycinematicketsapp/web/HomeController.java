@@ -1,7 +1,6 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,9 +57,9 @@ public class HomeController {
         return "trailer";
     }
 
-    @GetMapping("/program/update-projection-time")
-    public String updateProjection() {
-        return "update-projection-time";
-    }
+//    @GetMapping("/program/update-projection-time{id}")
+//    public String updateProjection(@PathVariable long id) {
+//        return "update-projection-time";
+//    }
 
 }

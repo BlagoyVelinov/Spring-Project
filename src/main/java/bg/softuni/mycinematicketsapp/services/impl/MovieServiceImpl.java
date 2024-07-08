@@ -6,6 +6,7 @@ import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
 import bg.softuni.mycinematicketsapp.models.entities.Category;
 import bg.softuni.mycinematicketsapp.models.entities.Movie;
+import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
 import bg.softuni.mycinematicketsapp.repository.MovieRepository;
 import bg.softuni.mycinematicketsapp.services.BookingTimeService;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -66,6 +68,7 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = this.getMovieById(movieId);
         List<BookingTime> bookingTimes = this.bookingTimeService.getBookingTimesByStartTime(bookingTimeDto);
         movie.setBookingTimes(bookingTimes);
+        this.movieRepository.save(movie);
     }
 
     @Override
@@ -87,8 +90,12 @@ public class MovieServiceImpl implements MovieService {
         List<Genre> genreCategories = movie.getGenreCategories()
                 .stream().map(Category::getName)
                 .toList();
+        List<BookingTimeEnum> bookingTimeEnumList = movie.getBookingTimes()
+                .stream().map(BookingTime::getStartTime)
+                .toList();
         return this.modelMapper.map(movie, MovieViewDto.class)
-                .setGenreCategories(genreCategories);
+                .setGenreCategories(genreCategories)
+                .setStartProjectionTimeList(bookingTimeEnumList);
     }
 
 }
