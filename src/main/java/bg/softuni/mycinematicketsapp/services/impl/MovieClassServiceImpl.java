@@ -32,6 +32,6 @@ public class MovieClassServiceImpl implements MovieClassService {
 
     @Override
     public MovieClass getMovieClassByName(MovieClassEnum name) {
-        return null;
+        return this.movieClassRepository.findByName(name);
     }
 }

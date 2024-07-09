@@ -40,6 +40,21 @@
      margin: 1px 14px 0 0;
 }
 
+ul .list{
+    padding-top: 30px;
+}
+
+.movieList{
+    border-top: solid 1px #807d7d;
+    margin-top: 50px;
+    margin-bottom: -30px;
+    margin-inline-start: -22px;
+}
+.h4{
+    padding-right: 10px;
+    color: red;
+}
+
 .pt-xs {
     padding-top: 3px !important;
 }
@@ -254,6 +269,14 @@ button:hover {
 }
 
 
-/*.ml-xs {*/
-/*    color: white;*/
-/*}*/
+/*=========================== Delete button*/
+.mb-3 {
+    margin: -32px 0 0 300px;
+}
+
+
+/*=========================== Update Projection button*/
+.mb-2 {
+    margin: 0 0 0 300px;
+    padding-inline: 21px;
+}

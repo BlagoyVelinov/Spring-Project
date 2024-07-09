@@ -11,6 +11,8 @@ import bg.softuni.mycinematicketsapp.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,23 @@ public class UserServiceImpl implements UserService {
                 registerDto.getEmail(),
                 registerDto.getName()
         ));
+    }
+
+    @Override
+    public boolean isAdmin(String username) {
+        UserEntity user = this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User is not found"));
+
+        return user.getRoles()
+                .stream()
+                .map(UserRole::getRole)
+                .anyMatch(role -> UserRoleEnum.ADMINISTRATOR == role);
+    }
+
+    @Override
+    public UserEntity getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User is not found"));
     }
 
 

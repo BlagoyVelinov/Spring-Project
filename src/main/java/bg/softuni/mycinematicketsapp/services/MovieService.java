@@ -6,7 +6,6 @@ import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Movie;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public interface MovieService {
@@ -19,7 +18,7 @@ public interface MovieService {
     Set<MovieViewDto> getAllMoviesView();
 
     void addBookingTimes(long movieId, BookingTimeDto bookingTimeDto);
-    void removeBookingTimes(long movieId, long bookingTimeId);
+    void deleteMovieById(long movieId);
 
     MovieViewDto getMovieViewById(long movieId);
 }

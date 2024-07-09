@@ -1,12 +1,12 @@
 package bg.softuni.mycinematicketsapp.models.enums;
 
 public enum MovieClassEnum {
-    A_("A"), // Без възрастови ограничения
-    B_("B"), // Забранено за лица под 12
-    C_("C"), // Забранено за лица под 14
-    D_("D"), // Забранено за лица под 16
-    X_("X"), //Забранено за лица под 18
-    N_A("N/A"); // Без категория
+    B_("/images/icons/B.png"), // Без възрастови ограничения
+    C_("/images/icons/C.png"), // Забранено за лица под 12
+    C_PLUS("/images/icons/C_PLUS.png"), // Забранено за лица под 14
+    D_("/images/icons/D.png"), // Забранено за лица под 16
+    X_("/images/icons/X.png"), //Забранено за лица под 18
+    TBC("/images/icons/TBC.png"); // Без категория
 
     private String value;
 

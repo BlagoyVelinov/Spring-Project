@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     dateInput.addEventListener('change', function() {
         const selectedDate = dateInput.value;
-        displayDate.textContent = `Today: ${selectedDate}`;
+        displayDate.textContent = `Projections on: ${selectedDate}`;
     });
 });

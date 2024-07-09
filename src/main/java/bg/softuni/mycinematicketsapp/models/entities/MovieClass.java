@@ -10,10 +10,11 @@ public class MovieClass extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MovieClassEnum name;
     @Column
+    private String icon;
+    @Column
     private String description;
 
-    public MovieClass() {
-    }
+    public MovieClass() {}
 
     public MovieClass(MovieClassEnum name) {
         this.setName(name);
@@ -29,6 +30,15 @@ public class MovieClass extends BaseEntity {
         return this;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public MovieClass setIcon(String icon) {
+        this.icon = icon;
+        return this;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -39,15 +49,35 @@ public class MovieClass extends BaseEntity {
     }
     private void setDescription(MovieClassEnum name) {
         String description = "";
+        String icon = "";
         switch (name) {
-            case A_ -> description = "No age restrictions";
-            case B_ -> description = "Forbidden under 12";
-            case C_ -> description = "Forbidden under 14";
-            case D_ -> description = "Forbidden under 16";
-            case X_ -> description = "Forbidden under 18";
-            case N_A -> description = "Uncategorized";
+            case B_ -> {
+                description = "No age restrictions";
+                icon = MovieClassEnum.B_.getValue();
+            }
+            case C_ -> {
+                description = "Forbidden under 12";
+                icon = MovieClassEnum.C_.getValue();
+            }
+            case C_PLUS -> {
+                description = "Forbidden under 14";
+                icon = MovieClassEnum.C_PLUS.getValue();
+            }
+            case D_ -> {
+                description = "Forbidden under 16";
+                icon = MovieClassEnum.D_.getValue();
+            }
+            case X_ -> {
+                description = "Forbidden under 18";
+                icon = MovieClassEnum.X_.getValue();
+            }
+            case TBC -> {
+                description = "Uncategorized";
+                icon = MovieClassEnum.TBC.getValue();
+            }
         }
 
         this.description = description;
+        this.icon = icon;
     }
 }

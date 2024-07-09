@@ -22,10 +22,10 @@ public class CreateMovieDto {
     @Positive(message = "Movie Length should be positive number!")
     private Integer movieLength;
     @NotEmpty
-    @Size(min = 4, max = 10, message = "Audio length must be between 4 and 10 characters")
+    @Size(min = 4, max = 20, message = "Audio length must be between 4 and 10 characters")
     private String audio;
     @NotEmpty
-    @Size(min = 4, max = 10, message = "Subtitles length must be between 4 and 10 characters")
+    @Size(min = 4, max = 20, message = "Subtitles length must be between 4 and 10 characters")
     private String subtitles;
     @NotEmpty(message = "Description cannot be null ot empty!")
     @Size(min = 5, message = "Description must be at least 5 characters!")

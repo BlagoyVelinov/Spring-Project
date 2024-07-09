@@ -6,8 +6,10 @@ import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
 import bg.softuni.mycinematicketsapp.models.entities.Category;
 import bg.softuni.mycinematicketsapp.models.entities.Movie;
+import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
+import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.repository.MovieRepository;
 import bg.softuni.mycinematicketsapp.services.BookingTimeService;
 import bg.softuni.mycinematicketsapp.services.CategoryService;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,14 +28,17 @@ public class MovieServiceImpl implements MovieService {
     private final CategoryService categoryService;
     private final BookingTimeService bookingTimeService;
     private final ModelMapper modelMapper;
+    private final MovieClassServiceImpl movieClassService;
 
     @Autowired
     public MovieServiceImpl(MovieRepository movieRepository, CategoryService categoryService,
-                            BookingTimeService bookingTimeService, ModelMapper modelMapper) {
+                            BookingTimeService bookingTimeService, ModelMapper modelMapper,
+                            MovieClassServiceImpl movieClassService) {
         this.movieRepository = movieRepository;
         this.categoryService = categoryService;
         this.bookingTimeService = bookingTimeService;
         this.modelMapper = modelMapper;
+        this.movieClassService = movieClassService;
     }
 
     @Override
@@ -50,8 +54,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void movieCreate(CreateMovieDto createMovie) {
         List<Category> categories = this.categoryService.getCategoryByGenre(createMovie.getGenreCategories());
+        MovieClass movieClass = this.movieClassService.getMovieClassByName(createMovie.getMovieClass());
         Movie movie = this.modelMapper.map(createMovie, Movie.class);
-        movie.setGenreCategories(categories);
+        movie.setGenreCategories(categories)
+                .setMovieClass(movieClass);
 
         this.movieRepository.save(movie);
     }
@@ -72,12 +78,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void removeBookingTimes(long movieId, long bookingTimeId) {
+    public void deleteMovieById(long movieId) {
         Movie movie = this.getMovieById(movieId);
-        BookingTime bookingTime = this.bookingTimeService.getBookingTimeById(bookingTimeId);
-
-        movie.getBookingTimes().remove(bookingTime);
-        this.movieRepository.save(movie);
+        List<BookingTime> bookingTimes = movie.getBookingTimes();
+        List<Category> genreCategories = movie.getGenreCategories();
+        movie.getGenreCategories().removeAll(genreCategories);
+        movie.getBookingTimes().removeAll(bookingTimes);
+        this.movieRepository.deleteById(movieId);
     }
 
     @Override
@@ -93,9 +100,11 @@ public class MovieServiceImpl implements MovieService {
         List<BookingTimeEnum> bookingTimeEnumList = movie.getBookingTimes()
                 .stream().map(BookingTime::getStartTime)
                 .toList();
+        MovieClass movieClass = movie.getMovieClass();
         return this.modelMapper.map(movie, MovieViewDto.class)
                 .setGenreCategories(genreCategories)
-                .setStartProjectionTimeList(bookingTimeEnumList);
+                .setStartProjectionTimeList(bookingTimeEnumList)
+                .setMovieClass(movieClass);
     }
 
 }
