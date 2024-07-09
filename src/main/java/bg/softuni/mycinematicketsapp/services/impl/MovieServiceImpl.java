@@ -58,6 +58,7 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = this.modelMapper.map(createMovie, Movie.class);
         movie.setGenreCategories(categories)
                 .setMovieClass(movieClass);
+//                .setTrailerUrl(createMovie.getTrailerUrl());
 
         this.movieRepository.save(movie);
     }

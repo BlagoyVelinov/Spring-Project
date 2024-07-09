@@ -115,6 +115,9 @@ public class Movie extends BaseEntity {
     }
 
     public Movie setTrailerUrl(String trailerUrl) {
+        int startIndex = trailerUrl.indexOf("=");
+        trailerUrl = trailerUrl.substring(0,23) + "/embed" +
+                trailerUrl.substring(startIndex).replace("=", "/");
         this.trailerUrl = trailerUrl;
         return this;
     }
