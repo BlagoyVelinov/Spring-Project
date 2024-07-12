@@ -1,18 +1,14 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
+import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
+import bg.softuni.mycinematicketsapp.services.BookingTimeService;
 import bg.softuni.mycinematicketsapp.services.MovieService;
-import bg.softuni.mycinematicketsapp.services.UserService;
+import bg.softuni.mycinematicketsapp.services.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Set;
@@ -34,7 +30,7 @@ public class HomeController {
 
 
     @GetMapping("/program")
-    public String getProgram(Model model) {
+    public String allMoviesInProgram(Model model) {
         Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
         model.addAttribute("allViewMovies", allMoviesView);
         return "program";

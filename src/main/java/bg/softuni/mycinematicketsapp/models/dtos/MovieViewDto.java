@@ -1,8 +1,10 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
+import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
 import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
+import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class MovieViewDto {
     private long id;
     private String name;
     private Integer movieLength;
+    private HallNumber hallNumber;
     private String audio;
     private String subtitles;
     private String description;
@@ -21,11 +24,11 @@ public class MovieViewDto {
     private ProjectionFormat projectionFormat;
     private MovieClass movieClass;
     private List<Genre> genreCategories;
-    private List<BookingTimeEnum> startProjectionTimeList;
+    private List<BookingTime> bookingTimes;
 
     public MovieViewDto() {
         this.genreCategories = new ArrayList<>();
-        this.startProjectionTimeList = new ArrayList<>();
+        this.bookingTimes = new ArrayList<>();
     }
 
     public long getId() {
@@ -52,6 +55,15 @@ public class MovieViewDto {
 
     public MovieViewDto setMovieLength(Integer movieLength) {
         this.movieLength = movieLength;
+        return this;
+    }
+
+    public HallNumber getHallNumber() {
+        return hallNumber;
+    }
+
+    public MovieViewDto setHallNumber(HallNumber hallNumber) {
+        this.hallNumber = hallNumber;
         return this;
     }
 
@@ -126,12 +138,12 @@ public class MovieViewDto {
         return this;
     }
 
-    public List<BookingTimeEnum> getStartProjectionTimeList() {
-        return startProjectionTimeList;
+    public List<BookingTime> getBookingTimes() {
+        return bookingTimes;
     }
 
-    public MovieViewDto setStartProjectionTimeList(List<BookingTimeEnum> startProjectionTimeList) {
-        this.startProjectionTimeList = startProjectionTimeList;
+    public MovieViewDto setBookingTimes(List<BookingTime> bookingTimes) {
+        this.bookingTimes = bookingTimes;
         return this;
     }
 }

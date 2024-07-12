@@ -40,9 +40,13 @@ public class UserEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<UserRole> roles;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
+
     public UserEntity() {
         this.tickets = new HashSet<>();
         this.roles = new ArrayList<>();
+        this.orders = new HashSet<>();
     }
 
     public String getUsername() {
@@ -141,6 +145,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setRoles(List<UserRole> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public UserEntity setOrders(Set<Order> orders) {
+        this.orders = orders;
         return this;
     }
 }

@@ -43,4 +43,10 @@ public class BookingTimeServiceImpl implements BookingTimeService {
         return this.bookingTimeRepository.findById(bookingTimeId)
                 .orElseThrow(() -> new RuntimeException("Booking time is not found!"));
     }
+
+    @Override
+    public BookingTimeEnum getBookingTimeEnumById(long timeId) {
+        BookingTime byStartTime = this.getBookingTimeById(timeId);
+        return byStartTime.getStartTime();
+    }
 }

@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
+import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;
 import jakarta.persistence.*;
 
@@ -19,6 +20,10 @@ public class Movie extends BaseEntity {
     private ProjectionFormat projectionFormat;
     @Column(name = "movie_length", nullable = false)
     private Integer movieLength;
+
+    @Column(name = "hall_number", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private HallNumber hallNumber;
     @Column
     private String audio;
     @Column
@@ -80,6 +85,15 @@ public class Movie extends BaseEntity {
 
     public Movie setMovieLength(Integer movieLength) {
         this.movieLength = movieLength;
+        return this;
+    }
+
+    public HallNumber getHallNumber() {
+        return hallNumber;
+    }
+
+    public Movie setHallNumber(HallNumber hallNumber) {
+        this.hallNumber = hallNumber;
         return this;
     }
 

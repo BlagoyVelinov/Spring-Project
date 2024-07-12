@@ -131,6 +131,29 @@
                             <small th:if="${#fields.hasErrors('projectionFormat')}"
                             th:errors="*{projectionFormat}" class="text-danger">Projection Format error message</small>
                         </div>
+                        <div class="form-group">
+                            <div class="text-white label-holder d-flex justify-content-center">
+                                <label for="hallNumber" class="h4 mb-2">Hall Number</label>
+                            </div>
+                            <select class="browser-default custom-select"
+                                    id="hallNumber"
+                                    name="hallNumber"
+                                    th:field="*{hallNumber}">
+
+                                <option value="">Select Hall Number</option>
+                                <option value="HALL_1">1</option>
+                                <option value="HALL_2">2</option>
+                                <option value="HALL_3">3</option>
+                                <option value="HALL_4">4</option>
+                                <option value="HALL_5">5</option>
+                                <option value="HALL_6">6</option>
+                                <option value="HALL_7">7</option>
+                                <option value="HALL_8">8</option>
+                            </select>
+
+                            <small th:if="${#fields.hasErrors('hallNumber')}"
+                                   th:errors="*{hallNumber}" class="text-danger">Projection Format error message</small>
+                        </div>
 
                         <div class="form-group">
                             <div class="text-white label-holder d-flex justify-content-center">

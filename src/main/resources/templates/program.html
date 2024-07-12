@@ -18,17 +18,52 @@
                         <div class="border-left">
                             <div class="inner">
                                 <h3 class="title">Projections <span>Today</span></h3>
+
                                 <div class="form-row m-5">
+<!--                                    <form th:method="post"-->
+<!--                                          th:action="@{/program}"-->
+<!--                                          th:object="${programViewDto}">-->
+<!--                                        th:action="@{/program/city-and-date{cityName}(cityName=*{city.location})}"-->
                                     <div class="col">
                                         <label for="dateInput"></label>
-                                        <input type="date" name="dateInput" id="dateInput"
+                                        <input type="date" name="dateInput"
+                                               id="dateInput"
                                                class="form-control"
                                                placeholder="Select a date">
+<!--                                        th:field="*{dateOfProjection}">-->
 
-                                        <small id="dateInputError"
+<!--                                                th:if="${#fields.hasErrors('dateOfProjection')}"-->
+<!--                                               th:errors="*{dateOfProjection}" -->
+                                              <small id="dateInputError"
                                                class="form-text bg-danger rounded">
                                             Reserved date cannot be in the past</small>
                                     </div>
+
+                                    <div class="form-group" >
+                                        <div class="text-white label-holder d-flex justify-content-center">
+                                            <label for="cityName" class="h4"></label>
+                                        </div>
+                                        <select class="browser-default custom-select"
+                                                id="cityName"
+                                                type="submit"
+                                                name="cityName">
+<!--                                                th:field="*{city.location}">-->
+
+                                            <option value="">Select City</option>
+                                            <option value="SOFIA">Sofia</option>
+                                            <option value="PLOVDIV">Plovdiv</option>
+                                            <option value="STARA_ZAGORA">Stara Zagora</option>
+                                            <option value="RUSE">Ruse</option>
+                                            <option value="BURGAS">Burgas</option>
+                                            <option value="VARNA">Varna</option>
+                                        </select>
+
+<!--                                            <small th:if="${#fields.hasErrors('city.location')}"-->
+<!--                                                   th:errors="*{city.location}" -->
+                                                   <small class="text-danger">City Name error message</small>
+
+                                    </div>
+<!--                                    </form>-->
                                     <th:block sec:authorize="isAuthenticated()">
                                         <div class="button-holder d-flex justify-content-center"
                                              sec:authorize="hasRole('ADMINISTRATOR')">
@@ -44,14 +79,16 @@
                 </div>
                 <div class="content">
                     <!--                    <div id="displayDate"></div>-->
-                    <h3 id="displayDate">dd/MM<span>/yyyy</span></h3>
+                    <h4 id="displayDate">dd/MM</h4><h4 id="displayName">/yyyy</h4>
                     <ul th:each="movieView : ${allViewMovies}" class="list">
-                        <li class="movieList"><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px" height="219px"/>
+                        <li class="movieList"><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px"
+                                                   height="219px"/>
                             <a th:href="@{/trailer/{movieId}(movieId=*{movieView.id})}" th:text="${movieView.name}"
                                class="title-movie">Name of movie</a><br/>
                             <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
                             <span data-v-048a28f8="" class="qb-movie-rating-info">
-                               <img th:src="${movieView.movieClass.getIcon()}" th:alt="${movieView.movieClass.description}"
+                               <img th:src="${movieView.movieClass.getIcon()}"
+                                    th:alt="${movieView.movieClass.description}"
                                     type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
                                     class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
                                <!----><div data-v-048a28f8="" class="pt-xs">
@@ -66,22 +103,16 @@
                                      tabindex="0"
                                      aria-label="Screening type: 2D">2D</div>
                                 <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
-                                    <th:block th:if="${movieView.getStartProjectionTimeList().size() == 0}">
+                                    <th:block th:if="${movieView.getBookingTimes().size() == 0}">
                                         <a class="h4">Coming soon</a>
                                         </th:block>
-                                    <a th:if="${movieView.getStartProjectionTimeList().size() != 0}"
-                                       th:each="bookingTime : ${movieView.startProjectionTimeList}"
+                                    <a th:if="${movieView.getBookingTimes().size() != 0}"
+                                       th:each="bookingTime : ${movieView.bookingTimes}"
 
-                                       th:href="@{/tickets/buy-tickets}"
-                                       class="btn btn-primary btn-lg" th:text="${bookingTime.value}"> 12:20 </a>
+                                       th:href="@{/order/buy-tickets/{movieId}/time/{timeId}(movieId=${movieView.id}, timeId=${bookingTime.id})}"
+                                       class="btn btn-primary btn-lg" th:text="${bookingTime.startTime.value}"> 12:20 </a>
+<!--                                        th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}"-->
 
-
-                                    <!--                                    <a href="#"-->
-                                    <!--                                       class="btn btn-primary btn-lg"> 14:30 </a>-->
-                                    <!--                                    <a href="#"-->
-                                    <!--                                       class="btn btn-primary btn-lg"> 16:40 </a>-->
-                                    <!--                                    <a href="#"-->
-                                    <!--                                       class="btn btn-primary btn-lg"> 18:50 </a>-->
 
                                     <th:block sec:authorize="isAuthenticated()">
                                     <a sec:authorize="hasRole('ADMINISTRATOR')"
@@ -104,72 +135,6 @@
                                 </div>
                                 <!----></div></div></span>
                         </li>
-
-
-                        <!--                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>-->
-                        <!--                            <a class="title-movie" href="/trailer">Name of movie</a><br/>-->
-                        <!--                            &lt;!&ndash; <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">&ndash;&gt;-->
-                        <!--                            <span data-v-048a28f8="" class="qb-movie-rating-info">-->
-                        <!--                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"-->
-                        <!--                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"-->
-                        <!--                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">-->
-                        <!--                               &lt;!&ndash;&ndash;&gt;<div data-v-048a28f8="" class="pt-xs">-->
-                        <!--                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен-->
-                        <!--                               <span data-v-048a28f8="" class="ml-xs">|</span>-->
-                        <!--                               </span>-->
-                        <!--                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>-->
-                        <!--                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>-->
-                        <!--                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg"> 12:20 </a>-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg">-->
-                        <!--                                        14:30 </a>-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg"> 16:40 </a>-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg">-->
-                        <!--                                        18:50 </a>-->
-                        <!--                                </div>-->
-                        <!--                                <div class="qb-movie-info-column">-->
-                        <!--                                    <ul class="qb-movie-attributes"></ul>-->
-                        <!--                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>-->
-                        <!--                                </div>-->
-                        <!--                                &lt;!&ndash;&ndash;&gt;</div></div></span>-->
-                        <!--                        </li>-->
-
-
-                        <!--                        <li><img src="/images/insideOut2.jpeg" alt="" width="204px" height="219px"/>-->
-                        <!--                            <a class="title-movie" href="/trailer">Name of movie</a><br/>-->
-                        <!--                            &lt;!&ndash; <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">&ndash;&gt;-->
-                        <!--                            <span data-v-048a28f8="" class="qb-movie-rating-info">-->
-                        <!--                               <img src="/images/class_movie_B.gif" alt="Без възрастови ограничения"-->
-                        <!--                                    type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"-->
-                        <!--                                    class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">-->
-                        <!--                               &lt;!&ndash;&ndash;&gt;<div data-v-048a28f8="" class="pt-xs">-->
-                        <!--                               <span data-v-048a28f8="" tabindex="0" class="mr-sm">Приключенски, Анимация, Комедия, Семеен-->
-                        <!--                               <span data-v-048a28f8="" class="ml-xs">|</span>-->
-                        <!--                               </span>-->
-                        <!--                               <span data-v-048a28f8="" tabindex="0" class="mr-xs">101 мин.</span>-->
-                        <!--                                <div class="screening-type" tabindex="0" aria-label="Screening type: 2D">2D</div>-->
-                        <!--                                <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg"> 12:20 </a>-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg">-->
-                        <!--                                        14:30 </a>-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg"> 16:40 </a>-->
-                        <!--                                    <a href="#"-->
-                        <!--                                       class="btn btn-primary btn-lg">-->
-                        <!--                                        18:50 </a>-->
-                        <!--                                </div>-->
-                        <!--                                <div class="qb-movie-info-column">-->
-                        <!--                                    <ul class="qb-movie-attributes"></ul>-->
-                        <!--                                        <span tabindex="0" aria-label="dubAbbr">(ДУБ:бълг. СУБ:спец. бълг. "СС")</span>-->
-                        <!--                                </div>-->
-                        <!--                                &lt;!&ndash;&ndash;&gt;</div></div></span>-->
-                        <!--                        </li>-->
                     </ul>
                 </div>
             </div>

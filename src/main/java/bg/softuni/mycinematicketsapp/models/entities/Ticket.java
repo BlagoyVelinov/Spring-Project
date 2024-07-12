@@ -1,6 +1,8 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
+import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
+import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,8 +16,8 @@ public class Ticket extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CityName city;
-    @Column(name = "number_of_room", nullable = false)
-    private Integer numberRoom;
+    @Column(name = "hall_number", nullable = false)
+    private HallNumber hallNumber;
     @Column(name = "number_of_seat", nullable = false)
     private Integer numberOfSeat;
     @Column(name = "number_of_row", nullable = false)
@@ -24,6 +26,9 @@ public class Ticket extends BaseEntity {
     private Double price;
     @Column(name = "projection_date", nullable = false)
     private LocalDateTime projectionDate;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private BookingTimeEnum bookingTimeEnum;
 
     @OneToOne
     private MovieClass movieClass;
@@ -49,12 +54,21 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public Integer getNumberRoom() {
-        return numberRoom;
+    public HallNumber getHallNumber() {
+        return hallNumber;
     }
 
-    public Ticket setNumberRoom(Integer numberRoom) {
-        this.numberRoom = numberRoom;
+    public Ticket setHallNumber(HallNumber hallNumber) {
+        this.hallNumber = hallNumber;
+        return this;
+    }
+
+    public BookingTimeEnum getBookingTimeEnum() {
+        return bookingTimeEnum;
+    }
+
+    public Ticket setBookingTimeEnum(BookingTimeEnum bookingTimeEnum) {
+        this.bookingTimeEnum = bookingTimeEnum;
         return this;
     }
 

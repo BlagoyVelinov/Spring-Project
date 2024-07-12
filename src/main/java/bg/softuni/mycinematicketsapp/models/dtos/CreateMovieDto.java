@@ -1,13 +1,11 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
+import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;
 import bg.softuni.mycinematicketsapp.validation.annotation.UniqueMovieName;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +19,9 @@ public class CreateMovieDto {
     @NotNull(message = "Insert a movie length")
     @Positive(message = "Movie Length should be positive number!")
     private Integer movieLength;
+
+    @NotNull(message = "You must select hall number!")
+    private HallNumber hallNumber;
     @NotEmpty
     @Size(min = 4, max = 20, message = "Audio length must be between 4 and 10 characters")
     private String audio;
@@ -62,6 +63,15 @@ public class CreateMovieDto {
 
     public CreateMovieDto setMovieLength(Integer movieLength) {
         this.movieLength = movieLength;
+        return this;
+    }
+
+    public HallNumber getHallNumber() {
+        return hallNumber;
+    }
+
+    public CreateMovieDto setHallNumber(HallNumber hallNumber) {
+        this.hallNumber = hallNumber;
         return this;
     }
 

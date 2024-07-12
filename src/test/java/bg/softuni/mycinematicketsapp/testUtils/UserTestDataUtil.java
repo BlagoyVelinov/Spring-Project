@@ -35,8 +35,7 @@ public class UserTestDataUtil {
                 .setUsername(username)
                 .setEmail(email)
                 .setPassword("123456789")
-                .setFirstName("Gohso")
-                .setLastName("Goshev")
+                .setName("Gohso Goshev")
                 .setRoles(allByRole);
 
         return this.userRepository.save(user);

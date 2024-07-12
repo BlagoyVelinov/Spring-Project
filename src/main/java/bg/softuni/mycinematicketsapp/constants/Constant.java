@@ -16,6 +16,7 @@ public class Constant {
     public static final String REDIRECT_HOME = "redirect:/home";
     public static final String REDIRECT_INDEX = "redirect:/";
     public static final String REDIRECT_PROGRAM = "redirect:/program";
+    public static final String REDIRECT_PROGRAM_CITY_NAME = "redirect:/program/{cityName}";
     public static final String REDIRECT_UPDATE_BOOKING_TIME = "redirect:/program/update-projection-time/{id}";
     public static final String REDIRECT_ADD_MOVIE = "redirect:/movies/add-movie";
 }

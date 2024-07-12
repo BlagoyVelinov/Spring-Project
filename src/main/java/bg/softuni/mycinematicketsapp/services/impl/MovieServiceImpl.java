@@ -3,17 +3,11 @@ package bg.softuni.mycinematicketsapp.services.impl;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.CreateMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
-import bg.softuni.mycinematicketsapp.models.entities.Category;
-import bg.softuni.mycinematicketsapp.models.entities.Movie;
-import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
+import bg.softuni.mycinematicketsapp.models.entities.*;
 import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
-import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.repository.MovieRepository;
-import bg.softuni.mycinematicketsapp.services.BookingTimeService;
-import bg.softuni.mycinematicketsapp.services.CategoryService;
-import bg.softuni.mycinematicketsapp.services.MovieService;
+import bg.softuni.mycinematicketsapp.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +52,6 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = this.modelMapper.map(createMovie, Movie.class);
         movie.setGenreCategories(categories)
                 .setMovieClass(movieClass);
-//                .setTrailerUrl(createMovie.getTrailerUrl());
 
         this.movieRepository.save(movie);
     }
@@ -98,13 +91,9 @@ public class MovieServiceImpl implements MovieService {
         List<Genre> genreCategories = movie.getGenreCategories()
                 .stream().map(Category::getName)
                 .toList();
-        List<BookingTimeEnum> bookingTimeEnumList = movie.getBookingTimes()
-                .stream().map(BookingTime::getStartTime)
-                .toList();
         MovieClass movieClass = movie.getMovieClass();
         return this.modelMapper.map(movie, MovieViewDto.class)
                 .setGenreCategories(genreCategories)
-                .setStartProjectionTimeList(bookingTimeEnumList)
                 .setMovieClass(movieClass);
     }
 

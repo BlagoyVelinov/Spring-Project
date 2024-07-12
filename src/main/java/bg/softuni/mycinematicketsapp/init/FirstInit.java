@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.util;
+package bg.softuni.mycinematicketsapp.init;
 
 import bg.softuni.mycinematicketsapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,18 @@ public class FirstInit implements CommandLineRunner {
     private final CategoryService categoryService;
     private final MovieClassService movieClassService;
     private final BookingTimeService bookingTimeService;
+    private final CityService cityService;
+    private final ProgramService programService;
     @Autowired
     public FirstInit(UserRoleService userRoleService, CategoryService categoryService,
-                     MovieClassService movieClassService, BookingTimeService bookingTimeService) {
+                     MovieClassService movieClassService, BookingTimeService bookingTimeService,
+                     CityService cityService, ProgramService programService) {
         this.userRoleService = userRoleService;
         this.categoryService = categoryService;
         this.movieClassService = movieClassService;
         this.bookingTimeService = bookingTimeService;
+        this.cityService = cityService;
+        this.programService = programService;
     }
 
     @Override
@@ -27,6 +32,8 @@ public class FirstInit implements CommandLineRunner {
         this.categoryService.initCategoryInDb();
         this.movieClassService.initMovieClassesInDb();
         this.bookingTimeService.initStartProjectionTimesInDb();
+        this.cityService.initCitiesNamesInDb();
+        this.programService.initProgramsToDb();
     }
 
 }

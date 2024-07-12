@@ -3,7 +3,10 @@ package bg.softuni.mycinematicketsapp.web;
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.ProgramViewDto;
+import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.services.MovieService;
+import bg.softuni.mycinematicketsapp.services.ProgramService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,16 +14,21 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @Controller
 @RequestMapping("/program")
 public class ProgramController {
 
     private final MovieService movieService;
+    private final ProgramService programService;
 
     @Autowired
-    public ProgramController(MovieService movieService) {
+    public ProgramController(MovieService movieService, ProgramService programService) {
         this.movieService = movieService;
+        this.programService = programService;
     }
+
 
     @ModelAttribute("bookingTimes")
     public BookingTimeDto initBookingTimes() {
@@ -28,13 +36,6 @@ public class ProgramController {
     }
 
 
-
-    //    @GetMapping("/program")
-//    public String getProgram(Model model) {
-//        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
-//        model.addAttribute("allViewMovies", allMoviesView);
-//        return "program";
-//    }
 
     @GetMapping("/update-projection-time/{id}")
     public String updateProjection(@PathVariable long id, Model model) {
