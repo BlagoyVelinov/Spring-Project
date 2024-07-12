@@ -8,6 +8,7 @@
 </title><meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="/js/ticketSelection.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" language="javascript">
         var msgZeroSelection = "Няма избрани билети. Моля изберете билети.";
     </script>
@@ -179,7 +180,8 @@
                     <input type="hidden" name="ctl00$CPH1$SelectTicketControl$hdnSelectedTicketGroupIdInTicketMode" id="ctl00_CPH1_SelectTicketControl_hdnSelectedTicketGroupIdInTicketMode" />
                     <div class="actionHolder">
                         <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link" href="/program">Назад</a>
-                        <a id="lbSelectSeats" class="actionBtn" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$lbSelectSeats&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))">Избор на места</a>
+                        <a id="lbSelectSeats" class="actionBtn" th:href="@{/order/select-seats}">Избор на места</a>
+<!--href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$lbSelectSeats&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))"-->
                     </div>
                 </div>
             </div>

@@ -244,18 +244,6 @@ a.nextBtn:hover {
     background-color: #e26304
 }
 
-.timer-block {
-    background-image: url(../assets/images/PL_RES/icon_time.png);
-    background-repeat: no-repeat;
-    background-position-x: 20px;
-    background-position-y: 50%;
-    background-position: 1% 50%;
-    background-color: #5068b0;
-    padding: 10px;
-    line-height: 1.7em;
-    min-height: 55px;
-    color: #d2d8eb
-}
 
 .msgInrow {
     line-height: 50px
@@ -301,7 +289,7 @@ a.nextBtn:hover {
 }
 
 .login-link a {
-    background-image: url(../assets/images/PL_RES/user_icon.svg);
+    background-image: url(../images/login-icon.gif);
     background-size: 20px;
     background-repeat: no-repeat;
     background-position-x: right;

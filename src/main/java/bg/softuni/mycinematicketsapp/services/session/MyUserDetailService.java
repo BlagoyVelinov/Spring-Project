@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.services.impl;
+package bg.softuni.mycinematicketsapp.services.session;
 
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
@@ -20,7 +20,7 @@ public class MyUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByUsername(username)
                 .map(this::mapUserEntityToUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException("Username " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not exist!"));
     }
 
     private UserDetails mapUserEntityToUserDetails(UserEntity currUser) {

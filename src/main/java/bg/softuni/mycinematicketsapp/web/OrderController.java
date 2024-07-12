@@ -33,4 +33,9 @@ public class OrderController {
         model.addAttribute("movieView", movieView);
         return "buy-tickets";
     }
+
+    @GetMapping("/select-seats")
+    public String getSelectSeat() {
+        return "select-seat";
+    }
 }

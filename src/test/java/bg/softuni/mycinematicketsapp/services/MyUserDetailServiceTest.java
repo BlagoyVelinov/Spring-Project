@@ -4,7 +4,7 @@ import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
-import bg.softuni.mycinematicketsapp.services.impl.MyUserDetailService;
+import bg.softuni.mycinematicketsapp.services.session.MyUserDetailService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

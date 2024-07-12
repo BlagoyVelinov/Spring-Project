@@ -2,7 +2,7 @@ package bg.softuni.mycinematicketsapp.config;
 
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
-import bg.softuni.mycinematicketsapp.services.impl.MyUserDetailService;
+import bg.softuni.mycinematicketsapp.services.session.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +44,7 @@ public class SpringSecurityConfig {
                         .requestMatchers("/program", "/4-dx", "/imax", "/about-us", "/contact-us").permitAll()
                         .requestMatchers(HttpMethod.GET, "/offers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/trailer/**").permitAll()
-                        .requestMatchers("/order/buy-tickets/{id}").authenticated()
+                        .requestMatchers("/order/buy-tickets/{id}", "/order/select-seats").authenticated()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/program/add-movie", "/offers/add-offer","/program/update-projection-time/{id}")
                         .hasRole(UserRoleEnum.ADMINISTRATOR.name())

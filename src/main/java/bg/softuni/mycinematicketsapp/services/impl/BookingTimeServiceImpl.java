@@ -7,6 +7,7 @@ import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.repository.BookingTimeRepository;
 import bg.softuni.mycinematicketsapp.services.BookingTimeService;
+import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class BookingTimeServiceImpl implements BookingTimeService {
     @Override
     public BookingTime getBookingTimeById(long bookingTimeId) {
         return this.bookingTimeRepository.findById(bookingTimeId)
-                .orElseThrow(() -> new RuntimeException("Booking time is not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Booking time is not found!"));
     }
 
     @Override

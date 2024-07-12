@@ -8,6 +8,7 @@ import bg.softuni.mycinematicketsapp.models.events.UserRegisteredEvent;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
 import bg.softuni.mycinematicketsapp.services.UserRoleService;
 import bg.softuni.mycinematicketsapp.services.UserService;
+import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUserByUsername(String username) {
         return this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User is not found"));
+                .orElseThrow(() -> new ObjectNotFoundException("User is not found"));
     }
 
 
