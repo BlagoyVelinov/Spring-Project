@@ -13,6 +13,7 @@ public class Constant {
 
     public static final String REDIRECT_REGISTER = "redirect:/users/register";
     public static final String REDIRECT_LOGIN = "redirect:/users/login";
+    public static final String REDIRECT_AFTER_REGISTER = "redirect:/users/check-email";
     public static final String REDIRECT_HOME = "redirect:/home";
     public static final String REDIRECT_INDEX = "redirect:/";
     public static final String REDIRECT_PROGRAM = "redirect:/program";

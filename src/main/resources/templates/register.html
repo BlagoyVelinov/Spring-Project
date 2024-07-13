@@ -33,8 +33,8 @@
                        name="username"
                        th:field="*{username}"
                        th:errorclass="is-invalid"
-                       type="text" min="2" max="20" class="form-control"
-                       placeholder="username" required="username"/>
+                       type="text" class="form-control"
+                       placeholder="username"/>
                 <p th:if="${#fields.hasErrors('username')}"
                    th:errors="*{username}" class="text-danger">
                     Username is required.
@@ -68,19 +68,19 @@
                     Name is required.
                 </p>
             </div>
-                        <div class="form-group col-md-6 mb-3">
-                            <div class="col">
-                                <label for="birthdate"></label>
-                                <input name="birthdate" id="birthdate" type="date"
-                                       class="form-control"
-                                       placeholder="Birthdate"
-                                th:field="*{birthdate}">
+            <div class="form-group col-md-6 mb-3">
+                <div class="col">
+                    <label for="birthdate" class="text-white font-weight-bold">Date of birth</label>
+                    <input name="birthdate" id="birthdate" type="date"
+                           class="form-control"
+                           placeholder="Birthdate"
+                           th:field="*{birthdate}">
 
-                                <small th:if="${#fields.hasErrors('birthdate')}"
-                                       th:errors="*{birthdate}" class="text-danger">
-                                    Birthdate cannot be in the present or future</small>
-                            </div>
-                        </div>
+                    <small th:if="${#fields.hasErrors('birthdate')}"
+                           th:errors="*{birthdate}" class="text-danger">
+                        Date of birth cannot be in the present or future</small>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">

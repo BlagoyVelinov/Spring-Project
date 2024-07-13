@@ -33,6 +33,11 @@ public class UserRegisterController {
         return "register";
     }
 
+    @GetMapping("/check-email")
+    public String getCheckEmail() {
+        return "check-email";
+    }
+
     @PostMapping("/register")
     public String postRegister(@Valid UserRegisterDto registerDto,
                                BindingResult bindingResult,
@@ -44,6 +49,6 @@ public class UserRegisterController {
             return Constant.REDIRECT_REGISTER;
         }
         this.userService.registerUser(registerDto);
-        return Constant.REDIRECT_LOGIN;
+        return Constant.REDIRECT_AFTER_REGISTER;
     }
 }

@@ -15,26 +15,25 @@ import java.util.List;
 @FieldMatch(first = "password", second = "confirmPassword", message = "Passwords need to be equals!")
 public class UserRegisterDto {
 
-    @NotEmpty
-    @Size(min = 5, max = 30, message = "Username must be between 5 and 30 characters.")
+    @NotNull
+    @Size(min = 5, max = 30, message = "Username length must be between 5 and 30 characters!")
     @UniqueUsername(message = "Username already exist!")
     private String username;
     @NotNull
     @Email(message = "Entered valid email.")
     @UniqueEmail(message = "Email address is already registered!")
     private String email;
-    @NotEmpty
-    @Size(min = 5, max = 30, message = "Name name must be between 5 and 30 characters.")
-    private String name;
     @NotNull
-    @Past(message = "Birthdate cannot be in the present or future")
+    @Size(min = 5, max = 30, message = "Name length must be between 5 and 30 characters!")
+    private String name;
+    @NotNull(message = "Please select your date of birth.")
+    @Past(message = "Date of birth cannot be in the present or future")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
     @NotEmpty
-    @Size(min = 8, max = 20)
+    @Size(min = 8, max = 20, message = "Password length must be between 8 and 20 symbols!")
     private String password;
-    @NotEmpty
-    @Size(min = 8, max = 20)
+
     private String confirmPassword;
     private LocalDateTime created;
     private List<UserRole> roles;
