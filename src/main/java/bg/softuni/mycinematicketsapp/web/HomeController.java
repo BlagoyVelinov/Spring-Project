@@ -1,11 +1,12 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
-import bg.softuni.mycinematicketsapp.services.BookingTimeService;
+import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
-import bg.softuni.mycinematicketsapp.services.ProgramService;
+import bg.softuni.mycinematicketsapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,11 @@ import java.util.Set;
 @Controller
 public class HomeController {
     private final MovieService movieService;
-
+    private final OrderService orderService;
     @Autowired
-    public HomeController(MovieService movieService) {
+    public HomeController(MovieService movieService, OrderService orderService) {
         this.movieService = movieService;
+        this.orderService = orderService;
     }
 
 
@@ -29,12 +31,12 @@ public class HomeController {
     }
 
 
-    @GetMapping("/program")
-    public String allMoviesInProgram(Model model) {
-        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
-        model.addAttribute("allViewMovies", allMoviesView);
-        return "program";
-    }
+//    @GetMapping("/program")
+//    public String allMoviesInProgram(Model model) {
+//        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
+//        model.addAttribute("allViewMovies", allMoviesView);
+//        return "program";
+//    }
 
     @GetMapping("/about-us")
     public String aboutUs() {
@@ -61,5 +63,16 @@ public class HomeController {
         model.addAttribute("movie", movieView);
         return "trailer";
     }
+//    @GetMapping("/program/order-tickets")
+//    public String getAllMoviesWithBookingTimes(Model model,
+//                                               @AuthenticationPrincipal UserDetails userDetails) {
+//
+//        Set<MovieViewDto> allMoviesWithBookingTime = this.movieService.getAllMoviesViewWithBookingTimes();
+//        model.addAttribute("allViewMovies", allMoviesWithBookingTime);
+//
+//        OrderMovieDto orderMovieDto = this.orderService.getUnfinishedOrderByUser(userDetails.getUsername());
+//        model.addAttribute("orderMovie", orderMovieDto);
+//        return "order-tickets";
+//    }
 
 }

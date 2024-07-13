@@ -157,6 +157,7 @@ button {
     border-radius: 6px;
     padding: 12px 62px;
     /*margin: 0px 9px 14px -414px;*/
+    font-weight: 600;
 }
 
 button:hover {
@@ -252,7 +253,8 @@ button:hover {
 .custom-select[multiple], .custom-select[size]:not([size="1"]) {
     height: 60px;
     padding-right: .75rem;
-    background-image: none
+    background-image: none;
+    width: 19%;
 }
 
 .custom-select:disabled {

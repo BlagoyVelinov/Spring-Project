@@ -64,6 +64,14 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Set<MovieViewDto> getAllMoviesViewWithBookingTimes() {
+        List<Movie> movies = this.getAllMovies();
+        return movies.stream().map(this::mapMovieToMovieViewDto)
+                .filter(movie -> !movie.getBookingTimes().isEmpty())
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public void addBookingTimes(long movieId, BookingTimeDto bookingTimeDto) {
         Movie movie = this.getMovieById(movieId);
         List<BookingTime> bookingTimes = this.bookingTimeService.getBookingTimesByStartTime(bookingTimeDto);

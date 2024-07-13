@@ -16,6 +16,7 @@ public interface MovieService {
     Movie getMovieById(long id);
 
     Set<MovieViewDto> getAllMoviesView();
+    Set<MovieViewDto> getAllMoviesViewWithBookingTimes();
 
     void addBookingTimes(long movieId, BookingTimeDto bookingTimeDto);
     void deleteMovieById(long movieId);

@@ -13,17 +13,15 @@ public class FirstInit implements CommandLineRunner {
     private final MovieClassService movieClassService;
     private final BookingTimeService bookingTimeService;
     private final CityService cityService;
-    private final ProgramService programService;
     @Autowired
     public FirstInit(UserRoleService userRoleService, CategoryService categoryService,
                      MovieClassService movieClassService, BookingTimeService bookingTimeService,
-                     CityService cityService, ProgramService programService) {
+                     CityService cityService) {
         this.userRoleService = userRoleService;
         this.categoryService = categoryService;
         this.movieClassService = movieClassService;
         this.bookingTimeService = bookingTimeService;
         this.cityService = cityService;
-        this.programService = programService;
     }
 
     @Override
@@ -33,7 +31,6 @@ public class FirstInit implements CommandLineRunner {
         this.movieClassService.initMovieClassesInDb();
         this.bookingTimeService.initStartProjectionTimesInDb();
         this.cityService.initCitiesNamesInDb();
-        this.programService.initProgramsToDb();
     }
 
 }

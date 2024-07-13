@@ -1,44 +1,40 @@
-package bg.softuni.mycinematicketsapp.models.entities;
+package bg.softuni.mycinematicketsapp.models.dtos;
 
+import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
+import bg.softuni.mycinematicketsapp.models.entities.City;
+import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tickets")
-public class Ticket extends BaseEntity {
-
-    @Column(name = "movie_name", nullable = false)
+public class TicketDto {
+    private long id;
     private String movieName;
-    @Column(name = "hall_number", nullable = false)
     private HallNumber hallNumber;
-    @Column(name = "number_of_seat", nullable = false)
     private Integer numberOfSeat;
-    @Column(name = "number_of_row", nullable = false)
     private Integer numberOfRow;
-    @Column(nullable = false)
     private Double price;
-    @Column(name = "projection_date", nullable = false)
     private LocalDateTime projectionDate;
-    @Enumerated(EnumType.STRING)
     private TicketType ticketType;
-
-    @ManyToOne
     private BookingTime bookingTime;
+    private String city;
+    private String movieClass;
 
-    @ManyToOne
-    private City city;
+    public long getId() {
+        return id;
+    }
 
-    @OneToOne
-    private MovieClass movieClass;
+    public TicketDto setId(long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getMovieName() {
         return movieName;
     }
 
-    public Ticket setMovieName(String movieName) {
+    public TicketDto setMovieName(String movieName) {
         this.movieName = movieName;
         return this;
     }
@@ -47,7 +43,7 @@ public class Ticket extends BaseEntity {
         return hallNumber;
     }
 
-    public Ticket setHallNumber(HallNumber hallNumber) {
+    public TicketDto setHallNumber(HallNumber hallNumber) {
         this.hallNumber = hallNumber;
         return this;
     }
@@ -56,7 +52,7 @@ public class Ticket extends BaseEntity {
         return numberOfSeat;
     }
 
-    public Ticket setNumberOfSeat(Integer numberOfSeat) {
+    public TicketDto setNumberOfSeat(Integer numberOfSeat) {
         this.numberOfSeat = numberOfSeat;
         return this;
     }
@@ -65,7 +61,7 @@ public class Ticket extends BaseEntity {
         return numberOfRow;
     }
 
-    public Ticket setNumberOfRow(Integer numberOfRow) {
+    public TicketDto setNumberOfRow(Integer numberOfRow) {
         this.numberOfRow = numberOfRow;
         return this;
     }
@@ -74,7 +70,7 @@ public class Ticket extends BaseEntity {
         return price;
     }
 
-    public Ticket setPrice(Double price) {
+    public TicketDto setPrice(Double price) {
         this.price = price;
         return this;
     }
@@ -83,7 +79,7 @@ public class Ticket extends BaseEntity {
         return projectionDate;
     }
 
-    public Ticket setProjectionDate(LocalDateTime projectionDate) {
+    public TicketDto setProjectionDate(LocalDateTime projectionDate) {
         this.projectionDate = projectionDate;
         return this;
     }
@@ -92,7 +88,7 @@ public class Ticket extends BaseEntity {
         return ticketType;
     }
 
-    public Ticket setTicketType(TicketType ticketType) {
+    public TicketDto setTicketType(TicketType ticketType) {
         this.ticketType = ticketType;
         return this;
     }
@@ -101,25 +97,25 @@ public class Ticket extends BaseEntity {
         return bookingTime;
     }
 
-    public Ticket setBookingTime(BookingTime bookingTime) {
+    public TicketDto setBookingTime(BookingTime bookingTime) {
         this.bookingTime = bookingTime;
         return this;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public Ticket setCity(City city) {
+    public TicketDto setCity(String city) {
         this.city = city;
         return this;
     }
 
-    public MovieClass getMovieClass() {
+    public String getMovieClass() {
         return movieClass;
     }
 
-    public Ticket setMovieClass(MovieClass movieClass) {
+    public TicketDto setMovieClass(String movieClass) {
         this.movieClass = movieClass;
         return this;
     }

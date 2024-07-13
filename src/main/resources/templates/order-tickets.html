@@ -13,80 +13,27 @@
             <header th:replace="~{fragments/commons::nav}"></header>
             <div id="content">
                 <div class="line-hor"></div>
-                <div class="box">
-                    <div class="border-right">
+                    <div class="box">
+                        <div class="border-right">
+                            <div class="border-left">
+                                <div class="inner">
+                                    <h3 class="title">Projections <span>Today</span></h3>
 
-                        <div class="border-left">
-                            <div class="inner">
-                                <h3 class="title">Projections <span>Today</span></h3>
-                                <div class="form-row m-5">
-                                    <form th:method="post"
-                                          th:action="@{/program}"
-                                          th:object="${createOrder}">
-                                        <div class="col">
-                                            <label for="dateInput"></label>
-                                            <input type="date" name="dateInput"
-                                                id="dateInput"
-                                                class="form-control"
-                                                placeholder="Select a date"
-                                            th:field="*{projectionDate}">
-
-
-                                            <small th:if="${#fields.hasErrors('projectionDate')}"
-                                            th:errors="*{projectionDate}" class="text-danger">
-                                                Reserved date cannot be in the past</small>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="text-white label-holder d-flex justify-content-center">
-                                                <label for="cityName" class="h4"></label>
-                                            </div>
-                                            <select class="browser-default custom-select"
-                                                    id="cityName"
-                                                    type="submit"
-                                                    name="cityName"
-                                                    th:field="*{location}">
-
-                                                <option value="">Select City</option>
-                                                <option value="SOFIA">Sofia</option>
-                                                <option value="PLOVDIV">Plovdiv</option>
-                                                <option value="STARA_ZAGORA">Stara Zagora</option>
-                                                <option value="RUSE">Ruse</option>
-                                                <option value="BURGAS">Burgas</option>
-                                                <option value="VARNA">Varna</option>
-                                            </select>
-
-
-                                            <small th:if="${#fields.hasErrors('location')}"
-                                                   th:errors="*{location}" class="text-danger">
-                                                City Name error message</small>
-
-                                        </div>
-
-                                    <div class="button-holder d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                    </div>
-
-                                    </form>
-
-                                    <th:block sec:authorize="isAuthenticated()">
-                                        <div class="button-holder d-flex justify-content-center"
-                                             sec:authorize="hasRole('ADMINISTRATOR')">
-                                            <a th:href="@{/movies/add-movie}">
-                                                <button type="submit">Add Movie</button>
-                                            </a>
-                                        </div>
-                                    </th:block>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="content">
+                <div class="content" th:object="${orderMovie}">
+                    <form th:method="delete" th:action="@{/program/order-tickets/{orderId}(orderId=${orderMovie.id})}">
+                        <div class="button-holder d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Cancel Order</button>
+                        </div>
+                    </form>
                     <!--                    <div id="displayDate"></div>-->
-                    <h4 id="displayDate">Choose a date</h4><h4 id="displayName">Choose a town</h4>
-                    <ul th:each="movieView : ${allViewMovies}" class="list">
-                        <li class="movieList"><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px"
+                    <h4 th:text="${orderMovie.projectionDate}">Choose a date</h4>
+                    <h4 th:text="${orderMovie.location.value}">Choose a town</h4>
+                    <ul class="list">
+                        <li th:each="movieView : ${allViewMovies}" class="movieList"><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px"
                                                    height="219px"/>
                             <a th:href="@{/trailer/{movieId}(movieId=${movieView.id})}" th:text="${movieView.name}"
                                class="title-movie">Name of movie</a><br/>
@@ -114,7 +61,7 @@
                                     <a th:if="${movieView.getBookingTimes().size() != 0}"
                                        th:each="bookingTime : ${movieView.bookingTimes}"
 
-                                       th:href="@{/program}"
+                                       th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderMovie.id}, movieId=${movieView.id}, timeId=${bookingTime.id})}"
                                        class="btn btn-primary btn-lg"
                                        th:text="${bookingTime.startTime.value}"> 12:20 </a>
                                     <!--th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}"-->
@@ -128,7 +75,7 @@
 
                                         <form th:method="delete"
                                               th:action="@{/movies/delete-movie/{movieId}(movieId=${movieView.id})}">
-                                            <div sec:authorize="hasRole('ADMINISTRATOR')" class="button-holder d-flex justify-content-center">
+                                            <div class="button-holder d-flex justify-content-center">
                                                 <button type="submit" class="btn btn-info mb-3">Delete Movie</button>
                                             </div>
                                         </form>

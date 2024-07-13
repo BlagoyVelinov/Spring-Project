@@ -1,108 +1,60 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
-import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
-import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
-    @Column(name = "movie_name")
-    private String movieName;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "booking_time")
-    private BookingTimeEnum bookingTime;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ticket_type")
-    private TicketType ticketType;
-    @Column(nullable = false)
-    private Double price;
-    @Column(nullable = false)
-    private Integer quantity;
-    @Column(nullable = false)
-    private Integer numberOfRow;
-    @Column(nullable = false)
-    private Integer numberOfSeat;
-    @Column(name = "voucher_number")
-    private String voucherNumber;
-
+    @Column(name = "order_number")
+    private String orderNumber;
+    @Column(name = "total_price")
+    private Double totalPrice;
     @Column(name = "projection_date")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate projectionDate;
+    @Column(name = "is_finished")
+    private boolean isFinished;
+    @ManyToOne
+    private City city;
+    @OneToMany
+    @JoinTable(
+            name = "orders_tickets",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "ticket_id"))
+    private List<Ticket> tickets;
     @ManyToOne
     private UserEntity user;
+    @ManyToOne
+    private Movie movie;
 
-    public String getMovieName() {
-        return movieName;
+    public Order() {
+        this.tickets = new ArrayList<>();
     }
 
-    public Order setMovieName(String movieName) {
-        this.movieName = movieName;
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public Order setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
         return this;
     }
 
-    public BookingTimeEnum getBookingTime() {
-        return bookingTime;
+    public Double getTotalPrice() {
+        return totalPrice;
+//        return this.tickets.stream().mapToDouble(Ticket::getPrice).sum();
     }
 
-    public Order setBookingTime(BookingTimeEnum bookingTime) {
-        this.bookingTime = bookingTime;
-        return this;
-    }
-
-    public TicketType getTicketType() {
-        return ticketType;
-    }
-
-    public Order setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
-        return this;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public Order setPrice(Double price) {
-        this.price = price;
-        return this;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public Order setQuantity(Integer quantity) {
-        this.quantity = quantity;
-        return this;
-    }
-
-    public Integer getNumberOfRow() {
-        return numberOfRow;
-    }
-
-    public Order setNumberOfRow(Integer numberOfRow) {
-        this.numberOfRow = numberOfRow;
-        return this;
-    }
-
-    public Integer getNumberOfSeat() {
-        return numberOfSeat;
-    }
-
-    public Order setNumberOfSeat(Integer numberOfSeat) {
-        this.numberOfSeat = numberOfSeat;
-        return this;
-    }
-
-    public String getVoucherNumber() {
-        return voucherNumber;
-    }
-
-    public Order setVoucherNumber(String voucherNumber) {
-        this.voucherNumber = voucherNumber;
+    public Order setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
         return this;
     }
 
@@ -115,12 +67,48 @@ public class Order extends BaseEntity {
         return this;
     }
 
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public Order setFinished(boolean finished) {
+        isFinished = finished;
+        return this;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public Order setCity(City city) {
+        this.city = city;
+        return this;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public Order setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+        return this;
+    }
+
     public UserEntity getUser() {
         return user;
     }
 
     public Order setUser(UserEntity user) {
         this.user = user;
+        return this;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public Order setMovie(Movie movie) {
+        this.movie = movie;
         return this;
     }
 }
