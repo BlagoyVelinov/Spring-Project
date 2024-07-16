@@ -71,8 +71,7 @@ public class MyUserDetailServiceTest {
     private static UserEntity createTestUser() {
         return new UserEntity()
                 .setUsername("firstLast")
-                .setFirstName("firstName")
-                .setLastName("lastName")
+                .setName("fullName")
                 .setActive(false)
                 .setPassword("123456")
                 .setRoles(List.of(

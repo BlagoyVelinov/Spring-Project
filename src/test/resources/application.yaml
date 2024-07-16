@@ -1,8 +1,11 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     defer-datasource-initialization: true
+  autoconfigure:
+      exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
   sql:
     init:
       mode: never
@@ -37,3 +40,7 @@ mail:
   port: 3333
   username: test@example.com
   password: 123456789
+
+movies:
+  api:
+    baseUrl: "http://localhost:8081"

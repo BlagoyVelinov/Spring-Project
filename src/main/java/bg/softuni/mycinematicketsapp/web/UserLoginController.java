@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class UserLoginController {
 
 
     @ModelAttribute("badCredentials")
