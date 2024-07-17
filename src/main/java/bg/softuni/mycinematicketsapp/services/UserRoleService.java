@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserRoleService {
 
-    void initRoleInDb();
+    boolean initRoleInDb();
     UserRole getRoleByName(UserRoleEnum name);
 
     List<UserRole> getAllRoles();

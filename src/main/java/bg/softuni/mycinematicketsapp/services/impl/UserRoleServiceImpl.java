@@ -20,14 +20,16 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public void initRoleInDb() {
+    public boolean initRoleInDb() {
         if (this.userRoleRepository.count() == 0) {
             List<UserRole> roles = Arrays.stream(UserRoleEnum.values())
                     .map(UserRole::new)
                     .toList();
 
             this.userRoleRepository.saveAll(roles);
+            return true;
         }
+        return false;
     }
 
     @Override

@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void createUserOrder(OrderMovieDto createOrder, String username) {
         UserEntity user = this.userService.getUserByUsername(username);
-        Order order = this.mapCreateOrderToOrder(createOrder, user);
+        Order order = this.mapOrderMovieDtoToOrder(createOrder, user);
 
         if (order.getId() == 0) {
             this.orderRepository.save(order);
@@ -86,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
 //        return this.modelMapper.map(order, OrderMovieDto.class);
     }
 
-    private Order mapCreateOrderToOrder(OrderMovieDto createOrder, UserEntity user) {
+    private Order mapOrderMovieDtoToOrder(OrderMovieDto createOrder, UserEntity user) {
         City city = this.cityService.getCityByCityName(createOrder.getLocation());
         Order order = user.getOrders()
                 .stream()
