@@ -1100,6 +1100,8 @@ Cufon.registerEngine("vml", (function () {
         return y
     }
 })());
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const dateInput = document.getElementById('dateInput');
     const displayDate = document.getElementById('displayDate');

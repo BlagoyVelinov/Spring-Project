@@ -16,9 +16,9 @@
                     <div class="image png"></div>
                     <div class="inside">
                         <h2>We are breaking<span>All Limitations</span></h2>
-                        <p>Cinema Tickets България управлява 7 мултиплекса в 6 различни града в страната
-                            – София, Пловдив, Стара Загора, Русе, Бургас и Варна.</p>
-                        <div class="wrapper"><a href="/about-us" class="link1"><span><span>Learn More</span></span></a>
+                        <p th:text="#{index_intro}">Bulgaria manages 7 multiplexes in 6 different cities in the country
+                            – Sofia, Plovdiv, Stara Zagora, Ruse, Burgas and Varna</p>
+                        <div class="wrapper"><a href="/about-us" class="link1"><span><span th:text="#{index_learn}">Learn More</span></span></a>
                         </div>
                     </div>
                 </div>
@@ -35,29 +35,17 @@
                 <div class="content">
                     <h3>Upcoming <span>Premieres</span></h3>
                     <ul class="movies">
-                        <li>
-                            <h4>Inside Out 2</h4>
-                            <img class="movie-1-pic" src="/images/insideOut2.jpeg" alt="" width="224px" height="269px"/>
-                            <p>Egetnunc nunc mattitor curabiturpiscipis nec ac hac pellus sem intesque sociis.
-                                Metusmetuer hendimentesque diam at orbi sempor.</p>
-                            <div class="wrapper"><a href="/trailer" class="link2"><span><span>See Trailer</span></span></a>
-                            </div>
-                        </li>
-                        <li>
-                            <h4>Bad Boys: Ride Or Die</h4>
-                            <img class="movie-1-pic" src="/images/badBoysNew.png" alt="" width="224px" height="269px"/>
-                            <p>Dolorem malesuada anterdum quis vitae. Cursustellentesque enim justo vestasse vitae
-                                trices phasellus leo sociis leo magnisl. Malestibulusnatis. </p>
-                            <div class="wrapper"><a href="/trailer" class="link2"><span><span>See Trailer</span></span></a>
-                            </div>
-                        </li>
-                        <li class="last">
-                            <h4>Alien: Romulus</h4>
-                            <img class="movie-1-pic" src="/images/alien_romulus.jpg" alt="" width="224px" height="269px"/>
-                            <p>Quisque felit odio ut nunc convallis semper sente ris feugiat. Odionam leo phasellentum
-                                id vitantesque nunc tor quisque a maecenatibus pellus.</p>
-                            <div class="wrapper"><a href="/trailer" class="link2"><span><span>See Trailer</span></span></a>
-                            </div>
+                        <li th:each="movie : ${allViewMovies}">
+                            <th:block th:if="${movie.getBookingTimes().size() == 0}">
+
+                                <h4 th:text="${movie.name}">Inside Out 2</h4>
+                                <img class="movie-1-pic" th:src="${movie.imageUrl}" th:alt="${movie.name}" width="224px"
+                                     height="269px"/>
+                                <p th:text="${movie.description}">Information for the movie</p>
+                                <div class="wrapper"><a th:href="@{/trailer/{movieId}(movieId=${movie.id})}"
+                                                        class="link2"><span><span th:text="#{index_see_trailer}">See Trailer</span></span></a>
+                                </div>
+                            </th:block>
                         </li>
                         <li class="clear">&nbsp;</li>
                     </ul>

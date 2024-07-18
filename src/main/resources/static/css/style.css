@@ -162,7 +162,7 @@ ul, ol {
 
 .movies li {
     float: left;
-    width: 286px;
+    width: 280px;
     margin-right: 15px;
 }
 
@@ -923,3 +923,14 @@ element.style {
 }
 
 /*============================*/
+.nav-item {
+    /*color: white;*/
+    color: #a9a7a7;
+}
+.item-lang {
+    background-color: #0c4128;
+    color: white;
+    border-radius: 6px;
+    border-color: royalblue;
+
+}

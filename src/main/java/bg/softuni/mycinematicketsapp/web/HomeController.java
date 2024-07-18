@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
@@ -26,17 +27,12 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
+        model.addAttribute("allViewMovies", allMoviesView);
         return "index";
     }
 
-
-//    @GetMapping("/program")
-//    public String allMoviesInProgram(Model model) {
-//        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
-//        model.addAttribute("allViewMovies", allMoviesView);
-//        return "program";
-//    }
 
     @GetMapping("/about-us")
     public String aboutUs() {
