@@ -20,15 +20,15 @@
                                 <h3>Our <span>Contacts</span></h3>
                                 <div class="address">
                                     <div class="fleft"><span th:text="#{contact-us-zip-code}">Zip Code:</span>1000<br/>
-                                        <span>Country:</span>Bulgaria<br/>
-                                        <span>Telephone:</span>+359 123456789<br/>
-                                        <span>Fax:</span>+359 123456789
+                                        <span th:text="#{contact-us-country}">Country:</span>Bulgaria<br/>
+                                        <span th:text="#{contact-us-telephone}">Telephone:</span>+359 123456789<br/>
+                                        <span th:text="#{contact-us-fax}">Fax:</span>+359 123456789
                                     </div>
-                                    <div class="extra-wrap"><span>Забележка:</span><br/>
-                                        Моля да ни предоставите минимално количество данни, тоест само тези,
-                                        които са необходими за връзка с нас или за идентифициране!
-                                        <p></p>
-                                        Копие на вашето съобщение ще ви бъде изпратено на посочения имейл.
+                                    <div class="extra-wrap"><span th:text="#{contact-us-note}">Забележка:</span><br/>
+                                        <p th:text="#{contact-us-note1}">Моля да ни предоставите минимално количество данни, тоест само тези,
+                                            които са необходими за връзка с нас или за идентифициране!
+                                        </p>
+                                        <p th:text="#{contact-us-note2}">Копие на вашето съобщение ще ви бъде изпратено на посочения имейл.
                                         В случай, че искате да се свържете с нас и да ни предоставите своите лични данни,
                                         Ви уведомяваме, че Вашите лични данни ще бъдат обработени от Синема Тикетс,
                                         в качеството му на администратор на лични данни, в съответствие със Закона за
@@ -36,10 +36,11 @@
                                         Вие давате съгласието си данните, посочени от Вас да бъдат използвани от
                                         Синема Тикетс за предоставянето на поръчаните услуги или продукти и/или за
                                         комуникация с Вас в случай на необходимост.
-                                        <p></p>
-                                        Предоставянето на личните данни е доброволно. Когато за ползването на дадена
+                                        </p>
+                                        <p th:text="#{contact-us-note3}">Предоставянето на личните данни е доброволно. Когато за ползването на дадена
                                         услуга или функционалност на Сайта се изисква предоставянето на лични данни,
                                         Синема Тикетс ясно обозначава задължителния или опционалния характер на събираните данни.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -52,19 +53,19 @@
                           action="#">
                         <fieldset>
                             <div class="field">
-                                <label>Your Name:</label>
+                                <label th:text="#{contact-us-name}">Your Name:</label>
                                 <input type="text" value=""/>
                             </div>
                             <div class="field">
-                                <label>Your E-mail:</label>
+                                <label th:text="#{contact-us-email}">Your E-mail:</label>
                                 <input type="text" value=""/>
                             </div>
                             <div class="field">
-                                <label>Your Message:</label>
+                                <label th:text="#{contact-us-message}">Your Message:</label>
                                 <textarea cols="1" rows="1"></textarea>
                             </div>
                             <div class="wrapper"><a href="/" class="link2">
-                                <span> <span>Send Your Message</span> </span> </a></div>
+                                <span> <span th:text="#{contact-us-send-message}">Send Message</span> </span> </a></div>
                         </fieldset>
                     </form>
                 </div>
