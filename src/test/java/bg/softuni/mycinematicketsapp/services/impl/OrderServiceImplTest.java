@@ -1,15 +1,12 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
-import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
+import bg.softuni.mycinematicketsapp.models.entities.City;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
-import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
-import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
-import bg.softuni.mycinematicketsapp.repository.UserRoleRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import org.junit.jupiter.api.AfterEach;
@@ -23,46 +20,35 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.Set;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceImplTest {
-    private static final String USER_WITH_USERNAME = "useruser";
-    private static final String USER_EMAIL = "useruser@gmail.com";
 
-    private OrderServiceImpl orderServiceTest;
+    private OrderServiceImpl toTest;
+    @Mock
+    private UserService mockUserService;
+    @Captor
+    private ArgumentCaptor<Order> orderEntityCaptor;
     @Captor
     private ArgumentCaptor<UserEntity> userEntityCaptor;
     @Mock
-    private UserService mockUserService;
-//    @Captor
-//    private ArgumentCaptor<Order> orderEntityCaptor;
-    @Mock
     private OrderRepository mockOrderRepository;
-    @Mock
-    private CityService mockCityService;
     @Mock
     private UserRepository mockUserRepository;
     @Mock
-    private PasswordEncoder mockPasswordEncoder;
-    @Mock
-    private UserRoleRepository mockRoleRepository;
-
+    private CityService mockCityService;
 
     @BeforeEach
     void setUp() {
 
-        this.orderServiceTest = new OrderServiceImpl(
+        this.toTest = new OrderServiceImpl(
                 this.mockOrderRepository,
                 this.mockUserService,
                 this.mockCityService,
@@ -72,40 +58,59 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void testCreateUserOrderCorrectly() {
-        UserRegisterDto testUser = this.getUserRegisterDto(USER_WITH_USERNAME, USER_EMAIL);
-        this.registerUser(testUser, UserRoleEnum.USER);
+    public void testCreateUserOrder() {
+        // Arrange
+        OrderMovieDto orderMovieDto = createTestOrderMovie();
+        UserEntity userEntity = createTestUserEntity();
 
-        verify(this.mockUserRepository).save(this.userEntityCaptor.capture());
+        this.saveOrderToMockDb(userEntity, orderMovieDto);
 
-        UserEntity actualSaveEntity = this.userEntityCaptor.getValue();
+        Order actualOrder = orderEntityCaptor.getValue();
 
-        Mockito.when(this.mockUserRepository.findByUsername(USER_WITH_USERNAME)).thenReturn(Optional.of(actualSaveEntity));
-
-        actualSaveEntity.setRoles(testUser.getRoles());
-
-        OrderMovieDto testOrder = this.createTestOrderDto();
-
-        this.orderServiceTest.createUserOrder(testOrder, actualSaveEntity.getUsername());
-
-//        verify(this.mockOrderRepository).save(this.orderEntityCaptor.capture());
-//
-//
-//        Order actualOrder = this.orderEntityCaptor.getValue();
-
-//        Assertions.assertNotNull(actualOrder);
-//        Assertions.assertEquals(testOrder.getOrderNumber(), actualOrder.getOrderNumber());
-//        Assertions.assertEquals(testOrder.getLocation(), actualOrder.getCity().getLocation());
-//        Assertions.assertEquals(testOrder.getProjectionDate(), actualOrder.getProjectionDate());
+        Assertions.assertNotNull(actualOrder);
+        Assertions.assertEquals(orderMovieDto.getLocation(), actualOrder.getCity().getLocation());
+        Assertions.assertEquals(orderMovieDto.getProjectionDate(), actualOrder.getProjectionDate());
     }
+
+
+
 
     @Test
     void testGetOrderById() {
-        OrderMovieDto testOrder = this.createTestOrderDto();
+        OrderMovieDto orderMovieDto = createTestOrderMovie();
+        UserEntity userEntity = createTestUserEntity();
 
+        this.saveOrderToMockDb(userEntity, orderMovieDto);
+
+        Order actualOrder = orderEntityCaptor.getValue();
+
+        Mockito.when(this.mockOrderRepository.findById(actualOrder.getId())).thenReturn(Optional.of(actualOrder));
+
+        Order orderById = this.toTest.getOrderById(actualOrder.getId());
+
+        Assertions.assertNotNull(orderById);
+        Assertions.assertEquals(orderById.getCity(), actualOrder.getCity());
+        Assertions.assertEquals(orderById.getId(), actualOrder.getId());
     }
     @Test
     void testGetUnfinishedOrderByUser() {
+        OrderMovieDto orderMovieDto = createTestOrderMovie();
+        UserEntity userEntity = createTestUserEntity();
+
+
+        when(this.mockUserService.getUserByUsername(userEntity.getUsername()))
+                .thenReturn(new UserEntity());
+        when(this.mockCityService.getCityByCityName(orderMovieDto.getLocation()))
+                .thenReturn(new City(orderMovieDto.getLocation()));
+
+        // Act
+        this.toTest.createUserOrder(orderMovieDto, userEntity.getUsername());
+        // Assert
+        verify(this.mockOrderRepository).save(orderEntityCaptor.capture());
+
+        Order actualOrder = this.orderEntityCaptor.getValue();
+        userEntity.setOrders(Set.of(actualOrder));
+        actualOrder.setUser(userEntity);
 
     }
     @Test
@@ -117,69 +122,36 @@ class OrderServiceImplTest {
 
     }
 
-    private OrderMovieDto createTestOrderDto() {
-        String lUUID = String.format("%020d", new BigInteger(
-                UUID.randomUUID().toString().replace("-", ""), 16));
-        lUUID = lUUID.substring(20);
+    private void saveOrderToMockDb(UserEntity userEntity, OrderMovieDto orderMovieDto) {
+        when(this.mockUserService.getUserByUsername(userEntity.getUsername()))
+                .thenReturn(new UserEntity());
+        when(this.mockCityService.getCityByCityName(orderMovieDto.getLocation()))
+                .thenReturn(new City(orderMovieDto.getLocation()));
 
-        LocalDate projectionDate = LocalDate.of(2024, 7, 20);
+        // Act
+        this.toTest.createUserOrder(createTestOrderMovie(), userEntity.getUsername());
 
-
-        return new OrderMovieDto()
-                .setId(1)
-                .setOrderNumber(lUUID)
-                .setLocation(CityName.SOFIA)
-                .setProjectionDate(projectionDate);
-
+        // Assert
+        verify(this.mockOrderRepository).save(orderEntityCaptor.capture());
     }
 
+    private UserEntity createTestUserEntity() {
 
-    private void registerUser(UserRegisterDto testUser, UserRoleEnum roleEnum) {
-        UserRole userRole = new UserRole(roleEnum);
-        testUser.setRoles(List.of(userRole));
-
-        when(this.mockPasswordEncoder.encode(testUser.getPassword()))
-                .thenReturn(testUser.getPassword() + testUser.getPassword());
-
-        this.mockUserService.registerUser(testUser);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername("pesho");
+        return userEntity;
     }
-
-    private UserRegisterDto getUserRegisterDto(String username, String email) {
-        UserRegisterDto testUser = this.createUser(username, email);
-
-        List<UserRoleEnum> rolesEnums = testUser.getRoles().stream().map(UserRole::getRole).toList();
-        Mockito.when(this.mockRoleRepository.findAllByRoleIn(rolesEnums)).thenReturn(testUser.getRoles());
-        return testUser;
-    }
-
-    private UserRegisterDto createUser(String username, String email) {
-        this.initUserRoleRepository();
-        List<UserRole> roles = Arrays.stream(UserRoleEnum.values())
-                .map(UserRole::new)
-                .toList();
-
-
-        return new UserRegisterDto()
-                .setUsername(username)
-                .setEmail(email)
-                .setName("fullName")
-                .setPassword("123456789")
-                .setRoles(roles);
-    }
-
-    private void initUserRoleRepository(){
-        if (this.mockRoleRepository.count() == 0) {
-            List<UserRole> roles = Arrays.stream(UserRoleEnum.values())
-                    .map(UserRole::new)
-                    .toList();
-
-            this.mockRoleRepository.saveAll(roles);
-        }
+    private OrderMovieDto createTestOrderMovie() {
+        UserEntity user = createTestUserEntity();
+        OrderMovieDto orderMovieDto = new OrderMovieDto();
+        orderMovieDto.setLocation(CityName.SOFIA);
+        orderMovieDto.setProjectionDate(LocalDate.of(2024, 8,12));
+        return orderMovieDto;
     }
 
     @AfterEach
     public void tearDown() {
-        Mockito.reset(this.mockUserRepository);
-        Mockito.reset(this.mockRoleRepository);
+        Mockito.reset(this.mockOrderRepository);
+
     }
 }

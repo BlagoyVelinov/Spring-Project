@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -34,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrderById(long orderId) {
         return this.orderRepository.findById(orderId)
-                .orElseThrow(() -> new ObjectNotFoundException("Order with " + orderId + "not exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Order with Id: " + orderId + " not exist!"));
     }
 
     @Override
@@ -50,11 +51,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderMovieDto getUnfinishedOrderByUser(String username) {
         UserEntity user = this.userService.getUserByUsername(username);
+
         Order order = user.getOrders()
                 .stream()
                 .filter(ord -> !ord.isFinished())
                 .findFirst()
                 .orElseThrow(() -> new ObjectNotFoundException("Order is not found!"));
+//        Order order = orderRepository.findAllByFinishedIsFalseAndUser_Id(user.getId())
+//                .stream()
+//                .filter(ord -> !ord.isFinished())
+//                .findFirst()
+//                .orElseThrow(() -> new ObjectNotFoundException("Order is not found!"));
 
         return this.mapOrderToOrderDto(order);
     }
