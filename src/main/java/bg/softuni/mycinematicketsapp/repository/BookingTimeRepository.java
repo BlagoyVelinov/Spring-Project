@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface BookingTimeRepository extends JpaRepository<BookingTime, Long> {
-    List<BookingTime> findAllByStartTimeIn(List<BookingTimeEnum> startMovieTimes);
+    List<BookingTime> findAllByBookingTimeIn(List<BookingTimeEnum> startMovieTimes);
 
-    BookingTime findByStartTime(BookingTimeEnum timeName);
+    BookingTime findByBookingTime(BookingTimeEnum timeName);
 
 }

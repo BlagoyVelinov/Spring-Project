@@ -103,10 +103,9 @@ ul, ol {
 }
 
 .tail-bottom {
-    background: url(../images/cinema-hall2.jpg) no-repeat center;
-    /*background:url(../images/tail-top.gif) left top repeat-x #1d1d1d;*/
+    /*background: url(../images/cinema-hall2.jpg) no-repeat center;*/
+    background: url(../images/cinema-hall2.jpg) no-repeat fixed center;
     background-size: cover;
-
 }
 
 #contacts-form {
@@ -922,15 +921,17 @@ element.style {
     display: none;
 }
 
-/*============================*/
+/*============================language bar*/
 .nav-item {
     /*color: white;*/
-    color: #a9a7a7;
+    color: #ffffff;
+    margin: -35px 0 0 -172px;
+
 }
 .item-lang {
     background-color: #0c4128;
     color: white;
     border-radius: 6px;
     border-color: royalblue;
-
+    font-size: 1.2em;
 }

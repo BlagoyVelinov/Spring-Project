@@ -2,9 +2,7 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
-import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
-import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.repository.BookingTimeRepository;
 import bg.softuni.mycinematicketsapp.services.BookingTimeService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
@@ -36,7 +34,7 @@ public class BookingTimeServiceImpl implements BookingTimeService {
 
     @Override
     public List<BookingTime> getBookingTimesByStartTime(BookingTimeDto bookingTimeDto) {
-        return this.bookingTimeRepository.findAllByStartTimeIn(bookingTimeDto.getStartMovieTimes());
+        return this.bookingTimeRepository.findAllByBookingTimeIn(bookingTimeDto.getStartMovieTimes());
     }
 
     @Override
@@ -48,6 +46,6 @@ public class BookingTimeServiceImpl implements BookingTimeService {
     @Override
     public BookingTimeEnum getBookingTimeEnumById(long timeId) {
         BookingTime byStartTime = this.getBookingTimeById(timeId);
-        return byStartTime.getStartTime();
+        return byStartTime.getBookingTime();
     }
 }

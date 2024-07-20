@@ -112,11 +112,11 @@
                                         <a class="h4">Coming soon</a>
                                         </th:block>
                                     <a th:if="${movieView.getBookingTimes().size() != 0}"
-                                       th:each="bookingTime : ${movieView.bookingTimes}"
+                                       th:each="bookTime : ${movieView.bookingTimes}"
 
                                        th:href="@{/program}"
                                        class="btn btn-primary btn-lg"
-                                       th:text="${bookingTime.bookingTime.value}"> 12:20 </a>
+                                       th:text="${bookTime.bookingTime.value}"> 12:20 </a>
                                     <!--th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}"-->
 
 

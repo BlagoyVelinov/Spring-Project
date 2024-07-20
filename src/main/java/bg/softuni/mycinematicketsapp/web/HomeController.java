@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -25,6 +26,10 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model) {
         Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
+//                .stream()
+//                .filter(movie -> movie.getBookingTimes().isEmpty())
+//                .limit(3)
+//                .collect(Collectors.toSet());
         model.addAttribute("allViewMovies", allMoviesView);
         return "index";
     }
