@@ -11,6 +11,7 @@ public enum Genre {
     HORROR("Horror"),
     MYSTERY("Mystery"),
     ROMANTIC("Romantic"),
+    DRAMA("Drama"),
     THRILLER("Thriller");
 
     private String value;

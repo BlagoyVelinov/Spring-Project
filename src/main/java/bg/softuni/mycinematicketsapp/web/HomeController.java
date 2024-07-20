@@ -1,13 +1,9 @@
 package bg.softuni.mycinematicketsapp.web;
 
-import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
