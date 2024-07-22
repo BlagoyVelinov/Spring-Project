@@ -12,6 +12,9 @@ public interface OrderService {
     OrderMovieDto getUnfinishedOrderByUser(String username);
 
     OrderMovieDto getOrderMovieById(long orderId, long movieId, long timeId);
+    OrderMovieDto getOrderMovieById(long orderId);
 
     void deleteAllNotFinishedOrders();
+
+    void addQuantityOfTickets(Integer quantity, long orderId, long movieId, long timeId);
 }

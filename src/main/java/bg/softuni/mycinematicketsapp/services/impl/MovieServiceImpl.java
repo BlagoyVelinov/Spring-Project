@@ -72,12 +72,17 @@ public class MovieServiceImpl implements MovieService {
                 .retrieve();
     }
     @Override
-    public BookingTime getBookingTimeById(long timeId) {
-        return this.moviesRestClient.get()
+    public BookingTimeDto getBookingTimeById(long timeId) {
+        BookingTimeDto bookingTime = this.moviesRestClient.get()
                 .uri("http://localhost:8081/movies/booking-time/{id}", timeId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(BookingTime.class);
+                .body(BookingTimeDto.class);
+
+        BookingTimeDto bookingTimeDto = new BookingTimeDto()
+                .setBookingTimeValue(bookingTime.getBookingTimeValue())
+                .setId(bookingTime.getId());
+        return bookingTimeDto;
     }
 
     @Override

@@ -1,11 +1,9 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
-import bg.softuni.mycinematicketsapp.models.entities.City;
-import bg.softuni.mycinematicketsapp.models.entities.Movie;
-import bg.softuni.mycinematicketsapp.models.entities.Order;
-import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
+import bg.softuni.mycinematicketsapp.models.entities.*;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
 import bg.softuni.mycinematicketsapp.services.MovieService;
@@ -64,9 +62,16 @@ public class OrderServiceImpl implements OrderService {
     public OrderMovieDto getOrderMovieById(long orderId, long movieId, long timeId) {
         Order order = this.getOrderById(orderId);
         MovieViewDto movieView = this.movieService.getMovieViewById(movieId);
+        BookingTimeDto bookingTime = this.movieService.getBookingTimeById(timeId);
         order.setMovieName(movieView.getName());
+        order.setBookingTime(bookingTime.getBookingTimeValue());
         this.orderRepository.save(order);
-        //TODO: change order in DB need to accept only movieName(anything else form movie will go to ticket)
+        return this.mapOrderToOrderDto(order);
+    }
+
+    @Override
+    public OrderMovieDto getOrderMovieById(long orderId) {
+        Order order = this.getOrderById(orderId);
         return this.mapOrderToOrderDto(order);
     }
 
@@ -82,12 +87,22 @@ public class OrderServiceImpl implements OrderService {
                 });
     }
 
+    @Override
+    public void addQuantityOfTickets(Integer quantity, long orderId, long movieId, long timeId) {
+        Order order = this.getOrderById(orderId);
+        order.setTicketsQuantity(quantity);
+        this.orderRepository.save(order);
+    }
+
     private OrderMovieDto mapOrderToOrderDto(Order order) {
         return new OrderMovieDto()
                 .setId(order.getId())
+                .setBookingTime(order.getBookingTime())
                 .setOrderNumber(order.getOrderNumber())
                 .setLocation(order.getCity().getLocation())
-                .setProjectionDate(order.getProjectionDate());
+                .setProjectionDate(order.getProjectionDate())
+                .setTicketsQuantity(order.getTicketsQuantity())
+                .setMovieViewName(order.getMovieName());
 //        return this.modelMapper.map(order, OrderMovieDto.class);
     }
 

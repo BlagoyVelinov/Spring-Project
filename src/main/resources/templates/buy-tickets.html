@@ -1,28 +1,32 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head data-lang="12"><title>
     Select Tickets
-</title><meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="/js/ticketSelection.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" language="javascript">
         var msgZeroSelection = "Няма избрани билети. Моля изберете билети.";
     </script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <link type="text/css" rel="stylesheet" href="/css/style-order.css" />
-    <link type="text/css" rel="stylesheet" href="/css/site.min.css" />
+    <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
 
 <body id="ctl00_pageBody" class="ltr">
 
-<a name="totop" href="#" id="totop"></a>
-<form name="aspnetForm" th:method="post" th:action="@{/order/buy-tickets}" th:object="${orderMovie}">
+<a name="totop" href="#" id="totop" th:object="${bookingTime}"></a>
 
-    <input type="hidden" name="hfSKey" id="hfSKey" value="|||||||||BGPlovdivPOW_res|280025|" />
-    <input type="hidden" value="DFBKCeC7" name="hfOIKey" id="hfOIKey" />
+<form name="aspnetForm"
+      th:method="patch"
+      th:action="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderMovie.id}, movieId=${movieView.id}, timeId=${bookingTime.id})}"
+      th:object="${orderMovie}">
+
+    <input type="hidden" name="hfSKey" id="hfSKey" value="|||||||||BGPlovdivPOW_res|280025|"/>
+    <input type="hidden" value="DFBKCeC7" name="hfOIKey" id="hfOIKey"/>
     <div id="pagecontainer" class="pagecontainer selectticketspageres">
         <div class="wrap">
             <div id="header">
@@ -31,7 +35,7 @@
             <div style="clear: both;"></div>
             <div class="steps">
                 <div class="step onstep"><span>1</span><label>Избор на билет</label></div>
-                <div class="step"><span>2</span><label>Поръчка</label></div>
+                <div class="step"><span>2</span><label>Избор на места</label></div>
                 <div class="step"><span>3</span><label>Потвърждение</label></div>
                 <div class="step last"><span>4</span><label>Завършване на поръчката</label></div>
                 <div class="clear"></div>
@@ -56,16 +60,18 @@
             <div class="sidebar">
 
                 <div class="selectionInfo" th:object="${movieView}">
-                    <div class="selectionInfoInner" th:object="${bookingTime}">
+                    <div class="selectionInfoInner">
                         <div class="movieName">
                             <h3 th:text="${movieView.name}">NameMovie</h3>
                         </div>
-                        <div class="eventdate" th:text="|${orderMovie.projectionDate} ${bookingTime.value}|"> сряда 10/07/2024 18:00
+                        <div class="eventdate" th:text="|${orderMovie.projectionDate} ${orderMovie.bookingTime}|"> сряда
+                            10/07/2024 18:00
                         </div>
                         <div class="siteinfo">
                             <span th:text="${orderMovie.location.value}">CC Plovdiv</span><br/>
                             <span th:text="|Зала: ${movieView.hallNumber.value}|">Зала 5</span><br/>
-                            <span id="rating" class="rating restricted" th:text="|Категория: ${movieView.movieClass.description}|">Категория: категория X</span>
+                            <span id="rating" class="rating restricted"
+                                  th:text="|Категория: ${movieView.movieClass.description}|">Категория: категория X</span>
                         </div>
                         <div class="more-info">
 
@@ -82,106 +88,139 @@
                     <div class="ticketGroupDescription"></div>
                     <div id="smcontainer"></div>
                     <div>
-                        <table class="ticketTable" cellspacing="0" rules="all" border="0" id="TicketsSelection" style="border-width:0px;border-collapse:collapse;">
+                        <table class="ticketTable" cellspacing="0" rules="all" border="0" id="TicketsSelection"
+                               style="border-width:0px;border-collapse:collapse;">
                             <tr class="header">
-                                <th scope="col">Вид</th><th class="TicketsSelectionPriceHeader" scope="col">Цена</th><th scope="col">Адм. Такса</th><th scope="col">К-во</th>
-                            </tr><tr class="TT_2">
-                            <td>
-                                <div class="type-ticket"><span id="childTicketName">Детски делник</span></div>
-                            </td><td>
-                            <span id="childPrice">12.50 лв</span>
-                        </td><td>
-                            <span id="childServiceCharge">0.80 лв</span>
-                        </td><td>
-                            <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl02$ddQunatity" id="ddQunatity_0" class="ddlTicketQuantity">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </td>
-                        </tr><tr class="TT_12">
-                            <td>
-                                <div class="type-ticket"><span id="studentTicketName">Ученици и Студенти делник</span></div>
-                            </td><td>
-                            <span id="studentPrice">12.50 лв</span>
-                        </td><td>
-                            <span id="studentServiceCharge">0.80 лв</span>
-                        </td><td>
-                            <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl03$ddQunatity" id="ddQunatity_1" class="ddlTicketQuantity">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </td>
-                        </tr><tr class="TT_3">
-                            <td>
-                                <div class="type-ticket"><span id="aged60TicketName">Лица 60 делник</span></div>
-                            </td><td>
-                            <span id="aged60Price">12.50 лв</span>
-                        </td><td>
-                            <span id="aged60ServiceCharge">0.80 лв</span>
-                        </td><td>
-                            <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl04$ddQunatity" id="ddQunatity_2" class="ddlTicketQuantity">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </td>
-                        </tr><tr class="TT_1">
-                            <td>
-                                <div class="type-ticket"><span id="regularTicketName">Редовен делник</span></div>
-                            </td><td>
-                            <span id="regularPrice">15.50 лв</span>
-                        </td><td>
-                            <span id="regularServiceCharge">0.80 лв</span>
-                        </td><td>
-                            <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl05$ddQunatity" id="ddQunatity_3" class="ddlTicketQuantity">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </td>
-                        </tr>
+                                <th scope="col">Вид</th>
+                                <th class="TicketsSelectionPriceHeader" scope="col">Цена</th>
+                                <th scope="col">Адм. Такса</th>
+                                <th scope="col">К-во</th>
+                            </tr>
+                            <tr class="TT_2">
+                                <td>
+                                    <div class="type-ticket"><span id="childTicketName">Детски делник</span></div>
+                                </td>
+                                <td>
+                                    <span id="childPrice">12.50 лв</span>
+                                </td>
+                                <td>
+                                    <span id="childServiceCharge">0.80 лв</span>
+                                </td>
+                                <td>
+                                    <label for="ticketsQuantity"></label>
+                                    <select name="ticketsQuantity"
+                                            id="ticketsQuantity"
+                                            class="ddlTicketQuantity"
+                                            th:field="*{ticketsQuantity}">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <small th:if="${#fields.hasErrors('ticketsQuantity')}"
+                                           th:errors="*{ticketsQuantity}" class="text-danger">Tickets quantity error
+                                        message</small>
+                                </td>
+                            </tr>
+                            <tr class="TT_12">
+                                <td>
+                                    <div class="type-ticket"><span
+                                            id="studentTicketName">Ученици и Студенти делник</span></div>
+                                </td>
+                                <td>
+                                    <span id="studentPrice">12.50 лв</span>
+                                </td>
+                                <td>
+                                    <span id="studentServiceCharge">0.80 лв</span>
+                                </td>
+                                <td>
+                                    <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl03$ddQunatity"
+                                            id="ddQunatity_1" class="ddlTicketQuantity">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="TT_3">
+                                <td>
+                                    <div class="type-ticket"><span id="aged60TicketName">Лица 60 делник</span></div>
+                                </td>
+                                <td>
+                                    <span id="aged60Price">12.50 лв</span>
+                                </td>
+                                <td>
+                                    <span id="aged60ServiceCharge">0.80 лв</span>
+                                </td>
+                                <td>
+                                    <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl04$ddQunatity"
+                                            id="ddQunatity_2" class="ddlTicketQuantity">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="TT_1">
+                                <td>
+                                    <div class="type-ticket"><span id="regularTicketName">Редовен делник</span></div>
+                                </td>
+                                <td>
+                                    <span id="regularPrice">15.50 лв</span>
+                                </td>
+                                <td>
+                                    <span id="regularServiceCharge">0.80 лв</span>
+                                </td>
+                                <td>
+                                    <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl05$ddQunatity"
+                                            id="ddQunatity_3" class="ddlTicketQuantity">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </td>
+                            </tr>
                         </table>
                     </div>
-                    <input type="hidden" name="ctl00$CPH1$SelectTicketControl$TicketGroupId" id="ctl00_CPH1_SelectTicketControl_TicketGroupId" />
-                    <input type="hidden" name="ctl00$CPH1$SelectTicketControl$hdnSelectedTicketGroupIdInTicketMode" id="ctl00_CPH1_SelectTicketControl_hdnSelectedTicketGroupIdInTicketMode" />
+                    <input type="hidden" name="ctl00$CPH1$SelectTicketControl$TicketGroupId"
+                           id="ctl00_CPH1_SelectTicketControl_TicketGroupId"/>
+                    <input type="hidden" name="ctl00$CPH1$SelectTicketControl$hdnSelectedTicketGroupIdInTicketMode"
+                           id="ctl00_CPH1_SelectTicketControl_hdnSelectedTicketGroupIdInTicketMode"/>
                     <div class="actionHolder">
                         <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link" href="/program">Назад</a>
-                        <a id="lbSelectSeats" class="actionBtn" th:href="@{/order/select-seats}">Избор на места</a>
-<!--href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$lbSelectSeats&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))"-->
+                        <input type="submit" class="actionBtn" value="Chose Seats"/>
+                        <!--href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$lbSelectSeats&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))"-->
                     </div>
                 </div>
             </div>

@@ -70,7 +70,7 @@
                                 <div data-v-048a28f8="" tabindex="0" class="npm-quickbook">
                                     <a th:each="bookingTime : ${movieView.bookingTimes}"
                                        th:href="@{/tickets/buy-tickets}"
-                                       class="btn btn-primary btn-lg" th:text="${bookingTime.bookingTime}"> 12:20 </a>
+                                       class="btn btn-primary btn-lg" th:text="${bookingTime.bookingTime.value}"> 12:20 </a>
                                     <div class="form-group">
                                     <div class="text-white label-holder d-flex justify-content-center">
                                         <label for="startMovie" class="h4 mb-2"></label>

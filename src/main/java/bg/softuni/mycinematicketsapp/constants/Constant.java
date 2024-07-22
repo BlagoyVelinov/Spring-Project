@@ -8,6 +8,8 @@ public class Constant {
     public static final String MOVIE_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.createMovie";
     public static final String ORDER_ATTRIBUTE_NAME = "createOrder";
     public static final String ORDER_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.createOrder";
+    public static final String TICKET_ATTRIBUTE_NAME = "createTicket";
+    public static final String TICKET_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.createTicket";
     public static final String BAD_CREDENTIALS = "badCredentials";
 
 
@@ -21,5 +23,7 @@ public class Constant {
     public static final String REDIRECT_PROGRAM = "redirect:/program";
     public static final String REDIRECT_PROGRAM_ORDER_TICKETS = "redirect:/program/order-tickets";
     public static final String REDIRECT_UPDATE_BOOKING_TIME = "redirect:/program/update-projection-time/{id}";
+    public static final String REDIRECT_BUY_TICKETS = "redirect:/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}";
     public static final String REDIRECT_ADD_MOVIE = "redirect:/movies/add-movie";
+    public static final String REDIRECT_SELECT_SEATS = "redirect:/order/select-seats/{orderId}/movie/{movieId}";
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BookingTimeDto {
     private long id;
+    private String bookingTimeValue;
     @NotEmpty(message = "You must select at least one booking time!")
     private List<BookingTimeEnum> startMovieTimes;
 
@@ -21,6 +22,15 @@ public class BookingTimeDto {
 
     public BookingTimeDto setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getBookingTimeValue() {
+        return bookingTimeValue;
+    }
+
+    public BookingTimeDto setBookingTimeValue(String bookingTimeValue) {
+        this.bookingTimeValue = bookingTimeValue;
         return this;
     }
 

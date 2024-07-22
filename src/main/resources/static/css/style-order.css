@@ -464,6 +464,57 @@ a.cancelBtn, a.backBtn {
     cursor: pointer;
 }
 
+/*=============================== Chose Seats*/
+input.actionBtn {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #f5821e;
+    color: #ffffff;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    float: right
+}
+
+input.actionBtn:hover {
+    background-color: #e26304
+}
+
+input.cancelBtn, input.backBtn {
+    display: inline-block;
+    padding: 5px 25px;
+    background-color: #f5821e;
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+    line-height: normal;
+    cursor: pointer;
+}
+input.actionBtn {
+    display: inline-block;
+    padding: 18px 30px;
+    background-color: #f5821e;
+    color: #000;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    float: right;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 18px;
+    border: solid 1px #ececec;
+    margin-bottom: 10px
+}
+
+input.actionBtn:hover {
+    background-color: #c26717 !important;
+    color: #000;
+    border: solid 1px #ddd
+}
+/*===============================*/
 a.cancelBtn:hover, a.backBtn:hover {
     background-color: #e26304
 }

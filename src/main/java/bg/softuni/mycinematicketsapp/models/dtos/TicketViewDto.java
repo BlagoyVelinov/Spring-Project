@@ -5,19 +5,22 @@ import bg.softuni.mycinematicketsapp.models.entities.City;
 import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public class TicketDto {
+public class TicketViewDto {
     private long id;
     private String movieName;
     private HallNumber hallNumber;
     private Integer numberOfSeat;
+    @NotNull
     private Integer numberOfRow;
     private Double price;
     private LocalDateTime projectionDate;
+    @NotNull
     private TicketType ticketType;
-    private BookingTime bookingTime;
+    private String bookingTime;
     private String city;
     private String movieClass;
 
@@ -25,7 +28,7 @@ public class TicketDto {
         return id;
     }
 
-    public TicketDto setId(long id) {
+    public TicketViewDto setId(long id) {
         this.id = id;
         return this;
     }
@@ -34,7 +37,7 @@ public class TicketDto {
         return movieName;
     }
 
-    public TicketDto setMovieName(String movieName) {
+    public TicketViewDto setMovieName(String movieName) {
         this.movieName = movieName;
         return this;
     }
@@ -43,7 +46,7 @@ public class TicketDto {
         return hallNumber;
     }
 
-    public TicketDto setHallNumber(HallNumber hallNumber) {
+    public TicketViewDto setHallNumber(HallNumber hallNumber) {
         this.hallNumber = hallNumber;
         return this;
     }
@@ -52,7 +55,7 @@ public class TicketDto {
         return numberOfSeat;
     }
 
-    public TicketDto setNumberOfSeat(Integer numberOfSeat) {
+    public TicketViewDto setNumberOfSeat(Integer numberOfSeat) {
         this.numberOfSeat = numberOfSeat;
         return this;
     }
@@ -61,7 +64,7 @@ public class TicketDto {
         return numberOfRow;
     }
 
-    public TicketDto setNumberOfRow(Integer numberOfRow) {
+    public TicketViewDto setNumberOfRow(Integer numberOfRow) {
         this.numberOfRow = numberOfRow;
         return this;
     }
@@ -70,7 +73,7 @@ public class TicketDto {
         return price;
     }
 
-    public TicketDto setPrice(Double price) {
+    public TicketViewDto setPrice(Double price) {
         this.price = price;
         return this;
     }
@@ -79,7 +82,7 @@ public class TicketDto {
         return projectionDate;
     }
 
-    public TicketDto setProjectionDate(LocalDateTime projectionDate) {
+    public TicketViewDto setProjectionDate(LocalDateTime projectionDate) {
         this.projectionDate = projectionDate;
         return this;
     }
@@ -88,16 +91,16 @@ public class TicketDto {
         return ticketType;
     }
 
-    public TicketDto setTicketType(TicketType ticketType) {
+    public TicketViewDto setTicketType(TicketType ticketType) {
         this.ticketType = ticketType;
         return this;
     }
 
-    public BookingTime getBookingTime() {
+    public String getBookingTime() {
         return bookingTime;
     }
 
-    public TicketDto setBookingTime(BookingTime bookingTime) {
+    public TicketViewDto setBookingTime(String bookingTime) {
         this.bookingTime = bookingTime;
         return this;
     }
@@ -106,7 +109,7 @@ public class TicketDto {
         return city;
     }
 
-    public TicketDto setCity(String city) {
+    public TicketViewDto setCity(String city) {
         this.city = city;
         return this;
     }
@@ -115,7 +118,7 @@ public class TicketDto {
         return movieClass;
     }
 
-    public TicketDto setMovieClass(String movieClass) {
+    public TicketViewDto setMovieClass(String movieClass) {
         this.movieClass = movieClass;
         return this;
     }

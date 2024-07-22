@@ -32,7 +32,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
     @OneToMany
-    private Set<Ticket> tickets;
+    private List<Ticket> tickets;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -44,7 +44,7 @@ public class UserEntity extends BaseEntity {
     private Set<Order> orders;
 
     public UserEntity() {
-        this.tickets = new HashSet<>();
+        this.tickets = new ArrayList<>();
         this.roles = new ArrayList<>();
         this.orders = new HashSet<>();
     }
@@ -130,11 +130,11 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public Set<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public UserEntity setTickets(Set<Ticket> tickets) {
+    public UserEntity setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
         return this;
     }

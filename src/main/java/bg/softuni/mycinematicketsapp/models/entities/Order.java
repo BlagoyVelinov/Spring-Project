@@ -20,10 +20,14 @@ public class Order extends BaseEntity {
     @Column(name = "projection_date")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate projectionDate;
+    @Column(name = "tickets_quantity")
+    private int ticketsQuantity;
     @Column(name = "is_finished")
     private boolean isFinished;
     @Column
     private String movieName;
+    @Column(name = "booking_time")
+    private String bookingTime;
     @ManyToOne
     private City city;
     @OneToMany
@@ -67,6 +71,15 @@ public class Order extends BaseEntity {
         return this;
     }
 
+    public int getTicketsQuantity() {
+        return ticketsQuantity;
+    }
+
+    public Order setTicketsQuantity(int ticketsQuantity) {
+        this.ticketsQuantity = ticketsQuantity;
+        return this;
+    }
+
     public boolean isFinished() {
         return isFinished;
     }
@@ -91,6 +104,15 @@ public class Order extends BaseEntity {
 
     public Order setCity(City city) {
         this.city = city;
+        return this;
+    }
+
+    public String getBookingTime() {
+        return bookingTime;
+    }
+
+    public Order setBookingTime(String bookingTime) {
+        this.bookingTime = bookingTime;
         return this;
     }
 

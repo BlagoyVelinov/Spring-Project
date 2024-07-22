@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.models.dtos;
 
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,7 +16,11 @@ public class OrderMovieDto {
     private long id;
     private String movieViewName;
     private String orderNumber;
-    private List<TicketDto> tickets;
+
+    private int ticketsQuantity;
+
+    private String bookingTime;
+    private List<TicketViewDto> tickets;
     @NotNull(message = "You need select a projection date.")
     @FutureOrPresent(message = "The date cannot be in the past!")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -73,11 +78,29 @@ public class OrderMovieDto {
         return this;
     }
 
-    public List<TicketDto> getTickets() {
+    public int getTicketsQuantity() {
+        return ticketsQuantity;
+    }
+
+    public OrderMovieDto setTicketsQuantity(int ticketsQuantity) {
+        this.ticketsQuantity = ticketsQuantity;
+        return this;
+    }
+
+    public String getBookingTime() {
+        return bookingTime;
+    }
+
+    public OrderMovieDto setBookingTime(String bookingTime) {
+        this.bookingTime = bookingTime;
+        return this;
+    }
+
+    public List<TicketViewDto> getTickets() {
         return tickets;
     }
 
-    public OrderMovieDto setTickets(List<TicketDto> tickets) {
+    public OrderMovieDto setTickets(List<TicketViewDto> tickets) {
         this.tickets = tickets;
         return this;
     }

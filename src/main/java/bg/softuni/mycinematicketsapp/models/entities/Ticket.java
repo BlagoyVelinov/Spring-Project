@@ -4,6 +4,7 @@ import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,25 +15,25 @@ public class Ticket extends BaseEntity {
     private String movieName;
     @Column(name = "hall_number", nullable = false)
     private HallNumber hallNumber;
-    @Column(name = "number_of_seat", nullable = false)
+    @Column(name = "number_of_seat")
     private Integer numberOfSeat;
-    @Column(name = "number_of_row", nullable = false)
+    @Column(name = "number_of_row")
     private Integer numberOfRow;
+    @Column(name = "ticket_type_quantity")
+    private int ticketTypeQuantity;
     @Column(nullable = false)
     private Double price;
     @Column(name = "projection_date", nullable = false)
-    private LocalDateTime projectionDate;
+    private LocalDate projectionDate;
+    @Column
+    private String movieClassDescription;
+    @Column(name = "booking_time")
+    private String bookingTime;
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
-
-    @ManyToOne
-    private BookingTime bookingTime;
-
     @ManyToOne
     private City city;
 
-    @OneToOne
-    private MovieClass movieClass;
 
     public String getMovieName() {
         return movieName;
@@ -70,6 +71,15 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
+    public int getTicketTypeQuantity() {
+        return ticketTypeQuantity;
+    }
+
+    public Ticket setTicketTypeQuantity(int ticketTypeQuantity) {
+        this.ticketTypeQuantity = ticketTypeQuantity;
+        return this;
+    }
+
     public Double getPrice() {
         return price;
     }
@@ -79,12 +89,30 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public LocalDateTime getProjectionDate() {
+    public LocalDate getProjectionDate() {
         return projectionDate;
     }
 
-    public Ticket setProjectionDate(LocalDateTime projectionDate) {
+    public Ticket setProjectionDate(LocalDate projectionDate) {
         this.projectionDate = projectionDate;
+        return this;
+    }
+
+    public String getMovieClassDescription() {
+        return movieClassDescription;
+    }
+
+    public Ticket setMovieClassDescription(String movieClassDescription) {
+        this.movieClassDescription = movieClassDescription;
+        return this;
+    }
+
+    public String getBookingTime() {
+        return bookingTime;
+    }
+
+    public Ticket setBookingTime(String bookingTime) {
+        this.bookingTime = bookingTime;
         return this;
     }
 
@@ -97,14 +125,6 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public BookingTime getBookingTime() {
-        return bookingTime;
-    }
-
-    public Ticket setBookingTime(BookingTime bookingTime) {
-        this.bookingTime = bookingTime;
-        return this;
-    }
 
     public City getCity() {
         return city;
@@ -112,15 +132,6 @@ public class Ticket extends BaseEntity {
 
     public Ticket setCity(City city) {
         this.city = city;
-        return this;
-    }
-
-    public MovieClass getMovieClass() {
-        return movieClass;
-    }
-
-    public Ticket setMovieClass(MovieClass movieClass) {
-        this.movieClass = movieClass;
         return this;
     }
 }
