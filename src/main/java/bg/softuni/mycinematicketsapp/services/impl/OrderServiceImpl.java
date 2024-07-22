@@ -1,16 +1,17 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.models.entities.City;
+import bg.softuni.mycinematicketsapp.models.entities.Movie;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
+import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
-import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -20,16 +21,16 @@ import java.util.UUID;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final MovieService movieService;
     private final UserService userService;
     private final CityService cityService;
-    private final ModelMapper modelMapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserService userService,
-                            CityService cityService, ModelMapper modelMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, MovieService movieService,
+                            UserService userService, CityService cityService) {
         this.orderRepository = orderRepository;
+        this.movieService = movieService;
         this.userService = userService;
         this.cityService = cityService;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -43,9 +44,7 @@ public class OrderServiceImpl implements OrderService {
         UserEntity user = this.userService.getUserByUsername(username);
         Order order = this.mapOrderMovieDtoToOrder(createOrder, user);
 
-        if (order.getId() == 0) {
-            this.orderRepository.save(order);
-        }
+        this.orderRepository.save(order);
     }
 
     @Override
@@ -57,31 +56,30 @@ public class OrderServiceImpl implements OrderService {
                 .filter(ord -> !ord.isFinished())
                 .findFirst()
                 .orElseThrow(() -> new ObjectNotFoundException("Order is not found!"));
-//        Order order = orderRepository.findAllByFinishedIsFalseAndUser_Id(user.getId())
-//                .stream()
-//                .filter(ord -> !ord.isFinished())
-//                .findFirst()
-//                .orElseThrow(() -> new ObjectNotFoundException("Order is not found!"));
 
         return this.mapOrderToOrderDto(order);
     }
 
     @Override
     public OrderMovieDto getOrderMovieById(long orderId, long movieId, long timeId) {
-
-        return null;
+        Order order = this.getOrderById(orderId);
+        MovieViewDto movieView = this.movieService.getMovieViewById(movieId);
+        order.setMovieName(movieView.getName());
+        this.orderRepository.save(order);
+        //TODO: change order in DB need to accept only movieName(anything else form movie will go to ticket)
+        return this.mapOrderToOrderDto(order);
     }
 
 
     @Override
-    @Transactional
-    public void deleteOrderById(long orderId) {
-        Order order = this.getOrderById(orderId);
-        order.setUser(null)
-                .setMovie(null)
-                .setCity(null)
-                .setTickets(null);
-        this.orderRepository.delete(order);
+    //TODO: Use Scheduler to delete order every day at 00:00h
+    public void deleteAllNotFinishedOrders() {
+        List<Order> notFinishedOrders = this.orderRepository.findAll();
+        notFinishedOrders.stream()
+                .filter(order -> !order.isFinished())
+                .forEach(order -> {
+                    this.orderRepository.deleteById(order.getId());
+                });
     }
 
     private OrderMovieDto mapOrderToOrderDto(Order order) {
@@ -101,7 +99,10 @@ public class OrderServiceImpl implements OrderService {
                 .findFirst()
                 .orElse(null);
 
+
         if (order != null) {
+            order.setCity(city);
+            order.setProjectionDate(createOrder.getProjectionDate());
             return order;
         }
 

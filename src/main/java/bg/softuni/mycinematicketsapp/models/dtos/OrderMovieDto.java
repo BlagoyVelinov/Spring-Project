@@ -13,7 +13,7 @@ import java.util.UUID;
 public class OrderMovieDto {
 
     private long id;
-    private MovieViewDto movieView;
+    private String movieViewName;
     private String orderNumber;
     private List<TicketDto> tickets;
     @NotNull(message = "You need select a projection date.")
@@ -37,12 +37,12 @@ public class OrderMovieDto {
         return this;
     }
 
-    public MovieViewDto getMovieView() {
-        return movieView;
+    public String getMovieViewName() {
+        return movieViewName;
     }
 
-    public OrderMovieDto setMovieView(MovieViewDto movieView) {
-        this.movieView = movieView;
+    public OrderMovieDto setMovieViewName(String movieViewName) {
+        this.movieViewName = movieViewName;
         return this;
     }
 

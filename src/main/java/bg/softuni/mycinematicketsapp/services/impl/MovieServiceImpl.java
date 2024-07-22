@@ -3,11 +3,10 @@ package bg.softuni.mycinematicketsapp.services.impl;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.CreateMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.entities.*;
-import bg.softuni.mycinematicketsapp.models.enums.Genre;
+import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
+import bg.softuni.mycinematicketsapp.models.entities.Movie;
 import bg.softuni.mycinematicketsapp.repository.MovieRepository;
-import bg.softuni.mycinematicketsapp.services.*;
-import org.modelmapper.ModelMapper;
+import bg.softuni.mycinematicketsapp.services.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,43 +25,18 @@ public class MovieServiceImpl implements MovieService {
     private Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
     private final MovieRepository movieRepository;
     private final RestClient moviesRestClient;
-    private final CategoryService categoryService;
-    private final BookingTimeService bookingTimeService;
-    private final ModelMapper modelMapper;
-    private final MovieClassServiceImpl movieClassService;
 
     @Autowired
-    public MovieServiceImpl(MovieRepository movieRepository, @Qualifier("moviesRestClient") RestClient moviesRestClient,
-                            CategoryService categoryService, BookingTimeService bookingTimeService, ModelMapper modelMapper,
-                            MovieClassServiceImpl movieClassService) {
+    public MovieServiceImpl(MovieRepository movieRepository,
+                            @Qualifier("moviesRestClient") RestClient moviesRestClient) {
         this.movieRepository = movieRepository;
         this.moviesRestClient = moviesRestClient;
-        this.categoryService = categoryService;
-        this.bookingTimeService = bookingTimeService;
-        this.modelMapper = modelMapper;
-        this.movieClassService = movieClassService;
-    }
-
-    @Override
-    public List<Movie> getAllMovies() {
-        return this.movieRepository.findAll();
-    }
-
-    @Override
-    public Movie getMovieById(long id) {
-        return this.movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie is not found!"));
     }
 
     @Override
     public void movieCreate(CreateMovieDto createMovie) {
-//        List<Category> categories = this.categoryService.getCategoryByGenre(createMovie.getGenreCategories());
-//        MovieClass movieClass = this.movieClassService.getMovieClassByName(createMovie.getMovieClass());
-//        Movie movie = this.modelMapper.map(createMovie, Movie.class);
-//        movie.setGenreCategories(categories)
-//                .setMovieClass(movieClass);
-//
-//        this.movieRepository.save(movie);
         LOGGER.info("Creating new movie...->");
+
         this.moviesRestClient.post()
                 .uri("http://localhost:8081/movies/add-movie")
                 .body(createMovie)
@@ -71,10 +45,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Set<MovieViewDto> getAllMoviesView() {
-        List<Movie> movies = this.getAllMovies();
-//        return movies.stream()
-//                .map(this::mapMovieToMovieViewDto)
-//                .collect(Collectors.toSet());
+        LOGGER.info("getAllMovies...->");
 
         return this.moviesRestClient.get()
                 .uri("http://localhost:8081/movies")
@@ -93,36 +64,40 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void addBookingTimes(long movieId, BookingTimeDto bookingTimeDto) {
-        Movie movie = this.getMovieById(movieId);
-        List<BookingTime> bookingTimes = this.bookingTimeService.getBookingTimesByStartTime(bookingTimeDto);
-        movie.setBookingTimes(bookingTimes);
-        this.movieRepository.save(movie);
+        LOGGER.info("addBookingTimes...->");
+
+        this.moviesRestClient.put()
+                .uri("http://localhost:8081/movies/update-projection-time/{id}", movieId)
+                .body(bookingTimeDto)
+                .retrieve();
+    }
+    @Override
+    public BookingTime getBookingTimeById(long timeId) {
+        return this.moviesRestClient.get()
+                .uri("http://localhost:8081/movies/booking-time/{id}", timeId)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(BookingTime.class);
     }
 
     @Override
     public void deleteMovieById(long movieId) {
-        Movie movie = this.getMovieById(movieId);
-        List<BookingTime> bookingTimes = movie.getBookingTimes();
-        List<Category> genreCategories = movie.getGenreCategories();
-        movie.getGenreCategories().removeAll(genreCategories);
-        movie.getBookingTimes().removeAll(bookingTimes);
-        this.movieRepository.deleteById(movieId);
+        LOGGER.info("deleteMovieById...->");
+        this.moviesRestClient.delete()
+                .uri("http://localhost:8081/movies//delete-movie/{id}", movieId)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve();
     }
 
     @Override
     public MovieViewDto getMovieViewById(long movieId) {
-        Movie movie = this.getMovieById(movieId);
-        return this.mapMovieToMovieViewDto(movie);
-    }
+        LOGGER.info("addBookingTimes...->");
 
-    private MovieViewDto mapMovieToMovieViewDto(Movie movie) {
-        List<Genre> genreCategories = movie.getGenreCategories()
-                .stream().map(Category::getName)
-                .toList();
-        MovieClass movieClass = movie.getMovieClass();
-        return this.modelMapper.map(movie, MovieViewDto.class)
-                .setGenreCategories(genreCategories)
-                .setMovieClass(movieClass);
+        return this.moviesRestClient.get()
+                .uri("http://localhost:8081/movies/movie/{id}", movieId)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(MovieViewDto.class);
     }
 
 }

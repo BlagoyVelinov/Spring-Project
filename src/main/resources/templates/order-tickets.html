@@ -24,18 +24,13 @@
                         </div>
                     </div>
                 <div class="content" th:object="${orderMovie}">
-                    <form th:method="delete" th:action="@{/program/order-tickets/{orderId}(orderId=${orderMovie.id})}">
-                        <div class="button-holder d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary btn-lg">Cancel Order</button>
-                        </div>
-                    </form>
                     <!--                    <div id="displayDate"></div>-->
                     <h4 th:text="${orderMovie.projectionDate}">Choose a date</h4>
                     <h4 th:text="${orderMovie.location.value}">Choose a town</h4>
                     <ul class="list">
-                        <li th:each="movieView : ${allViewMovies}" class="movieList"><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px"
-                                                   height="219px"/>
-                            <a th:href="@{/trailer/{movieId}(movieId=${movieView.id})}" th:text="${movieView.name}"
+                        <li th:each="movieView : ${allViewMovies}" class="movieList">
+                            <img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px" height="219px"/>
+                            <a th:href="@{/trailer/{movieId}(movieId=*{id})}" th:text="${movieView.name}"
                                class="title-movie">Name of movie</a><br/>
                             <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
                             <span data-v-048a28f8="" class="qb-movie-rating-info">
@@ -61,7 +56,7 @@
                                     <a th:if="${movieView.getBookingTimes().size() != 0}"
                                        th:each="bookTime : ${movieView.bookingTimes}"
 
-                                       th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderMovie.id}, movieId=${movieView.id}, timeId=${bookingTime.id})}"
+                                       th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderMovie.id}, movieId=${movieView.id}, timeId=${bookTime.id})}"
                                        class="btn btn-primary btn-lg"
                                        th:text="${bookTime.bookingTime.value}"> 12:20 </a>
                                     <!--th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}"-->
@@ -70,11 +65,11 @@
 
                                     <th:block sec:authorize="isAuthenticated()">
                                     <a sec:authorize="hasRole('ADMINISTRATOR')"
-                                       th:href="@{/program/update-projection-time/{movieId}(movieId=${movieView.id})}"
+                                       th:href="@{/program/update-projection-time/{movieId}(movieId=*{id})}"
                                        class="btn btn-primary btn-lg"> Update projection time </a>
 
                                         <form th:method="delete"
-                                              th:action="@{/movies/delete-movie/{movieId}(movieId=${movieView.id})}">
+                                              th:action="@{/movies/delete-movie/{movieId}(movieId=*{id})}">
                                             <div class="button-holder d-flex justify-content-center">
                                                 <button type="submit" class="btn btn-info mb-3">Delete Movie</button>
                                             </div>

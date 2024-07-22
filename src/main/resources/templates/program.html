@@ -26,14 +26,14 @@
                                         <div class="col">
                                             <label for="dateInput"></label>
                                             <input type="date" name="dateInput"
-                                                id="dateInput"
-                                                class="form-control"
-                                                placeholder="Select a date"
-                                            th:field="*{projectionDate}">
+                                                   id="dateInput"
+                                                   class="form-control"
+                                                   placeholder="Select a date"
+                                                   th:field="*{projectionDate}">
 
 
                                             <small th:if="${#fields.hasErrors('projectionDate')}"
-                                            th:errors="*{projectionDate}" class="text-danger">
+                                                   th:errors="*{projectionDate}" class="text-danger">
                                                 Reserved date cannot be in the past</small>
                                         </div>
 
@@ -63,9 +63,9 @@
 
                                         </div>
 
-                                    <div class="button-holder d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                    </div>
+                                        <div class="button-holder d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        </div>
 
                                     </form>
 

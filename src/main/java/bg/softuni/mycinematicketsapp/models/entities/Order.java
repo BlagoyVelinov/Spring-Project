@@ -22,6 +22,8 @@ public class Order extends BaseEntity {
     private LocalDate projectionDate;
     @Column(name = "is_finished")
     private boolean isFinished;
+    @Column
+    private String movieName;
     @ManyToOne
     private City city;
     @OneToMany
@@ -32,8 +34,6 @@ public class Order extends BaseEntity {
     private List<Ticket> tickets;
     @ManyToOne
     private UserEntity user;
-    @ManyToOne
-    private Movie movie;
 
     public Order() {
         this.tickets = new ArrayList<>();
@@ -76,6 +76,15 @@ public class Order extends BaseEntity {
         return this;
     }
 
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public Order setMovieName(String movieName) {
+        this.movieName = movieName;
+        return this;
+    }
+
     public City getCity() {
         return city;
     }
@@ -103,12 +112,4 @@ public class Order extends BaseEntity {
         return this;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public Order setMovie(Movie movie) {
-        this.movie = movie;
-        return this;
-    }
 }

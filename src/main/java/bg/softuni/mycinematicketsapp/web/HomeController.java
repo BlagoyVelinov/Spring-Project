@@ -1,9 +1,12 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +29,6 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model) {
         Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
-//                .stream()
-//                .filter(movie -> movie.getBookingTimes().isEmpty())
-//                .limit(3)
-//                .collect(Collectors.toSet());
         model.addAttribute("allViewMovies", allMoviesView);
         return "index";
     }

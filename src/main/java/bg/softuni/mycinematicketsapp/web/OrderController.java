@@ -30,8 +30,10 @@ public class OrderController {
     public String buyTickets(@PathVariable long orderId, @PathVariable long movieId, @PathVariable long timeId, Model model) {
 
         OrderMovieDto orderMovie = this.orderService.getOrderMovieById(orderId, movieId, timeId);
+        model.addAttribute("orderMovie", orderMovie);
 
-        BookingTimeEnum bookingTime = this.bookingTimeService.getBookingTimeEnumById(timeId);
+
+        BookingTimeEnum bookingTime = this.movieService.getBookingTimeById(timeId).getBookingTime();
         model.addAttribute("bookingTime", bookingTime);
 
         MovieViewDto movieView = this.movieService.getMovieViewById(movieId);

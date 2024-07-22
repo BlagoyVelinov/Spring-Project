@@ -27,9 +27,9 @@ public class FirstInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         this.userRoleService.initRoleInDb();
-        this.categoryService.initCategoryInDb();
-        this.movieClassService.initMovieClassesInDb();
-        this.bookingTimeService.initStartProjectionTimesInDb();
+//        this.categoryService.initCategoryInDb();
+//        this.movieClassService.initMovieClassesInDb();
+//        this.bookingTimeService.initStartProjectionTimesInDb();
         this.cityService.initCitiesNamesInDb();
     }
 

@@ -8,6 +8,7 @@ import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
+import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -19,11 +20,9 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -41,6 +40,8 @@ class OrderServiceImplTest {
     @Mock
     private OrderRepository mockOrderRepository;
     @Mock
+    private MovieService mockMovieService;
+    @Mock
     private UserRepository mockUserRepository;
     @Mock
     private CityService mockCityService;
@@ -50,10 +51,11 @@ class OrderServiceImplTest {
 
         this.toTest = new OrderServiceImpl(
                 this.mockOrderRepository,
+                this.mockMovieService,
                 this.mockUserService,
-                this.mockCityService,
-                new ModelMapper()
+                this.mockCityService
         );
+        this.userEntityCaptor = ArgumentCaptor.forClass(UserEntity.class);
 
     }
 
@@ -97,20 +99,19 @@ class OrderServiceImplTest {
         OrderMovieDto orderMovieDto = createTestOrderMovie();
         UserEntity userEntity = createTestUserEntity();
 
+        this.saveOrderToMockDb(userEntity, orderMovieDto);
 
-        when(this.mockUserService.getUserByUsername(userEntity.getUsername()))
-                .thenReturn(new UserEntity());
-        when(this.mockCityService.getCityByCityName(orderMovieDto.getLocation()))
-                .thenReturn(new City(orderMovieDto.getLocation()));
-
-        // Act
-        this.toTest.createUserOrder(orderMovieDto, userEntity.getUsername());
-        // Assert
-        verify(this.mockOrderRepository).save(orderEntityCaptor.capture());
-
-        Order actualOrder = this.orderEntityCaptor.getValue();
-        userEntity.setOrders(Set.of(actualOrder));
+        Order actualOrder = orderEntityCaptor.getValue();
         actualOrder.setUser(userEntity);
+
+        Mockito.when(this.mockOrderRepository.findById(actualOrder.getId())).thenReturn(Optional.of(actualOrder));
+
+        Order orderById = this.toTest.getOrderById(actualOrder.getId());
+        // Act
+        OrderMovieDto unfinishedOrderByUser = this.toTest.getUnfinishedOrderByUser(userEntity.getUsername());
+        // Assert
+
+        Assertions.assertNotNull(unfinishedOrderByUser);
 
     }
     @Test
@@ -141,8 +142,14 @@ class OrderServiceImplTest {
         userEntity.setUsername("pesho");
         return userEntity;
     }
+
+    private Order createTestOrder(OrderMovieDto orderMovieDto) {
+        City city = new City(orderMovieDto.getLocation());
+        return new Order()
+                .setOrderNumber(orderMovieDto.getOrderNumber())
+                .setCity(city);
+    }
     private OrderMovieDto createTestOrderMovie() {
-        UserEntity user = createTestUserEntity();
         OrderMovieDto orderMovieDto = new OrderMovieDto();
         orderMovieDto.setLocation(CityName.SOFIA);
         orderMovieDto.setProjectionDate(LocalDate.of(2024, 8,12));

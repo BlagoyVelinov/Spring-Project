@@ -32,7 +32,6 @@ public class ProgramController {
         this.orderService = orderService;
     }
 
-
     @ModelAttribute("bookingTimes")
     public BookingTimeDto initBookingTimes() {
         return new BookingTimeDto();
@@ -80,9 +79,9 @@ public class ProgramController {
         return Constant.REDIRECT_PROGRAM_ORDER_TICKETS;
     }
 
-    @DeleteMapping("/order-tickets/{id}")
-    public String cancelOrder(@PathVariable long id) {
-        this.orderService.deleteOrderById(id);
+    @DeleteMapping("/order-tickets")
+    public String cancelOrder() {
+        this.orderService.deleteAllNotFinishedOrders();
         return Constant.REDIRECT_PROGRAM;
     }
 

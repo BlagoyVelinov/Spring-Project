@@ -13,5 +13,5 @@ public interface OrderService {
 
     OrderMovieDto getOrderMovieById(long orderId, long movieId, long timeId);
 
-    void deleteOrderById(long orderId);
+    void deleteAllNotFinishedOrders();
 }

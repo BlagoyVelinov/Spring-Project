@@ -19,7 +19,7 @@
 <body id="ctl00_pageBody" class="ltr">
 
 <a name="totop" href="#" id="totop"></a>
-<form name="aspnetForm" th:method="patch" th:action="@{/order/buy-tickets}">
+<form name="aspnetForm" th:method="post" th:action="@{/order/buy-tickets}" th:object="${orderMovie}">
 
     <input type="hidden" name="hfSKey" id="hfSKey" value="|||||||||BGPlovdivPOW_res|280025|" />
     <input type="hidden" value="DFBKCeC7" name="hfOIKey" id="hfOIKey" />
@@ -58,12 +58,12 @@
                 <div class="selectionInfo" th:object="${movieView}">
                     <div class="selectionInfoInner" th:object="${bookingTime}">
                         <div class="movieName">
-                            <h3 th:text="${movieView.name}">Maxxxine</h3>
+                            <h3 th:text="${movieView.name}">NameMovie</h3>
                         </div>
-                        <div class="eventdate" th:text="|сряда 10/07/2024 ${bookingTime.value}|"> сряда 10/07/2024 18:00
+                        <div class="eventdate" th:text="|${orderMovie.projectionDate} ${bookingTime.value}|"> сряда 10/07/2024 18:00
                         </div>
                         <div class="siteinfo">
-                            <span>CC Plovdiv</span><br/>
+                            <span th:text="${orderMovie.location.value}">CC Plovdiv</span><br/>
                             <span th:text="|Зала: ${movieView.hallNumber.value}|">Зала 5</span><br/>
                             <span id="rating" class="rating restricted" th:text="|Категория: ${movieView.movieClass.description}|">Категория: категория X</span>
                         </div>
