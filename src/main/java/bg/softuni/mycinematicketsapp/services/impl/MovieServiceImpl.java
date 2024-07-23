@@ -4,8 +4,6 @@ import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.CreateMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
-import bg.softuni.mycinematicketsapp.models.entities.Movie;
-import bg.softuni.mycinematicketsapp.repository.MovieRepository;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,20 +14,16 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class MovieServiceImpl implements MovieService {
     private Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
-    private final MovieRepository movieRepository;
     private final RestClient moviesRestClient;
 
     @Autowired
-    public MovieServiceImpl(MovieRepository movieRepository,
-                            @Qualifier("moviesRestClient") RestClient moviesRestClient) {
-        this.movieRepository = movieRepository;
+    public MovieServiceImpl(@Qualifier("moviesRestClient") RestClient moviesRestClient) {
         this.moviesRestClient = moviesRestClient;
     }
 
@@ -73,14 +67,14 @@ public class MovieServiceImpl implements MovieService {
     }
     @Override
     public BookingTimeDto getBookingTimeById(long timeId) {
-        BookingTimeDto bookingTime = this.moviesRestClient.get()
+        BookingTime bookingTime = this.moviesRestClient.get()
                 .uri("http://localhost:8081/movies/booking-time/{id}", timeId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(BookingTimeDto.class);
+                .body(BookingTime.class);
 
         BookingTimeDto bookingTimeDto = new BookingTimeDto()
-                .setBookingTimeValue(bookingTime.getBookingTimeValue())
+                .setBookingTimeValue(bookingTime.getBookingTime().getValue())
                 .setId(bookingTime.getId());
         return bookingTimeDto;
     }

@@ -4,7 +4,6 @@ import bg.softuni.mycinematicketsapp.models.enums.Genre;
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;
-import bg.softuni.mycinematicketsapp.validation.annotation.UniqueMovieName;
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class CreateMovieDto {
 
     @NotEmpty(message = "Name cannot be null ot empty!")
     @Size(min= 3, message = "Name must be at least 3 characters")
-    @UniqueMovieName(message = "Movie with this name already exist!")
     private String name;
     @NotNull(message = "Insert a movie length")
     @Positive(message = "Movie Length should be positive number!")
