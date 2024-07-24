@@ -10,6 +10,7 @@ import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -77,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    //TODO: Use Scheduler to delete order every day at 00:00h
+    @Scheduled(cron = "0 0 0 * * *")
     public void deleteAllNotFinishedOrders() {
         List<Order> notFinishedOrders = this.orderRepository.findAll();
         notFinishedOrders.stream()

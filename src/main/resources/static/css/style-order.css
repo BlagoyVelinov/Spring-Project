@@ -12,7 +12,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 body {
-    background-image: url(../images/cinema-hall2.jpg);
+    background: url(../images/cinema-hall2.jpg) no-repeat fixed center;
 }
 
 * {
@@ -4475,7 +4475,7 @@ span.errorb[style*=inline] {
 }
 
 .seatplan .actionHolder a.actionBtn {
-    margin-right: 5px
+    margin-right: 5px;
 }
 
 .seatplan .buttons {
@@ -4797,7 +4797,7 @@ table.errordetails td.cap {
     }
 
     .thankyou .section:first-child {
-        background: url(../../images/PL_RES/successfull.png) center 0 no-repeat;
+        background: url(../images/PL_RES/successfull.png) center 0 no-repeat;
         padding: 150px 0 0
     }
 
@@ -5624,3 +5624,75 @@ table.ticketTable tr.header td, table.ticketTable tr.header th {
 .footerlink .rf {
     float: right;
 }
+
+/*=============================== Select a seats*/
+
+/*body{*/
+/*    background-size: cover;*/
+/*    color: #dde0e3;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    height: 100vh;*/
+/*    font-family: Arial, sans-serif;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.container{*/
+/*    perspective: 1000px;*/
+/*    margin-bottom: 30px;*/
+/*}*/
+
+/*.seat{*/
+/*    background-color: green;*/
+/*    height: 20px;*/
+/*    width: 23px;*/
+/*    margin: 3px;*/
+/*    font-size: 12px;*/
+/*    border-radius: 3px;*/
+/*    text-align: -webkit-center;*/
+/*    padding: 2px;*/
+/*}*/
+/*.seat.selected {*/
+/*    background-color: orange;*/
+/*}*/
+
+/*.seat.sold{*/
+/*    background-color: rgb(115, 112, 112);*/
+/*}*/
+
+/*.seat:nth-of-type(2) {*/
+/*    margin-right: 18px;*/
+/*}*/
+
+/*.seat:nth-last-of-type(2) {*/
+/*    margin-left: 18px;*/
+/*}*/
+
+/*.seat:not(.sold):hover{*/
+/*    cursor: pointer;*/
+/*    transform: scale(1.2);*/
+/*}*/
+/*.showcase .seat:not(.sold):hover {*/
+/*    cursor: default;*/
+/*    transform: scale(1);*/
+/*}*/
+/*.showcase {*/
+/*    background: rgba(0, 0, 0, 0.1);*/
+/*    padding: 5px 10px;*/
+/*    border-radius: 5px;*/
+/*    color: #adabab;*/
+/*    list-style-type: none;*/
+/*    display: flex;*/
+/*}*/
+
+/*.showcase li {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    margin: 0 10px;*/
+/*}*/
+/*.showcase li small {*/
+/*    margin-left: 2px;*/
+/*}*/

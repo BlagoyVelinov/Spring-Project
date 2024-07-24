@@ -71,4 +71,9 @@ public class HomeController {
 //        return "order-tickets";
 //    }
 
+    @GetMapping("/select-seats-test")
+    public String getSelectedSeats() {
+        return "select-seats-test";
+    }
+
 }
