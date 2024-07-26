@@ -34,6 +34,8 @@ public class Ticket extends BaseEntity {
     @ManyToOne
     private City city;
 
+    @Column(name ="is_finished")
+    private boolean isFinished;
 
     public String getMovieName() {
         return movieName;
@@ -132,6 +134,15 @@ public class Ticket extends BaseEntity {
 
     public Ticket setCity(City city) {
         this.city = city;
+        return this;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public Ticket setFinished(boolean finished) {
+        isFinished = finished;
         return this;
     }
 }

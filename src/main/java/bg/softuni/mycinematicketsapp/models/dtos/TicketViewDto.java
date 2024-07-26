@@ -1,8 +1,5 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
-import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
-import bg.softuni.mycinematicketsapp.models.entities.City;
-import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.validation.constraints.NotNull;
@@ -13,12 +10,12 @@ public class TicketViewDto {
     private long id;
     private String movieName;
     private HallNumber hallNumber;
+    @NotNull
     private Integer numberOfSeat;
     @NotNull
     private Integer numberOfRow;
     private Double price;
     private LocalDateTime projectionDate;
-    @NotNull
     private TicketType ticketType;
     private String bookingTime;
     private String city;

@@ -16,12 +16,18 @@ public class Order extends BaseEntity {
     @Column(name = "order_number")
     private String orderNumber;
     @Column(name = "total_price")
-    private Double totalPrice;
+    private double totalPrice;
     @Column(name = "projection_date")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate projectionDate;
-    @Column(name = "tickets_quantity")
-    private int ticketsQuantity;
+    @Column(name = "child_quantity")
+    private int childQuantity;
+    @Column(name = "overSixty_quantity")
+    private int overSixtyQuantity;
+    @Column(name = "regular_quantity")
+    private int regularQuantity;
+    @Column(name = "student_quantity")
+    private int studentQuantity;
     @Column(name = "is_finished")
     private boolean isFinished;
     @Column
@@ -30,7 +36,7 @@ public class Order extends BaseEntity {
     private String bookingTime;
     @ManyToOne
     private City city;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "orders_tickets",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -52,14 +58,12 @@ public class Order extends BaseEntity {
         return this;
     }
 
-    public Double getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
-//        return this.tickets.stream().mapToDouble(Ticket::getPrice).sum();
     }
 
-    public Order setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-        return this;
     }
 
     public LocalDate getProjectionDate() {
@@ -71,12 +75,36 @@ public class Order extends BaseEntity {
         return this;
     }
 
-    public int getTicketsQuantity() {
-        return ticketsQuantity;
+    public int getChildQuantity() {
+        return childQuantity;
     }
 
-    public Order setTicketsQuantity(int ticketsQuantity) {
-        this.ticketsQuantity = ticketsQuantity;
+    public void setChildQuantity(int childQuantity) {
+        this.childQuantity = childQuantity;
+    }
+
+    public int getOverSixtyQuantity() {
+        return overSixtyQuantity;
+    }
+
+    public void setOverSixtyQuantity(int overSixtyQuantity) {
+        this.overSixtyQuantity = overSixtyQuantity;
+    }
+
+    public int getRegularQuantity() {
+        return regularQuantity;
+    }
+
+    public void setRegularQuantity(int regularQuantity) {
+        this.regularQuantity = regularQuantity;
+    }
+
+    public int getStudentQuantity() {
+        return studentQuantity;
+    }
+
+    public Order setStudentQuantity(int studentQuantity) {
+        this.studentQuantity = studentQuantity;
         return this;
     }
 

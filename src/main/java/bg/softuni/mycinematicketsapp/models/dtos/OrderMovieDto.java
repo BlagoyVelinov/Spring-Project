@@ -16,9 +16,11 @@ public class OrderMovieDto {
     private long id;
     private String movieViewName;
     private String orderNumber;
-
-    private int ticketsQuantity;
-
+    private int childQuantity;
+    private int overSixtyQuantity;
+    private int regularQuantity;
+    private int studentQuantity;
+    private double totalPrice;
     private String bookingTime;
     private List<TicketViewDto> tickets;
     @NotNull(message = "You need select a projection date.")
@@ -28,6 +30,7 @@ public class OrderMovieDto {
     @NotNull(message = "You need select a city")
     private CityName location;
 
+    private UserViewDto user;
 
     public OrderMovieDto() {
         this.tickets = new ArrayList<>();
@@ -78,13 +81,44 @@ public class OrderMovieDto {
         return this;
     }
 
-    public int getTicketsQuantity() {
-        return ticketsQuantity;
+    public int getChildQuantity() {
+        return childQuantity;
     }
 
-    public OrderMovieDto setTicketsQuantity(int ticketsQuantity) {
-        this.ticketsQuantity = ticketsQuantity;
-        return this;
+    public void setChildQuantity(int childQuantity) {
+        this.childQuantity = childQuantity;
+    }
+
+    public int getStudentQuantity() {
+        return studentQuantity;
+    }
+
+    public void setStudentQuantity(int studentQuantity) {
+        this.studentQuantity = studentQuantity;
+    }
+
+    public int getOverSixtyQuantity() {
+        return overSixtyQuantity;
+    }
+
+    public void setOverSixtyQuantity(int overSixtyQuantity) {
+        this.overSixtyQuantity = overSixtyQuantity;
+    }
+
+    public int getRegularQuantity() {
+        return regularQuantity;
+    }
+
+    public void setRegularQuantity(int regularQuantity) {
+        this.regularQuantity = regularQuantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getBookingTime() {
@@ -102,6 +136,15 @@ public class OrderMovieDto {
 
     public OrderMovieDto setTickets(List<TicketViewDto> tickets) {
         this.tickets = tickets;
+        return this;
+    }
+
+    public UserViewDto getUser() {
+        return user;
+    }
+
+    public OrderMovieDto setUser(UserViewDto user) {
+        this.user = user;
         return this;
     }
 }

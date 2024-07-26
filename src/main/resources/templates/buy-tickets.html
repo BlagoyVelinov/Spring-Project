@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head data-lang="12"><title>
-    Select Tickets
+    Cinema Tickets
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -17,11 +17,12 @@
     <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
 
 <body id="ctl00_pageBody" class="ltr">
+<label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
 
 <a name="totop" href="#" id="totop" th:object="${bookingTime}"></a>
 
 <form name="aspnetForm"
-      th:method="patch"
+      th:method="put"
       th:action="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderMovie.id}, movieId=${movieView.id}, timeId=${bookingTime.id})}"
       th:object="${orderMovie}">
 
@@ -101,7 +102,7 @@
                                     <div class="type-ticket"><span id="childTicketName">Детски делник</span></div>
                                 </td>
                                 <td>
-                                    <span id="childPrice">12.50 лв</span>
+                                    <span id="childPrice">10.50 лв</span>
                                 </td>
                                 <td>
                                     <span id="childServiceCharge">0.80 лв</span>
@@ -111,7 +112,7 @@
                                     <select name="ticketsQuantity"
                                             id="ticketsQuantity"
                                             class="ddlTicketQuantity"
-                                            th:field="*{ticketsQuantity}">
+                                            th:field="*{childQuantity}">
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -124,9 +125,6 @@
                                         <option value="9">9</option>
                                         <option value="10">10</option>
                                     </select>
-                                    <small th:if="${#fields.hasErrors('ticketsQuantity')}"
-                                           th:errors="*{ticketsQuantity}" class="text-danger">Tickets quantity error
-                                        message</small>
                                 </td>
                             </tr>
                             <tr class="TT_12">
@@ -142,7 +140,9 @@
                                 </td>
                                 <td>
                                     <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl03$ddQunatity"
-                                            id="ddQunatity_1" class="ddlTicketQuantity">
+                                            id="ddQunatity_1"
+                                            class="ddlTicketQuantity"
+                                            th:field="*{studentQuantity}">
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -162,14 +162,16 @@
                                     <div class="type-ticket"><span id="aged60TicketName">Лица 60 делник</span></div>
                                 </td>
                                 <td>
-                                    <span id="aged60Price">12.50 лв</span>
+                                    <span id="aged60Price">11.50 лв</span>
                                 </td>
                                 <td>
                                     <span id="aged60ServiceCharge">0.80 лв</span>
                                 </td>
                                 <td>
                                     <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl04$ddQunatity"
-                                            id="ddQunatity_2" class="ddlTicketQuantity">
+                                            id="ddQunatity_2"
+                                            class="ddlTicketQuantity"
+                                            th:field="*{overSixtyQuantity}">
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -196,7 +198,9 @@
                                 </td>
                                 <td>
                                     <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl05$ddQunatity"
-                                            id="ddQunatity_3" class="ddlTicketQuantity">
+                                            id="ddQunatity_3"
+                                            class="ddlTicketQuantity"
+                                            th:field="*{regularQuantity}">
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -209,6 +213,9 @@
                                         <option value="9">9</option>
                                         <option value="10">10</option>
                                     </select>
+                                    <small th:if="${#fields.hasErrors('regularQuantity')}"
+                                           th:errors="*{regularQuantity}" class="text-danger">
+                                        Tickets quantity error message</small>
                                 </td>
                             </tr>
                         </table>

@@ -1,8 +1,10 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
+import bg.softuni.mycinematicketsapp.models.dtos.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.*;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -89,22 +92,63 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addQuantityOfTickets(Integer quantity, long orderId, long movieId, long timeId) {
+    public void addQuantityOfTickets(OrderMovieDto orderMovie, long orderId, long movieId, long timeId) {
         Order order = this.getOrderById(orderId);
-        order.setTicketsQuantity(quantity);
+        double totalPricePlusTax = this.getTotalPricePlusTax(order);
+
+        order.setChildQuantity(orderMovie.getChildQuantity());
+        order.setOverSixtyQuantity(orderMovie.getOverSixtyQuantity());
+        order.setRegularQuantity(orderMovie.getRegularQuantity());
+        order.setStudentQuantity(orderMovie.getStudentQuantity());
+        order.setTotalPrice(totalPricePlusTax);
+
         this.orderRepository.save(order);
     }
 
+    @Override
+    public OrderMovieDto getOrderByOrderNumber(String orderNumber) {
+        Order order = this.orderRepository.findByOrderNumber(orderNumber);
+        return this.mapOrderToOrderDto(order);
+    }
+
+    private double getTotalPricePlusTax(Order order) {
+        int countTickets = order.getTickets().size();
+
+        double totalPrice = order.getTickets()
+                .stream()
+                .mapToDouble(Ticket::getPrice)
+                .sum();
+
+        return totalPrice + (countTickets * Constant.FIX_COMMISSION_PER_TICKET);
+    }
+
     private OrderMovieDto mapOrderToOrderDto(Order order) {
-        return new OrderMovieDto()
+        UserViewDto userViewDto = this.mapUserToUserViewDto(order.getUser());
+
+        OrderMovieDto orderMovieDto = new OrderMovieDto()
                 .setId(order.getId())
                 .setBookingTime(order.getBookingTime())
                 .setOrderNumber(order.getOrderNumber())
                 .setLocation(order.getCity().getLocation())
                 .setProjectionDate(order.getProjectionDate())
-                .setTicketsQuantity(order.getTicketsQuantity())
-                .setMovieViewName(order.getMovieName());
+                .setMovieViewName(order.getMovieName())
+                .setUser(userViewDto);
+        orderMovieDto.setChildQuantity(order.getChildQuantity());
+        orderMovieDto.setRegularQuantity(order.getRegularQuantity());
+        orderMovieDto.setOverSixtyQuantity(order.getOverSixtyQuantity());
+        orderMovieDto.setStudentQuantity(order.getStudentQuantity());
+        orderMovieDto.setTotalPrice(order.getTotalPrice());
+
+        return orderMovieDto;
+
+
 //        return this.modelMapper.map(order, OrderMovieDto.class);
+    }
+
+    private UserViewDto mapUserToUserViewDto(UserEntity user) {
+        return new UserViewDto()
+                .setName(user.getName())
+                .setEmail(user.getEmail());
     }
 
     private Order mapOrderMovieDtoToOrder(OrderMovieDto createOrder, UserEntity user) {
@@ -122,13 +166,11 @@ public class OrderServiceImpl implements OrderService {
             return order;
         }
 
-        String lUUID = String.format("%020d", new BigInteger(
-                UUID.randomUUID().toString().replace("-", ""), 16));
-
-        lUUID = lUUID.substring(20);
+        String orderNumberUUID = UUID.randomUUID().toString();
+        orderNumberUUID = orderNumberUUID.replace("-", "");
 
         return new Order()
-                .setOrderNumber(lUUID)
+                .setOrderNumber(orderNumberUUID)
                 .setCity(city)
                 .setProjectionDate(createOrder.getProjectionDate())
                 .setUser(user);

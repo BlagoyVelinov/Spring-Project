@@ -59,21 +59,14 @@ public class HomeController {
         model.addAttribute("movie", movieView);
         return "trailer";
     }
-//    @GetMapping("/program/order-tickets")
-//    public String getAllMoviesWithBookingTimes(Model model,
-//                                               @AuthenticationPrincipal UserDetails userDetails) {
-//
-//        Set<MovieViewDto> allMoviesWithBookingTime = this.movieService.getAllMoviesViewWithBookingTimes();
-//        model.addAttribute("allViewMovies", allMoviesWithBookingTime);
-//
-//        OrderMovieDto orderMovieDto = this.orderService.getUnfinishedOrderByUser(userDetails.getUsername());
-//        model.addAttribute("orderMovie", orderMovieDto);
-//        return "order-tickets";
+
+
+    //TODO: need to save the ticket to the DB when the user confirm the order!!!
+
+//    @GetMapping("/test-template/{orderNumber}")
+//    public String test(@PathVariable("orderNumber") String orderNumber, Model model) {
+//        OrderMovieDto orderViewDto = this.orderService.getOrderByOrderNumber(orderNumber);
+//        model.addAttribute("orderView", orderViewDto);
+//        return "test-template";
 //    }
-
-    @GetMapping("/select-seats-test")
-    public String getSelectedSeats() {
-        return "select-seats-test";
-    }
-
 }

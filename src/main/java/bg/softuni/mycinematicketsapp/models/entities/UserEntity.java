@@ -31,7 +31,7 @@ public class UserEntity extends BaseEntity {
     private LocalDateTime modified;
     @Column(name = "image_url")
     private String imageUrl;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Ticket> tickets;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

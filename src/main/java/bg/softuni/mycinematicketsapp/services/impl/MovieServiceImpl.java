@@ -90,7 +90,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieViewDto getMovieViewById(long movieId) {
-        LOGGER.info("addBookingTimes...->");
+        LOGGER.info("getMovieById...->");
 
         return this.moviesRestClient.get()
                 .uri("http://localhost:8081/movies/movie/{id}", movieId)
@@ -98,5 +98,16 @@ public class MovieServiceImpl implements MovieService {
                 .retrieve()
                 .body(MovieViewDto.class);
     }
+
+//    @Override
+//    public MovieViewDto getMovieViewByName(String movieName) {
+//        LOGGER.info("getMovieByName...->");
+//
+//        return this.moviesRestClient.get()
+//                .uri("http://localhost:8081/movies/movie/{name}", movieName)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .body(MovieViewDto.class);
+//    }
 
 }

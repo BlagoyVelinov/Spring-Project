@@ -16,5 +16,7 @@ public interface OrderService {
 
     void deleteAllNotFinishedOrders();
 
-    void addQuantityOfTickets(Integer quantity, long orderId, long movieId, long timeId);
+    void addQuantityOfTickets(OrderMovieDto orderMovie, long orderId, long movieId, long timeId);
+
+    OrderMovieDto getOrderByOrderNumber(String orderNumber);
 }

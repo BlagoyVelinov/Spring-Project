@@ -16,9 +16,9 @@ body-seats{
     justify-content: center;
     height: 60vh;
     font-family: Arial, sans-serif;
-    position: absolute;
-    margin-top: 115px;
-    padding: 28px 25px 0 41px;
+    position: unset;
+    margin: -393px 21px 20px 0;
+    padding: 0 25px 40px 41px;
 }
 .container{
     perspective: 1000px;

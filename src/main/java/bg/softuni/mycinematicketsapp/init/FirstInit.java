@@ -1,6 +1,7 @@
 package bg.softuni.mycinematicketsapp.init;
 
-import bg.softuni.mycinematicketsapp.services.*;
+import bg.softuni.mycinematicketsapp.services.CityService;
+import bg.softuni.mycinematicketsapp.services.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

@@ -1,272 +1,418 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head data-lang="13"><title>
+<head data-lang="12"><title>
     Select Seats
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script language="javascript" type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-<!--    <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>-->
-<!--    <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>-->
+        <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
+        <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
     <link type="text/css" rel="stylesheet" href="/JScript/Modal/css/modaal.min.css"/>
     <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
 
 </head>
-<body>
-<div id="seats-container">
-</div>
-<div class="movie-container">
-</div>
-<ul class="showcase">
-    <li>
-        <div class="seat" style="background-color: green"></div>
-        <small>Available</small>
-    </li>
-    <li>
-        <div class="seat selected" style="background-color: orange"></div>
-        <small>Selected</small>
-    </li>
-    <li>
-        <div class="seat sold"></div>
-        <small>Sold</small>
-    </li>
-</ul>
-<div class="row-seat"> <span class="row-number">1</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
+<body id="ctl00_pageBody" class="ltr">
+<label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
+<script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }
+        );
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    }
+)(window, document, 'script', 'dataLayer', 'GTM-TLD9Q4W');</script>
 
-<div class="row-seat"><span class="row-number">2</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
 
-<div class="row-seat"><span class="row-number">3</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLD9Q4W"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 
-<div class="row-seat"><span class="row-number">4</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
-<div class="row-seat"><span class="row-number">5</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
-<div class="row-seat"><span class="row-number">6</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
-<div class="row-seat"><span class="row-number">7</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
-<div class="row-seat"><span class="row-number">8</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
+<a name="totop" href="#" id="totop"></a>
+<form name="aspnetForm" method="post"
+      action="./OrderFormPageRes.aspx?dtticks=638575048648637037&amp;cf=1005&amp;ec=280895"
+      onsubmit="javascript:return WebForm_OnSubmit();"
+      onkeypress="javascript:return WebForm_FireDefaultButton(event, 'lbNext')" id="aspnetForm">
+    <div>
+        <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+        <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
+               value="/wEPDwUJMzAwOTYxNjQwD2QWAmYPZBYEAgEPFgIeCWRhdGEtbGFuZwUCMTNkAgMPFgIeBWNsYXNzBQNsdHIWAgICDxYCHghvbnN1Ym1pdAUVcmV0dXJuIGNvbW1pdE9yZGVyKCk7FgQCAQ8WAh8BBR5wYWdlY29udGFpbmVyIG9yZGVyZm9ybXBhZ2VyZXMWAgIND2QWCAIBD2QWAmYPFgIeB1Zpc2libGVnFgRmDxYCHgRUZXh0BcMB0JjQt9Cx0YDQsNC90LjRgtC1INC+0YIg0LLQsNGBINCx0LjQu9C10YLQuCDRgdC1INC/0LDQt9GP0YIg0LIg0YDQsNC80LrQuNGC0LUg0L3QsCAxNSDQvNC40L3Rg9GC0LguINCh0LvQtdC0IDE1INC80LjQvdGD0YLQuCDRgdGK0YnQuNGC0LUg0YnQtSDQsdGK0LTQsNGCINC+0YHQstC+0LFv0LTQtdC90Lgg0LfQsCDQv9GA0L7QtNCw0LbQsdCwZAIBDxYCHwNnZAIDD2QWKmYPZBYCAgEPDxYCHghJbWFnZVVybAUgQXNzZXRzL0ltYWdlcy9QTF9SRVMvbG9hZGluZy5naWZkZAIDD2QWAgICDxYCHwNnFghmDxYCHwQFCkNsaWNrIGhlcmVkAgEPFgIfBAUKVXNlciBuYW1lOmQCAw8WAh8EBQlQYXNzd29yZDpkAgYPDxYCHwQFBlN1Ym1pdGRkAgQPZBYCZg9kFgJmD2QWCgIDD2QWAgIBD2QWAmYPZBYCAgMPEGRkFgBkAgUPZBYCZg9kFgJmD2QWAmYPDxYCHwQFMlNoaXBwaW5nIEFkZHJlc3MgKGlmIGRpZmZlcnMgZnJvbSBCaWxsaW5nIEFkZHJlc3MpZGQCBw9kFgICAQ9kFgJmD2QWAgICDxBkZBYAZAIID2QWAmYPZBYCZg9kFgJmDw8WAh8EBRRTdG9yZWQgVmFsdWUgUGF5bWVudGRkAgkPZBYCZg9kFgJmD2QWAmYPDxYCHwQFD0dlbmVyYWwgSW5xdWlyeWRkAgYPZBYCZg9kFgJmD2QWAmYPDxYCHwQFFtCS0LXRgNC40YTQuNC60LDRhtC40Y9kZAIHD2QWAgIEDxBkZBYAZAIID2QWCgICD2QWAgIFDxBkZBYAZAIFDxBkZBYAZAIGDxBkZBYAZAIIDxBkZBYAZAIJDxBkZBYAZAIJD2QWAgIJDxBkZBYAZAIKD2QWBgIBDxYCHwQFF1N0b3JlZCBWYWx1ZSBBY3RpdmF0aW9uZAIDDxYCHwQFQFBsZWFzZSBlbnRlciB0aGUgc3RvcmVkIHZhbHVlIG51bWJlciB5b3Ugd2FudCB0byBhY3RpdmF0ZSBiZWxvdy5kAgUPFgIfBAUUU3RvcmVkIHZhbHVlIG51bWJlcjpkAgsPFgIfA2cWDAIBDxYCHwQFMNCY0L3RhNC+0YDQvNCw0YbQuNGPINC30LAg0L/RgNC+0LbQtdC60YbQuNGP0YLQsGQCAw8WAh4LXyFJdGVtQ291bnQCARYCZg9kFgQCAQ8WAh8EBbgBPHNwYW4gY2xhc3M9ImV2ZW50TWFzdGVyTmFtZSI+Qmx1ZSBMb2NrIFRoZSBNb3ZpZTogRXBpc29kZSBOYWdpPC9zcGFuPiwgPHNwYW4gY2xhc3M9ImV2ZW50RGF0ZVRpbWUiPtGH0LXRgtCy0YrRgNGC0YrQuiAyNS8wNy8yMDI0IDEyOjUwPC9zcGFuPiwgPHNwYW4gY2xhc3M9InNpdGVOYW1lIj5DQyBQbG92ZGl2PC9zcGFuPmQCAw8WAh8GAgEWBGYPZBYKAgEPZBYCZg8PFgIfBAUR0JLQuNC0INCx0LjQu9C10YJkZAIDDw8WAh8EBQfQmi3QstC+ZGQCBQ8PFgIfBAUY0KbQtdC90LAg0L3QsCDQsdC40LvQtdGCZGQCCQ9kFgJmDw8WAh8EBRLQkNC00LwuINGC0LDQutGB0LBkZAILDxYCHwNnFgJmDw8WAh8EBSjQmNC90YTQvtGA0LzQsNGG0LjRjyDQt9CwINC80LXRgdGC0LDRgtCwZGQCAQ9kFgoCAQ9kFgJmDw8WAh8EBSDQp9C10YLQstGK0YDRgtGK0LogMkQg0J/RgNC+0LzQvmRkAgMPDxYCHwQFATFkZAIFD2QWAmYPDxYCHwQFCjEwLjAwINC70LJkZAIJD2QWAmYPDxYCHwQFCTAuODAg0LvQsmRkAgsPFgQeB3Jvd3NwYW4FATEfA2cWAmYPDxYCHwQFFdCg0LXQtCA3INCc0Y/RgdGC0L4gOGRkAgYPFgIfA2cWBAIBDxYCHwQFHdCY0LzQsNGC0LUg0LvQuCDQstCw0YPRh9C10YA/ZAIED2QWBgIBDxYCHwQFV9Cc0L7Qu9GPLCDQstGK0LLQtdC00LXRgtC1INC60L7QtNCwINC80YMg0YLRg9C6PGJyPjxzdmluZm8gc3R5bGU9InRleHQtdHJhbnNmb3JtOm5vbmUiPmQCBA8PFgIfBAUZ0JLRitCy0LXQtNC10YLQtSDQutC+0LTQsGRkAgYPDxYCHwQFGdCU0L7QsdCw0LLQtdGC0LXCoCDQutC+0LRkZAIHD2QWAgIBDxYCHwQFIVRyYW5zYWN0aW9uIHRvdGFsIHNlcnZpY2UgY2hhcmdlOmQCCQ8WAh8EBTXQntCx0YnQviAo0YEg0LLRgdC40YfQutC4INC00LDQvdGK0YbQuCDQuCDRgtCw0LrRgdC4KWQCCw8WAh8EBQoxMC44MCDQu9CyZAIMD2QWAgIBDxYCHwQFmQFEZWFyIG1lbWJlciwgeW91IGhhdmUgc2VsZWN0ZWQgVW5saW1pdGVkIG1lbWJlcnNoaXAgdGlja2V0LCBlYWNoIHRpY2tldCByZXF1aXJlcyBhbiBVbmxpbWl0ZWQgbWVtYmVyc2hpcCBjYXJkIG51bWJlci4gUGxlYXNlIGVudGVyIHRoZSBjYXJkIG51bWJlciBiZWxvdzpkAg0PZBYCAgEPFgIfBAVkRGVhciBtZW1iZXIsIHlvdSBjYW4gZW50ZXIgdXAgdG8gb25lIG1lbWJlcnNoaXAgY2FyZCBwZXIgdGlja2V0LCBQbGVhc2UgZW50ZXIgdGhlIGNhcmQgbnVtYmVyIGJlbG93OmQCDg9kFgICAQ8WAh8EBWREZWFyIG1lbWJlciwgeW91IGNhbiBlbnRlciB1cCB0byBvbmUgbWVtYmVyc2hpcCBjYXJkIHBlciB0aWNrZXQsIFBsZWFzZSBlbnRlciB0aGUgY2FyZCBudW1iZXIgYmVsb3c6ZAIPDxYCHwNnFgJmD2QWBAIBDxYCHwYCARYCAgEPZBYCZg8VCgRjYXJkAARjYXJkBGNhcmQEY2FyZAATRGViaXQgLyBjcmVkaXQgY2FyZB1Bc3NldHMvSW1hZ2VzL1BMX1JFUy9jYXJkLnBuZwRjYXJkJDxkaXYgY2xhc3M9J2NoYW5nZWNhcmQnPkNIQU5HRTwvZGl2PmQCAg8PFgIfBAUh0JfQsNC00YrQu9C20LjRgtC10LvQvdC+INC/0L7Qu9C1ZGQCEw9kFgQCAQ8WAh8EBSDQnNC10YLQvtC0INC90LAg0LTQvtGB0YLQsNCy0LrQsGQCBQ8QZGQWAGQCFg9kFgICAQ8WAh8EBR3QktCw0YjQuNGC0LUg0LrQvtC90YLQsNC60YLQuGQCFw9kFgICAQ8WAh8EBQ9CaWxsaW5nIEFkZHJlc3NkAhgPZBYKAgIPD2QWAh4LcGxhY2Vob2xkZXIFDUJ1c2luZXNzIE5hbWVkAgMPD2QWAh8IBQRDaXR5ZAIEDw9kFgIfCAUHWmlwY29kZWQCBQ8PZBYCHwgFB0FkZHJlc3NkAgYPD2QWAh8IBQZUYXggSWRkAhkPFgIfA2gWBAIBDxYCHwQFHtCc0LXRgtC+0LQg0L3QsCDQv9C70LDRidCw0L3QtWQCCA9kFgYCAQ9kFgICAg9kFgICAQ8PFgIfBAUXUGxlYXNlIGVudGVyIHRoZSBudW1iZXJkZAIEDxYCHwQF1gE8Qj5Vc2VkIHlvdXIgU3RvcmVkIFZhbHVlIGNhcmQgdG8gcGF5IHB1cmNoYXNlITxCUj5FbnRlciB5b3VyIGNhcmQgbnVtYmVyIGJlbG93LiBBbGwgZnVuZHMgd291bGQgYmUgdGFrZW4gb2ZmIHlvdXIgU3RvcmVkIFZhbHVlIGNhcmQuIEFueSByZW1haW5pbmcgYmFsYW5jZTxCUj4gd291bGQgYmUgY2hhbmdlZCB0byB0aGUgY3JlZGl0IGNhcmQgZW50ZXJlZCBhYm92ZS48L0I+ZAIGD2QWBAIBDw8WAh8EBR48YnIvPllvdSBtdXN0IHNlbGVjdCBhbiBvcHRpb25kZAICDxBkDxYCZgIBFgIFB0kgQWdyZWUFCU5vIFRoYW5rcxYAZAIbDxYCHwQFJSogPSDQl9Cw0LTRitC70LbQuNGC0LXQu9C90L4g0L/QvtC70LVkAhwPZBYEAgEPFgIfBAUIRGlzY291bnRkAgMPFgIfBAWxAUlmIHlvdSB3b3VsZCBsaWtlIHRvIGFwcGx5IGEgRGlzY291bnQgQ29kZSB0byB0aGlzIHRyYW5zYWN0aW9uLCBwbGVhc2UgZW50ZXIgdGhlIGNvZGUgcHJvdmlkZWQgYmVsb3cuIFRoZSBzeXN0ZW0gd2lsbCB2YWxpZGF0ZSB0aGUgY29kZSBlbnRlcmVkIHdoaWxlIHByb2Nlc3NpbmcgdGhlIHRyYW5zYWN0aW9uLmQCHQ8WAh8DZxYCZg9kFgQCAQ8WAh8DaBYGAgEPFgIfBAUW0JLQtdGA0LjRhNC40LrQsNGG0LjRj2QCBQ8WAh8DaGQCBw8WAh8DaBYEZg8PFgIfBQU+L1NhbGVzQkcvQXV0aGVudGljYXRpb25JbWFnZS5hc3B4P2tleT0mdGlrcz02Mzg1NzUwNDg2NTMxNjg2NDRkZAICDxYCHwQFPtCc0L7Qu9GPLCDQvdCw0L/QuNGI0LXRgtC1INC60L7QtNCwINCyINC00L7Qu9C90L7RgtC+INC/0L7Qu9C1ZAIDDxYCHwNnZAIHDw8WAh8EBRDQn9GA0L7QtNGK0LvQttC4ZGQCCw8PFgIfBAUQ0J3Rg9C70LjRgNCw0L3QtWRkAgIPFgIfAQUXZm9vdGVyIG9yZGVyZm9ybXBhZ2VyZXNkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBRhjdGwwMCRDUEgxJGNoa1Rlcm1zQWdyZWWmTTUne06aMEUN2j3Ux3MVGD0OeQ==">
+    </div>
+    <div>
+        <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="48339BD8">
+        <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION"
+               value="/wEdAAy5WkOXPVIOvBB8/RDIrk0QspxSHR0lgyWjvSZxCAwLuYLEKg+j1a0FWhkIfYjlfRMwkpGVYJFaF0zRuwR209wtyp3AZTrN2QONGRuhd6APNZlTwrIEf7deJTxjW/oxWEjU0/KFKgUfHyGjORVD4RdFjlhKUDLO+5kcBolocrD/RE5ulJ2FPePoovSX4A71/dL9Rz9rREAIbaVwWCR9x2D33mM/0pwu3J9USSHxXKLgpoOMrSzT2quyf5J8bQjfDQwDEbEYq8avu0B38Kd4WC6AY4AR2A==">
+    </div>
+    <input type="hidden" name="hfSKey" id="hfSKey" value="|||||||||BGPlovdivPOW_res|280895|">
+    <input type="hidden" value="68qJGgsh" name="hfOIKey" id="hfOIKey">
+    <div id="pagecontainer" class="pagecontainer orderformpageres">
+        <div class="wrap">
+            <div id="header">
+                <div id="logo"></div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="steps">
+                <div class="step"><span>1</span><label>Избор на билет</label></div>
+                <div class="step"><span>2</span><label>Избор на места</label></div>
+                <div class="step onstep"><span>3</span><label>Потвърждение</label></div>
+                <div class="step last"><span>4</span><label>Завършване на поръчката</label></div>
+                <div class="clear"></div>
+            </div>
+            <div id="error" class="error" style="display:none;" role="alert">
+                <div class="msg-block">
+                    <div class="msg-title"></div>
+                </div>
+            </div>
+            <div id="success" class="success" style="display:none;">
+                <div class="msg-block">
+                    <div class="msg-title"></div>
 
-<div class="row-seat"><span class="row-number">9</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat">15</div>
-    <div class="seat">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
+                </div>
+            </div>
+            <div id="info" class="info" style="display:none;">
+                <div class="msg-block">
+                    <div class="msg-title"></div>
+
+                </div>
+            </div>
+            <script type="text/javascript" language="javascript">
+                var msgPleaseWait = " ";
+            </script>
+            <div class="main fullwidth">
+                <div class="timer-block">
+                    <div class="timerinfo">Избраните от вас билети се пазят в рамките на 15 минути. След 15 минути
+                        същите ще бъдат освобoдени за продажба
+                    </div>
+                    <div class="timeout">
+                        Времето за запазване на вашите места изтече, моля кликнете по-долу, за да продължите с поръчката
+                        и направете избор на места отново
+                        <div class="actionHolder"><a id="btnReselectedSeats" class="cancelBtn">Продължи</a></div>
+                    </div>
+                    <div class="timer">Оставащо време <span class="time">10:48</span></div>
+                    <script type="text/javascript" language="javascript">
+                        $(function () {
+                                var interval = setInterval(function () {
+                                        var timer = $('.timer-block .timer .time').html();
+                                        timer = timer.split(':');
+                                        var minutes = parseInt(timer[0], 10);
+                                        var seconds = parseInt(timer[1], 10);
+                                        seconds -= 1;
+                                        if (minutes < 0) {
+                                            clearInterval(interval);
+                                            handleTimeout();
+                                            return;
+                                        }
+
+                                        if (minutes < 10 && minutes.length != 2) minutes = '0' + minutes;
+                                        if (seconds < 0 && minutes != 0) {
+                                            minutes -= 1;
+                                            seconds = 59;
+                                        } else if (seconds < 10 && length.seconds != 2) seconds = '0' + seconds;
+                                        $('.timer-block .timer .time').html(minutes + ':' + seconds);
+
+                                        if (minutes == 0 && seconds == 0) {
+                                            clearInterval(interval);
+                                            handleTimeout();
+                                        }
+
+                                    }
+                                    , 1000);
+
+
+                                $(".timeout .cancelBtn").click(function () {
+                                        document.location = "/SalesBG/AddToCartPage.aspx?CartRefresh=1&ec=280895&ver=50400";
+                                    }
+                                );
+
+
+                            }
+                        )
+
+                        function handleTimeout() {
+                            showError("Seat Lock Expired!");
+                            $(".timer-block").hide();
+                            $.blockUI({message: $('.timeout')}
+                            );
+                        }
+
+
+                    </script>
+                </div>
+                <div class="orderForm">
+                    <div class="orderformcontainer">
+                        <link rel="Stylesheet" type="text/css" href="/JScript/PgwModal/pgwmodal.min.css">
+                        <script src="/JScript/PgwModal/pgwmodal.min.js" type="text/javascript"></script>
+                        <script type="text/javascript" language="javascript">
+                            var msgSVTotal = "Total to be paid: $amount";
+                            var orderAmount = "10.80"
+                            var blnDeliveryMethodUpdate = false;
+                            var pageId = 'ctl00$CPH1$OrderFormControl1';
+                            $(document).ready(function () {
+                                    $('#ctl00_CPH1_OrderFormControl1_EmailVerify').bind("cut copy paste", function (e) {
+                                            e.preventDefault();
+                                        }
+                                    );
+                                }
+                            )
+                        </script>
+
+
+                        <h2>Информация за прожекцията</h2>
+                        <div class="eventInfoContainer">
+                            <h3 class="info-order"><span class="eventMasterName">Blue Lock The Movie: Episode Nagi</span>, <span
+                                    class="eventDateTime">четвъртък 25/07/2024 12:50</span>, <span class="siteName">CC Plovdiv</span>
+                            </h3>
+                            <table class="seatSelection" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr class="header">
+                                    <th id="tdTicketNameCaption"><span id="lblTicketNameCaption">Вид билет</span></th>
+                                    <th><span id="lblTicketQtyCaption">К-во</span></th>
+                                    <th><span id="lblTicketPriceCaption">Цена на билет</span></th>
+                                    <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption">Адм. такса</span>
+                                    </th>
+                                    <th id="tdTicketSeatsCaption"><span id="lblTicketsSeatsCaption">Информация за местата</span>
+                                    </th>
+                                </tr>
+                                <tr class="sums">
+                                    <td id="tdTicketName"><span id="lblTicketName">Четвъртък 2D Промо</span></td>
+                                    <td><span id="lblTicketQty">1</span></td>
+                                    <td id="tdTicketPrice"><span id="lblTicketPrice">10.00 лв</span></td>
+                                    <td id="tdTicketCommision"><span id="lblTicketCommision">0.80 лв</span></td>
+                                    <td id="tdTicketSeats" rowspan="1"><span id="lblTicketsSeats">Ред 7 Място 8</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="coupon">
+                            <h2>Имате ли ваучер?</h2>
+                            <div class="coupon-container">
+                                <div class="formRow">
+                                    <div class="input-label-container">
+                                        <div class="label">Моля, въведете кода му тук<br>
+                                            <svinfo style="text-transform:none"></svinfo>
+                                        </div>
+                                        <div class="input-container">
+                                            <input name="ctl00$CPH1$OrderFormControl1$tbCouponCode" id="tbCouponCode"
+                                                   class="tbox" type="number" autocomplete="off"><span
+                                                id="reqtbCouponCode" class="input-error" style="display:none;">Въведете кода</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a id="lnkAddCoupon" class="actionBtn"
+                                   href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$OrderFormControl1$lnkAddCoupon&quot;, &quot;&quot;, true, &quot;Coupon&quot;, &quot;&quot;, false, true))">Добавете&nbsp;
+                                    код</a>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="total-block">
+                            <div class="total-sum">Общо (с всички данъци и такси)&nbsp;10.80 лв</div>
+                        </div>
+                        <div id="ctl00_CPH1_OrderFormControl1_payuWidgetContainer" class="payuoptionscontainer"
+                             tabindex="-1">
+                            <input type="hidden" name="ctl00$CPH1$OrderFormControl1$hdnSelectedToken"
+                                   id="hdnSelectedToken">
+                            <h2><span class="required">*</span>Метод на плащане</h2>
+                            <p></p>
+                            <div class="payuoptions">
+                                <div class="payuOpt card clearfix">
+                                    <label class="radio clearfix" for="rbcard">
+                                        <input name="PayuPayment" class="rbpayu" id="rbcard" type="radio" value="card"
+                                               checked="checked">
+                                        <div class="name">Debit / Credit card</div>
+                                        <img src="/images/card.png" alt="card">
+                                        <div class="changecard">CHANGE</div>
+                                    </label>
+
+                                </div>
+                                <div class="payuOpt card clearfix">
+                                    <label class="radio clearfix" for="rbcard">
+                                        <input name="PayuPayment" class="rbpayu" id="rbcard2" type="radio" value="card"
+                                               checked="checked">
+                                        <div class="name">On site / At the checkout</div>
+<!--                                        <img src="/images/card.png" alt="card">-->
+                                        <div class="changecard">CHANGE</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <span id="ctl00_CPH1_OrderFormControl1_valPayU" class="errorb" style="display:none;">Задължително поле</span>
+                        </div>
+                        <div class="formContainer">
+                            <h2>Вашите контакти</h2>
+                            <div class="personalInfo customerInfo">
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="Field_5"><span
+                                            class="required">*</span>Име</label>
+                                        <div class="input-container">
+                                            <input name="ctl00$CPH1$OrderFormControl1$Field_5"
+                                                                            type="text" id="Field_5"
+                                                                            aria-required="true" placeholder="Име"><span
+                                                id="ctl00_CPH1_OrderFormControl1_ReqVal_5" class="input-error"
+                                                style="display:none;"> Задължително поле</span></div>
+                                    </div>
+                                </div>
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="Field_7"><span
+                                            class="required">*</span>Фамилия</label>
+                                        <div class="input-container"><input name="ctl00$CPH1$OrderFormControl1$Field_7"
+                                                                            type="text" id="Field_7"
+                                                                            aria-required="true"
+                                                                            placeholder="Фамилия"><span
+                                                id="ctl00_CPH1_OrderFormControl1_ReqVal_7" class="input-error"
+                                                style="display:none;"> Задължително поле</span></div>
+                                    </div>
+                                </div>
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="Field_20"><span
+                                            class="required">*</span>Имейл</label>
+                                        <div class="input-container"><input name="ctl00$CPH1$OrderFormControl1$Field_20"
+                                                                            type="text" id="Field_20" class="email"
+                                                                            aria-required="true"
+                                                                            placeholder="Имейл" value="blago@abv.bg"><span
+                                                id="ctl00_CPH1_OrderFormControl1_ReqVal_20" class="input-error"
+                                                style="display:none;"> Задължително поле</span><span
+                                                id="ctl00_CPH1_OrderFormControl1_ctl14" class="input-error"
+                                                style="display:none;"> Невалиден е-мейл адрес.</span></div>
+                                    </div>
+                                </div>
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="EmailVerify"><span
+                                            class="required">*</span>Повторeте имейл</label>
+                                        <div class="input-container"><input
+                                                name="ctl00$CPH1$OrderFormControl1$EmailVerify" type="text"
+                                                id="EmailVerify" autocomplete="off" aria-required="true"
+                                                placeholder="Повторeте имейл"><span
+                                                id="ctl00_CPH1_OrderFormControl1_ctl19" class="input-error"
+                                                style="display:none;"> Задължително поле</span><span id="valReEmail"
+                                                                                                     class="input-error"
+                                                                                                     style="display:none;"> Невалиден е-мейл адрес.</span><span
+                                                id="valMatchEmail" class="input-error" style="display:none;">Имейлите не съвпадат</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="Field_21">Телефонен
+                                        номер</label>
+                                        <div class="input-container"><input name="ctl00$CPH1$OrderFormControl1$Field_21"
+                                                                            type="text" id="Field_21"
+                                                                            placeholder="Телефонен номер"><span
+                                                id="ctl00_CPH1_OrderFormControl1_numVal_21" class="input-error"
+                                                style="display:none;"> Please enter numeric values</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="ctl00$CPH1$OrderFormControl1$hdnCurrentTotal"
+                                   id="ctl00_CPH1_OrderFormControl1_hdnCurrentTotal">
+                            <p>* = Задължително поле</p>
+                            <script type="text/javascript">
+                                function resetCaptcha() {
+                                    gblCaptchaToken = "";
+                                    strToken = "";
+                                    funcCallback = null;
+
+                                    $("#txtAuthenticationCode").val("");
+                                    if ($(".g-recaptcha").length) {
+                                        grecaptcha.reset();
+                                    }
+
+                                    if ($("#imgAuthenticationImage").length) {
+                                        var newSrc = $("#imgAuthenticationImage").attr("src").substring(0, $("#imgAuthenticationImage").attr("src").indexOf("?")) + "?tiks=" + Math.floor((Math.random() * 1000) + 1);
+                                        //var newSrc = captchaUrl + "?tiks=" + Math.floor((Math.random() * 100) + 1);
+                                        $("#imgAuthenticationImage").attr("src", newSrc);
+                                    }
+
+                                }
+
+                            </script>
+                            <span id="ctl00_CPH1_OrderFormControl1_AuthenticationTestControl1_valInvisibleReCAPTCHA"
+                                  style="color:Red;display:none;"></span>
+                            <script type="text/javascript">
+                                var strToken = "";
+                                var btn;
+                                var funcCallback;
+
+
+                                function executeInvisibleReCAPTCHA(submitBtn) {
+                                    //isForce = (typeof isForce === 'undefined') ? false : isForce;
+
+                                    btn = submitBtn;
+                                    if (strToken.length == 0) {
+                                        grecaptcha.execute();
+                                        return false;
+                                    }
+
+                                    return true;
+                                    // if(isForce)
+                                    // return false;
+                                }
+
+
+                                function valInvisibleReCAPTCHA(source, arguments) {
+                                    arguments.IsValid = strToken.length > 0;
+                                }
+
+
+                                function executeCaptchaWithCallback(funcCallback) {
+                                    this.funcCallback = funcCallback;
+                                    if (typeof grecaptcha != "undefined")
+                                        grecaptcha.execute();
+                                    else
+                                        captchaCallback("nokoen");
+                                }
+
+
+                                function captchaCallback(token) {
+                                    strToken = token;
+                                    gblCaptchaToken = token;
+                                    if (typeof btn != "undefined")
+                                        location.href = $(btn).attr('href');
+
+                                    if (jQuery.isFunction(funcCallback)) {
+                                        funcCallback();
+                                    }
+
+                                }
+
+
+                            </script>
+                        </div>
+                    </div>
+                    <div class="actionHolder">
+                        <a id="lbNext" class="actionBtn"
+                           href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$lbNext&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))">Продължи</a>
+                        <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
+                           href="SelectSeatPage.aspx?dtticks=638575048650397743&amp;ec=280895">Назад</a>
+                        <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="footer" class="footer orderformpageres"></div>
+
+</form>
+<script language="javascript" type="text/javascript" src="./js/jquery.blockUI.js"></script>
+<script language="javascript" type="text/javascript" src="./JS/common.js?ver=50400"></script>
+<script language="javascript" type="text/javascript" src="/JScript/Modal/jcss/modaal.min.js"></script>
+
+<iframe class="ot-text-resize" sandbox="allow-same-origin" title="onetrust-text-resize"
+        style="position: absolute; top: -50000px; width: 100em;" aria-hidden="true"></iframe>
+
+
 </div>
-
-<div class="row-seat"><span class="row-number-end">10</span>
-    <div class="seat">1</div>
-    <div class="seat">2</div>
-    <div class="seat">3</div>
-    <div class="seat">4</div>
-    <div class="seat">5</div>
-    <div class="seat">6</div>
-    <div class="seat">7</div>
-    <div class="seat">8</div>
-    <div class="seat">9</div>
-    <div class="seat">10</div>
-    <div class="seat">11</div>
-    <div class="seat">12</div>
-    <div class="seat">13</div>
-    <div class="seat">14</div>
-    <div class="seat sold">15</div>
-    <div class="seat sold">16</div>
-    <div class="seat">17</div>
-    <div class="seat">18</div>
-    <div class="seat">19</div>
-    <div class="seat">20</div>
-</div>
-
-<button id="bookBtn">
-    Book now
-</button>
-
-<p class="text">
-    You have selected <span id="count">0</span> seat for a price of Lv.<span id="total">0</span>
-</p>
-
-<script src="/js/select_seat_script.js"></script>
-
+<script type="text/javascript" id=""></script>
+<footer th:replace="~{fragments/commons::footer}"></footer>
 </body>
 </html>
