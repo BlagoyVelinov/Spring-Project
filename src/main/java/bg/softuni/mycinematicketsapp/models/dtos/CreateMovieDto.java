@@ -12,28 +12,28 @@ import java.util.List;
 public class CreateMovieDto {
 
     @NotEmpty(message = "Name cannot be null ot empty!")
-    @Size(min= 3, message = "Name must be at least 3 characters")
+    @Size(min= 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
     @NotNull(message = "Insert a movie length")
-    @Positive(message = "Movie Length should be positive number!")
+    @Positive(message = "Movie Length should be positive number! Min-20 max-180")
     private Integer movieLength;
 
     @NotNull(message = "You must select hall number!")
     private HallNumber hallNumber;
     @NotEmpty
-    @Size(min = 4, max = 20, message = "Audio length must be between 4 and 10 characters")
+    @Size(min = 2, max = 20, message = "Audio length must be between 2 and 20 characters")
     private String audio;
     @NotEmpty
-    @Size(min = 4, max = 20, message = "Subtitles length must be between 4 and 10 characters")
+    @Size(min = 2, max = 20, message = "Subtitles length must be between 2 and 20 characters")
     private String subtitles;
     @NotEmpty(message = "Description cannot be null ot empty!")
-    @Size(min = 5, message = "Description must be at least 5 characters!")
+    @Size(min = 5, max = 250, message = "Description must be at between 5 and 250 characters!")
     private String description;
     @NotEmpty
-    @Size(min = 10, message = "Put correct imageUrl")
+    @Size(min = 10, max = 250, message = "Put correct imageUrl / between 10 and 250 characters!")
     private String imageUrl;
     @NotEmpty
-    @Size(min = 10, message = "Put correct trailerUrl")
+    @Size(min = 10, max = 100, message = "Put correct trailerUrl / between 10 and 100 characters!")
     private String trailerUrl; //TODO: trailer трябва да мачва 'https://www.youtube.com/embed/mps1HbpECIA'
     @NotNull(message = "Please select a format of projection!")
     private ProjectionFormat projectionFormat;

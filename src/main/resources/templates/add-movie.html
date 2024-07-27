@@ -39,9 +39,10 @@
                             <div class="label-holder text-white textCol d-flex justify-content-center">
                                 <label for="movieLength" class="h4 mb-2">Movie Length</label>
                             </div>
-                            <input type="text" class="form-control"
+                            <input type="number" class="form-control"
                                    id="movieLength"
                                    name="movieLength"
+                                   min="20" max="180"
                                    th:field="*{movieLength}"
                             />
                             <small th:if="${#fields.hasErrors('movieLength')}"
@@ -55,6 +56,7 @@
                             <input type="text" class="form-control"
                                    id="audio"
                                    name="audio"
+                                   minlength="2" max="20"
                                    th:field="*{audio}"
                             />
                             <small th:if="${#fields.hasErrors('audio')}"
@@ -68,6 +70,7 @@
                             <input type="text" class="form-control"
                                    id="subtitles"
                                    name="subtitles"
+                                   minlength="2" max="20"
                                    th:field="*{subtitles}"
                             />
                             <small th:if="${#fields.hasErrors('subtitles')}"
@@ -81,6 +84,7 @@
                             <textarea type="text" class="form-control"
                                    id="description"
                                    name="description"
+                                   minlength="5" maxlength="250"
                                    th:field="*{description}">
                             </textarea>
                             <small th:if="${#fields.hasErrors('description')}"
@@ -94,6 +98,7 @@
                             <textarea type="text" class="form-control"
                                       id="imageUrl"
                                       name="imageUrl"
+                                      minlength="10"
                                       th:field="*{imageUrl}">
                             </textarea>
                             <small th:if="${#fields.hasErrors('imageUrl')}"
@@ -107,6 +112,8 @@
                             <textarea type="text" class="form-control"
                                       id="trailerUrl"
                                       name="trailerUrl"
+                                      placeholder="https://www.youtube.com/embed/..."
+                                      minlength="10"
                                       th:field="*{trailerUrl}">
                             </textarea>
                             <small th:if="${#fields.hasErrors('trailerUrl')}"

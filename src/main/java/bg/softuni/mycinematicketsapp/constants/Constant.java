@@ -29,10 +29,16 @@ public class Constant {
     public static final String REDIRECT_CONFIRM_ORDER = "redirect:/order/confirm-order/{orderId}";
 
 //====================================================================================================================//
+    public static final double FIX_COMMISSION_PER_TICKET = 0.80;
+
     public static final String OBJECT_ZERO_QUANTITY = "zeroRegularQuantity";
     public static final String FIELD_QUANTITY = "regularQuantity";
-    public static final String DEFAULT_MESSAGE = "You must select a number of tickets";
-    public static final double FIX_COMMISSION_PER_TICKET = 0.80;
+    public static final String DEFAULT_MESSAGE_QUANTITY = "You must select a number of tickets";
+
+
+    public static final String OBJECT_DIFFERENT_TRAILER_URL = "https://www.youtube.com";
+    public static final String FIELD_TRAILER_URL = "trailerUrl";
+    public static final String DEFAULT_MESSAGE_TRAILER = "You must add trailer from \"youtube.com\"!";
 
 
 }

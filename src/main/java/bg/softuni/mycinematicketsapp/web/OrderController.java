@@ -71,7 +71,7 @@ public class OrderController {
             bindingResult.addError(new FieldError(
                     Constant.OBJECT_ZERO_QUANTITY,
                     Constant.FIELD_QUANTITY,
-                    Constant.DEFAULT_MESSAGE));
+                    Constant.DEFAULT_MESSAGE_QUANTITY));
             return Constant.REDIRECT_BUY_TICKETS;
         }
         this.orderService.addQuantityOfTickets(orderMovie, orderId, movieId, timeId);
