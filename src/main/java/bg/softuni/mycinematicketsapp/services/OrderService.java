@@ -19,4 +19,6 @@ public interface OrderService {
     void addQuantityOfTickets(OrderMovieDto orderMovie, long orderId, long movieId, long timeId);
 
     OrderMovieDto getOrderByOrderNumber(String orderNumber);
+
+    int getCountOfTicketsByOrderId(long orderId);
 }

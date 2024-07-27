@@ -91,8 +91,8 @@ seatsObjArr.forEach(seat =>{
 const toggleSelected = e => e.target.classList.toggle('selected');
 let seats = Array.from(document.getElementsByClassName('seatt'));
 
-for(seat of seats) {
-    seat.addEventListener('click', toggleSelected);
+for(seatt of seats) {
+    seatt.addEventListener('click', toggleSelected);
 }
 
 bookBtn = document.getElementById('bookBtn');

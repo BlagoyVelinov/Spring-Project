@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -79,16 +80,21 @@ public class TicketServiceImpl implements TicketService {
         Order order = this.orderService.getOrderById(orderId);
         order.getTickets().forEach(ticket -> {
 
-            for (int i = 0; i < updateTicket.getSeats().length; i++) {
-                for (int j = 0; j < updateTicket.getSeats()[0].length; j++) {
-                    boolean isSelected = updateTicket.getSeats()[i][j];
-                    if (isSelected) {
-                        ticket.setNumberOfRow(i);
-                        ticket.setNumberOfSeat(j);
-                        updateTicket.getSeats()[i][j] = false;
-                    }
+            for (Map.Entry<Integer, List<Integer>> entry : updateTicket.getSeats().entrySet()) {
+                boolean isSelected = false;
+                for (int seat : entry.getValue()) {
+                    ticket.setNumberOfRow(entry.getKey());
+                    ticket.setNumberOfSeat(seat);
+                    entry.getValue().remove(seat);
+                    isSelected = true;
+                    break;
+                }
+                if (isSelected) {
+                    break;
                 }
             }
+
+
         });
         this.orderRepository.save(order);
 
@@ -121,7 +127,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
 
-    private Ticket mapTicketToTicketViewDto(TicketViewDto createTicket, MovieViewDto movieViewDto, TicketType ticketType, String bookingTime, Order order) {
+    private Ticket mapTicketToTicketViewDto(TicketViewDto createTicket, MovieViewDto movieViewDto,
+                                            TicketType ticketType, String bookingTime, Order order) {
         return new Ticket()
                 .setMovieName(movieViewDto.getName())
                 .setHallNumber(movieViewDto.getHallNumber())

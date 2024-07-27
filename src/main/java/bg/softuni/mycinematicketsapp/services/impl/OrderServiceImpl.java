@@ -111,6 +111,15 @@ public class OrderServiceImpl implements OrderService {
         return this.mapOrderToOrderDto(order);
     }
 
+    @Override
+    public int getCountOfTicketsByOrderId(long orderId) {
+        Order order = this.getOrderById(orderId);
+        return order.getChildQuantity()
+                + order.getRegularQuantity()
+                + order.getStudentQuantity()
+                + order.getOverSixtyQuantity();
+    }
+
     private double getTotalPricePlusTax(Order order) {
         int countTickets = order.getTickets().size();
 

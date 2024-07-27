@@ -62,13 +62,12 @@ public class OrderController {
 
     @PutMapping("/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}")
     public String createTickets(@PathVariable long orderId,
-                                     @PathVariable long movieId,
-                                     @PathVariable long timeId,
-                                     OrderMovieDto orderMovie,
-                                     BindingResult bindingResult,
-                                     TicketViewDto createTicket) {
-        if (orderMovie.getChildQuantity() == 0 && orderMovie.getOverSixtyQuantity() == 0
-                && orderMovie.getStudentQuantity() == 0 && orderMovie.getRegularQuantity() == 0) {
+                                @PathVariable long movieId,
+                                @PathVariable long timeId,
+                                OrderMovieDto orderMovie,
+                                BindingResult bindingResult,
+                                TicketViewDto createTicket) {
+        if (this.orderService.getCountOfTicketsByOrderId(orderId) == 0) {
             bindingResult.addError(new FieldError(
                     Constant.OBJECT_ZERO_QUANTITY,
                     Constant.FIELD_QUANTITY,
@@ -85,25 +84,29 @@ public class OrderController {
     public String getSelectSeat(@PathVariable("orderId") long orderId,
                                 @PathVariable("movieId") long movieId,
                                 Model model) {
+        int ticketsQuantity = this.orderService.getCountOfTicketsByOrderId(orderId);
+        model.addAttribute("ticketsCount", ticketsQuantity);
+
         OrderMovieDto orderMovieDto = this.orderService.getOrderMovieById(orderId);
         model.addAttribute("orderDto", orderMovieDto);
+
         MovieViewDto movieView = this.movieService.getMovieViewById(movieId);
         model.addAttribute("movieView", movieView);
+
         return "select-seat";
     }
 
-    @PatchMapping("/select-seats/{orderId}/movie/{movieId}")
+    @PostMapping("/select-seats/{orderId}/movie/{movieId}")
     public String addSeatToTicket(@PathVariable long orderId,
-                            @PathVariable("movieId") long movieId,
-                            @Valid UpdateTicketDto updateTicket,
-                            BindingResult bindingResult,
-                            RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute(Constant.TICKET_ATTRIBUTE_NAME, updateTicket)
-                    .addFlashAttribute(Constant.TICKET_BINDING_RESULT_NAME, bindingResult);
+                                  @PathVariable("movieId") long movieId,
+                                  UpdateTicketDto updateTicket) {
+
+        int ticketsQuantity = this.orderService.getCountOfTicketsByOrderId(orderId);
+
+        if (updateTicket.getCountOfTickets() != ticketsQuantity) {
             return Constant.REDIRECT_SELECT_SEATS;
         }
+
         this.ticketService.updateTicketsWithSeats(updateTicket, orderId, movieId);
         return Constant.REDIRECT_CONFIRM_ORDER;
     }

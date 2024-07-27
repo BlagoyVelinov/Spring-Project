@@ -14,8 +14,6 @@ public class City extends BaseEntity {
     @Column(unique = true)
     private CityName location;
 
-    @ManyToOne
-    private Program program;
     public City() {}
 
     public City(CityName location) {
@@ -28,15 +26,6 @@ public class City extends BaseEntity {
 
     public City setLocation(CityName location) {
         this.location = location;
-        return this;
-    }
-
-    public Program getProgram() {
-        return program;
-    }
-
-    public City setProgram(Program program) {
-        this.program = program;
         return this;
     }
 }
