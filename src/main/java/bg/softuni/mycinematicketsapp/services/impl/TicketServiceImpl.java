@@ -1,7 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.dtos.TicketDto;
 import bg.softuni.mycinematicketsapp.models.dtos.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UpdateTicketDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -51,20 +49,13 @@ public class TicketServiceImpl implements TicketService {
         List<Ticket> unfinishedTicketsByUser = this.getNotFinishedTicketsByUser(user);
 
         if (!unfinishedTicketsByUser.isEmpty()) {
-            order.getTickets().removeAll(unfinishedTicketsByUser);
-            user.getTickets().removeAll(unfinishedTicketsByUser);
-
-            this.orderRepository.save(order);
-            this.userRepository.save(user);
-            unfinishedTicketsByUser
-                    .forEach(ticket -> this.ticketRepository.deleteById(ticket.getId()));
+            this.removeAllNotFinishedTickets(unfinishedTicketsByUser, order, user);
         }
 
         List<Ticket> ticketsToSave = getTicketList(createTicket, movieViewDto, order);
         order.setTickets(ticketsToSave);
 
         this.ticketRepository.saveAll(ticketsToSave);
-
         this.orderRepository.save(order);
 
         user.setTickets(ticketsToSave);
@@ -72,51 +63,51 @@ public class TicketServiceImpl implements TicketService {
 
     }
 
+
     @Override
     public List<Ticket> getTicketsByOrder(Order order) {
         return order.getTickets();
     }
 
-    @Override
-    public void updateTicketsWithSeats(boolean[][] matrix, long orderId, long movieId) {
-        Order order = this.orderService.getOrderById(orderId);
-        AtomicInteger lastRow = new AtomicInteger();
-        AtomicInteger lastCol = new AtomicInteger();
-        order.getTickets().forEach(ticket -> {
-
-            for (int i = lastRow.get(); i < matrix.length; i++) {
-                boolean isSelectedSeat = false;
-                for (int j = lastCol.get(); j < matrix[i].length; j++) {
-                    boolean isFound = matrix[i][j];
-
-                    if (isFound) {
-                        isSelectedSeat = this.getSelectedSeat(matrix, ticket, i, j, lastRow, lastCol);
-                        break;
-                    }
-                }
-                if (isSelectedSeat) {
-                    break;
-                }
-            }
-
-        });
-        this.orderRepository.save(order);
-
-    }
 
     @Override
     public void updateTickets(UpdateTicketDto updateTicket, long orderId, long movieId) {
-//        String col1 = ticketDto.getCol1();
-        Arrays.stream(updateTicket.getSeats()).forEach(System.out::println);
+        Order order = this.orderService.getOrderById(orderId);
+        String[][] cinemaHall = updateTicket.getSeats();
+
+
+        AtomicInteger lastRow = new AtomicInteger();
+        order.getTickets().forEach(ticket -> {
+
+            this.addSelectedSeadToTicket(ticket, lastRow, cinemaHall);
+
+            this.ticketRepository.save(ticket);
+        });
+
     }
 
-    private boolean getSelectedSeat(boolean[][] matrix, Ticket ticket, int i, int j, AtomicInteger lastRow, AtomicInteger lastCol) {
+    private void addSelectedSeadToTicket(Ticket ticket, AtomicInteger lastRow, String[][] cinemaHall) {
+        for (int i = lastRow.get(); i < cinemaHall.length; i++) {
+            boolean isBooked = false;
+            for (int j = 0; j < cinemaHall[i].length; j++) {
+                String selectedSeat = cinemaHall[i][j];
+                if (selectedSeat != null) {
+                    isBooked = this.isBooked(ticket, i, j, cinemaHall, lastRow);
+                    break;
+                }
+            }
+            if (isBooked) {
+                break;
+            }
+
+        }
+    }
+
+    private boolean isBooked(Ticket ticket, int i, int j, String[][] cinemaHall, AtomicInteger lastRow) {
         ticket.setNumberOfRow(i);
         ticket.setNumberOfSeat(j);
-        matrix[i][j] = false;
+        cinemaHall[i][j] = null;
         lastRow.set(i);
-        lastCol.set(j);
-
         return true;
     }
 
@@ -160,6 +151,18 @@ public class TicketServiceImpl implements TicketService {
                 .setBookingTime(bookingTime)
                 .setCity(order.getCity())
                 .setMovieClassDescription(movieViewDto.getMovieClass().getDescription());
+    }
+
+    private void removeAllNotFinishedTickets(List<Ticket> unfinishedTicketsByUser, Order order, UserEntity user) {
+
+        order.getTickets().removeAll(unfinishedTicketsByUser);
+        user.getTickets().removeAll(unfinishedTicketsByUser);
+
+        this.orderRepository.save(order);
+        this.userRepository.save(user);
+        unfinishedTicketsByUser
+                .forEach(ticket -> this.ticketRepository.deleteById(ticket.getId()));
+
     }
 
     private List<Ticket> getNotFinishedTicketsByUser(UserEntity user) {

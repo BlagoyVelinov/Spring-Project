@@ -91,279 +91,472 @@
                         </div>
                         <body-seats>
 
-                            <table>
+                            <!--<table>-->
 
-                                <tr class="row-seat" th:each="row, rowStat : *{seats}">
-                                    <td class="seatt" th:each="col, colStat : ${row}">
-                                        <input type="checkbox"
-                                               th:name="matrix[__${rowStat.index}__][__${colStat.index}__]"
-                                               th:checked="${col}"
-                                               value="on"/>
+                            <!--<tr class="row-seat" th:each="row, rowStat : *{seats}">-->
+                            <!--  <td class="seatt" th:each="col, colStat : ${row}">-->
+                            <!--   <input type="checkbox"-->
+                            <!--        th:name="matrix[__${rowStat.index}__][__${colStat.index}__]"-->
+                            <!--        th:checked="${col}"-->
+                            <!--        value="on"/>-->
 
-                                        <input
-                                                type="hidden"
-                                                th:name="matrix[__${rowStat.index}__][__${colStat.index}__]"
-                                                value="off"/>
+                            <!--   <input-->
+                            <!--         type="hidden"-->
+                            <!--         th:name="matrix[__${rowStat.index}__][__${colStat.index}__]"-->
+                            <!--         value="off"/>-->
 
-                                    </td>
-                                </tr>
-                            </table>
+                            <!-- </td>-->
+                            <!--</tr>-->
+                            <!--</table>-->
 
 
-                            <!--                            <div class="row-seat">-->
-                            <!--                                <span class="row-number">1</span>-->
-                            <!--                                <label class="seatt" for="flexCheck1">1-->
-                            <!--                                    <input class="hidden" type="checkbox" value="1-1" id="flexCheck1" th:name="${seat}">-->
-                            <!--                                </label>-->
+                            <div class="row-seat">
+                                <span class="row-number">1</span>
+                                <label class="seatt" for="r1c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c1" th:field="*{seats[0][0]}"></label>
+                                <label class="seatt" for="r1c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c2" th:field="*{seats[0][1]}"></label>
+                                <label class="seatt" for="r1c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c3" th:field="*{seats[0][2]}"></label>
+                                <label class="seatt" for="r1c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c4" th:field="*{seats[0][3]}"></label>
+                                <label class="seatt" for="r1c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c5" th:field="*{seats[0][4]}"></label>
+                                <label class="seatt" for="r1c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c6" th:field="*{seats[0][5]}"></label>
+                                <label class="seatt" for="r1c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c7" th:field="*{seats[0][6]}"></label>
+                                <label class="seatt" for="r1c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c8" th:field="*{seats[0][7]}"></label>
+                                <label class="seatt" for="r1c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c9" th:field="*{seats[0][8]}"></label>
+                                <label class="seatt" for="r1c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c10" th:field="*{seats[0][9]}"></label>
+                                <label class="seatt" for="r1c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c11" th:field="*{seats[0][10]}"></label>
+                                <label class="seatt" for="r1c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c12" th:field="*{seats[0][11]}"></label>
+                                <label class="seatt" for="r1c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c13" th:field="*{seats[0][12]}"></label>
+                                <label class="seatt" for="r1c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c14" th:field="*{seats[0][13]}"></label>
+                                <label class="seatt" for="r1c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c15" th:field="*{seats[0][14]}"></label>
+                                <label class="seatt" for="r1c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c16" th:field="*{seats[0][15]}"></label>
+                                <label class="seatt" for="r1c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c17" th:field="*{seats[0][16]}"></label>
+                                <label class="seatt" for="r1c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c18" th:field="*{seats[0][17]}"></label>
+                                <label class="seatt" for="r1c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c19" th:field="*{seats[0][18]}"></label>
+                                <label class="seatt" for="r1c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r1c20" th:field="*{seats[0][19]}"></label>
+                            </div>
 
-                            <!--                                <label class="seatt" for="flexCheck2">2-->
-                            <!--                                    <input class="hidden" type="checkbox" value="1-2" id="flexCheck2"-->
-                            <!--                                           th:name="${seat}">-->
-                            <!--                                </label>-->
+                            <div class="row-seat">
+                                <span class="row-number">2</span>
+                                <label class="seatt" for="r2c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c1" th:field="*{seats[1][0]}"></label>
+                                <label class="seatt" for="r2c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c2" th:field="*{seats[1][1]}"></label>
+                                <label class="seatt" for="r2c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c3" th:field="*{seats[1][2]}"></label>
+                                <label class="seatt" for="r2c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c4" th:field="*{seats[1][3]}"></label>
+                                <label class="seatt" for="r2c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c5" th:field="*{seats[1][4]}"></label>
+                                <label class="seatt" for="r2c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c6" th:field="*{seats[1][5]}"></label>
+                                <label class="seatt" for="r2c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c7" th:field="*{seats[1][6]}"></label>
+                                <label class="seatt" for="r2c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c8" th:field="*{seats[1][7]}"></label>
+                                <label class="seatt" for="r2c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c9" th:field="*{seats[1][8]}"></label>
+                                <label class="seatt" for="r2c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c10" th:field="*{seats[1][9]}"></label>
+                                <label class="seatt" for="r2c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c11" th:field="*{seats[1][10]}"></label>
+                                <label class="seatt" for="r2c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c12" th:field="*{seats[1][11]}"></label>
+                                <label class="seatt" for="r2c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c13" th:field="*{seats[1][12]}"></label>
+                                <label class="seatt" for="r2c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c14" th:field="*{seats[1][13]}"></label>
+                                <label class="seatt" for="r2c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c15" th:field="*{seats[1][14]}"></label>
+                                <label class="seatt" for="r2c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c16" th:field="*{seats[1][15]}"></label>
+                                <label class="seatt" for="r2c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c17" th:field="*{seats[1][16]}"></label>
+                                <label class="seatt" for="r2c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c18" th:field="*{seats[1][17]}"></label>
+                                <label class="seatt" for="r2c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c19" th:field="*{seats[1][18]}"></label>
+                                <label class="seatt" for="r2c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r2c20" th:field="*{seats[1][19]}"></label>
+                            </div>
 
-                            <!--                                <div class="seatt" th:text="${seat}">3</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(4)}">4</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(5)}">5</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(6)}">6</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(7)}">7</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(8)}">8</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(9)}">9</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(10)}">10</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(11)}">11</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(12)}">12</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(13)}">13</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(14)}">14</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(15)}">15</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(16)}">16</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(17)}">17</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(18)}">18</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(19)}">19</div>-->
-                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(20)}">20</div>-->
-                            <!--                            </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">3</span>
+                                <label class="seatt" for="r3c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c1" th:field="*{seats[2][0]}"></label>
+                                <label class="seatt" for="r3c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c2" th:field="*{seats[2][1]}"></label>
+                                <label class="seatt" for="r3c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c3" th:field="*{seats[2][2]}"></label>
+                                <label class="seatt" for="r3c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c4" th:field="*{seats[2][3]}"></label>
+                                <label class="seatt" for="r3c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c5" th:field="*{seats[2][4]}"></label>
+                                <label class="seatt" for="r3c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c6" th:field="*{seats[2][5]}"></label>
+                                <label class="seatt" for="r3c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c7" th:field="*{seats[2][6]}"></label>
+                                <label class="seatt" for="r3c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c8" th:field="*{seats[2][7]}"></label>
+                                <label class="seatt" for="r3c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c9" th:field="*{seats[2][8]}"></label>
+                                <label class="seatt" for="r3c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c10" th:field="*{seats[2][9]}"></label>
+                                <label class="seatt" for="r3c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c11" th:field="*{seats[2][10]}"></label>
+                                <label class="seatt" for="r3c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c12" th:field="*{seats[2][11]}"></label>
+                                <label class="seatt" for="r3c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c13" th:field="*{seats[2][12]}"></label>
+                                <label class="seatt" for="r3c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c14" th:field="*{seats[2][13]}"></label>
+                                <label class="seatt" for="r3c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c15" th:field="*{seats[2][14]}"></label>
+                                <label class="seatt" for="r3c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c16" th:field="*{seats[2][15]}"></label>
+                                <label class="seatt" for="r3c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c17" th:field="*{seats[2][16]}"></label>
+                                <label class="seatt" for="r3c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c18" th:field="*{seats[2][17]}"></label>
+                                <label class="seatt" for="r3c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c19" th:field="*{seats[2][18]}"></label>
+                                <label class="seatt" for="r3c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r3c20" th:field="*{seats[2][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">2</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">4</span>
+                                <label class="seatt" for="r4c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c1" th:field="*{seats[3][0]}"></label>
+                                <label class="seatt" for="r4c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c2" th:field="*{seats[3][1]}"></label>
+                                <label class="seatt" for="r4c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c3" th:field="*{seats[3][2]}"></label>
+                                <label class="seatt" for="r4c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c4" th:field="*{seats[3][3]}"></label>
+                                <label class="seatt" for="r4c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c5" th:field="*{seats[3][4]}"></label>
+                                <label class="seatt" for="r4c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c6" th:field="*{seats[3][5]}"></label>
+                                <label class="seatt" for="r4c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c7" th:field="*{seats[3][6]}"></label>
+                                <label class="seatt" for="r4c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c8" th:field="*{seats[3][7]}"></label>
+                                <label class="seatt" for="r4c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c9" th:field="*{seats[3][8]}"></label>
+                                <label class="seatt" for="r4c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c10" th:field="*{seats[3][9]}"></label>
+                                <label class="seatt" for="r4c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c11" th:field="*{seats[3][10]}"></label>
+                                <label class="seatt" for="r4c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c12" th:field="*{seats[3][11]}"></label>
+                                <label class="seatt" for="r4c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c13" th:field="*{seats[3][12]}"></label>
+                                <label class="seatt" for="r4c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c14" th:field="*{seats[3][13]}"></label>
+                                <label class="seatt" for="r4c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c15" th:field="*{seats[3][14]}"></label>
+                                <label class="seatt" for="r4c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c16" th:field="*{seats[3][15]}"></label>
+                                <label class="seatt" for="r4c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c17" th:field="*{seats[3][16]}"></label>
+                                <label class="seatt" for="r4c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c18" th:field="*{seats[3][17]}"></label>
+                                <label class="seatt" for="r4c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c19" th:field="*{seats[3][18]}"></label>
+                                <label class="seatt" for="r4c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r4c20" th:field="*{seats[3][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">3</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">5</span>
+                                <label class="seatt" for="r5c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c1" th:field="*{seats[4][0]}"></label>
+                                <label class="seatt" for="r5c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c2" th:field="*{seats[4][1]}"></label>
+                                <label class="seatt" for="r5c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c3" th:field="*{seats[4][2]}"></label>
+                                <label class="seatt" for="r5c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c4" th:field="*{seats[4][3]}"></label>
+                                <label class="seatt" for="r5c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c5" th:field="*{seats[4][4]}"></label>
+                                <label class="seatt" for="r5c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c6" th:field="*{seats[4][5]}"></label>
+                                <label class="seatt" for="r5c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c7" th:field="*{seats[4][6]}"></label>
+                                <label class="seatt" for="r5c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c8" th:field="*{seats[4][7]}"></label>
+                                <label class="seatt" for="r5c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c9" th:field="*{seats[4][8]}"></label>
+                                <label class="seatt" for="r5c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c10" th:field="*{seats[4][9]}"></label>
+                                <label class="seatt" for="r5c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c11" th:field="*{seats[4][10]}"></label>
+                                <label class="seatt" for="r5c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c12" th:field="*{seats[4][11]}"></label>
+                                <label class="seatt" for="r5c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c13" th:field="*{seats[4][12]}"></label>
+                                <label class="seatt" for="r5c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c14" th:field="*{seats[4][13]}"></label>
+                                <label class="seatt" for="r5c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c15" th:field="*{seats[4][14]}"></label>
+                                <label class="seatt" for="r5c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c16" th:field="*{seats[4][15]}"></label>
+                                <label class="seatt" for="r5c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c17" th:field="*{seats[4][16]}"></label>
+                                <label class="seatt" for="r5c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c18" th:field="*{seats[4][17]}"></label>
+                                <label class="seatt" for="r5c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c19" th:field="*{seats[4][18]}"></label>
+                                <label class="seatt" for="r5c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r5c20" th:field="*{seats[4][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">4</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">6</span>
+                                <label class="seatt" for="r6c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c1" th:field="*{seats[5][0]}"></label>
+                                <label class="seatt" for="r6c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c2" th:field="*{seats[5][1]}"></label>
+                                <label class="seatt" for="r6c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c3" th:field="*{seats[5][2]}"></label>
+                                <label class="seatt" for="r6c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c4" th:field="*{seats[5][3]}"></label>
+                                <label class="seatt" for="r6c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c5" th:field="*{seats[5][4]}"></label>
+                                <label class="seatt" for="r6c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c6" th:field="*{seats[5][5]}"></label>
+                                <label class="seatt" for="r6c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c7" th:field="*{seats[5][6]}"></label>
+                                <label class="seatt" for="r6c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c8" th:field="*{seats[5][7]}"></label>
+                                <label class="seatt" for="r6c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c9" th:field="*{seats[5][8]}"></label>
+                                <label class="seatt" for="r6c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c10" th:field="*{seats[5][9]}"></label>
+                                <label class="seatt" for="r6c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c11" th:field="*{seats[5][10]}"></label>
+                                <label class="seatt" for="r6c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c12" th:field="*{seats[5][11]}"></label>
+                                <label class="seatt" for="r6c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c13" th:field="*{seats[5][12]}"></label>
+                                <label class="seatt" for="r6c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c14" th:field="*{seats[5][13]}"></label>
+                                <label class="seatt" for="r6c15">156
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c15" th:field="*{seats[5][14]}"></label>
+                                <label class="seatt" for="r6c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c16" th:field="*{seats[5][15]}"></label>
+                                <label class="seatt" for="r6c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c17" th:field="*{seats[5][16]}"></label>
+                                <label class="seatt" for="r6c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c18" th:field="*{seats[5][17]}"></label>
+                                <label class="seatt" for="r6c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c19" th:field="*{seats[5][18]}"></label>
+                                <label class="seatt" for="r6c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r6c20" th:field="*{seats[5][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">5</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">7</span>
+                                <label class="seatt" for="r7c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c1" th:field="*{seats[6][0]}"></label>
+                                <label class="seatt" for="r7c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c2" th:field="*{seats[6][1]}"></label>
+                                <label class="seatt" for="r7c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c3" th:field="*{seats[6][2]}"></label>
+                                <label class="seatt" for="r7c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c4" th:field="*{seats[6][3]}"></label>
+                                <label class="seatt" for="r7c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c5" th:field="*{seats[6][4]}"></label>
+                                <label class="seatt" for="r7c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c6" th:field="*{seats[6][5]}"></label>
+                                <label class="seatt" for="r7c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c7" th:field="*{seats[6][6]}"></label>
+                                <label class="seatt" for="r7c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c8" th:field="*{seats[6][7]}"></label>
+                                <label class="seatt" for="r7c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c9" th:field="*{seats[6][8]}"></label>
+                                <label class="seatt" for="r7c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c10" th:field="*{seats[6][9]}"></label>
+                                <label class="seatt" for="r7c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c11" th:field="*{seats[6][10]}"></label>
+                                <label class="seatt" for="r7c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c12" th:field="*{seats[6][11]}"></label>
+                                <label class="seatt" for="r7c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c13" th:field="*{seats[6][12]}"></label>
+                                <label class="seatt" for="r7c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c14" th:field="*{seats[6][13]}"></label>
+                                <label class="seatt" for="r7c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c15" th:field="*{seats[6][14]}"></label>
+                                <label class="seatt" for="r7c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c16" th:field="*{seats[6][15]}"></label>
+                                <label class="seatt" for="r7c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c17" th:field="*{seats[6][16]}"></label>
+                                <label class="seatt" for="r7c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c18" th:field="*{seats[6][17]}"></label>
+                                <label class="seatt" for="r7c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c19" th:field="*{seats[6][18]}"></label>
+                                <label class="seatt" for="r7c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r7c20" th:field="*{seats[6][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">6</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">8</span>
+                                <label class="seatt" for="r8c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c1" th:field="*{seats[7][0]}"></label>
+                                <label class="seatt" for="r8c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c2" th:field="*{seats[7][1]}"></label>
+                                <label class="seatt" for="r8c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c3" th:field="*{seats[7][2]}"></label>
+                                <label class="seatt" for="r8c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c4" th:field="*{seats[7][3]}"></label>
+                                <label class="seatt" for="r8c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c5" th:field="*{seats[7][4]}"></label>
+                                <label class="seatt" for="r8c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c6" th:field="*{seats[7][5]}"></label>
+                                <label class="seatt" for="r8c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c7" th:field="*{seats[7][6]}"></label>
+                                <label class="seatt" for="r8c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c8" th:field="*{seats[7][7]}"></label>
+                                <label class="seatt" for="r8c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c9" th:field="*{seats[7][8]}"></label>
+                                <label class="seatt" for="r8c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c10" th:field="*{seats[7][9]}"></label>
+                                <label class="seatt" for="r8c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c11" th:field="*{seats[7][10]}"></label>
+                                <label class="seatt" for="r8c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c12" th:field="*{seats[7][11]}"></label>
+                                <label class="seatt" for="r8c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c13" th:field="*{seats[7][12]}"></label>
+                                <label class="seatt" for="r8c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c14" th:field="*{seats[7][13]}"></label>
+                                <label class="seatt" for="r8c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c15" th:field="*{seats[7][14]}"></label>
+                                <label class="seatt" for="r8c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c16" th:field="*{seats[7][15]}"></label>
+                                <label class="seatt" for="r8c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c17" th:field="*{seats[7][16]}"></label>
+                                <label class="seatt" for="r8c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c18" th:field="*{seats[7][17]}"></label>
+                                <label class="seatt" for="r8c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c19" th:field="*{seats[7][18]}"></label>
+                                <label class="seatt" for="r8c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r8c20" th:field="*{seats[7][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">7</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][1]}">2</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][2]}">3</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][3]}">4</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][9]}">10</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][10]}">11</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">9</span>
+                                <label class="seatt" for="r9c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c1" th:field="*{seats[8][0]}"></label>
+                                <label class="seatt" for="r9c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c2" th:field="*{seats[8][1]}"></label>
+                                <label class="seatt" for="r9c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c3" th:field="*{seats[8][2]}"></label>
+                                <label class="seatt" for="r9c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c4" th:field="*{seats[8][3]}"></label>
+                                <label class="seatt" for="r9c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c5" th:field="*{seats[8][4]}"></label>
+                                <label class="seatt" for="r9c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c6" th:field="*{seats[8][5]}"></label>
+                                <label class="seatt" for="r9c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c7" th:field="*{seats[8][6]}"></label>
+                                <label class="seatt" for="r9c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c8" th:field="*{seats[8][7]}"></label>
+                                <label class="seatt" for="r9c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c9" th:field="*{seats[8][8]}"></label>
+                                <label class="seatt" for="r9c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c10" th:field="*{seats[8][9]}"></label>
+                                <label class="seatt" for="r9c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c11" th:field="*{seats[8][10]}"></label>
+                                <label class="seatt" for="r9c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c12" th:field="*{seats[8][11]}"></label>
+                                <label class="seatt" for="r9c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c13" th:field="*{seats[8][12]}"></label>
+                                <label class="seatt" for="r9c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c14" th:field="*{seats[8][13]}"></label>
+                                <label class="seatt" for="r9c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c15" th:field="*{seats[8][14]}"></label>
+                                <label class="seatt" for="r9c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c16" th:field="*{seats[8][15]}"></label>
+                                <label class="seatt" for="r9c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c17" th:field="*{seats[8][16]}"></label>
+                                <label class="seatt" for="r9c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c18" th:field="*{seats[8][17]}"></label>
+                                <label class="seatt" for="r9c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c19" th:field="*{seats[8][18]}"></label>
+                                <label class="seatt" for="r9c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r9c20" th:field="*{seats[8][19]}"></label>
+                            </div>
 
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">8</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][3]}">4</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][4]}">5</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][5]}">6</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][16]}">17</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][19]}">20</div>-->
-                            <!--                        </div>-->
-
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number">9</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][8]}">9</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][9]}">10</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][12]}">13</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][13]}">14</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][14]}">15</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][19]}">20</div>-->
-                            <!--                        </div>-->
-
-                            <!--                        <div class="row-seat">-->
-                            <!--                            <span class="row-number-end">10</span>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][0]}">1</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][1]}">2</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][2]}">3</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][3]}">4</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][4]}">5</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][5]}">6</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][6]}">7</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][7]}">8</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][8]}">9</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[9][9]}">10</div>-->
-                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[9][10]}">11</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][11]}">12</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][12]}">13</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][13]}">14</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][14]}">15</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][15]}">16</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][16]}">17</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][17]}">18</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][18]}">19</div>-->
-                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][19]}">20</div>-->
-                            <!--                        </div>-->
+                            <div class="row-seat">
+                                <span class="row-number">10</span>
+                                <label class="seatt" for="r10c1">1
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c1" th:field="*{seats[9][0]}"></label>
+                                <label class="seatt" for="r10c2">2
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c2" th:field="*{seats[9][1]}"></label>
+                                <label class="seatt" for="r10c3">3
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c3" th:field="*{seats[9][2]}"></label>
+                                <label class="seatt" for="r10c4">4
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c4" th:field="*{seats[9][3]}"></label>
+                                <label class="seatt" for="r10c5">5
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c5" th:field="*{seats[9][4]}"></label>
+                                <label class="seatt" for="r10c6">6
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c6" th:field="*{seats[9][5]}"></label>
+                                <label class="seatt" for="r10c7">7
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c7" th:field="*{seats[9][6]}"></label>
+                                <label class="seatt" for="r10c8">8
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c8" th:field="*{seats[9][7]}"></label>
+                                <label class="seatt" for="r10c9">9
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c9" th:field="*{seats[9][8]}"></label>
+                                <label class="seatt" for="r10c10">10
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c10" th:field="*{seats[9][9]}"></label>
+                                <label class="seatt" for="r10c11">11
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c11" th:field="*{seats[9][10]}"></label>
+                                <label class="seatt" for="r10c12">12
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c12" th:field="*{seats[9][11]}"></label>
+                                <label class="seatt" for="r10c13">13
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c13" th:field="*{seats[9][12]}"></label>
+                                <label class="seatt" for="r10c14">14
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c14" th:field="*{seats[9][13]}"></label>
+                                <label class="seatt" for="r10c15">15
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c15" th:field="*{seats[9][14]}"></label>
+                                <label class="seatt" for="r10c16">16
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c16" th:field="*{seats[9][15]}"></label>
+                                <label class="seatt" for="r10c17">17
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c17" th:field="*{seats[9][16]}"></label>
+                                <label class="seatt" for="r10c18">18
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c18" th:field="*{seats[9][17]}"></label>
+                                <label class="seatt" for="r10c19">19
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c19" th:field="*{seats[9][18]}"></label>
+                                <label class="seatt" for="r10c20">20
+                                    <input class="hidden" type="checkbox" value="booked" id="r10c20" th:field="*{seats[9][19]}"></label>
+                            </div>
                         </body-seats>
                         <div id="accesibleSeatPlanContainer">
                             <table class="tableSP"></table>
                         </div>
                     </div>
                     <div class="actionHolder">
-                        <button type="submit" class="actionBtn">Continue</button>
-                        <!--                    <input type="submit" class="actionBtn" value="Continue"/>-->
+<!--                        <button type="submit" class="actionBtn">Continue</button>-->
+                           <input type="submit" class="actionBtn" value="Continue"/>
 
                         <a th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${movieView.id})}"
                            id="backBtn" class="cancelBtn back-link">Назад</a>

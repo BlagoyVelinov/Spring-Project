@@ -104,7 +104,7 @@ body-seats{
     --dark-blue: #21216c;
     --seatt-neutral: #39af39;
     --seatt-selected: #e0641b;
-    --seatt-booked: #727272;
+    --seatt-booked: #342e2e;
 
     /* Seats */
     --seatt-width: 30px;

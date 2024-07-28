@@ -24,20 +24,18 @@ public class OrderController {
     private final MovieService movieService;
     private final OrderService orderService;
     private final TicketService ticketService;
-//    private UpdateTicketDto updateTicketDto;
 
     @Autowired
     public OrderController(MovieService movieService, OrderService orderService, TicketService ticketService) {
         this.movieService = movieService;
         this.orderService = orderService;
         this.ticketService = ticketService;
-//        this.updateTicketDto = new UpdateTicketDto(3, 4);
     }
 
-//    @ModelAttribute("updateTicket")
-//    public UpdateTicketDto initTicket() {
-//        return new UpdateTicketDto(3,4);
-//    }
+    @ModelAttribute("updateTicket")
+    public UpdateTicketDto initTicket() {
+        return new UpdateTicketDto(10,20);
+    }
 
     @ModelAttribute("orderMovie")
     public OrderMovieDto updateOrderMovieDto() {
@@ -88,8 +86,6 @@ public class OrderController {
                                 @PathVariable("movieId") long movieId,
                                 Model model) {
 
-        model.addAttribute("updateTicket", new UpdateTicketDto(3, 4));
-
         int ticketsQuantity = this.orderService.getCountOfTicketsByOrderId(orderId);
         model.addAttribute("ticketsCount", ticketsQuantity);
 
@@ -103,40 +99,18 @@ public class OrderController {
     }
 
 
-//      @PostMapping("/matrix")
-//  public String submitMatrix(MatrixFormDTO matrixForm, Model model) {
-
-//    boolean[][] submittedMatrix = matrixForm.getMatrix();
-
-//    // Add logic here to process the submitted matrix as needed
-
-//    model.addAttribute("matrixForm", matrixForm);
-//    return "matrix";
-//  }
-
-
 
     @PostMapping("/select-seats/{orderId}/movie/{movieId}")
     public String addSeatToTicket(@PathVariable long orderId,
                                   @PathVariable("movieId") long movieId,
-                                  UpdateTicketDto updateTicket, Model model) {
-        boolean[][] matrix = updateTicket.getSeats();
-
-        // @ModelAttribute("...") With this code return initial matrix but only false
-        updateTicket = (UpdateTicketDto) model.getAttribute("updateTicket");
-
+                                  UpdateTicketDto updateTicket) {
+        String[][] matrix = updateTicket.getSeats();
 
         int ticketsQuantity = this.orderService.getCountOfTicketsByOrderId(orderId);
-
         if (updateTicket.getCountOfTickets(matrix) != ticketsQuantity) {
             return Constant.REDIRECT_SELECT_SEATS;
         }
         this.ticketService.updateTickets(updateTicket, orderId, movieId);
-        model.addAttribute("updateTicket", updateTicket);
-
-//        This is test with global variable but result is the same!
-//        this.ticketService.updateTicketsWithSeats(matrix, orderId, movieId);
-//        model.addAttribute("updateTicket", this.updateTicketDto);
 
         return Constant.REDIRECT_CONFIRM_ORDER;
     }
