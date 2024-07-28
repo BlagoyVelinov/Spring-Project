@@ -24,18 +24,20 @@ public class OrderController {
     private final MovieService movieService;
     private final OrderService orderService;
     private final TicketService ticketService;
+//    private UpdateTicketDto updateTicketDto;
 
     @Autowired
     public OrderController(MovieService movieService, OrderService orderService, TicketService ticketService) {
         this.movieService = movieService;
         this.orderService = orderService;
         this.ticketService = ticketService;
+//        this.updateTicketDto = new UpdateTicketDto(3, 4);
     }
 
-    @ModelAttribute("updateTicket")
-    public UpdateTicketDto initTicket() {
-        return new UpdateTicketDto();
-    }
+//    @ModelAttribute("updateTicket")
+//    public UpdateTicketDto initTicket() {
+//        return new UpdateTicketDto(3,4);
+//    }
 
     @ModelAttribute("orderMovie")
     public OrderMovieDto updateOrderMovieDto() {
@@ -67,7 +69,8 @@ public class OrderController {
                                 OrderMovieDto orderMovie,
                                 BindingResult bindingResult,
                                 TicketViewDto createTicket) {
-        if (this.orderService.getCountOfTicketsByOrderId(orderId) == 0) {
+
+        if (this.checkCountOfTicketsIsGraterThanZero(orderMovie)) {
             bindingResult.addError(new FieldError(
                     Constant.OBJECT_ZERO_QUANTITY,
                     Constant.FIELD_QUANTITY,
@@ -84,6 +87,9 @@ public class OrderController {
     public String getSelectSeat(@PathVariable("orderId") long orderId,
                                 @PathVariable("movieId") long movieId,
                                 Model model) {
+
+        model.addAttribute("updateTicket", new UpdateTicketDto(3, 4));
+
         int ticketsQuantity = this.orderService.getCountOfTicketsByOrderId(orderId);
         model.addAttribute("ticketsCount", ticketsQuantity);
 
@@ -96,18 +102,42 @@ public class OrderController {
         return "select-seat";
     }
 
+
+//      @PostMapping("/matrix")
+//  public String submitMatrix(MatrixFormDTO matrixForm, Model model) {
+
+//    boolean[][] submittedMatrix = matrixForm.getMatrix();
+
+//    // Add logic here to process the submitted matrix as needed
+
+//    model.addAttribute("matrixForm", matrixForm);
+//    return "matrix";
+//  }
+
+
+
     @PostMapping("/select-seats/{orderId}/movie/{movieId}")
     public String addSeatToTicket(@PathVariable long orderId,
                                   @PathVariable("movieId") long movieId,
-                                  UpdateTicketDto updateTicket) {
+                                  UpdateTicketDto updateTicket, Model model) {
+        boolean[][] matrix = updateTicket.getSeats();
+
+        // @ModelAttribute("...") With this code return initial matrix but only false
+        updateTicket = (UpdateTicketDto) model.getAttribute("updateTicket");
+
 
         int ticketsQuantity = this.orderService.getCountOfTicketsByOrderId(orderId);
 
-        if (updateTicket.getCountOfTickets() != ticketsQuantity) {
+        if (updateTicket.getCountOfTickets(matrix) != ticketsQuantity) {
             return Constant.REDIRECT_SELECT_SEATS;
         }
+        this.ticketService.updateTickets(updateTicket, orderId, movieId);
+        model.addAttribute("updateTicket", updateTicket);
 
-        this.ticketService.updateTicketsWithSeats(updateTicket, orderId, movieId);
+//        This is test with global variable but result is the same!
+//        this.ticketService.updateTicketsWithSeats(matrix, orderId, movieId);
+//        model.addAttribute("updateTicket", this.updateTicketDto);
+
         return Constant.REDIRECT_CONFIRM_ORDER;
     }
 
@@ -116,5 +146,12 @@ public class OrderController {
         OrderMovieDto orderViewDto = this.orderService.getOrderMovieById(orderId);
         model.addAttribute("orderView", orderViewDto);
         return "confirm-order";
+    }
+
+    private boolean checkCountOfTicketsIsGraterThanZero(OrderMovieDto orderMovie) {
+        return orderMovie.getRegularQuantity()
+                + orderMovie.getChildQuantity()
+                + orderMovie.getStudentQuantity()
+                + orderMovie.getOverSixtyQuantity() == 0;
     }
 }

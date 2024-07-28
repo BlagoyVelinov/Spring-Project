@@ -26,33 +26,6 @@ public class FirstInit implements CommandLineRunner {
         this.userRoleService.initRoleInDb();
         this.cityService.initCitiesNamesInDb();
 
-        //Try with Array
-
-//        int[][] integer = new int[3][6];
-//        integer[0][1] = 1;
-//        for (int i = 0; i < integer.length; i++)  {
-//            for (int j = 0; j < integer[0].length; j++) {
-//                integer[i][j] += 1;
-//                int selected = integer[i][j];
-//                if (selected != 0) {
-//                    System.out.println("===================");
-//                    System.out.println("work correct!");
-//                    System.out.println("===================");
-//
-//                }
-//            }
-//        }
-
-        //Try with List
-
-//        List<List<Integer>> mainList = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            ArrayList<Integer> intList = new ArrayList<>();
-//            for (int k = 0; k < 20; k++) {
-//                intList.add(0);
-//            }
-//            mainList.add(intList);
-//        }
     }
 
 }

@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services;
 
+import bg.softuni.mycinematicketsapp.models.dtos.TicketDto;
 import bg.softuni.mycinematicketsapp.models.dtos.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UpdateTicketDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
@@ -12,5 +13,7 @@ public interface TicketService {
 
     List<Ticket> getTicketsByOrder(Order order);
 
-    void updateTicketsWithSeats(UpdateTicketDto updateTicket, long orderId, long movieId);
+    void updateTicketsWithSeats(boolean[][] matrix, long orderId, long movieId);
+
+    void updateTickets(UpdateTicketDto updateTicket, long orderId, long movieId);
 }

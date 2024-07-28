@@ -21,20 +21,25 @@ public class CreateMovieDto {
     @NotNull(message = "You must select hall number!")
     private HallNumber hallNumber;
     @NotEmpty
-    @Size(min = 2, max = 20, message = "Audio length must be between 2 and 20 characters")
+    @Size(min = 2, max = 20,
+            message = "Audio length must be between 2 and 20 characters")
     private String audio;
     @NotEmpty
-    @Size(min = 2, max = 20, message = "Subtitles length must be between 2 and 20 characters")
+    @Size(min = 2, max = 20,
+            message = "Subtitles length must be between 2 and 20 characters")
     private String subtitles;
     @NotEmpty(message = "Description cannot be null ot empty!")
-    @Size(min = 5, max = 250, message = "Description must be at between 5 and 250 characters!")
+    @Size(min = 5, max = 250,
+            message = "Description must be at between 5 and 250 characters!")
     private String description;
     @NotEmpty
-    @Size(min = 10, max = 250, message = "Put correct imageUrl / between 10 and 250 characters!")
+    @Size(min = 10, max = 250,
+            message = "Put correct imageUrl / between 10 and 250 characters!")
     private String imageUrl;
     @NotEmpty
-    @Size(min = 10, max = 100, message = "Put correct trailerUrl / between 10 and 100 characters!")
-    private String trailerUrl; //TODO: trailer трябва да мачва 'https://www.youtube.com/embed/mps1HbpECIA'
+    @Size(min = 10, max = 100,
+            message = "Put correct trailerUrl / between 10 and 100 characters!")
+    private String trailerUrl;
     @NotNull(message = "Please select a format of projection!")
     private ProjectionFormat projectionFormat;
     @NotNull(message = "Please select a class of the movie!")

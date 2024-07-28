@@ -1,6 +1,7 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.TicketDto;
 import bg.softuni.mycinematicketsapp.models.dtos.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UpdateTicketDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
@@ -18,8 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -76,28 +78,46 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void updateTicketsWithSeats(UpdateTicketDto updateTicket, long orderId, long movieId) {
+    public void updateTicketsWithSeats(boolean[][] matrix, long orderId, long movieId) {
         Order order = this.orderService.getOrderById(orderId);
+        AtomicInteger lastRow = new AtomicInteger();
+        AtomicInteger lastCol = new AtomicInteger();
         order.getTickets().forEach(ticket -> {
 
-            for (Map.Entry<Integer, List<Integer>> entry : updateTicket.getSeats().entrySet()) {
-                boolean isSelected = false;
-                for (int seat : entry.getValue()) {
-                    ticket.setNumberOfRow(entry.getKey());
-                    ticket.setNumberOfSeat(seat);
-                    entry.getValue().remove(seat);
-                    isSelected = true;
-                    break;
+            for (int i = lastRow.get(); i < matrix.length; i++) {
+                boolean isSelectedSeat = false;
+                for (int j = lastCol.get(); j < matrix[i].length; j++) {
+                    boolean isFound = matrix[i][j];
+
+                    if (isFound) {
+                        isSelectedSeat = this.getSelectedSeat(matrix, ticket, i, j, lastRow, lastCol);
+                        break;
+                    }
                 }
-                if (isSelected) {
+                if (isSelectedSeat) {
                     break;
                 }
             }
 
-
         });
         this.orderRepository.save(order);
 
+    }
+
+    @Override
+    public void updateTickets(UpdateTicketDto updateTicket, long orderId, long movieId) {
+//        String col1 = ticketDto.getCol1();
+        Arrays.stream(updateTicket.getSeats()).forEach(System.out::println);
+    }
+
+    private boolean getSelectedSeat(boolean[][] matrix, Ticket ticket, int i, int j, AtomicInteger lastRow, AtomicInteger lastCol) {
+        ticket.setNumberOfRow(i);
+        ticket.setNumberOfSeat(j);
+        matrix[i][j] = false;
+        lastRow.set(i);
+        lastCol.set(j);
+
+        return true;
     }
 
     private List<Ticket> getTicketList(TicketViewDto createTicket, MovieViewDto movieViewDto, Order order) {

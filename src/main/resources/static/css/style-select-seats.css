@@ -25,6 +25,11 @@ body-seats{
     margin-bottom: 30px;
 }
 
+.hidden {
+    margin: 0 0 0 0;
+    visibility: hidden;
+}
+
 .seatt{
     background-color: #39af39;
     height: 25px;

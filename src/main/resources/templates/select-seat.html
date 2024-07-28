@@ -44,306 +44,334 @@
                         <div class="siteinfo">
                             <span th:text="${orderDto.location.value}">CC Plovdiv</span><br/>
                             <span th:text="|Hall ${movieView.hallNumber.value}|">Зала 2</span><br/>
-                            <span id="rating" class="rating restricted" th:text="|Category: ${movieView.movieClass.description}|">
+                            <span id="rating" class="rating restricted"
+                                  th:text="|Category: ${movieView.movieClass.description}|">
                                 Категория: категория B</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="main">
-                <div class="seatplan" >
+                <div class="seatplan">
 
-                <div id="premium" style="display:none"></div>
-                <h1>Изберете места</h1>
-                <div id="seatselection" class="message required" th:object="${ticketsCount}"
-                     th:text="|Please, select ${ticketsCount} seat/seats|">
-                    Моля, изберете 2 място/места.
-                </div>
-                <div class="splegend">
-                    <div class="legendContainer">
-                        <div class="legend">
-                            <img alt src="/images/icons/SeatAvailable.png" class="graphic available"/>
-                            <span class="label">Свободни места</span></div>
-                        <div class="legend">
-                            <img alt src="/images/icons/SeatUnavailable.png" class="graphic available"/>
-                            <span class="label">Заети места</span>
-                        </div>
-                        <div class="legend">
-                            <img alt src="/images/icons/SeatSelected.png" class="graphic available"/>
-                            <span class="label">Вашият избор</span>
+                    <div id="premium" style="display:none"></div>
+                    <h1>Изберете места</h1>
+                    <div id="seatselection" class="message required" th:object="${ticketsCount}"
+                         th:text="|Please, select ${ticketsCount} seat/seats|">
+                        Моля, изберете 2 място/места.
+                    </div>
+                    <div class="splegend">
+                        <div class="legendContainer">
+                            <div class="legend">
+                                <img alt src="/images/icons/SeatAvailable.png" class="graphic available"/>
+                                <span class="label">Свободни места</span></div>
+                            <div class="legend">
+                                <img alt src="/images/icons/SeatUnavailable.png" class="graphic available"/>
+                                <span class="label">Заети места</span>
+                            </div>
+                            <div class="legend">
+                                <img alt src="/images/icons/SeatSelected.png" class="graphic available"/>
+                                <span class="label">Вашият избор</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <style>
-                    #SeatPlanContainer #myCanvas {
-                        width: 100%;
-                    }
+                    <style>
+                        #SeatPlanContainer #myCanvas {
+                            width: 100%;
+                        }
 
-                </style>
-                <div class="seatplanControl">
-                    <div class="screen"><img src="/images/icons/screen.png"/></div>
-                    <div id="SeatPlanContainer" style="direction:ltr;">
-                        <div id="panzoom-parent" style=" padding:0; ">
-                            <canvas id="myCanvas" style="background-color: rgba(203,203,203,0);"
-                                    class="panzoom"></canvas>
+                    </style>
+                    <div class="seatplanControl">
+                        <div class="screen"><img src="/images/icons/screen.png"/></div>
+                        <div id="SeatPlanContainer" style="direction:ltr;">
+                            <div id="panzoom-parent" style=" padding:0; ">
+                                <canvas id="myCanvas" style="background-color: rgba(203,203,203,0);"
+                                        class="panzoom"></canvas>
+                            </div>
+                        </div>
+                        <body-seats>
+
+                            <table>
+
+                                <tr class="row-seat" th:each="row, rowStat : *{seats}">
+                                    <td class="seatt" th:each="col, colStat : ${row}">
+                                        <input type="checkbox"
+                                               th:name="matrix[__${rowStat.index}__][__${colStat.index}__]"
+                                               th:checked="${col}"
+                                               value="on"/>
+
+                                        <input
+                                                type="hidden"
+                                                th:name="matrix[__${rowStat.index}__][__${colStat.index}__]"
+                                                value="off"/>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <!--                            <div class="row-seat">-->
+                            <!--                                <span class="row-number">1</span>-->
+                            <!--                                <label class="seatt" for="flexCheck1">1-->
+                            <!--                                    <input class="hidden" type="checkbox" value="1-1" id="flexCheck1" th:name="${seat}">-->
+                            <!--                                </label>-->
+
+                            <!--                                <label class="seatt" for="flexCheck2">2-->
+                            <!--                                    <input class="hidden" type="checkbox" value="1-2" id="flexCheck2"-->
+                            <!--                                           th:name="${seat}">-->
+                            <!--                                </label>-->
+
+                            <!--                                <div class="seatt" th:text="${seat}">3</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(4)}">4</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(5)}">5</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(6)}">6</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(7)}">7</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(8)}">8</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(9)}">9</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(10)}">10</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(11)}">11</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(12)}">12</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(13)}">13</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(14)}">14</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(15)}">15</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(16)}">16</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(17)}">17</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(18)}">18</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(19)}">19</div>-->
+                            <!--                            <div class="seatt" th:field="*{seats.get(1).add(20)}">20</div>-->
+                            <!--                            </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">2</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[1][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">3</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[2][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">4</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[3][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">5</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[4][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">6</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[5][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">7</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][1]}">2</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][2]}">3</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][3]}">4</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][9]}">10</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][10]}">11</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[6][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">8</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][3]}">4</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][4]}">5</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][5]}">6</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][16]}">17</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[7][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number">9</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][8]}">9</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][9]}">10</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][12]}">13</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][13]}">14</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][14]}">15</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[8][19]}">20</div>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="row-seat">-->
+                            <!--                            <span class="row-number-end">10</span>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][0]}">1</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][1]}">2</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][2]}">3</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][3]}">4</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][4]}">5</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][5]}">6</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][6]}">7</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][7]}">8</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][8]}">9</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[9][9]}">10</div>-->
+                            <!--                            <div class="seatt sold" th:field="${updateTicket.seats[9][10]}">11</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][11]}">12</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][12]}">13</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][13]}">14</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][14]}">15</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][15]}">16</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][16]}">17</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][17]}">18</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][18]}">19</div>-->
+                            <!--                            <div class="seatt" th:field="${updateTicket.seats[9][19]}">20</div>-->
+                            <!--                        </div>-->
+                        </body-seats>
+                        <div id="accesibleSeatPlanContainer">
+                            <table class="tableSP"></table>
                         </div>
                     </div>
-                    <body-seats>
+                    <div class="actionHolder">
+                        <button type="submit" class="actionBtn">Continue</button>
+                        <!--                    <input type="submit" class="actionBtn" value="Continue"/>-->
 
-                        <div class="row-seat">
-                                <span class="row-number">1</span>
-                            <div class="seatt" th:field="*{seats.get(1).add(1)}">1</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(2)}">2</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(3)}">3</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(4)}">4</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(5)}">5</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(6)}">6</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(7)}">7</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(8)}">8</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(9)}">9</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(10)}">10</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(11)}">11</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(12)}">12</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(13)}">13</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(14)}">14</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(15)}">15</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(16)}">16</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(17)}">17</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(18)}">18</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(19)}">19</div>
-                            <div class="seatt" th:field="*{seats.get(1).add(20)}">20</div>
-                        </div>
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">2</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[1][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">3</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[2][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">4</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[3][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">5</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[4][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">6</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[5][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">7</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][1]}">2</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][2]}">3</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][3]}">4</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][9]}">10</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][10]}">11</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[6][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[6][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">8</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][3]}">4</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][4]}">5</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][5]}">6</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][16]}">17</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[7][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[7][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number">9</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][8]}">9</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][9]}">10</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][12]}">13</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][13]}">14</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][14]}">15</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[8][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[8][19]}">20</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="row-seat">-->
-<!--                            <span class="row-number-end">10</span>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][0]}">1</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][1]}">2</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][2]}">3</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][3]}">4</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][4]}">5</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][5]}">6</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][6]}">7</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][7]}">8</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][8]}">9</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[9][9]}">10</div>-->
-<!--                            <div class="seatt sold" th:field="${updateTicket.seats[9][10]}">11</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][11]}">12</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][12]}">13</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][13]}">14</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][14]}">15</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][15]}">16</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][16]}">17</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][17]}">18</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][18]}">19</div>-->
-<!--                            <div class="seatt" th:field="${updateTicket.seats[9][19]}">20</div>-->
-<!--                        </div>-->
-                    </body-seats>
-                    <div id="accesibleSeatPlanContainer">
-                        <table class="tableSP"></table>
+                        <a th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${movieView.id})}"
+                           id="backBtn" class="cancelBtn back-link">Назад</a>
                     </div>
-                </div>
-                <div class="actionHolder">
-                    <input type="submit" class="actionBtn" value="Continue"/>
-
-                    <a th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${movieView.id})}"
-                       id="backBtn" class="cancelBtn back-link">Назад</a>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     </div>
 </form>
 <footer th:replace="~{fragments/commons::footer}"></footer>
