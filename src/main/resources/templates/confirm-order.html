@@ -59,7 +59,7 @@
                             </tr>
 
                             <th:block th:each="ticketKey : ${ticketsMap}">
-                                <tr class="sums" >
+                                <tr class="sums">
 
                                     <td id="tdTicketChild">
                                         <span id="lblTicketChild" th:text="${ticketKey.key}">test Children under 16</span></td>
@@ -73,17 +73,19 @@
                                         <span id="lblTicketChildCommission">0.80 lv</span>
                                     </td>
                                     </th:block>
-                                    <th:block th:each="rowKey : ${rowAndSeats}">
-                                    <td id="tdTicketChildSeats" rowspan="1">
-                                        <span id="lblTicketsChildSeats"
-                                              th:text="|Row: ${rowKey.key} Seat:|">Ред 7</span>
 
-                                        <span id="lblTicketsChildSeat" th:each="seat : ${rowKey.value}"
-                                              th:text="|${seat}, |">Място 8</span>
+                                    <td id="tdTicketChildSeats" rowspan="1">
+                                        <ol class="seatInfo" th:each="rowKey : ${rowAndSeats}">
+                                            <li>
+                                                <span id="lblTicketsChildSeats"
+                                                      th:text="|Row: ${rowKey.key} - Seat: |">Ред 7</span>
+
+                                                <span id="lblTicketsChildSeat" th:each="seat : ${rowKey.value}"
+                                                      th:text="|${seat}, |">Място 8</span>
+                                            </li>
+                                        </ol>
                                     </td>
-                                    </th:block>
                                 </tr>
-                            </th:block>
                             </tbody>
                         </table>
                     </div>
@@ -176,7 +178,7 @@
                 <div class="actionHolder">
                     <input type="submit" class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}" value="Confirm"/>
                     <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
-                       th:href="@{/order/select-seats/{orderId}/movie/{movieName}(orderId=${orderDto.id}, movieName=${orderDto.movieViewName})}">Назад</a>
+                       th:href="@{/order/select-seats/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${orderDto.movieId})}">Назад</a>
                     <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>
                 </div>
             </div>

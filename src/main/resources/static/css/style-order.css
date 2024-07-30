@@ -3591,7 +3591,7 @@ a.nextBtn:hover {
 
 .steps div.step span {
     display: inline-block;
-    padding: 3px;
+    padding: 0;
     background-color: #555;
     margin-right: 7px;
     border-radius: 100%;
@@ -5589,4 +5589,8 @@ table.ticketTable tr.header td, table.ticketTable tr.header th {
 .logo a .logo-name {
     color: #d72a18;
 }
-/*=============================== Confirm order Button*/
+/*=============================== Confirm order Table*/
+.seatInfo{
+    list-style: none;
+}
+

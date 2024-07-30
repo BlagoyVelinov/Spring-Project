@@ -15,6 +15,8 @@ import java.util.UUID;
 public class OrderMovieDto {
 
     private long id;
+    private long movieId;
+    private long bookingTimeId;
     private String movieViewName;
     private String orderNumber;
     private int childQuantity;
@@ -43,6 +45,24 @@ public class OrderMovieDto {
 
     public OrderMovieDto setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public long getMovieId() {
+        return movieId;
+    }
+
+    public OrderMovieDto setMovieId(long movieId) {
+        this.movieId = movieId;
+        return this;
+    }
+
+    public long getBookingTimeId() {
+        return bookingTimeId;
+    }
+
+    public OrderMovieDto setBookingTimeId(long bookingTimeId) {
+        this.bookingTimeId = bookingTimeId;
         return this;
     }
 

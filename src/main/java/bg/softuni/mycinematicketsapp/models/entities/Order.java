@@ -34,6 +34,11 @@ public class Order extends BaseEntity {
     private String movieName;
     @Column(name = "booking_time")
     private String bookingTime;
+
+    @Column(name = "movie_id")
+    private long movieId;
+    @Column(name = "booking_time_id")
+    private long bookingTimeId;
     @ManyToOne
     private City city;
     @OneToMany(fetch = FetchType.EAGER)
@@ -141,6 +146,24 @@ public class Order extends BaseEntity {
 
     public Order setBookingTime(String bookingTime) {
         this.bookingTime = bookingTime;
+        return this;
+    }
+
+    public long getMovieId() {
+        return movieId;
+    }
+
+    public Order setMovieId(long movieId) {
+        this.movieId = movieId;
+        return this;
+    }
+
+    public long getBookingTimeId() {
+        return bookingTimeId;
+    }
+
+    public Order setBookingTimeId(long bookingTimeId) {
+        this.bookingTimeId = bookingTimeId;
         return this;
     }
 
