@@ -9,8 +9,8 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
     <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
     <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
 
 </head>
 <body id="ctl00_pageBody" class="ltr">
@@ -32,8 +32,8 @@
         </div>
 
         <div class="main fullwidth">
-            <div class="orderForm">
-                <div class="orderformcontainer" th:object="${orderDto}">
+            <div class="orderForm" th:object="${orderDto}">
+                <div class="orderformcontainer">
 
 
                     <h2>Информация за прожекцията</h2>
@@ -174,9 +174,8 @@
                             </div>
                         </div>
                 </div>
-<!--                TODO: make redirect to next page and form with get method-->
                 <div class="actionHolder">
-                    <input type="submit" class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}" value="Confirm"/>
+                    <a class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}">Confirm</a>
                     <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
                        th:href="@{/order/select-seats/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${orderDto.movieId})}">Назад</a>
                     <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>

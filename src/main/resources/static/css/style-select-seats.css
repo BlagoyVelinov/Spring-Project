@@ -130,3 +130,56 @@ body-seats{
     cursor: pointer;
     background-color: #a82e11;
 }
+
+/*=========================== Button Confirm*/
+.actionHolder {
+    text-align: right
+}
+
+.actionHolder:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0
+}
+
+.orderForm .actionHolder {
+    width: 100%;
+    float: left
+}
+
+.npm-quickbook{
+    padding: 19px;
+}
+
+
+.npm-quickbook .btn-primary {
+    padding: 12px 10px;
+    min-width: 64px;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-right: 4px;
+    border-radius: 0.5rem;
+    background-color: #f5821e;
+    color: black;
+}
+
+a .btn:hover, .btn:focus, button:hover, button:focus {
+    color: #191919;
+}
+
+a .btn:hover, .btn:focus {
+    color: #191919;
+}
+a .btn-primary:hover, .btn-primary:focus {
+    /*background-color: #c26717;*/
+    color: #000;
+    border: 0;
+}
+a .btn-primary:visited, .btn-primary:active {
+    background-color: #f5821e;
+    /*color: #000;*/
+    border: 0;
+}

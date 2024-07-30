@@ -59,22 +59,6 @@
                                        th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderMovie.id}, movieId=${movieView.id}, timeId=${bookTime.id})}"
                                        class="btn btn-primary btn-lg"
                                        th:text="${bookTime.bookingTime.value}"> 12:20 </a>
-                                    <!--th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}"-->
-
-
-
-<!--                                    <th:block sec:authorize="isAuthenticated()">-->
-<!--                                    <a sec:authorize="hasRole('ADMINISTRATOR')"-->
-<!--                                       th:href="@{/program/update-projection-time/{movieId}(movieId=*{id})}"-->
-<!--                                       class="btn btn-primary btn-lg"> Update projection time </a>-->
-
-<!--                                        <form th:method="delete"-->
-<!--                                              th:action="@{/movies/delete-movie/{movieId}(movieId=*{id})}">-->
-<!--                                            <div class="button-holder d-flex justify-content-center">-->
-<!--                                                <button type="submit" class="btn btn-info mb-3">Delete Movie</button>-->
-<!--                                            </div>-->
-<!--                                        </form>-->
-<!--                                    </th:block>-->
                                 </div>
                                 <div class="qb-movie-info-column">
                                     <ul class="qb-movie-attributes"></ul>

@@ -6,6 +6,7 @@ import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.*;
+import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
 import bg.softuni.mycinematicketsapp.services.MovieService;
@@ -69,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
         BookingTimeDto bookingTime = this.movieService.getBookingTimeById(timeId);
         order.setMovieName(movieView.getName());
         order.setBookingTime(bookingTime.getBookingTimeValue());
+
         this.orderRepository.save(order);
         return this.mapOrderToOrderDto(order);
     }
@@ -111,16 +113,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int getCountOfTicketsByOrderId(long orderId) {
         Order order = this.getOrderById(orderId);
-        return order.getTickets().size();
+        return order.getChildQuantity()
+                + order.getStudentQuantity()
+                + order.getRegularQuantity()
+                + order.getOverSixtyQuantity();
     }
 
     private double getTotalPricePlusTax(Order order) {
-        int countTickets = order.getTickets().size();
+        int countTickets = this.getCountOfTicketsByOrderId(order.getId());
 
-        double totalPrice = order.getTickets()
-                .stream()
-                .mapToDouble(Ticket::getPrice)
-                .sum();
+        double childPrice = order.getChildQuantity() * TicketType.CHILDREN_UNDER_16.getPrice();
+        double studentsPrice = order.getStudentQuantity() * TicketType.PUPILS_AND_STUDENTS.getPrice();
+        double regularPrice = order.getRegularQuantity() * TicketType.REGULAR.getPrice();
+        double overSixtyPrice = order.getOverSixtyQuantity() * TicketType.PERSONS_OVER_60.getPrice();
+
+        double totalPrice = childPrice + studentsPrice + regularPrice + overSixtyPrice;
 
         return totalPrice + (countTickets * Constant.FIX_COMMISSION_PER_TICKET);
     }

@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cinema Tickets</title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head data-lang="12"><title>
+    Cinema Tickets
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
+
 </head>
-<body>
-<p>test new page</p>
+<body id="ctl00_pageBody" class="ltr">
+<label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
+
+
+<div id="pagecontainer" class="pagecontainer orderformpageres">
+    <div class="wrap">
+        <div id="header">
+            <div id="logo"></div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="steps">
+            <div class="step"><span>1</span><label>Избор на билет</label></div>
+            <div class="step"><span>2</span><label>Избор на места</label></div>
+            <div class="step"><span>3</span><label>Потвърждение</label></div>
+            <div class="step onstep"><span>4</span><label>Завършване на поръчката</label></div>
+            <div class="clear"></div>
+        </div>
+            <div class="main fullwidth">
+                <div class="orderForm">
+                    <div class="orderformcontainer" th:object="${orderDto}">
+
+
+                        <h2>Информация за прожекцията</h2>
+                        <div class="eventInfoContainer">
+                            <h3 class="info-order"><span class="eventMasterName" th:text="|${orderDto.movieViewName}, |">
+                            Blue Lock The Movie: Episode Nagi</span>
+                                <span class="eventDateTime"
+                                      th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}, |">четвъртък 25/07/2024 12:50</span>
+                                <span class="siteName" th:text="${orderDto.location.value}">CC Plovdiv</span>
+                            </h3>
+                            <table class="seatSelection" cellpadding="0" cellspacing="0" >
+                                <tbody th:each="ticket : ${orderDto.tickets}">
+
+                                <tr class="header">
+                                    <th id="tdTicketNameCaption"><span id="lblTicketNameCaption">Вид билет</span></th>
+                                    <th><span id="lblTicketQtyCaption">Movie name</span></th>
+                                    <th><span id="lblTicketPriceCaption">Цена на билет</span></th>
+                                    <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption">Hall</span></th>
+                                    <th id="tdTicketSeatsCaption"><span id="lblTicketsSeatsCaption">Projection Date</span></th>
+                                </tr>
+
+                                    <tr class="sums">
+
+                                        <td id="tdTicketType" rowspan="1">
+                                            <span id="lblTicketType" th:text="${ticket.ticketType.value}">Type of ticket</span></td>
+                                        <td id="tdTicketMovieName" rowspan="1">
+                                            <span id="lblTicketMovieName" th:text="${ticket.movieName}">MovieName</span>
+                                        </td>
+                                        <td id="tdTicketMovieClass" rowspan="1">
+                                            <span id="lblTicketMovieClass" th:text="${ticket.movieClassDescription}">MovieClass</span>
+                                        </td>
+                                        <td id="tdTicketHall" rowspan="1">
+                                            <span id="lblTicketHall" th:text="${ticket.hallNumber.value}">Hall number</span>
+                                        </td>
+                                        <td id="tdTicketDate" rowspan="1">
+                                            <span id="lblTicketDate" th:text="${orderDto.projectionDate}">Projection Date</span>
+                                        </td>
+                                        <td id="tdTicketBookTime" rowspan="1">
+                                            <span id="lblTicketBookTime" th:text="|${ticket.bookingTime}ч.|">BookingTime</span>
+                                        </td>
+
+                                        <td id="tdTicketPrice" rowspan="1">
+                                        <span id="lblTicketPrice"
+                                              th:text="|${#numbers.formatDecimal(ticket.price, 1, 'DEFAULT', 2, 'DEFAULT')} lv|">10.50 лв</span>
+                                        </td>
+                                        <td id="tdTicketChildCommission">
+                                            <span id="lblTicketChildCommission">0.80 lv</span>
+                                        </td>
+                                        <td id="tdTicketTown" rowspan="1">
+                                            <span id="lblTicketTown" th:text="${orderDto.location}">Location</span>
+                                        </td>
+
+
+                                <td id="tdTicketChildSeats" rowspan="1">
+                                    <span id="lblTicketsChildSeats"
+                                            th:text="|Row: ${ticket.numberOfRow} - Seat: ${ticket.numberOfSeat}|">Ред 7</span>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <div class="actionHolder">
+                        <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
+                           href="/">Home</a>
+<!--                        <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+    </div>
+</div>
+<div id="footer" class="footer orderformpageres"></div>
+
+</div>
+<footer th:replace="~{fragments/commons::footer}"></footer>
 </body>
 </html>

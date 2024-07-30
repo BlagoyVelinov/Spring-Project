@@ -130,7 +130,7 @@ public class OrderController {
     @GetMapping("/show-tickets/{orderId}")
     public String showTickets(@PathVariable("orderId") long orderId, Model model) {
         OrderMovieDto orderViewDto = this.orderService.getOrderMovieById(orderId);
-        model.addAttribute("orderView", orderViewDto);
+        model.addAttribute("orderDto", orderViewDto);
         this.ticketService.confirmOrder(orderId);
         return "show-tickets";
     }
