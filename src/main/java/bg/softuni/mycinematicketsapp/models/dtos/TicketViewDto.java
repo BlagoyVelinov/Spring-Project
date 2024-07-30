@@ -4,6 +4,7 @@ import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicketViewDto {
@@ -15,7 +16,7 @@ public class TicketViewDto {
     @NotNull
     private Integer numberOfRow;
     private Double price;
-    private LocalDateTime projectionDate;
+    private LocalDate projectionDate;
     private TicketType ticketType;
     private String bookingTime;
     private String city;
@@ -75,11 +76,11 @@ public class TicketViewDto {
         return this;
     }
 
-    public LocalDateTime getProjectionDate() {
+    public LocalDate getProjectionDate() {
         return projectionDate;
     }
 
-    public TicketViewDto setProjectionDate(LocalDateTime projectionDate) {
+    public TicketViewDto setProjectionDate(LocalDate projectionDate) {
         this.projectionDate = projectionDate;
         return this;
     }

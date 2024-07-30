@@ -19,8 +19,6 @@ public class Ticket extends BaseEntity {
     private Integer numberOfSeat;
     @Column(name = "number_of_row")
     private Integer numberOfRow;
-    @Column(name = "ticket_type_quantity")
-    private int ticketTypeQuantity;
     @Column(nullable = false)
     private Double price;
     @Column(name = "projection_date", nullable = false)
@@ -70,15 +68,6 @@ public class Ticket extends BaseEntity {
 
     public Ticket setNumberOfRow(Integer numberOfRow) {
         this.numberOfRow = numberOfRow;
-        return this;
-    }
-
-    public int getTicketTypeQuantity() {
-        return ticketTypeQuantity;
-    }
-
-    public Ticket setTicketTypeQuantity(int ticketTypeQuantity) {
-        this.ticketTypeQuantity = ticketTypeQuantity;
         return this;
     }
 

@@ -52,7 +52,7 @@ body {
 .pagecontainer {
     margin: auto;
     width: 100%;
-    background-image: url(../images/nav-bg.gif);
+    /*background-image: url(../images/nav-bg.gif);*/
     background-repeat: repeat-x;
     min-width: 310px
 }
@@ -125,11 +125,6 @@ body {
 
 .type-ticket {
     font-weight: 700
-}
-
-.header {
-    border-bottom: 2px solid #f5821e;
-    background: 0 0 !important
 }
 
 .title-login {
@@ -1320,6 +1315,7 @@ fieldset.firstPayment {
     margin-top: 0
 }
 
+
 table.seatSelection tr.header {
     background-color: #eee
 }
@@ -1837,8 +1833,9 @@ table.ticketTable tr.trgsale td {
     text-align: right
 }
 
-.perticketmembershipec .input-container .label span {
-    display: inline
+.input-container .label span {
+    display: inline;
+
 }
 
 .perticketmembershipec .input-label-container {
@@ -3295,7 +3292,6 @@ body {
 .pagecontainer {
     margin: auto;
     width: 100%;
-    background-image: url(../../images/PL_RES/topmenu.png);
     background-repeat: repeat-x;
     min-width: 310px
 }
@@ -3307,17 +3303,6 @@ body {
     margin-bottom: 110px
 }
 
-#logo {
-    background-image: url(../../images/PL_RES/cinema_city.svg);
-    background-size: 100px;
-    background-repeat: no-repeat;
-    background-position-x: 15px;
-    background-position-y: 10px;
-    height: 58px;
-    width: 120px;
-    cursor: pointer;
-    float: left
-}
 
 .movieName {
     padding: 5px 0;
@@ -4109,10 +4094,6 @@ input.error-input {
     float: none
 }
 
-table.seatSelection tr.sums {
-    font-weight: 400
-}
-
 .payment#divPerTicketMembership input {
     width: 90%
 }
@@ -4510,10 +4491,6 @@ fieldset {
     margin: 10px 0;
     padding: 10px;
     background: #fff
-}
-
-table.seatSelection tr.header {
-    background-color: #eee
 }
 
 .ticketLimit {
@@ -5195,40 +5172,7 @@ p {
     color: #fff
 }
 
-.zoom-in, .zoom-out, button.reset {
-    height: 40px;
-    width: 40px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: transparent;
-    background-size: 40px 40px;
-    margin-bottom: 15px;
-    margin-right: 10px
-}
 
-.zoom-in {
-    background-image: url(../../images/PL_RES/plus.svg);
-    background-color: #fff;
-    margin-right: 20px
-}
-
-.zoom-out {
-    background-image: url(../../images/PL_RES/minus.svg);
-    background-color: #fff
-}
-
-button.reset {
-    border-radius: 3px;
-    background-image: url(../../images/PL_RES/reset.png);
-    background-color: #fff;
-    color: #000;
-    float: right;
-    width: 140px;
-    margin-right: 0;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: 700
-}
 
 .timerinfo {
     line-height: 30px;
@@ -5645,3 +5589,4 @@ table.ticketTable tr.header td, table.ticketTable tr.header th {
 .logo a .logo-name {
     color: #d72a18;
 }
+/*=============================== Confirm order Button*/

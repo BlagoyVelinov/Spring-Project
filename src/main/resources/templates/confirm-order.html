@@ -2,222 +2,190 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head data-lang="12"><title>
-  Cinema Tickets
+    Cinema Tickets
 </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<!--  <script language="javascript" type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>-->
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
-  <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
-  <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
-  <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
-<!--  <link type="text/css" rel="stylesheet" href="/JScript/Modal/css/modaal.min.css"/>-->
+    <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
 
 </head>
 <body id="ctl00_pageBody" class="ltr">
 <label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
 
-<form name="aspnetForm"
-      th:method="patch"
-      th:action="@{/order/confirm-order/{orderId}(orderId=${orderView.id})}"
-      th:object="${orderView}">
 
-  <div id="pagecontainer" class="pagecontainer orderformpageres">
+<div id="pagecontainer" class="pagecontainer orderformpageres">
     <div class="wrap">
-      <div id="header">
-        <div id="logo"></div>
-      </div>
-      <div style="clear: both;"></div>
-      <div class="steps">
-        <div class="step"><span>1</span><label>Избор на билет</label></div>
-        <div class="step"><span>2</span><label>Избор на места</label></div>
-        <div class="step onstep"><span>3</span><label>Потвърждение</label></div>
-        <div class="step last"><span>4</span><label>Завършване на поръчката</label></div>
-        <div class="clear"></div>
-      </div>
-
-      <div class="main fullwidth">
-        <div class="orderForm">
-          <div class="orderformcontainer">
-
-
-            <h2>Информация за прожекцията</h2>
-            <div class="eventInfoContainer">
-              <h3 class="info-order"><span class="eventMasterName" th:text="|${orderView.movieViewName}, |">Blue Lock The Movie: Episode Nagi</span>
-                <span class="eventDateTime" th:text="|${orderView.projectionDate} ${orderView.bookingTime}, |">четвъртък 25/07/2024 12:50</span>
-                <span class="siteName" th:text="${orderView.location.value}">CC Plovdiv</span>
-              </h3>
-              <table class="seatSelection" cellpadding="0" cellspacing="0">
-                <tbody>
-
-                <tr class="header">
-                  <th id="tdTicketNameCaption"><span id="lblTicketNameCaption">Вид билет</span></th>
-                  <th><span id="lblTicketQtyCaption">К-во</span></th>
-                  <th><span id="lblTicketPriceCaption">Цена на билет</span></th>
-                  <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption">Адм. такса</span>
-                  </th>
-                  <th id="tdTicketSeatsCaption"><span id="lblTicketsSeatsCaption">Информация за местата</span>
-                  </th>
-                </tr>
-                <div  th:each="ticket : ${orderView.tickets}">
-                <tr class="sums" th:if="${orderView.childQuantity > 0}">
-                  <td id="tdTicketChild">
-                      <span id="lblTicketChild">Children under 16</span></td>
-                  <td><span id="lblTicketChildQty" th:text="${orderView.childQuantity}">1</span></td>
-                  <td id="tdTicketChildPrice"><span id="lblTicketChildPrice">10.50 лв</span></td>
-                  <td id="tdTicketChildCommission"><span id="lblTicketChildCommission">0.80 лв</span></td>
-                  <td id="tdTicketChildSeats" rowspan="1">
-                      <span id="lblTicketsChildSeats" th:text="|Row: ${ticket.numberOfRow} Seat: ${ticket.numberOfSeat}|">Ред 7 Място 8</span>
-                  </td>
-                </tr>
-                        <tr class="sums" th:if="${orderView.studentQuantity > 0}">
-                            <td id="tdTicketStudent">
-                                <span id="lblTicketStudent">Children under 16</span></td>
-                            <td><span id="lblTicketStudentQty" th:text="${orderView.studentQuantity}">1</span></td>
-                            <td id="tdTicketStudentPrice"><span id="lblTicketStudentPrice">10.50 лв</span></td>
-                            <td id="tdTicketStudentCommision"><span id="lblTicketStudentCommision">0.80 лв</span></td>
-                            <td id="tdTicketStudentSeats" rowspan="1">
-                                <span id="lblTicketsStudentSeats" th:text="|Row: ${ticket.numberOfRow} Seat: ${ticket.numberOfSeat}|">Ред 7 Място 8</span>
-                            </td>
-                        </tr>
-                        <tr class="sums" th:if="${orderView.regularQuantity > 0}">
-                            <td id="tdTicketRegular">
-                                <span id="lblTicketRegular">Children under 16</span></td>
-                            <td><span id="lblTicketRegularQty" th:text="${orderView.regularQuantity}">1</span></td>
-                            <td id="tdTicketRegularPrice"><span id="lblTicketRegularPrice">10.50 лв</span></td>
-                            <td id="tdTicketRegularCommision"><span id="lblTicketRegularCommision">0.80 лв</span></td>
-                            <td id="tdTicketRegularSeats" rowspan="1">
-                                <span id="lblTicketsRegularSeats" th:text="|Row: ${ticket.numberOfRow} Seat: ${ticket.numberOfSeat}|">Ред 7 Място 8</span>
-                            </td>
-                        </tr>
-                        <tr class="sums" th:if="${orderView.overSixtyQuantity > 0}">
-                            <td id="tdTicketSixty">
-                                <span id="lblTicketSixty">Children under 16</span></td>
-                            <td><span id="lblTicketSixtyQty" th:text="${orderView.overSixtyQuantity}">1</span></td>
-                            <td id="tdTicketSixtyPrice"><span id="lblTicketSixtyPrice">10.50 лв</span></td>
-                            <td id="tdTicketSixtyCommision"><span id="lblTicketSixtyCommision">0.80 лв</span></td>
-                            <td id="tdTicketSixtySeats" rowspan="1">
-                                <span id="lblTicketsSixtySeats" th:text="|Row: ${ticket.numberOfRow} Seat: ${ticket.numberOfSeat}|">Ред 7 Място 8</span>
-                            </td>
-                        </tr>
-                </div>
-                </tbody>
-              </table>
-            </div>
-            <div class="coupon">
-              <h2>Имате ли ваучер?</h2>
-              <div class="coupon-container">
-                <div class="formRow">
-                  <div class="input-label-container">
-                    <div class="label">Моля, въведете кода му тук<br>
-                      <svinfo style="text-transform:none"></svinfo>
-                    </div>
-                    <div class="input-container">
-                      <input name="ctl00$CPH1$OrderFormControl1$tbCouponCode" id="tbCouponCode"
-                             class="tbox" type="number" autocomplete="off"><span
-                            id="reqtbCouponCode" class="input-error" style="display:none;">Въведете кода</span>
-                    </div>
-                  </div>
-                </div>
-                <a id="lnkAddCoupon" class="actionBtn"
-                   href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$OrderFormControl1$lnkAddCoupon&quot;, &quot;&quot;, true, &quot;Coupon&quot;, &quot;&quot;, false, true))">Добавете&nbsp;
-                  код</a>
-                <div class="clear"></div>
-              </div>
-            </div>
-            <div class="total-block">
-              <div class="total-sum" th:text="|Общо (с всички данъци и такси) ${orderView.totalPrice} лв|">
-                  Общо (с всички данъци и такси)&nbsp;10.80 лв</div>
-            </div>
-            <div id="ctl00_CPH1_OrderFormControl1_payuWidgetContainer" class="payuoptionscontainer"
-                 tabindex="-1">
-              <input type="hidden" name="ctl00$CPH1$OrderFormControl1$hdnSelectedToken"
-                     id="hdnSelectedToken">
-              <h2><span class="required">*</span>Метод на плащане</h2>
-              <p></p>
-              <div class="payuoptions">
-                <div class="payuOpt card clearfix">
-                  <label class="radio clearfix" for="rbcard">
-                    <input name="PayuPayment" class="rbpayu" id="rbcard" type="radio" value="card"
-                           checked="checked">
-                    <div class="name">Debit / Credit card</div>
-                    <img src="/images/card.png" alt="card">
-                    <div class="changecard">CHANGE</div>
-                  </label>
-
-                </div>
-                <div class="payuOpt card clearfix">
-                  <label class="radio clearfix" for="rbcard">
-                    <input name="PayuPayment" class="rbpayu" id="rbcard2" type="radio" value="card"
-                           checked="checked">
-                    <div class="name">On site / At the checkout</div>
-                    <div class="changecard">CHANGE</div>
-                  </label>
-                </div>
-              </div>
-              <div class="clear"></div>
-              <span id="ctl00_CPH1_OrderFormControl1_valPayU" class="errorb" style="display:none;">Задължително поле</span>
-            </div>
-            <div class="formContainer">
-              <h2>Вашите контакти</h2>
-              <div class="personalInfo customerInfo">
-                <div class="formRow">
-                  <div class="input-label-container"><label class="label" for="Field_5"><span
-                          class="required">*</span>Име</label>
-                    <div class="input-container">
-                      <input name="ctl00$CPH1$OrderFormControl1$Field_5"
-                             type="text" id="Field_5"
-                             aria-required="true" placeholder="Име" value="Admin Adminov"><span
-                            id="ctl00_CPH1_OrderFormControl1_ReqVal_5" class="input-error"
-                            style="display:none;"> Задължително поле</span></div>
-                  </div>
-                </div>
-
-                <div class="formRow">
-                  <div class="input-label-container"><label class="label" for="Field_20"><span
-                          class="required">*</span>Имейл</label>
-                    <div class="input-container"><input name="ctl00$CPH1$OrderFormControl1$Field_20"
-                                                        type="text" id="Field_20" class="email"
-                                                        aria-required="true"
-                                                        placeholder="Имейл" value="admin@gmail.com"><span
-                            id="ctl00_CPH1_OrderFormControl1_ReqVal_20" class="input-error"
-                            style="display:none;"> Задължително поле</span><span
-                            id="ctl00_CPH1_OrderFormControl1_ctl14" class="input-error"
-                            style="display:none;"> Невалиден е-мейл адрес.</span></div>
-                  </div>
-                </div>
-                <div class="formRow">
-                  <div class="input-label-container"><label class="label" for="Field_21">Телефонен
-                    номер</label>
-                    <div class="input-container"><input name="ctl00$CPH1$OrderFormControl1$Field_21"
-                                                        type="text" id="Field_21"
-                                                        placeholder="Телефонен номер"><span
-                            id="ctl00_CPH1_OrderFormControl1_numVal_21" class="input-error"
-                            style="display:none;"> Please enter numeric values</span></div>
-                  </div>
-                </div>
-              </div>
-              <input type="hidden" name="ctl00$CPH1$OrderFormControl1$hdnCurrentTotal"
-                     id="ctl00_CPH1_OrderFormControl1_hdnCurrentTotal">
-              <p>*  Задължително поле</p>
-
-            </div>
-          </div>
-          <div class="actionHolder">
-              <input type="submit" class="actionBtn" value="Confirm"/>
-            <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
-               th:href="@{/select-seats/{orderId}/movie/{movieName}(orderId=${orderView.id}, movieName=${orderView.movieViewName})}">Назад</a>
-            <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>
-          </div>
+        <div id="header">
+            <div id="logo"></div>
         </div>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
-  <div id="footer" class="footer orderformpageres"></div>
+        <div style="clear: both;"></div>
+        <div class="steps">
+            <div class="step"><span>1</span><label>Избор на билет</label></div>
+            <div class="step"><span>2</span><label>Избор на места</label></div>
+            <div class="step onstep"><span>3</span><label>Потвърждение</label></div>
+            <div class="step last"><span>4</span><label>Завършване на поръчката</label></div>
+            <div class="clear"></div>
+        </div>
 
-</form>
+        <div class="main fullwidth">
+            <div class="orderForm">
+                <div class="orderformcontainer" th:object="${orderDto}">
+
+
+                    <h2>Информация за прожекцията</h2>
+                    <div class="eventInfoContainer">
+                        <h3 class="info-order"><span class="eventMasterName" th:text="|${orderDto.movieViewName}, |">
+                            Blue Lock The Movie: Episode Nagi</span>
+                            <span class="eventDateTime"
+                                  th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}, |">четвъртък 25/07/2024 12:50</span>
+                            <span class="siteName" th:text="${orderDto.location.value}">CC Plovdiv</span>
+                        </h3>
+                        <table class="seatSelection" cellpadding="0" cellspacing="0" th:object="${ticketsMap}">
+                            <tbody>
+
+                            <tr class="header" th:object="${rowAndSeats}">
+                                <th id="tdTicketNameCaption"><span id="lblTicketNameCaption">Вид билет</span></th>
+                                <th><span id="lblTicketQtyCaption">К-во</span></th>
+                                <th><span id="lblTicketPriceCaption">Цена на билет</span></th>
+                                <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption">Адм. такса</span>
+                                </th>
+                                <th id="tdTicketSeatsCaption"><span
+                                        id="lblTicketsSeatsCaption">Информация за местата</span>
+                                </th>
+                            </tr>
+
+                            <th:block th:each="ticketKey : ${ticketsMap}">
+                                <tr class="sums" >
+
+                                    <td id="tdTicketChild">
+                                        <span id="lblTicketChild" th:text="${ticketKey.key}">test Children under 16</span></td>
+                                    <td><span id="lblTicketChildQty" th:text="${ticketKey.getValue().size()}">1</span>
+                                    </td>
+                                    <td id="tdTicketChildPrice1">
+                                        <span id="lblTicketChildPrice1"
+                                              th:text="|${#numbers.formatDecimal(ticketKey.value.get(0).price, 1, 'DEFAULT', 2, 'DEFAULT')} lv|">10.50 лв</span>
+                                    </td>
+                                    <td id="tdTicketChildCommission">
+                                        <span id="lblTicketChildCommission">0.80 lv</span>
+                                    </td>
+                                    </th:block>
+                                    <th:block th:each="rowKey : ${rowAndSeats}">
+                                    <td id="tdTicketChildSeats" rowspan="1">
+                                        <span id="lblTicketsChildSeats"
+                                              th:text="|Row: ${rowKey.key} Seat:|">Ред 7</span>
+
+                                        <span id="lblTicketsChildSeat" th:each="seat : ${rowKey.value}"
+                                              th:text="|${seat}, |">Място 8</span>
+                                    </td>
+                                    </th:block>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+
+                        <div class="coupon">
+                            <h2>Имате ли ваучер?</h2>
+                            <div class="coupon-container">
+                                <div class="formRow">
+                                    <div class="input-label-container">
+                                        <div class="label">Моля, въведете кода му тук<br>
+                                            <svinfo style="text-transform:none"></svinfo>
+                                        </div>
+                                        <div class="input-container">
+                                            <input name="ctl00$CPH1$OrderFormControl1$tbCouponCode" id="tbCouponCode"
+                                                   class="tbox" type="number" autocomplete="off"><span
+                                                id="reqtbCouponCode" class="input-error" style="display:none;">Въведете кода</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a id="lnkAddCoupon" class="actionBtn"
+                                   href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$OrderFormControl1$lnkAddCoupon&quot;, &quot;&quot;, true, &quot;Coupon&quot;, &quot;&quot;, false, true))">Добавете&nbsp;
+                                    код</a>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="total-block">
+                            <div class="total-sum"
+                                 th:text="|Общо (с всички данъци и такси)
+                                 ${#numbers.formatDecimal(orderDto.totalPrice, 1, 'DEFAULT', 2, 'DEFAULT')} lv|">
+                                            Общо (с всички данъци и такси)
+                            </div>
+                        </div>
+                        <div id="ctl00_CPH1_OrderFormControl1_payuWidgetContainer" class="payuoptionscontainer"
+                             tabindex="-1">
+                            <input type="hidden" name="ctl00$CPH1$OrderFormControl1$hdnSelectedToken"
+                                   id="hdnSelectedToken">
+                            <h2><span class="required">*</span>Метод на плащане</h2>
+                            <p></p>
+                            <div class="payuoptions">
+                                <div class="payuOpt card clearfix">
+                                    <label class="radio clearfix" for="rbcard">
+                                        <input name="PayuPayment" class="rbpayu" id="rbcard" type="radio" value="card"
+                                               checked="checked">
+                                        <div class="name">Debit / Credit card</div>
+                                        <img src="/images/card.png" alt="card">
+                                        <div class="changecard">CHANGE</div>
+                                    </label>
+
+                                </div>
+                                <div class="payuOpt card clearfix">
+                                    <label class="radio clearfix" for="rbcard">
+                                        <input name="PayuPayment" class="rbpayu" id="rbcard2" type="radio" value="card"
+                                               checked="checked">
+                                        <div class="name">On site / At the checkout</div>
+                                        <div class="changecard">CHANGE</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <span id="ctl00_CPH1_OrderFormControl1_valPayU" class="errorb" style="display:none;">Задължително поле</span>
+                        </div>
+                        <div class="formContainer">
+                            <h2>Вашите контакти</h2>
+                            <div class="personalInfo customerInfo">
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="Field_5">Име</label>
+                                        <div class="input-container">
+                                            <div name="ctl00$CPH1$OrderFormControl1$Field_5"
+                                                 type="text" id="Field_5"
+                                                 th:text="${orderDto.getUser().name}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="formRow">
+                                    <div class="input-label-container"><label class="label" for="Field_20">Имейл</label>
+                                        <div class="input-container">
+                                            <div name="ctl00$CPH1$OrderFormControl1$Field_20"
+                                                   type="text" id="Field_20"
+                                                 th:text="${orderDto.getUser().email}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+<!--                TODO: make redirect to next page and form with get method-->
+                <div class="actionHolder">
+                    <input type="submit" class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}" value="Confirm"/>
+                    <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
+                       th:href="@{/order/select-seats/{orderId}/movie/{movieName}(orderId=${orderDto.id}, movieName=${orderDto.movieViewName})}">Назад</a>
+                    <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="footer" class="footer orderformpageres"></div>
+
 
 </div>
 <footer th:replace="~{fragments/commons::footer}"></footer>

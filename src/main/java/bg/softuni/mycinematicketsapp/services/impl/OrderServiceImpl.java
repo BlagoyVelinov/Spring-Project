@@ -94,12 +94,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void addQuantityOfTickets(OrderMovieDto orderMovie, long orderId, long movieId, long timeId) {
         Order order = this.getOrderById(orderId);
-        double totalPricePlusTax = this.getTotalPricePlusTax(order);
 
         order.setChildQuantity(orderMovie.getChildQuantity());
         order.setOverSixtyQuantity(orderMovie.getOverSixtyQuantity());
         order.setRegularQuantity(orderMovie.getRegularQuantity());
         order.setStudentQuantity(orderMovie.getStudentQuantity());
+
+        double totalPricePlusTax = this.getTotalPricePlusTax(order);
         order.setTotalPrice(totalPricePlusTax);
 
         this.orderRepository.save(order);
@@ -134,6 +135,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderMovieDto mapOrderToOrderDto(Order order) {
         UserViewDto userViewDto = this.mapUserToUserViewDto(order.getUser());
 
+
         OrderMovieDto orderMovieDto = new OrderMovieDto()
                 .setId(order.getId())
                 .setBookingTime(order.getBookingTime())
@@ -141,7 +143,8 @@ public class OrderServiceImpl implements OrderService {
                 .setLocation(order.getCity().getLocation())
                 .setProjectionDate(order.getProjectionDate())
                 .setMovieViewName(order.getMovieName())
-                .setUser(userViewDto);
+                .setUser(userViewDto)
+                .setTickets(order.getTickets());
         orderMovieDto.setChildQuantity(order.getChildQuantity());
         orderMovieDto.setRegularQuantity(order.getRegularQuantity());
         orderMovieDto.setOverSixtyQuantity(order.getOverSixtyQuantity());

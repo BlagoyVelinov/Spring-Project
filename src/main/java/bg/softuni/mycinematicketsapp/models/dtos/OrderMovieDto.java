@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
+import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
@@ -22,7 +23,7 @@ public class OrderMovieDto {
     private int studentQuantity;
     private double totalPrice;
     private String bookingTime;
-    private List<TicketViewDto> tickets;
+    private List<Ticket> tickets;
     @NotNull(message = "You need select a projection date.")
     @FutureOrPresent(message = "The date cannot be in the past!")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -130,11 +131,11 @@ public class OrderMovieDto {
         return this;
     }
 
-    public List<TicketViewDto> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public OrderMovieDto setTickets(List<TicketViewDto> tickets) {
+    public OrderMovieDto setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
         return this;
     }

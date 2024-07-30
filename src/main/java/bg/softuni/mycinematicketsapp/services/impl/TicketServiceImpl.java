@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -86,6 +88,57 @@ public class TicketServiceImpl implements TicketService {
 
     }
 
+    @Override
+    public Map<String, List<TicketViewDto>> addToTicketsMap(long orderId) {
+        Order order = this.orderService.getOrderById(orderId);
+        Map<String, List<TicketViewDto>> ticketsMap = new HashMap<>();
+        order.getTickets().forEach(ticket -> {
+            ticketsMap.putIfAbsent(ticket.getTicketType().getValue(), new ArrayList<>());
+            ticketsMap.get(ticket.getTicketType().getValue()).add(this.mapTicketToTicketViewDto(ticket));
+        });
+        return ticketsMap;
+    }
+
+    @Override
+    public Map<Integer, List<Integer>> getSeatsByRow(long orderId) {
+        Order order = this.orderService.getOrderById(orderId);
+        Map<Integer, List<Integer>> rowSeats = new HashMap<>();
+        order.getTickets().forEach(ticket -> {
+            rowSeats.putIfAbsent(ticket.getNumberOfRow(), new ArrayList<>());
+            rowSeats.get(ticket.getNumberOfRow()).add(ticket.getNumberOfSeat());
+        });
+        return rowSeats;
+    }
+
+    @Override
+    public void confirmOrder(long orderId) {
+        Order order = this.orderService.getOrderById(orderId);
+        List<Ticket> tickets = new ArrayList<>();
+        order.getTickets().forEach(ticket -> {
+            ticket.setFinished(true);
+            tickets.add(ticket);
+        });
+        this.ticketRepository.saveAll(tickets);
+
+        order.setFinished(true);
+        this.orderRepository.save(order);
+    }
+
+    private TicketViewDto mapTicketToTicketViewDto(Ticket ticket) {
+        return new TicketViewDto()
+                .setTicketType(ticket.getTicketType())
+                .setId(ticket.getId())
+                .setCity(ticket.getCity().getLocation().getValue())
+                .setPrice(ticket.getPrice())
+                .setHallNumber(ticket.getHallNumber())
+                .setBookingTime(ticket.getBookingTime())
+                .setMovieClass(ticket.getMovieClassDescription())
+                .setMovieName(ticket.getMovieName())
+                .setProjectionDate(ticket.getProjectionDate())
+                .setNumberOfRow(ticket.getNumberOfRow())
+                .setNumberOfSeat(ticket.getNumberOfSeat());
+    }
+
     private void addSelectedSeadToTicket(Ticket ticket, AtomicInteger lastRow, String[][] cinemaHall) {
         for (int i = lastRow.get(); i < cinemaHall.length; i++) {
             boolean isBooked = false;
@@ -104,8 +157,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private boolean isBooked(Ticket ticket, int i, int j, String[][] cinemaHall, AtomicInteger lastRow) {
-        ticket.setNumberOfRow(i);
-        ticket.setNumberOfSeat(j);
+        ticket.setNumberOfRow(i + 1);
+        ticket.setNumberOfSeat(j + 1);
         cinemaHall[i][j] = null;
         lastRow.set(i);
         return true;
@@ -116,29 +169,29 @@ public class TicketServiceImpl implements TicketService {
 
         for (int i = 0; i < order.getChildQuantity(); i++) {
             TicketType ticketType = TicketType.CHILDREN_UNDER_16;
-            Ticket ticket = this.mapTicketToTicketViewDto(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
+            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
             ticketsToSave.add(ticket);
         }
         for (int i = 0; i < order.getRegularQuantity(); i++) {
             TicketType ticketType = TicketType.REGULAR;
-            Ticket ticket = this.mapTicketToTicketViewDto(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
+            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
             ticketsToSave.add(ticket);
         }
         for (int i = 0; i < order.getStudentQuantity(); i++) {
             TicketType ticketType = TicketType.PUPILS_AND_STUDENTS;
-            Ticket ticket = this.mapTicketToTicketViewDto(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
+            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
             ticketsToSave.add(ticket);
         }
         for (int i = 0; i < order.getOverSixtyQuantity(); i++) {
             TicketType ticketType = TicketType.PERSONS_OVER_60;
-            Ticket ticket = this.mapTicketToTicketViewDto(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
+            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
             ticketsToSave.add(ticket);
         }
         return ticketsToSave;
     }
 
 
-    private Ticket mapTicketToTicketViewDto(TicketViewDto createTicket, MovieViewDto movieViewDto,
+    private Ticket mapTicketViewDtoToTicket(TicketViewDto createTicket, MovieViewDto movieViewDto,
                                             TicketType ticketType, String bookingTime, Order order) {
         return new Ticket()
                 .setMovieName(movieViewDto.getName())

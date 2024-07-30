@@ -39,7 +39,7 @@
                             <h3 th:text="${orderDto.movieViewName}">Аз, проклетникът 4 2D</h3>
                         </div>
                         <div class="eventdate" th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}|">
-                            петък 12/07/2024 15:45
+                            12/07/2024 15:45
                         </div>
                         <div class="siteinfo">
                             <span th:text="${orderDto.location.value}">CC Plovdiv</span><br/>
@@ -560,6 +560,9 @@
 
                         <a th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${movieView.id})}"
                            id="backBtn" class="cancelBtn back-link">Назад</a>
+
+                        <!--TODO: Fix back button to return one page back -->
+
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.*;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
+import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
@@ -118,8 +120,19 @@ public class OrderController {
     @GetMapping("/confirm-order/{orderId}")
     public String orderTickets(@PathVariable("orderId") long orderId, Model model) {
         OrderMovieDto orderViewDto = this.orderService.getOrderMovieById(orderId);
-        model.addAttribute("orderView", orderViewDto);
+        model.addAttribute("orderDto", orderViewDto);
+        Map<String, List<TicketViewDto>> ticketsMap = this.ticketService.addToTicketsMap(orderId);
+        model.addAttribute("ticketsMap", ticketsMap);
+        Map<Integer, List<Integer>> rowAndSeats = this.ticketService.getSeatsByRow(orderId);
+        model.addAttribute("rowAndSeats", rowAndSeats);
         return "confirm-order";
+    }
+    @GetMapping("/show-tickets/{orderId}")
+    public String showTickets(@PathVariable("orderId") long orderId, Model model) {
+        OrderMovieDto orderViewDto = this.orderService.getOrderMovieById(orderId);
+        model.addAttribute("orderView", orderViewDto);
+        this.ticketService.confirmOrder(orderId);
+        return "show-tickets";
     }
 
     private boolean checkCountOfTicketsIsGraterThanZero(OrderMovieDto orderMovie) {

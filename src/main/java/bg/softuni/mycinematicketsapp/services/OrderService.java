@@ -21,4 +21,5 @@ public interface OrderService {
     OrderMovieDto getOrderByOrderNumber(String orderNumber);
 
     int getCountOfTicketsByOrderId(long orderId);
+
 }
