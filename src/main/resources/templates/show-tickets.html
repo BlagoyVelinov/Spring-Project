@@ -43,15 +43,20 @@
                                       th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}, |">четвъртък 25/07/2024 12:50</span>
                                 <span class="siteName" th:text="${orderDto.location.value}">CC Plovdiv</span>
                             </h3>
-                            <table class="seatSelection" cellpadding="0" cellspacing="0" >
-                                <tbody th:each="ticket : ${orderDto.tickets}">
+                            <table class="seatSelection" cellpadding="0" cellspacing="0" th:each="ticket : ${orderDto.tickets}">
+                                <tbody >
 
                                 <tr class="header">
-                                    <th id="tdTicketNameCaption"><span id="lblTicketNameCaption">Вид билет</span></th>
-                                    <th><span id="lblTicketQtyCaption">Movie name</span></th>
-                                    <th><span id="lblTicketPriceCaption">Цена на билет</span></th>
-                                    <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption">Hall</span></th>
-                                    <th id="tdTicketSeatsCaption"><span id="lblTicketsSeatsCaption">Projection Date</span></th>
+                                    <th id="thTicketTypeName"><span id="lblTicketTypeName">Ticket Type</span></th>
+                                    <th id="thTicketMovieNameName"><span id="lblTicketMovieNameName">Movie name</span></th>
+                                    <th><span id="lblTicketPriceCaption">Movie Class</span></th>
+                                    <th id="thTicketHallName"><span id="lblTicketHallName">Hall</span></th>
+                                    <th id="thTicketProjectionDateName"><span id="lblTicketsProjectionDateName">Projection Date</span></th>
+                                    <th id="thTicketsBookTimeName"><span id="lblTicketsBookTimeName">Time</span></th>
+                                    <th id="thTicketPriceName"><span id="lblTicketsPriceName">Unit price</span></th>
+                                    <th id="thTicketTaxName"><span id="lblTicketsTaxName">Adm. Tax</span></th>
+                                    <th id="thTicketCityName"><span id="lblTicketsCityName">City</span></th>
+                                    <th id="thTicketSeatInfoName"><span id="lblTicketsSeatInfoName">Seat Info</span></th>
                                 </tr>
 
                                     <tr class="sums">
@@ -82,13 +87,16 @@
                                             <span id="lblTicketChildCommission">0.80 lv</span>
                                         </td>
                                         <td id="tdTicketTown" rowspan="1">
-                                            <span id="lblTicketTown" th:text="${orderDto.location}">Location</span>
+                                            <span id="lblTicketTown" th:text="${orderDto.location.value}">Location</span>
                                         </td>
 
 
                                 <td id="tdTicketChildSeats" rowspan="1">
-                                    <span id="lblTicketsChildSeats"
-                                            th:text="|Row: ${ticket.numberOfRow} - Seat: ${ticket.numberOfSeat}|">Ред 7</span>
+                                    <span id="lblTicketsRow"
+                                            th:text="|Row: ${ticket.numberOfRow}|">Ред 7</span>
+                                    <br>
+                                    <span id="lblTicketsSeats"
+                                          th:text="|Seat: ${ticket.numberOfSeat}|">Ред 7</span>
                                 </td>
                                 </tr>
                                 </tbody>

@@ -4464,7 +4464,7 @@ span.errorb[style*=inline] {
 }
 
 table.seatSelection {
-    width: 100%;
+    width: 119%;
     margin-top: 15px;
     border-right: 1px solid #d3d3d3;
     border-left: 1px solid #d3d3d3;
@@ -4535,7 +4535,7 @@ fieldset {
 }
 
 .orderForm table.seatSelection {
-    margin-bottom: 20px
+    margin-bottom: 28px;
 }
 
 .orderForm .paypalInfo {
