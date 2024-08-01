@@ -1,11 +1,10 @@
-package bg.softuni.mycinematicketsapp.models.dtos;
+package bg.softuni.mycinematicketsapp.models.dtos.view;
 
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class TicketViewDto {
     private long id;

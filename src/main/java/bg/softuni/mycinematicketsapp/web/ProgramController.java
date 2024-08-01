@@ -2,7 +2,7 @@ package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
-import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;

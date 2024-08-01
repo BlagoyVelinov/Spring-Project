@@ -2,9 +2,9 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
-import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
-import bg.softuni.mycinematicketsapp.models.dtos.UserViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.*;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
@@ -16,9 +16,7 @@ import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @Service

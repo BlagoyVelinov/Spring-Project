@@ -1,10 +1,9 @@
 package bg.softuni.mycinematicketsapp.services;
 
-import bg.softuni.mycinematicketsapp.models.dtos.TicketViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UpdateTicketDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
-import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 
 import java.util.List;
 import java.util.Map;

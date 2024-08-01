@@ -8,8 +8,8 @@ public class Constant {
     public static final String MOVIE_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.createMovie";
     public static final String ORDER_ATTRIBUTE_NAME = "createOrder";
     public static final String ORDER_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.createOrder";
-    public static final String TICKET_ATTRIBUTE_NAME = "updateTicket";
-    public static final String TICKET_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.updateTicket";
+    public static final String OFFER_ATTRIBUTE_NAME = "createOffer";
+    public static final String OFFER_BINDING_RESULT_NAME = "org.springframework.validation.BindingResult.createOffer";
     public static final String BAD_CREDENTIALS = "badCredentials";
 
 
@@ -18,8 +18,8 @@ public class Constant {
     public static final String REDIRECT_REGISTER = "redirect:/users/register";
     public static final String REDIRECT_LOGIN = "redirect:/users/login";
     public static final String REDIRECT_AFTER_REGISTER = "redirect:/users/check-email";
-    public static final String REDIRECT_HOME = "redirect:/home";
-    public static final String REDIRECT_INDEX = "redirect:/";
+    public static final String REDIRECT_ADD_OFFER = "redirect:/offers/add-offer";
+    public static final String REDIRECT_OFFERS = "redirect:/offers";
     public static final String REDIRECT_PROGRAM = "redirect:/program";
     public static final String REDIRECT_PROGRAM_ORDER_TICKETS = "redirect:/program/order-tickets";
     public static final String REDIRECT_UPDATE_BOOKING_TIME = "redirect:/program/update-projection-time/{id}";
@@ -38,7 +38,8 @@ public class Constant {
 
     public static final String OBJECT_DIFFERENT_TRAILER_URL = "https://www.youtube.com";
     public static final String FIELD_TRAILER_URL = "trailerUrl";
-    public static final String DEFAULT_MESSAGE_TRAILER = "You must add trailer from \"youtube.com\"!";
+    public static final String DEFAULT_MESSAGE_TRAILER = "You must add trailer from \"https://www.youtube.com\"!";
 
-
+//====================================================================================================================//
+    public static final int COUNT_AVAILABLE_DAYS = 7;
 }

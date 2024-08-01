@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.models.dtos;
+package bg.softuni.mycinematicketsapp.models.dtos.view;
 
 public class UserViewDto {
     private String name;

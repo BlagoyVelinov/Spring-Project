@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/commons::head}"></head>
+<link rel="stylesheet" href="/css/style-program.css"/>
+
 <body id="page3">
 <!-- START PAGE SOURCE -->
 <div class="tail-top">
@@ -13,63 +16,71 @@
                     <div class="border-right">
                         <div class="border-left">
                             <div class="inner">
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <div class="button-holder d-flex justify-content-center"
+                                         sec:authorize="hasRole('ADMINISTRATOR')">
+                                        <a th:href="@{/offers/add-offer}">
+                                            <button type="submit">Add Offer</button>
+                                        </a>
+                                    </div>
+                                </th:block>
                                 <div class="container-fluid static">
                                     <div class="row mb-md">
                                         <div class="col-md-12">
                                             <h3>Cinema <span>Offers</span></h3>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="/cheaper-tuesday" class="cinema-card card"
+                                        <div class="col-md-3" th:each="cinema : ${cinemaOffers}">
+                                            <a th:href="@{/offers/offer/{offerId}(offerId=${cinema.id})}" class="cinema-card card"
                                                aria-label="3D ПРОМО ВТОРНИК Всеки вторник всички 3D прожекции на специална намалена цена.">
                                                 <div class="card-top"
                                                      style="background-image: url('/images/cheaper tuesday.jpg')"
                                                      title="">
-                                                    <img src="/images/cheaper tuesday.jpg"
-                                                         class="img-responsive visible-xs" alt="">
+                                                    <img th:src="${cinema.imageUrl}"
+                                                         class="img-responsive visible-xs" alt="offer-img">
                                                 </div>
                                                 <div class="card-block">
-                                                    <p class="card-text mb-sm"><strong th:text="#{offers-promo-title1}">3D
+                                                    <p class="card-text mb-sm"><strong th:text="${cinema.title}">3D
                                                         ПРОМО ВТОРНИК</strong></p>
-                                                    <p class="card-text" th:text="#{offers-promo-desc1}">
+                                                    <p class="card-text" th:text="${cinema.description}" maxlength="50">
                                                         Всеки вторник всички 3D прожекции на специална намалена цена.</p>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="/cheaper-thursday" class="cinema-card card"
-                                               aria-label="НАМАЛЕН 2D ЧЕТВЪРТЪК Всеки четвъртък всички 2D прожекции на специална намалена цена">
+<!--                                        <div class="col-md-3">-->
+<!--                                            <a href="/cheaper-thursday" class="cinema-card card"-->
+<!--                                               aria-label="НАМАЛЕН 2D ЧЕТВЪРТЪК Всеки четвъртък всички 2D прожекции на специална намалена цена">-->
 
-                                                <div class="card-top"
-                                                     style="background-image: url('/images/cheaper-thursday.jpg')"
-                                                     title="">
-                                                    <img src="/images/cheaper-thursday.jpg"
-                                                         class="img-responsive visible-xs" alt="">
-                                                </div>
-                                                <div class="card-block">
-                                                    <p class="card-text mb-sm">
-                                                        <strong th:text="#{offers-promo-title2}">НАМАЛЕН 2D ЧЕТВЪРТЪК</strong></p>
-                                                    <p class="card-text" th:text="#{offers-promo-desc2}">
-                                                        Всеки четвъртък всички 2D прожекции на специална намалена цена</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <a href="/birthday-in-cinema" class="cinema-card card"
-                                               aria-label="РОЖДЕН ДЕН НА КИНО Подарете на Вашето дете незабравим рожден ден на кино!">
-                                                <div class="card-top"
-                                                     style="background-image: url('/images/Bday_in_cinema.jpg')"
-                                                     title="">
-                                                    <img src="/images/Bday_in_cinema.jpg"
-                                                         class="img-responsive visible-xs" alt="">
-                                                </div>
-                                                <div class="card-block">
-                                                    <p class="card-text mb-sm"><strong th:text="#{offers-promo-title3}">РОЖДЕН
-                                                        ДЕН НА КИНО</strong></p>
-                                                    <p class="card-text" th:text="#{offers-promo-desc3}">Подарете на
-                                                        Вашето дете незабравим рожден ден на кино!</p>
-                                                </div>
-                                            </a>
-                                        </div>
+<!--                                                <div class="card-top"-->
+<!--                                                     style="background-image: url('/images/cheaper-thursday.jpg')"-->
+<!--                                                     title="">-->
+<!--                                                    <img src="/images/cheaper-thursday.jpg"-->
+<!--                                                         class="img-responsive visible-xs" alt="">-->
+<!--                                                </div>-->
+<!--                                                <div class="card-block">-->
+<!--                                                    <p class="card-text mb-sm">-->
+<!--                                                        <strong th:text="#{offers-promo-title2}">НАМАЛЕН 2D ЧЕТВЪРТЪК</strong></p>-->
+<!--                                                    <p class="card-text" th:text="#{offers-promo-desc2}">-->
+<!--                                                        Всеки четвъртък всички 2D прожекции на специална намалена цена</p>-->
+<!--                                                </div>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-3">-->
+<!--                                            <a href="/birthday-in-cinema" class="cinema-card card"-->
+<!--                                               aria-label="РОЖДЕН ДЕН НА КИНО Подарете на Вашето дете незабравим рожден ден на кино!">-->
+<!--                                                <div class="card-top"-->
+<!--                                                     style="background-image: url('/images/Bday_in_cinema.jpg')"-->
+<!--                                                     title="">-->
+<!--                                                    <img src="/images/Bday_in_cinema.jpg"-->
+<!--                                                         class="img-responsive visible-xs" alt="">-->
+<!--                                                </div>-->
+<!--                                                <div class="card-block">-->
+<!--                                                    <p class="card-text mb-sm"><strong th:text="#{offers-promo-title3}">РОЖДЕН-->
+<!--                                                        ДЕН НА КИНО</strong></p>-->
+<!--                                                    <p class="card-text" th:text="#{offers-promo-desc3}">Подарете на-->
+<!--                                                        Вашето дете незабравим рожден ден на кино!</p>-->
+<!--                                                </div>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
                                     </div>
                                     <div class="row mb-md">
                                     </div>
@@ -77,42 +88,43 @@
                                         <div class="col-md-12">
                                             <h3>For the<span> Schools</span></h3>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="/group-bookings" class="cinema-card card"
+                                        <div class="col-md-3" th:each="school : ${schoolOffers}">
+                                            <a th:href="@{/offers/offer/{offerId}(offerId=${school.id})}" class="cinema-card card"
                                                aria-label="ГРУПОВИ РЕЗЕРВАЦИИ Специални оферти за училища, учители и студенти">
                                                 <div class="card-top"
                                                      style="background-image: url('/images/group-bookings.jpg')"
                                                      title="">
-                                                    <img src="/images/group-bookings.jpg"
+<!--                                                    /images/group-bookings.jpg-->
+                                                    <img th:src="${school.imageUrl}"
                                                          class="img-responsive visible-xs" alt="">
                                                 </div>
                                                 <div class="card-block">
                                                     <p class="card-text mb-sm"><strong
-                                                            th:text="#{offers-schools-title1}">
+                                                            th:text="${school.title}">
                                                         ГРУПОВИ РЕЗЕРВАЦИИ</strong></p>
-                                                    <p class="card-text" th:text="#{offers-schools-desc1}">
+                                                    <p class="card-text" th:text="${school.description}" maxlength="50">
                                                         Специални оферти за училища, учители и студенти</p>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="/imax-documentary" class="cinema-card card"
-                                               aria-label="НАУЧНОПОПУЛЯРНИ ФИЛМИ Специална селекция от IMAX 3D филми">
-                                                <div class="card-top"
-                                                     style="background-image: url('/images/imax-cinema.jpeg')" title="">
-                                                    <img src="/images/imax-cinema.jpeg"
-                                                         class="img-responsive visible-xs" alt="">
-                                                </div>
-                                                <div class="card-block">
-                                                    <p class="card-text mb-sm"><strong
-                                                            th:text="#{offers-schools-title2}">
-                                                        НАУЧНОПОПУЛЯРНИ ФИЛМИ</strong>
-                                                    </p>
-                                                    <p class="card-text" th:text="#{offers-schools-desc2}">
-                                                        Специална селекция от IMAX 3D филми</p>
-                                                </div>
-                                            </a>
-                                        </div>
+<!--                                        <div class="col-md-3">-->
+<!--                                            <a href="/imax-documentary" class="cinema-card card"-->
+<!--                                               aria-label="НАУЧНОПОПУЛЯРНИ ФИЛМИ Специална селекция от IMAX 3D филми">-->
+<!--                                                <div class="card-top"-->
+<!--                                                     style="background-image: url('/images/imax-cinema.jpeg')" title="">-->
+<!--                                                    <img src="/images/imax-cinema.jpeg"-->
+<!--                                                         class="img-responsive visible-xs" alt="">-->
+<!--                                                </div>-->
+<!--                                                <div class="card-block">-->
+<!--                                                    <p class="card-text mb-sm"><strong-->
+<!--                                                            th:text="#{offers-schools-title2}">-->
+<!--                                                        НАУЧНОПОПУЛЯРНИ ФИЛМИ</strong>-->
+<!--                                                    </p>-->
+<!--                                                    <p class="card-text" th:text="#{offers-schools-desc2}">-->
+<!--                                                        Специална селекция от IMAX 3D филми</p>-->
+<!--                                                </div>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
                                     </div>
                                     <div class="row mb-md">
                                     </div>
@@ -120,56 +132,57 @@
                                         <div class="col-md-12">
                                             <h3>For the<span> Business</span></h3>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="/vouchers-for-company" class="cinema-card card"
+                                        <div class="col-md-3" th:each="business : ${businessOffers}">
+                                            <a th:href="@{/offers/offer/{offerId}(offerId=${business.id})}" class="cinema-card card"
                                                aria-label="ВАУЧЕРИ ЗА КОМПАНИИ Перфектният подарък за вашите служители и клиенти">
                                                 <div class="card-top"
                                                      style="background-image: url('/images/company-vouchers.jpg')"
                                                      title="">
-                                                    <img src="/images/company-vouchers.jpg"
+<!--                                                    /images/company-vouchers.jpg-->
+                                                    <img th:src="${business.imageUrl}"
                                                          class="img-responsive visible-xs" alt="">
                                                 </div>
                                                 <div class="card-block">
                                                     <p class="card-text mb-sm"><strong
-                                                            th:text="#{offers-business-title1}">
+                                                            th:text="${business.title}">
                                                         ВАУЧЕРИ ЗА КОМПАНИИ</strong></p>
-                                                    <p class="card-text" th:text="#{offers-business-desc1}">
+                                                    <p class="card-text" th:text="${business.description}" maxlength="50">
                                                         Перфектният подарък за вашите служители и клиенти</p>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="/rent-a-hall" class="cinema-card card"
-                                               aria-label="НАЕМ НА ЗАЛА Перфектни за корпоративни събития и презентации">
-                                                <div class="card-top"
-                                                     style="background-image: url('/images/rent-a-hall.jpg')" title="">
-                                                    <img src="/images/rent-a-hall.jpg"
-                                                         class="img-responsive visible-xs" alt="">
-                                                </div>
-                                                <div class="card-block">
-                                                    <p class="card-text mb-sm">
-                                                        <strong th:text="#{offers-business-title2}">НАЕМ НА ЗАЛА</strong></p>
-                                                    <p class="card-text" th:text="#{offers-business-desc2}">
-                                                        Перфектни за корпоративни събития и презентации</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <a href="/cinema-advertising" class="cinema-card card"
-                                               aria-label="КИНО РЕКЛАМА Широка гама от възможности за реклама">
-                                                <div class="card-top" style="background-image:
-	  url('/images/cinema-advertising.jpg')" title="">
-                                                    <img src="/images/cinema-advertising.jpg"
-                                                         class="img-responsive visible-xs" alt="">
-                                                </div>
-                                                <div class="card-block">
-                                                    <p class="card-text mb-sm">
-                                                        <strong th:text="#{offers-business-title3}">КИНО РЕКЛАМА</strong></p>
-                                                    <p class="card-text" th:text="#{offers-business-desc3}">
-                                                        Широка гама от възможности за реклама</p>
-                                                </div>
-                                            </a>
-                                        </div>
+<!--                                        <div class="col-md-3">-->
+<!--                                            <a href="/rent-a-hall" class="cinema-card card"-->
+<!--                                               aria-label="НАЕМ НА ЗАЛА Перфектни за корпоративни събития и презентации">-->
+<!--                                                <div class="card-top"-->
+<!--                                                     style="background-image: url('/images/rent-a-hall.jpg')" title="">-->
+<!--                                                    <img src="/images/rent-a-hall.jpg"-->
+<!--                                                         class="img-responsive visible-xs" alt="">-->
+<!--                                                </div>-->
+<!--                                                <div class="card-block">-->
+<!--                                                    <p class="card-text mb-sm">-->
+<!--                                                        <strong th:text="#{offers-business-title2}">НАЕМ НА ЗАЛА</strong></p>-->
+<!--                                                    <p class="card-text" th:text="#{offers-business-desc2}">-->
+<!--                                                        Перфектни за корпоративни събития и презентации</p>-->
+<!--                                                </div>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-3">-->
+<!--                                            <a href="/cinema-advertising" class="cinema-card card"-->
+<!--                                               aria-label="КИНО РЕКЛАМА Широка гама от възможности за реклама">-->
+<!--                                                <div class="card-top" style="background-image:-->
+<!--	  url('/images/cinema-advertising.jpg')" title="">-->
+<!--                                                    <img src="/images/cinema-advertising.jpg"-->
+<!--                                                         class="img-responsive visible-xs" alt="">-->
+<!--                                                </div>-->
+<!--                                                <div class="card-block">-->
+<!--                                                    <p class="card-text mb-sm">-->
+<!--                                                        <strong th:text="#{offers-business-title3}">КИНО РЕКЛАМА</strong></p>-->
+<!--                                                    <p class="card-text" th:text="#{offers-business-desc3}">-->
+<!--                                                        Широка гама от възможности за реклама</p>-->
+<!--                                                </div>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>

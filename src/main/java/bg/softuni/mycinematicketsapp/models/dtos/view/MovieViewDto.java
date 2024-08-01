@@ -1,8 +1,7 @@
-package bg.softuni.mycinematicketsapp.models.dtos;
+package bg.softuni.mycinematicketsapp.models.dtos.view;
 
 import bg.softuni.mycinematicketsapp.models.entities.BookingTime;
 import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
-import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
 import bg.softuni.mycinematicketsapp.models.enums.Genre;
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;

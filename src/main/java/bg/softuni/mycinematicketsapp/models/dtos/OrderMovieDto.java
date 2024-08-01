@@ -1,16 +1,16 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class OrderMovieDto {
 
@@ -30,13 +30,19 @@ public class OrderMovieDto {
     @FutureOrPresent(message = "The date cannot be in the past!")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate projectionDate;
+
     @NotNull(message = "You need select a city")
     private CityName location;
-
     private UserViewDto user;
+
+
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public OrderMovieDto() {
         this.tickets = new ArrayList<>();
+        this.startDate = LocalDate.now();
+        this.endDate = this.startDate.plusDays(Constant.COUNT_AVAILABLE_DAYS);
     }
 
     public long getId() {
@@ -166,6 +172,24 @@ public class OrderMovieDto {
 
     public OrderMovieDto setUser(UserViewDto user) {
         this.user = user;
+        return this;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public OrderMovieDto setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public OrderMovieDto setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
         return this;
     }
 }

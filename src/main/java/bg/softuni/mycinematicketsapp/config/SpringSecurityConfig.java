@@ -40,9 +40,9 @@ public class SpringSecurityConfig {
                 authorizeRequests -> authorizeRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/users/register", "/users/login", "/users/login-error").permitAll()
-                        .requestMatchers("/offers/all-offers", "/trailer", "/users/check-email").permitAll()
+                        .requestMatchers("/offers", "/trailer", "/users/check-email").permitAll()
                         .requestMatchers("/program", "/4-dx", "/imax", "/about-us", "/contact-us").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/offers/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/offers/**", "/offers/offer/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/trailer/**").permitAll()
                         .requestMatchers("/order/buy-tickets/{id}", "/order/select-seats","/program/order-tickets").authenticated()
                         .requestMatchers("/order/buy-tickets/{id}", "/order/confirm-order/**", "/order/show-tickets/**").authenticated()

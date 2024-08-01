@@ -2,20 +2,17 @@ package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.*;
-import bg.softuni.mycinematicketsapp.models.entities.Ticket;
-import bg.softuni.mycinematicketsapp.models.enums.BookingTimeEnum;
-import bg.softuni.mycinematicketsapp.models.enums.TicketType;
+import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -75,6 +72,8 @@ public class OrderController {
                     Constant.OBJECT_ZERO_QUANTITY,
                     Constant.FIELD_QUANTITY,
                     Constant.DEFAULT_MESSAGE_QUANTITY));
+        }
+        if (bindingResult.hasErrors()) {
             return Constant.REDIRECT_BUY_TICKETS;
         }
         this.orderService.addQuantityOfTickets(orderMovie, orderId, movieId, timeId);

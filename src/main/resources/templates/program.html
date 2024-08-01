@@ -29,6 +29,8 @@
                                                    id="dateInput"
                                                    class="form-control"
                                                    placeholder="Select a date"
+                                                   th:min="*{startDate}"
+                                                   th:max="*{endDate}"
                                                    th:field="*{projectionDate}">
 
 

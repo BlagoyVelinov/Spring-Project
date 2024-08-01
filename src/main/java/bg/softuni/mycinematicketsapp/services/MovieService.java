@@ -2,7 +2,7 @@ package bg.softuni.mycinematicketsapp.services;
 
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.CreateMovieDto;
-import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 
 import java.util.Set;
 

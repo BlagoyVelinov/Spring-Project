@@ -1,7 +1,7 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
-import bg.softuni.mycinematicketsapp.models.dtos.MovieViewDto;
-import bg.softuni.mycinematicketsapp.models.dtos.TicketViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UpdateTicketDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
