@@ -83,20 +83,18 @@
                     </div>
                 </div>
                 <div class="content">
-                    <!--                    <div id="displayDate"></div>-->
-                    <h4 id="displayDate">Choose a date</h4><h4 id="displayName">Choose a town</h4>
+                    <h4 id="displayDate">Choose a date and city for reserve ticket</h4><h4 id="displayName"></h4>
                     <ul th:each="movieView : ${allViewMovies}" class="list">
                         <li class="movieList"><img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px"
                                                    height="219px"/>
                             <a th:href="@{/trailer/{movieId}(movieId=${movieView.id})}" th:text="${movieView.name}"
                                class="title-movie">Name of movie</a><br/>
-                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
                             <span data-v-048a28f8="" class="qb-movie-rating-info">
                                <img th:src="${movieView.movieClass.getIcon()}"
                                     th:alt="${movieView.movieClass.description}"
                                     type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
                                     class="rating-icon mr-sm"><div data-v-048a28f8="" class="qb-movie-info-wrapper">
-                               <!----><div data-v-048a28f8="" class="pt-xs">
+                               <div data-v-048a28f8="" class="pt-xs">
                                <span th:each="genre : ${movieView.genreCategories}" th:text="|${genre.value},|"
                                      data-v-048a28f8="" tabindex="0" class="mr-sm">
                                    Приключенски, Анимация, Комедия, Семеен
@@ -117,7 +115,6 @@
                                        th:href="@{/program}"
                                        class="btn btn-primary btn-lg"
                                        th:text="${bookTime.bookingTime.value}"> 12:20 </a>
-                                    <!--th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}"-->
 
 
 

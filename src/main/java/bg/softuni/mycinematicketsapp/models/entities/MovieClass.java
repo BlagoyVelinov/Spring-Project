@@ -1,17 +1,11 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
 import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "movie_classes")
 public class MovieClass extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
     private MovieClassEnum name;
-    @Column
     private String icon;
-    @Column
     private String description;
 
     public MovieClass() {}

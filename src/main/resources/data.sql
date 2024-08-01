@@ -10,3 +10,5 @@ VALUES
     (1, 1),
     (1, 2),
     (2, 1);
+
+# The password of test Users is -> 123456789

@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head data-lang="12"><title>
-    Cinema Tickets
-</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-
-    <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
-
+<head>
+    <header th:replace="~{fragments/common-order-tickets::head}"></header>
 </head>
 <body id="ctl00_pageBody" class="ltr">
 <label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
-
+<header th:replace="~{fragments/commons::form.language}"></header>
 
 <div id="pagecontainer" class="pagecontainer orderformpageres">
     <div class="wrap">
@@ -24,10 +15,10 @@
         </div>
         <div style="clear: both;"></div>
         <div class="steps">
-            <div class="step"><span>1</span><label>Избор на билет</label></div>
-            <div class="step"><span>2</span><label>Избор на места</label></div>
-            <div class="step onstep"><span>3</span><label>Потвърждение</label></div>
-            <div class="step last"><span>4</span><label>Завършване на поръчката</label></div>
+            <div class="step"><span>1</span><label th:text="#{steps-step1}">Избор на билет</label></div>
+            <div class="step"><span>2</span><label th:text="#{steps-step2}">Избор на места</label></div>
+            <div class="step onstep"><span>3</span><label th:text="#{steps-step3}">Потвърждение</label></div>
+            <div class="step last"><span>4</span><label th:text="#{steps-step4}">Завършване на поръчката</label></div>
             <div class="clear"></div>
         </div>
 
@@ -36,25 +27,25 @@
                 <div class="orderformcontainer">
 
 
-                    <h2>Информация за прожекцията</h2>
+                    <h2 th:text="#{confirm-title-h1}">Информация за прожекцията</h2>
                     <div class="eventInfoContainer">
                         <h3 class="info-order"><span class="eventMasterName" th:text="|${orderDto.movieViewName}, |">
                             Blue Lock The Movie: Episode Nagi</span>
                             <span class="eventDateTime"
-                                  th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}, |">четвъртък 25/07/2024 12:50</span>
+                                  th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}, |"> 25/07/2024 12:50</span>
                             <span class="siteName" th:text="${orderDto.location.value}">CC Plovdiv</span>
                         </h3>
                         <table class="seatSelection" cellpadding="0" cellspacing="0" th:object="${ticketsMap}">
                             <tbody>
 
                             <tr class="header" th:object="${rowAndSeats}">
-                                <th id="tdTicketNameCaption"><span id="lblTicketNameCaption">Вид билет</span></th>
-                                <th><span id="lblTicketQtyCaption">К-во</span></th>
-                                <th><span id="lblTicketPriceCaption">Цена на билет</span></th>
-                                <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption">Адм. такса</span>
+                                <th id="tdTicketNameCaption"><span id="lblTicketNameCaption" th:text="#{confirm-ticket-type}">Вид билет</span></th>
+                                <th><span id="lblTicketQtyCaption" th:text="#{confirm-ticket-quantity}">К-во</span></th>
+                                <th><span id="lblTicketPriceCaption" th:text="#{confirm-ticket-price}">Цена на билет</span></th>
+                                <th id="tdTicketCommisionCap"><span id="lblTicketCommisionCaption" th:text="#{buy-ticket-tax}">Адм. такса</span>
                                 </th>
                                 <th id="tdTicketSeatsCaption"><span
-                                        id="lblTicketsSeatsCaption">Информация за местата</span>
+                                        id="lblTicketsSeatsCaption" th:text="#{confirm-ticket-seat-info}">Информация за местата</span>
                                 </th>
                             </tr>
 
@@ -67,7 +58,7 @@
                                     </td>
                                     <td id="tdTicketChildPrice1">
                                         <span id="lblTicketChildPrice1"
-                                              th:text="|${#numbers.formatDecimal(ticketKey.value.get(0).price, 1, 'DEFAULT', 2, 'DEFAULT')} lv|">10.50 лв</span>
+                                              th:text="|${#numbers.formatDecimal(ticketKey.value.get(0).price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}lv|">10.50 лв</span>
                                     </td>
                                     <td id="tdTicketChildCommission">
                                         <span id="lblTicketChildCommission">0.80 lv</span>
@@ -78,7 +69,7 @@
                                         <ol class="seatInfo" th:each="rowKey : ${rowAndSeats}">
                                             <li>
                                                 <span id="lblTicketsChildSeats"
-                                                      th:text="|Row: ${rowKey.key} - Seat: |">Ред 7</span>
+                                                      th:text="|#{confirm-ticket-row}: ${rowKey.key} - #{confirm-ticket-seat}: |">Ред 7</span>
 
                                                 <span id="lblTicketsChildSeat" th:each="seat : ${rowKey.value}"
                                                       th:text="|${seat}, |">Място 8</span>
@@ -91,11 +82,11 @@
                     </div>
 
                         <div class="coupon">
-                            <h2>Имате ли ваучер?</h2>
+                            <h2 th:text="|#{confirm-title-h2}?|">Имате ли ваучер?</h2>
                             <div class="coupon-container">
                                 <div class="formRow">
                                     <div class="input-label-container">
-                                        <div class="label">Моля, въведете кода му тук<br>
+                                        <div class="label" th:text="#{confirm-insert-code}">Моля, въведете кода му тук<br>
                                             <svinfo style="text-transform:none"></svinfo>
                                         </div>
                                         <div class="input-container">
@@ -106,15 +97,15 @@
                                     </div>
                                 </div>
                                 <a id="lnkAddCoupon" class="actionBtn"
-                                   href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$OrderFormControl1$lnkAddCoupon&quot;, &quot;&quot;, true, &quot;Coupon&quot;, &quot;&quot;, false, true))">Добавете&nbsp;
+                                   href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$CPH1$OrderFormControl1$lnkAddCoupon&quot;, &quot;&quot;, true, &quot;Coupon&quot;, &quot;&quot;, false, true))" th:text="#{confirm-insert-code-button}">Добавете&nbsp;
                                     код</a>
                                 <div class="clear"></div>
                             </div>
                         </div>
                         <div class="total-block">
                             <div class="total-sum"
-                                 th:text="|Общо (с всички данъци и такси)
-                                 ${#numbers.formatDecimal(orderDto.totalPrice, 1, 'DEFAULT', 2, 'DEFAULT')} lv|">
+                                 th:text="|#{confirm-total-price}
+                                 ${#numbers.formatDecimal(orderDto.totalPrice, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}|">
                                             Общо (с всички данъци и такси)
                             </div>
                         </div>
@@ -122,14 +113,14 @@
                              tabindex="-1">
                             <input type="hidden" name="ctl00$CPH1$OrderFormControl1$hdnSelectedToken"
                                    id="hdnSelectedToken">
-                            <h2><span class="required">*</span>Метод на плащане</h2>
+                            <h2 th:text="#{confirm-payment-method}"><span class="required">*</span>Метод на плащане</h2>
                             <p></p>
                             <div class="payuoptions">
                                 <div class="payuOpt card clearfix">
                                     <label class="radio clearfix" for="rbcard">
                                         <input name="PayuPayment" class="rbpayu" id="rbcard" type="radio" value="card"
                                                checked="checked">
-                                        <div class="name">Debit / Credit card</div>
+                                        <div class="name" th:text="#{confirm-payment-card}">Debit / Credit card</div>
                                         <img src="/images/card.png" alt="card">
                                         <div class="changecard">CHANGE</div>
                                     </label>
@@ -139,19 +130,20 @@
                                     <label class="radio clearfix" for="rbcard">
                                         <input name="PayuPayment" class="rbpayu" id="rbcard2" type="radio" value="card"
                                                checked="checked">
-                                        <div class="name">On site / At the checkout</div>
+                                        <div class="name" th:text="#{confirm-payment-on-site}">On site / At the checkout</div>
                                         <div class="changecard">CHANGE</div>
                                     </label>
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <span id="ctl00_CPH1_OrderFormControl1_valPayU" class="errorb" style="display:none;">Задължително поле</span>
+                            <span id="ctl00_CPH1_OrderFormControl1_valPayU" class="errorb" style="display:none;">required field</span>
                         </div>
                         <div class="formContainer">
-                            <h2>Вашите контакти</h2>
+                            <h2 th:text="#{confirm-contacts-title}">Вашите контакти</h2>
                             <div class="personalInfo customerInfo">
                                 <div class="formRow">
-                                    <div class="input-label-container"><label class="label" for="Field_5">Име</label>
+                                    <div class="input-label-container">
+                                        <label class="label" for="Field_5" th:text="#{confirm-user-name}">Име</label>
                                         <div class="input-container">
                                             <div name="ctl00$CPH1$OrderFormControl1$Field_5"
                                                  type="text" id="Field_5"
@@ -162,7 +154,8 @@
                                 </div>
 
                                 <div class="formRow">
-                                    <div class="input-label-container"><label class="label" for="Field_20">Имейл</label>
+                                    <div class="input-label-container">
+                                        <label class="label" for="Field_20" th:text="#{confirm-user-email}">Имейл</label>
                                         <div class="input-container">
                                             <div name="ctl00$CPH1$OrderFormControl1$Field_20"
                                                    type="text" id="Field_20"
@@ -175,9 +168,9 @@
                         </div>
                 </div>
                 <div class="actionHolder">
-                    <a class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}">Confirm</a>
+                    <a class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}" th:text="#{confirm-button-next}">Confirm</a>
                     <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
-                       th:href="@{/order/select-seats/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${orderDto.movieId})}">Назад</a>
+                       th:href="@{/order/select-seats/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${orderDto.movieId})}" th:text="#{confirm-button-back}">Назад</a>
                     <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>
                 </div>
             </div>

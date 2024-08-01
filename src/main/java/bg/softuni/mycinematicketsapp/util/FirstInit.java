@@ -1,4 +1,4 @@
-package bg.softuni.mycinematicketsapp.init;
+package bg.softuni.mycinematicketsapp.util;
 
 import bg.softuni.mycinematicketsapp.services.CityService;
 import bg.softuni.mycinematicketsapp.services.UserRoleService;

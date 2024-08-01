@@ -6,10 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "categories")
 public class Category extends BaseEntity {
-    @Enumerated(EnumType.STRING)
+
     private Genre name;
 
     public Category() {

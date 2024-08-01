@@ -3563,8 +3563,8 @@ a.nextBtn:hover {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 5px;
-    padding-left: 10px;
+    padding: 1.5%;
+    padding-left: 14px;
     font-size: 15px;
     border-radius: 10px;
 }
@@ -5592,5 +5592,23 @@ table.ticketTable tr.header td, table.ticketTable tr.header th {
 /*=============================== Confirm order Table*/
 .seatInfo{
     list-style: none;
+}
+
+/*============================language bar*/
+.language {
+    margin-top: 1%;
+    margin-right: 22%;
+    float: right;
+}
+
+.language .text-white {
+    color: #fff !important
+}
+.language .item-lang {
+    background-color: #0c4128;
+    color: white;
+    border-radius: 6px;
+    border-color: royalblue;
+    font-size: 1.2em;
 }
 

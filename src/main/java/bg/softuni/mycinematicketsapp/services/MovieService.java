@@ -14,5 +14,4 @@ public interface MovieService {
     void deleteMovieById(long movieId);
     BookingTimeDto getBookingTimeById(long timeId);
     MovieViewDto getMovieViewById(long movieId);
-//    MovieViewDto getMovieViewByName(String movieName);
 }

@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head data-lang="12"><title>
-    Cinema Tickets
-</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-
-    <link type="text/css" rel="stylesheet" href="/css/style-order.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/style-select-seats.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/site.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/JScript/Modal/css/modaal.min.css"/>
+<head>
+    <header th:replace="~{fragments/common-order-tickets::head}"></header>
 </head>
 <body id="ctl00_pageBody" class="ltr" th:object="${movieView}">
 <label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
+<header th:replace="~{fragments/commons::form.language}"></header>
 <form th:method="post"
       th:action="@{/order/select-seats/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${movieView.id})}"
       th:object="${updateTicket}">
@@ -26,10 +18,10 @@
             </div>
             <div style="clear: both;"></div>
             <div class="steps">
-                <div class="step"><span>1</span><label>Избор на билет</label></div>
-                <div class="step onstep"><span>2</span><label>Избор на места</label></div>
-                <div class="step"><span>3</span><label>Потвърждение</label></div>
-                <div class="step last"><span>4</span><label>Завършване на поръчката</label></div>
+                <div class="step"><span>1</span><label th:text="#{steps-step1}">Избор на билет</label></div>
+                <div class="step onstep"><span>2</span><label th:text="#{steps-step2}">Избор на места</label></div>
+                <div class="step"><span>3</span><label th:text="#{steps-step3}">Потвърждение</label></div>
+                <div class="step last"><span>4</span><label th:text="#{steps-step4}">Завършване на поръчката</label></div>
                 <div class="clear"></div>
             </div>
             <div class="sidebar" th:object="${orderDto}">
@@ -42,10 +34,10 @@
                             12/07/2024 15:45
                         </div>
                         <div class="siteinfo">
-                            <span th:text="${orderDto.location.value}">CC Plovdiv</span><br/>
-                            <span th:text="|Hall ${movieView.hallNumber.value}|">Зала 2</span><br/>
+                            <span th:text="|#{buy-ticket-city}: ${orderDto.location.value}|">CC Plovdiv</span><br/>
+                            <span th:text="|#{buy-ticket-hall}: ${movieView.hallNumber.value}|">Зала 2</span><br/>
                             <span id="rating" class="rating restricted"
-                                  th:text="|Category: ${movieView.movieClass.description}|">
+                                  th:text="|#{buy-ticket-category}: ${movieView.movieClass.description}|">
                                 Категория: категория B</span>
                         </div>
                     </div>
@@ -55,23 +47,23 @@
                 <div class="seatplan">
 
                     <div id="premium" style="display:none"></div>
-                    <h1>Изберете места</h1>
+                    <h1 th:text="#{select-seat-title}">Изберете места</h1>
                     <div id="seatselection" class="message required" th:object="${ticketsCount}"
-                         th:text="|Please, select ${ticketsCount} seat/seats|">
+                         th:text="|#{select-seat-count1} ${ticketsCount} #{select-seat-count2}.|">
                         Моля, изберете 2 място/места.
                     </div>
                     <div class="splegend">
                         <div class="legendContainer">
                             <div class="legend">
                                 <img alt src="/images/icons/SeatAvailable.png" class="graphic available"/>
-                                <span class="label">Свободни места</span></div>
+                                <span class="label" th:text="#{select-seat-free}">Свободни места</span></div>
                             <div class="legend">
                                 <img alt src="/images/icons/SeatUnavailable.png" class="graphic available"/>
-                                <span class="label">Заети места</span>
+                                <span class="label" th:text="#{select-seat-booked}">Заети места</span>
                             </div>
                             <div class="legend">
                                 <img alt src="/images/icons/SeatSelected.png" class="graphic available"/>
-                                <span class="label">Вашият избор</span>
+                                <span class="label" th:text="#{select-seat-choice}">Вашият избор</span>
                             </div>
                         </div>
                     </div>
@@ -455,11 +447,11 @@
                                     <input class="hidden" type="checkbox" value="booked" id="r9c4" th:field="*{seats[8][3]}"></label>
                                 <label class="seatt" for="r9c5">5
                                     <input class="hidden" type="checkbox" value="booked" id="r9c5" th:field="*{seats[8][4]}"></label>
-                                <label class="seatt" for="r9c6">6
+                                <label class="seatt sold" for="r9c6">6
                                     <input class="hidden" type="checkbox" value="booked" id="r9c6" th:field="*{seats[8][5]}"></label>
-                                <label class="seatt" for="r9c7">7
+                                <label class="seatt sold" for="r9c7">7
                                     <input class="hidden" type="checkbox" value="booked" id="r9c7" th:field="*{seats[8][6]}"></label>
-                                <label class="seatt" for="r9c8">8
+                                <label class="seatt sold" for="r9c8">8
                                     <input class="hidden" type="checkbox" value="booked" id="r9c8" th:field="*{seats[8][7]}"></label>
                                 <label class="seatt" for="r9c9">9
                                     <input class="hidden" type="checkbox" value="booked" id="r9c9" th:field="*{seats[8][8]}"></label>
@@ -488,7 +480,7 @@
                             </div>
 
                             <div class="row-seat">
-                                <span class="row-number">10</span>
+                                <span class="row-number-end">10</span>
                                 <label class="seatt" for="r10c1">1
                                     <input class="hidden" type="checkbox" value="booked" id="r10c1" th:field="*{seats[9][0]}"></label>
                                 <label class="seatt" for="r10c2">2
@@ -511,11 +503,11 @@
                                     <input class="hidden" type="checkbox" value="booked" id="r10c10" th:field="*{seats[9][9]}"></label>
                                 <label class="seatt" for="r10c11">11
                                     <input class="hidden" type="checkbox" value="booked" id="r10c11" th:field="*{seats[9][10]}"></label>
-                                <label class="seatt" for="r10c12">12
+                                <label class="seatt sold" for="r10c12">12
                                     <input class="hidden" type="checkbox" value="booked" id="r10c12" th:field="*{seats[9][11]}"></label>
-                                <label class="seatt" for="r10c13">13
+                                <label class="seatt sold" for="r10c13">13
                                     <input class="hidden" type="checkbox" value="booked" id="r10c13" th:field="*{seats[9][12]}"></label>
-                                <label class="seatt" for="r10c14">14
+                                <label class="seatt sold" for="r10c14">14
                                     <input class="hidden" type="checkbox" value="booked" id="r10c14" th:field="*{seats[9][13]}"></label>
                                 <label class="seatt" for="r10c15">15
                                     <input class="hidden" type="checkbox" value="booked" id="r10c15" th:field="*{seats[9][14]}"></label>
@@ -536,14 +528,10 @@
                         </div>
                     </div>
                     <div class="actionHolder">
-<!--                        <button type="submit" class="actionBtn">Continue</button>-->
                            <input type="submit" class="actionBtn" value="Continue"/>
 
                         <a th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderDto.id}, movieId=${movieView.id}, timeId=${orderDto.bookingTimeId})}"
-                           id="backBtn" class="cancelBtn back-link">Назад</a>
-
-                        <!--TODO: Fix back button to return one page back -->
-
+                           id="backBtn" class="cancelBtn back-link" th:text="#{button-back}">Назад</a>
                     </div>
                 </div>
             </div>

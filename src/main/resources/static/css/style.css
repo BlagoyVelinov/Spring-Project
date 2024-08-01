@@ -922,6 +922,9 @@ element.style {
 }
 
 /*============================language bar*/
+.language {
+    margin-top: -14px;
+}
 .nav-item {
     /*color: white;*/
     color: #ffffff;

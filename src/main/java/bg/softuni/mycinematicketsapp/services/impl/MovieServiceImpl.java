@@ -99,15 +99,4 @@ public class MovieServiceImpl implements MovieService {
                 .body(MovieViewDto.class);
     }
 
-//    @Override
-//    public MovieViewDto getMovieViewByName(String movieName) {
-//        LOGGER.info("getMovieByName...->");
-//
-//        return this.moviesRestClient.get()
-//                .uri("http://localhost:8081/movies/movie/{name}", movieName)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .body(MovieViewDto.class);
-//    }
-
 }

@@ -12,7 +12,6 @@
         <script src="/js/cufon-replace.js" type="text/javascript"></script>
         <script src="/js/Gill_Sans_400.font.js" type="text/javascript"></script>
         <script src="/js/script.js" type="text/javascript"></script>
-<!--        &lt;!&ndash;[if lt IE 7]>-->
         <script type="text/javascript" src="/js/ie_png.js"></script>
         <script type="text/javascript">ie_png.fix('.png, .link1 span, .link1');</script>
         <link href="/css/ie6.css" rel="stylesheet" type="text/css"/>
@@ -45,7 +44,7 @@
 
                 </th:block>
                 <li class="nav-item">
-                    <form th:method="get">
+                    <form class="language" th:method="get">
                         <label class="text-white" for="lang" th:text="#{nav_bar_language}">Language</label>
                         <select class="item-lang"
                                 id="lang"
