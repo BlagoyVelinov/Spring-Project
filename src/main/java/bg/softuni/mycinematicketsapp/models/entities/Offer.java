@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
     @Column(nullable = false)
     @Size(min = 5, max = 2000)

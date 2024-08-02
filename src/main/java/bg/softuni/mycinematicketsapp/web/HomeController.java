@@ -14,11 +14,9 @@ import java.util.Set;
 @Controller
 public class HomeController {
     private final MovieService movieService;
-    private final OrderService orderService;
     @Autowired
-    public HomeController(MovieService movieService, OrderService orderService) {
+    public HomeController(MovieService movieService) {
         this.movieService = movieService;
-        this.orderService = orderService;
     }
 
 
@@ -28,7 +26,6 @@ public class HomeController {
         model.addAttribute("allViewMovies", allMoviesView);
         return "index";
     }
-
 
     @GetMapping("/about-us")
     public String aboutUs() {
@@ -55,14 +52,4 @@ public class HomeController {
         model.addAttribute("movie", movieView);
         return "trailer";
     }
-
-
-    //TODO: need to save the ticket to the DB when the user confirm the order!!!
-
-//    @GetMapping("/test-template/{orderNumber}")
-//    public String test(@PathVariable("orderNumber") String orderNumber, Model model) {
-//        OrderMovieDto orderViewDto = this.orderService.getOrderByOrderNumber(orderNumber);
-//        model.addAttribute("orderView", orderViewDto);
-//        return "test-template";
-//    }
 }

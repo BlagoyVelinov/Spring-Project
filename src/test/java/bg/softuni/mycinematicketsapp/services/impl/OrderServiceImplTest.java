@@ -110,16 +110,12 @@ class OrderServiceImplTest {
         // Act
         OrderMovieDto unfinishedOrderByUser = this.toTest.getUnfinishedOrderByUser(userEntity.getUsername());
         // Assert
-
+        Assertions.assertNotNull(orderById);
         Assertions.assertNotNull(unfinishedOrderByUser);
 
     }
     @Test
-    void testGetOrderMovieById() {
-
-    }
-    @Test
-    void testDeleteOrderById() {
+    void testAddQuantityOfTickets() {
 
     }
 
