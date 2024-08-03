@@ -163,7 +163,7 @@ public class UserServiceImplTest {
 
 
 
-    public void registerUser(UserRegisterDto testUser, UserRoleEnum roleEnum) {
+    private void registerUser(UserRegisterDto testUser, UserRoleEnum roleEnum) {
         UserRole userRole = new UserRole(roleEnum);
         testUser.setRoles(List.of(userRole));
 
@@ -173,7 +173,7 @@ public class UserServiceImplTest {
         this.userServiceTest.registerUser(testUser);
     }
 
-    public UserRegisterDto getUserRegisterDto(String username, String email) {
+    private UserRegisterDto getUserRegisterDto(String username, String email) {
         UserRegisterDto testUser = this.createUser(username, email);
 
         List<UserRoleEnum> rolesEnums = testUser.getRoles().stream().map(UserRole::getRole).toList();
@@ -181,7 +181,7 @@ public class UserServiceImplTest {
         return testUser;
     }
 
-    public UserRegisterDto createUser(String username, String email) {
+    private UserRegisterDto createUser(String username, String email) {
         this.initUserRoleRepository();
         List<UserRole> roles = Arrays.stream(UserRoleEnum.values())
                 .map(UserRole::new)
@@ -196,7 +196,7 @@ public class UserServiceImplTest {
                 .setRoles(roles);
     }
 
-    public void initUserRoleRepository(){
+    private void initUserRoleRepository(){
         if (this.mockRoleRepository.count() == 0) {
             List<UserRole> roles = Arrays.stream(UserRoleEnum.values())
                     .map(UserRole::new)
