@@ -120,16 +120,20 @@ public class OrderController {
     public String orderTickets(@PathVariable("orderId") long orderId, Model model) {
         OrderMovieDto orderViewDto = this.orderService.getOrderMovieById(orderId);
         model.addAttribute("orderDto", orderViewDto);
+
         Map<String, List<TicketViewDto>> ticketsMap = this.ticketService.addToTicketsMap(orderId);
         model.addAttribute("ticketsMap", ticketsMap);
+
         Map<Integer, List<Integer>> rowAndSeats = this.ticketService.getSeatsByRow(orderId);
         model.addAttribute("rowAndSeats", rowAndSeats);
+
         return "confirm-order";
     }
     @GetMapping("/show-tickets/{orderId}")
     public String showTickets(@PathVariable("orderId") long orderId, Model model) {
         OrderMovieDto orderViewDto = this.orderService.getOrderMovieById(orderId);
         model.addAttribute("orderDto", orderViewDto);
+
         this.ticketService.confirmOrder(orderId);
         return "show-tickets";
     }

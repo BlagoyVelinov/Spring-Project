@@ -58,6 +58,7 @@ public class ProgramController {
 
         OrderMovieDto orderMovieDto = this.orderService.getUnfinishedOrderByUser(userDetails.getUsername());
         model.addAttribute("orderMovie", orderMovieDto);
+
         return "order-tickets";
     }
 

@@ -42,4 +42,8 @@ public class Constant {
 
 //====================================================================================================================//
     public static final int COUNT_AVAILABLE_DAYS = 7;
+    public static final String UUID_REPLACE = "-";
+    public static final String UUID_REPLACEMENT = "";
+    public static final String SOURCE_NAME = "UserService";
+    public static final String ROLE_ = "ROLE_";
 }

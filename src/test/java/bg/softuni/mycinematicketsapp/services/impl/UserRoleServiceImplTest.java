@@ -26,8 +26,6 @@ class UserRoleServiceImplTest {
     private UserRoleServiceImpl userRoleServiceTest = mock(UserRoleServiceImpl.class);
     @Mock
     private UserRoleRepository mockRoleRepository;
-    @Captor
-    private ArgumentCaptor<UserRole> roleEntityCaptor;
 
     @BeforeEach
     void setUp() {

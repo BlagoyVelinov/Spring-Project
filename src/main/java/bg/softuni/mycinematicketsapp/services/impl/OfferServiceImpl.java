@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.AddOfferDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.OfferViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Offer;
@@ -30,7 +31,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Offer getOfferById(long offerId) {
         return this.offerRepository.findById(offerId)
-                .orElseThrow(() -> new ObjectNotFoundException("Offer is notFound"));
+                .orElseThrow(() -> new ObjectNotFoundException(ExceptionMessages.OFFER_NOT_FOUND));
     }
 
     @Override

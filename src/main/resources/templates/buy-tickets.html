@@ -55,7 +55,7 @@
                         <div class="movieName">
                             <h3 th:text="${movieView.name}">NameMovie</h3>
                         </div>
-                        <div class="eventdate" th:text="|${orderMovie.projectionDate} ${orderMovie.bookingTime}|"> сряда
+                        <div class="eventdate" th:text="|${orderMovie.projectionDateView} ${orderMovie.bookingTime}|"> сряда
                             10/07/2024 18:00
                         </div>
                         <div class="siteinfo">
@@ -88,10 +88,10 @@
                                     <div class="type-ticket"><span id="childTicketName" th:text="#{buy-ticket-type-name1}">Детски под 16</span></div>
                                 </td>
                                 <td>
-                                    <span id="childPrice">10.50 лв</span>
+                                    <span id="childPrice" th:text="|10.50 #{buy-ticket-price-BGN}|">10.50 лв</span>
                                 </td>
                                 <td>
-                                    <span id="childServiceCharge">0.80 лв</span>
+                                    <span id="childServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 лв</span>
                                 </td>
                                 <td>
                                     <label for="ticketsQuantity"></label>

@@ -71,18 +71,20 @@ public class HomeControllerIT {
 
     }
 
+
+
     private CreateMovieDto createMovie() {
         CreateMovieDto movieViewDto = new CreateMovieDto();
         movieViewDto
-                .setName("testMovie")
-                .setMovieLength(120)
-                .setHallNumber(HallNumber.HALL_1)
                 .setAudio("Angl")
-                .setSubtitles("Bulg")
                 .setDescription("Testing adding the movie")
+                .setHallNumber(HallNumber.HALL_1)
                 .setImageUrl("/images/rent-a-hall.jpg")
-                .setTrailerUrl("https://www.youtube.com/embed/27qWDMieaNM")
+                .setMovieLength(120)
+                .setName("testMovie")
                 .setProjectionFormat(ProjectionFormat.D_3D)
+                .setSubtitles("Bulg")
+                .setTrailerUrl("https://www.youtube.com/embed/27qWDMieaNM")
                 .setMovieClass(MovieClassEnum.C_)
                 .setGenreCategories(List.of(Genre.ADVENTURE, Genre.COMEDY));
         this.mockMovieService.movieCreate(movieViewDto);

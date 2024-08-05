@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+import static bg.softuni.mycinematicketsapp.constants.ConstantTest.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +34,8 @@ public class MyUserDetailServiceTest {
 
     @Test
     void testUserNotFound() {
-        Assertions.assertThrows(UsernameNotFoundException.class, () -> this.serviceToTest.loadUserByUsername("gosho"));
+        Assertions.assertThrows(UsernameNotFoundException.class,
+                () -> this.serviceToTest.loadUserByUsername(TEST_NOT_REGISTERED_USER));
     }
 
     @Test
@@ -47,18 +49,15 @@ public class MyUserDetailServiceTest {
 
         Assertions.assertNotNull(userDetails);
         Assertions.assertEquals(testUser.getUsername(),
-                userDetails.getUsername(),
-                "Username is not populated properly.");
+                userDetails.getUsername(), MESSAGE_USERNAME);
 
         Assertions.assertEquals(2, userDetails.getAuthorities().size());
         Assertions.assertTrue(
                 this.containsAuthority(userDetails,
-                        "ROLE_" + UserRoleEnum.ADMINISTRATOR),
-                "User is not Admin.");
+                        ROLE_ + UserRoleEnum.ADMINISTRATOR), MESSAGE_ADMINISTRATOR);
         Assertions.assertTrue(
                 this.containsAuthority(userDetails,
-                        "ROLE_" + UserRoleEnum.USER),
-                "User is not User.");
+                        ROLE_ + UserRoleEnum.USER), MESSAGE_USER);
     }
 
     private boolean containsAuthority(UserDetails userDetails, String expectedAuthority) {
@@ -70,10 +69,10 @@ public class MyUserDetailServiceTest {
 
     private static UserEntity createTestUser() {
         return new UserEntity()
-                .setUsername("firstLast")
-                .setName("fullName")
+                .setUsername(TEST_USERNAME)
+                .setName(TEST_NAME)
                 .setActive(false)
-                .setPassword("123456")
+                .setPassword(TEST_PASSWORD)
                 .setRoles(List.of(
                         new UserRole().setRole(UserRoleEnum.ADMINISTRATOR),
                         new UserRole().setRole(UserRoleEnum.USER)

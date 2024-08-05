@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.ConstantTest;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
@@ -25,18 +26,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static bg.softuni.mycinematicketsapp.constants.ConstantTest.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
-    private static final String ADMIN_WITH_USERNAME = "admin";
-    private static final String ADMIN_EMAIL = "admin@gmail.com";
-    private static final String USER_WITH_USERNAME = "firstLast";
-    private static final String USER_EMAIL = "firstLast@gmail.com";
-    private static final String NOT_FOUND_USERNAME = "notFound";
-
 
     private UserServiceImpl userServiceTest;
     @Captor
@@ -191,8 +187,8 @@ public class UserServiceImplTest {
         return new UserRegisterDto()
                 .setUsername(username)
                 .setEmail(email)
-                .setName("fullName")
-                .setPassword("123456789")
+                .setName(TEST_NAME)
+                .setPassword(TEST_PASSWORD)
                 .setRoles(roles);
     }
 

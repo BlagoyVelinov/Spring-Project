@@ -1,6 +1,7 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+
+import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.ORDER_NOT_EXIST;
+import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.ORDER_NOT_FOUND;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -37,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrderById(long orderId) {
         return this.orderRepository.findById(orderId)
-                .orElseThrow(() -> new ObjectNotFoundException("Order with Id: " + orderId + " not exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException(String.format(ORDER_NOT_EXIST, orderId)));
     }
 
     @Override
@@ -56,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .filter(ord -> !ord.isFinished())
                 .findFirst()
-                .orElseThrow(() -> new ObjectNotFoundException("Order is not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException(ORDER_NOT_FOUND));
 
         return this.mapOrderToOrderDto(order);
     }
@@ -79,7 +83,10 @@ public class OrderServiceImpl implements OrderService {
         return this.mapOrderToOrderDto(order);
     }
 
-
+    /**
+     * This method start every day at 00:00h by dint of Scheduling and cron!
+     * Check for not finished orders in all DB and delete them!
+     */
     @Override
     @Scheduled(cron = "0 0 0 * * *")
     public void deleteAllNotFinishedOrders() {
@@ -179,7 +186,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         String orderNumberUUID = UUID.randomUUID().toString();
-        orderNumberUUID = orderNumberUUID.replace("-", "");
+        orderNumberUUID = orderNumberUUID.replace(Constant.UUID_REPLACE, Constant.UUID_REPLACEMENT);
 
         return new Order()
                 .setOrderNumber(orderNumberUUID)

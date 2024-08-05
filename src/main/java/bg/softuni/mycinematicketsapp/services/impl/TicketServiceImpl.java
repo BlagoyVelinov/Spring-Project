@@ -67,12 +67,6 @@ public class TicketServiceImpl implements TicketService {
 
 
     @Override
-    public List<Ticket> getTicketsByOrder(Order order) {
-        return order.getTickets();
-    }
-
-
-    @Override
     public void updateTickets(UpdateTicketDto updateTicket, long orderId, long movieId) {
         Order order = this.orderService.getOrderById(orderId);
         String[][] cinemaHall = updateTicket.getSeats();

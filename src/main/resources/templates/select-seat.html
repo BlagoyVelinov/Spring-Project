@@ -30,7 +30,7 @@
                         <div class="movieName">
                             <h3 th:text="${orderDto.movieViewName}">Аз, проклетникът 4 2D</h3>
                         </div>
-                        <div class="eventdate" th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}|">
+                        <div class="eventdate" th:text="|${orderDto.projectionDateView()} ${orderDto.bookingTime}|">
                             12/07/2024 15:45
                         </div>
                         <div class="siteinfo">

@@ -32,7 +32,7 @@
                         <h3 class="info-order"><span class="eventMasterName" th:text="|${orderDto.movieViewName}, |">
                             Blue Lock The Movie: Episode Nagi</span>
                             <span class="eventDateTime"
-                                  th:text="|${orderDto.projectionDate} ${orderDto.bookingTime}, |"> 25/07/2024 12:50</span>
+                                  th:text="|${orderDto.projectionDateView()} ${orderDto.bookingTime}, |"> 25/07/2024 12:50</span>
                             <span class="siteName" th:text="${orderDto.location.value}">CC Plovdiv</span>
                         </h3>
                         <table class="seatSelection" cellpadding="0" cellspacing="0" th:object="${ticketsMap}">
@@ -58,7 +58,7 @@
                                     </td>
                                     <td id="tdTicketChildPrice1">
                                         <span id="lblTicketChildPrice1"
-                                              th:text="|${#numbers.formatDecimal(ticketKey.value.get(0).price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}lv|">10.50 лв</span>
+                                              th:text="|${#numbers.formatDecimal(ticketKey.value.get(0).price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}|">10.50 лв</span>
                                     </td>
                                     <td id="tdTicketChildCommission">
                                         <span id="lblTicketChildCommission">0.80 lv</span>
@@ -171,7 +171,6 @@
                     <a class="actionBtn" th:href="@{/order/show-tickets/{orderId}(orderId=${orderDto.id})}" th:text="#{confirm-button-next}">Confirm</a>
                     <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link"
                        th:href="@{/order/select-seats/{orderId}/movie/{movieId}(orderId=${orderDto.id}, movieId=${orderDto.movieId})}" th:text="#{confirm-button-back}">Назад</a>
-                    <a id="hlReset" class="cancelBtn" href="javascript:aspnetForm.reset()">Нулиране</a>
                 </div>
             </div>
         </div>

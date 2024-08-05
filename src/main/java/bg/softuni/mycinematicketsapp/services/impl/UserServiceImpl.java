@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
@@ -17,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.USER_NOT_FOUND;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,7 +45,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository.save(user);
 
         this.appEventPublisher.publishEvent(new UserRegisteredEvent(
-                "UserService",
+                Constant.SOURCE_NAME,
                 registerDto.getEmail(),
                 registerDto.getName()
         ));
@@ -51,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isAdmin(String username) {
         UserEntity user = this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User is not found"));
+                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
 
         return user.getRoles()
                 .stream()
@@ -62,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUserByUsername(String username) {
         return this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException("User is not found"));
+                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
     }
 
 

@@ -24,15 +24,13 @@
                         </div>
                     </div>
                 <div class="content" th:object="${orderMovie}">
-                    <!--                    <div id="displayDate"></div>-->
-                    <h4 th:text="${orderMovie.projectionDate}">Selected date</h4>
+                    <h4 th:text="${orderMovie.projectionDateView()}">Selected date</h4>
                     <h4 th:text="${orderMovie.location.value}">Selected town</h4>
                     <ul class="list">
                         <li th:each="movieView : ${allViewMovies}" class="movieList">
                             <img th:src="${movieView.imageUrl}" alt="Movie Pic" width="204px" height="219px"/>
-                            <a th:href="@{/trailer/{movieId}(movieId=*{id})}" th:text="${movieView.name}"
+                            <a th:href="@{/trailer/{movieId}(movieId=${movieView.id})}" th:text="${movieView.name}"
                                class="title-movie">Name of movie</a><br/>
-                            <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
                             <span data-v-048a28f8="" class="qb-movie-rating-info">
                                <img th:src="${movieView.movieClass.getIcon()}"
                                     th:alt="${movieView.movieClass.description}"

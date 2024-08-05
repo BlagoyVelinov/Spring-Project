@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,5 +192,10 @@ public class OrderMovieDto {
     public OrderMovieDto setEndDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
+    }
+
+    public String projectionDateView() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.projectionDate.format(dateTimeFormatter);
     }
 }

@@ -11,8 +11,6 @@ import java.util.Map;
 public interface TicketService {
     void createTickets(TicketViewDto createTicket, long orderId, long movieId);
 
-    List<Ticket> getTicketsByOrder(Order order);
-
     void updateTickets(UpdateTicketDto updateTicket, long orderId, long movieId);
 
     Map<String, List<TicketViewDto>> addToTicketsMap(long orderId);
