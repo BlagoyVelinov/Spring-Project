@@ -25,10 +25,10 @@
             </div>
             <div style="clear: both;"></div>
             <div class="steps">
-                <div class="step onstep"><span>1</span><label th:text="#{steps-step1}">Избор на билет</label></div>
-                <div class="step"><span>2</span><label th:text="#{steps-step2}">Избор на места</label></div>
-                <div class="step"><span>3</span><label th:text="#{steps-step3}">Потвърждение</label></div>
-                <div class="step last"><span>4</span><label th:text="#{steps-step4}">Завършване на поръчката</label></div>
+                <div class="step onstep"><span>1</span><label th:text="#{steps-step1}">Ticket selection</label></div>
+                <div class="step"><span>2</span><label th:text="#{steps-step2}">Seats selection</label></div>
+                <div class="step"><span>3</span><label th:text="#{steps-step3}">Confirmation</label></div>
+                <div class="step last"><span>4</span><label th:text="#{steps-step4}">Order completion</label></div>
                 <div class="clear"></div>
             </div>
             <div id="error" class="error" style="display:none;" role="alert">
@@ -55,14 +55,14 @@
                         <div class="movieName">
                             <h3 th:text="${movieView.name}">NameMovie</h3>
                         </div>
-                        <div class="eventdate" th:text="|${orderMovie.projectionDateView} ${orderMovie.bookingTime}|"> сряда
-                            10/07/2024 18:00
+                        <div class="eventdate" th:text="|${orderMovie.projectionDateView} ${orderMovie.bookingTime}|">
+                            10-07-2024 18:00h
                         </div>
                         <div class="siteinfo">
-                            <span th:text="|#{buy-ticket-city}: ${orderMovie.location.value}|">Град: Plovdiv</span><br/>
-                            <span th:text="|#{buy-ticket-hall}: ${movieView.hallNumber.value}|">Зала: 5</span><br/>
+                            <span th:text="|#{buy-ticket-city}: ${orderMovie.location.value}|">City: Plovdiv</span><br/>
+                            <span th:text="|#{buy-ticket-hall}: ${movieView.hallNumber.value}|">Hall: 5</span><br/>
                             <span id="rating" class="rating restricted"
-                                  th:text="|#{buy-ticket-category}: ${movieView.movieClass.description}|">Категория: категория X</span>
+                                  th:text="|#{buy-ticket-category}: ${movieView.movieClass.description}|">Category: X</span>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -71,27 +71,27 @@
             <div class="main">
                 <div class="selectTicket">
 
-                    <h1 th:text="#{buy-ticket-title}">Изберете билети</h1>
+                    <h1 th:text="#{buy-ticket-title}">Choose tickets</h1>
                     <div class="ticketGroupDescription"></div>
                     <div id="smcontainer"></div>
                     <div>
                         <table class="ticketTable" cellspacing="0" rules="all" border="0" id="TicketsSelection"
                                style="border-width:0px;border-collapse:collapse;">
                             <tr class="header">
-                                <th scope="col" th:text="#{buy-ticket-type}">Вид</th>
-                                <th class="TicketsSelectionPriceHeader" scope="col" th:text="#{buy-ticket-price}">Цена</th>
-                                <th scope="col" th:text="#{buy-ticket-tax}">Адм. Такса</th>
-                                <th scope="col" th:text="#{buy-ticket-quantity}">К-во</th>
+                                <th scope="col" th:text="#{buy-ticket-type}">Type</th>
+                                <th class="TicketsSelectionPriceHeader" scope="col" th:text="#{buy-ticket-price}">Price</th>
+                                <th scope="col" th:text="#{buy-ticket-tax}">Adm. Fee</th>
+                                <th scope="col" th:text="#{buy-ticket-quantity}">Q-ty</th>
                             </tr>
                             <tr class="TT_2">
                                 <td>
-                                    <div class="type-ticket"><span id="childTicketName" th:text="#{buy-ticket-type-name1}">Детски под 16</span></div>
+                                    <div class="type-ticket"><span id="childTicketName" th:text="#{buy-ticket-type-name1}">Children under 16</span></div>
                                 </td>
                                 <td>
-                                    <span id="childPrice" th:text="|10.50 #{buy-ticket-price-BGN}|">10.50 лв</span>
+                                    <span id="childPrice" th:text="|10.50 #{buy-ticket-price-BGN}|">10.50 lv</span>
                                 </td>
                                 <td>
-                                    <span id="childServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 лв</span>
+                                    <span id="childServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>
                                 </td>
                                 <td>
                                     <label for="ticketsQuantity"></label>
@@ -116,13 +116,13 @@
                             <tr class="TT_12">
                                 <td>
                                     <div class="type-ticket"><span
-                                            id="studentTicketName" th:text="#{buy-ticket-type-name2}">Ученици и Студенти</span></div>
+                                            id="studentTicketName" th:text="#{buy-ticket-type-name2}">Pupils and Students</span></div>
                                 </td>
                                 <td>
-                                    <span id="studentPrice" th:text="|12.50 #{buy-ticket-price-BGN}|">12.50 лв</span>
+                                    <span id="studentPrice" th:text="|12.50 #{buy-ticket-price-BGN}|">12.50 lv</span>
                                 </td>
                                 <td>
-                                    <span id="studentServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 лв</span>
+                                    <span id="studentServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>
                                 </td>
                                 <td>
                                     <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl03$ddQunatity"
@@ -145,13 +145,13 @@
                             </tr>
                             <tr class="TT_3">
                                 <td>
-                                    <div class="type-ticket"><span id="aged60TicketName" th:text="#{buy-ticket-type-name3}">Лица 60 делник</span></div>
+                                    <div class="type-ticket"><span id="aged60TicketName" th:text="#{buy-ticket-type-name3}">People Over 60</span></div>
                                 </td>
                                 <td>
-                                    <span id="aged60Price" th:text="|11.50 #{buy-ticket-price-BGN}|">11.50 лв</span>
+                                    <span id="aged60Price" th:text="|11.50 #{buy-ticket-price-BGN}|">11.50 lv</span>
                                 </td>
                                 <td>
-                                    <span id="aged60ServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 лв</span>
+                                    <span id="aged60ServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>
                                 </td>
                                 <td>
                                     <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl04$ddQunatity"
@@ -174,13 +174,13 @@
                             </tr>
                             <tr class="TT_1">
                                 <td>
-                                    <div class="type-ticket"><span id="regularTicketName" th:text="#{buy-ticket-type-name4}">Редовен</span></div>
+                                    <div class="type-ticket"><span id="regularTicketName" th:text="#{buy-ticket-type-name4}">Regular</span></div>
                                 </td>
                                 <td>
-                                    <span id="regularPrice" th:text="|15.50 #{buy-ticket-price-BGN}|">15.50 лв</span>
+                                    <span id="regularPrice" th:text="|15.50 #{buy-ticket-price-BGN}|">15.50 lv</span>
                                 </td>
                                 <td>
-                                    <span id="regularServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 лв</span>
+                                    <span id="regularServiceCharge" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>
                                 </td>
                                 <td>
                                     <select name="ctl00$CPH1$SelectTicketControl$TicketsSelection$ctl05$ddQunatity"
@@ -199,10 +199,10 @@
                                         <option value="9">9</option>
                                         <option value="10">10</option>
                                     </select>
-                                    <small th:if="${#fields.hasErrors('regularQuantity')}"
-                                           th:errors="*{regularQuantity}" class="text-danger">
-                                        Tickets quantity error message</small>
                                 </td>
+                                <small th:if="${#fields.hasErrors('regularQuantity')}"
+                                       th:errors="*{regularQuantity}" class="text-danger">
+                                    Tickets quantity error message</small>
                             </tr>
                         </table>
                     </div>
@@ -211,8 +211,8 @@
                     <input type="hidden" name="ctl00$CPH1$SelectTicketControl$hdnSelectedTicketGroupIdInTicketMode"
                            id="ctl00_CPH1_SelectTicketControl_hdnSelectedTicketGroupIdInTicketMode"/>
                     <div class="actionHolder">
-                        <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link" href="/program" th:text="#{button-back}">Назад</a>
-                        <input type="submit" class="actionBtn" value="Chose Seats"/>
+                        <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link" href="/program" th:text="#{button-back}">Back</a>
+                        <input type="submit" class="actionBtn" value="Choose Seats"/>
                     </div>
                 </div>
             </div>

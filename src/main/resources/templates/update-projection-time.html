@@ -52,7 +52,6 @@
                             <li><img th:src="${movieView.imageUrl}" alt="" width="204px" height="219px"/>
                                 <a th:href="@{/trailer/{movieId}(movieId=*{id})}" th:text="${movieView.name}"
                                    class="title-movie">Name of movie</a><br/>
-                                <!-- <a th:href="@{/trailers/trailer/{movieId}(movieId=*{id})}" th:text="${movie.name}">-->
                                 <span data-v-048a28f8="" class="qb-movie-rating-info">
                                <img th:src="${movieView.movieClass.getIcon()}" th:alt="${movieView.movieClass.description}"
                                     type="primary" height="30" tabindex="0" aria-label="Без възрастови ограничения"
@@ -60,7 +59,7 @@
                                <!----><div data-v-048a28f8="" class="pt-xs">
                                <span th:each="genre : ${movieView.genreCategories}" th:text="|${genre.value},|"
                                      data-v-048a28f8="" tabindex="0" class="mr-sm">
-                                   Приключенски, Анимация, Комедия, Семеен
+                                   Adventure, Animation, Comedy, Family
                                <span data-v-048a28f8="" class="ml-xs">|</span>
                                </span>
                                <span th:text="|${movieView.movieLength} min.|" data-v-048a28f8=""

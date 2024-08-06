@@ -15,10 +15,10 @@
         </div>
         <div style="clear: both;"></div>
         <div class="steps">
-            <div class="step"><span>1</span><label th:text="#{steps-step1}">Избор на билет</label></div>
-            <div class="step"><span>2</span><label th:text="#{steps-step2}">Избор на места</label></div>
-            <div class="step"><span>3</span><label th:text="#{steps-step3}">Потвърждение</label></div>
-            <div class="step onstep"><span>4</span><label th:text="#{steps-step4}">Завършване на поръчката</label></div>
+            <div class="step"><span>1</span><label th:text="#{steps-step1}">Ticket selection</label></div>
+            <div class="step"><span>2</span><label th:text="#{steps-step2}">Seats selection</label></div>
+            <div class="step"><span>3</span><label th:text="#{steps-step3}">Confirmation</label></div>
+            <div class="step onstep"><span>4</span><label th:text="#{steps-step4}">Order completion</label></div>
             <div class="clear"></div>
         </div>
             <div class="main fullwidth">
@@ -26,7 +26,7 @@
                     <div class="orderformcontainer" th:object="${orderDto}">
 
 
-                        <h2 th:text="#{show-tickets-h2}">Ващият/те билет/ти</h2>
+                        <h2 th:text="#{show-tickets-h2}">Your /s  ticket /s</h2>
                         <div class="eventInfoContainer">
 
                             <table class="seatSelection" cellpadding="0" cellspacing="0" th:each="ticket : ${orderDto.tickets}">
@@ -77,7 +77,7 @@
 
                                         <td id="tdTicketPrice" rowspan="1">
                                         <span id="lblTicketPrice"
-                                              th:text="|${#numbers.formatDecimal(ticket.price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}|">10.50 лв</span>
+                                              th:text="|${#numbers.formatDecimal(ticket.price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}|">10.50 lv</span>
                                         </td>
                                         <td id="tdTicketChildCommission">
                                             <span id="lblTicketChildCommission" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>
@@ -89,10 +89,10 @@
 
                                 <td id="tdTicketChildSeats" rowspan="1">
                                     <span id="lblTicketsRow"
-                                            th:text="|#{confirm-ticket-row}: ${ticket.numberOfRow}|">Ред 7</span>
+                                            th:text="|#{confirm-ticket-row}: ${ticket.numberOfRow}|">Row 7</span>
                                     <br>
                                     <span id="lblTicketsSeats"
-                                          th:text="|#{confirm-ticket-seat}: ${ticket.numberOfSeat}|">Ред 7</span>
+                                          th:text="|#{confirm-ticket-seat}: ${ticket.numberOfSeat}|">Seat 7</span>
                                 </td>
                                 </tr>
                                 </tbody>

@@ -7,6 +7,7 @@ import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

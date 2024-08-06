@@ -19,7 +19,7 @@ public class TicketViewDto {
     private TicketType ticketType;
     private String bookingTime;
     private String city;
-    private String movieClass;
+    private String movieClassDescription;
 
     public long getId() {
         return id;
@@ -111,12 +111,12 @@ public class TicketViewDto {
         return this;
     }
 
-    public String getMovieClass() {
-        return movieClass;
+    public String getMovieClassDescription() {
+        return movieClassDescription;
     }
 
-    public TicketViewDto setMovieClass(String movieClass) {
-        this.movieClass = movieClass;
+    public TicketViewDto setMovieClassDescription(String movieClassDescription) {
+        this.movieClassDescription = movieClassDescription;
         return this;
     }
 }

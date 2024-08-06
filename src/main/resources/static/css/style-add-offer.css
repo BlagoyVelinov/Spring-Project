@@ -246,7 +246,7 @@ select.form-control:focus::-ms-value {
 .btn-info {
     color: black;
     background-color: coral;
-    padding: .375rem .75rem;
+    padding: .375rem 2.75rem;
     border-radius: 0.5rem;
     border: 2px solid;
 }
@@ -305,11 +305,12 @@ button:hover {
     justify-content: center !important
 }
 .mb-3 {
-    margin: -32px 0 0 361px;
+    margin: 0;
 }
 
 /*========================= Delete button*/
-.npm-quickbook .btn-primary-delete{
+
+button .btn .btn-info{
     padding: 12px 30px;
     min-width: 64px;
     text-align: center;

@@ -31,7 +31,7 @@
                                         </div>
                                         <div class="col-md-3" th:each="cinema : ${cinemaOffers}">
                                             <a th:href="@{/offers/offer/{offerId}(offerId=${cinema.id})}" class="cinema-card card"
-                                               aria-label="3D ПРОМО ВТОРНИК Всеки вторник всички 3D прожекции на специална намалена цена.">
+                                               aria-label="3D PROMO TUESDAY Every Tuesday all 3D screenings at a special discounted price.">
                                                 <div class="card-top"
                                                      style="background-image: url('/images/cheaper tuesday.jpg')"
                                                      title="">
@@ -39,10 +39,10 @@
                                                          class="img-responsive visible-xs" alt="offer-img">
                                                 </div>
                                                 <div class="card-block">
-                                                    <p class="card-text mb-sm"><strong th:text="${cinema.title}">3D
-                                                        ПРОМО ВТОРНИК</strong></p>
+                                                    <p class="card-text mb-sm"><strong th:text="${cinema.title}">
+                                                        3D PROMO TUESDAY</strong></p>
                                                     <p class="card-text" th:text="${cinema.description}" maxlength="50">
-                                                        Всеки вторник всички 3D прожекции на специална намалена цена.</p>
+                                                        Every Tuesday all 3D screenings at a special discounted price.</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="col-md-3" th:each="school : ${schoolOffers}">
                                             <a th:href="@{/offers/offer/{offerId}(offerId=${school.id})}" class="cinema-card card"
-                                               aria-label="ГРУПОВИ РЕЗЕРВАЦИИ Специални оферти за училища, учители и студенти">
+                                               aria-label="GROUP BOOKINGS Special offers for schools, teachers and students">
                                                 <div class="card-top"
                                                      style="background-image: url('/images/group-bookings.jpg')"
                                                      title="">
@@ -100,10 +100,9 @@
                                                 </div>
                                                 <div class="card-block">
                                                     <p class="card-text mb-sm"><strong
-                                                            th:text="${school.title}">
-                                                        ГРУПОВИ РЕЗЕРВАЦИИ</strong></p>
+                                                            th:text="${school.title}">GROUP BOOKINGS</strong></p>
                                                     <p class="card-text" th:text="${school.description}" maxlength="50">
-                                                        Специални оферти за училища, учители и студенти</p>
+                                                        Special offers for schools, teachers and students</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -134,7 +133,7 @@
                                         </div>
                                         <div class="col-md-3" th:each="business : ${businessOffers}">
                                             <a th:href="@{/offers/offer/{offerId}(offerId=${business.id})}" class="cinema-card card"
-                                               aria-label="ВАУЧЕРИ ЗА КОМПАНИИ Перфектният подарък за вашите служители и клиенти">
+                                               aria-label="COMPANY VOUCHERS The perfect gift for your employees and customers">
                                                 <div class="card-top"
                                                      style="background-image: url('/images/company-vouchers.jpg')"
                                                      title="">
@@ -145,9 +144,9 @@
                                                 <div class="card-block">
                                                     <p class="card-text mb-sm"><strong
                                                             th:text="${business.title}">
-                                                        ВАУЧЕРИ ЗА КОМПАНИИ</strong></p>
+                                                        COMPANY VOUCHERS</strong></p>
                                                     <p class="card-text" th:text="${business.description}" maxlength="50">
-                                                        Перфектният подарък за вашите служители и клиенти</p>
+                                                        The perfect gift for your employees and customers</p>
                                                 </div>
                                             </a>
                                         </div>

@@ -18,27 +18,27 @@
             </div>
             <div style="clear: both;"></div>
             <div class="steps">
-                <div class="step"><span>1</span><label th:text="#{steps-step1}">Избор на билет</label></div>
-                <div class="step onstep"><span>2</span><label th:text="#{steps-step2}">Избор на места</label></div>
-                <div class="step"><span>3</span><label th:text="#{steps-step3}">Потвърждение</label></div>
-                <div class="step last"><span>4</span><label th:text="#{steps-step4}">Завършване на поръчката</label></div>
+                <div class="step"><span>1</span><label th:text="#{steps-step1}">Ticket selection/label></div>
+                <div class="step onstep"><span>2</span><label th:text="#{steps-step2}">Seats selection</label></div>
+                <div class="step"><span>3</span><label th:text="#{steps-step3}">Confirmation</label></div>
+                <div class="step last"><span>4</span><label th:text="#{steps-step4}">Order completion</label></div>
                 <div class="clear"></div>
             </div>
             <div class="sidebar" th:object="${orderDto}">
                 <div class="selectionInfo">
                     <div class="selectionInfoInner">
                         <div class="movieName">
-                            <h3 th:text="${orderDto.movieViewName}">Аз, проклетникът 4 2D</h3>
+                            <h3 th:text="${orderDto.movieViewName}">Despicable Me 4 2D</h3>
                         </div>
                         <div class="eventdate" th:text="|${orderDto.projectionDateView()} ${orderDto.bookingTime}|">
-                            12/07/2024 15:45
+                            12-07-2024 15:45
                         </div>
                         <div class="siteinfo">
-                            <span th:text="|#{buy-ticket-city}: ${orderDto.location.value}|">CC Plovdiv</span><br/>
-                            <span th:text="|#{buy-ticket-hall}: ${movieView.hallNumber.value}|">Зала 2</span><br/>
+                            <span th:text="|#{buy-ticket-city}: ${orderDto.location.value}|">City Plovdiv</span><br/>
+                            <span th:text="|#{buy-ticket-hall}: ${movieView.hallNumber.value}|">Hall 2</span><br/>
                             <span id="rating" class="rating restricted"
                                   th:text="|#{buy-ticket-category}: ${movieView.movieClass.description}|">
-                                Категория: категория B</span>
+                                Category: B</span>
                         </div>
                     </div>
                 </div>
@@ -47,23 +47,23 @@
                 <div class="seatplan">
 
                     <div id="premium" style="display:none"></div>
-                    <h1 th:text="#{select-seat-title}">Изберете места</h1>
+                    <h1 th:text="#{select-seat-title}">Seats selection</h1>
                     <div id="seatselection" class="message required" th:object="${ticketsCount}"
                          th:text="|#{select-seat-count1} ${ticketsCount} #{select-seat-count2}.|">
-                        Моля, изберете 2 място/места.
+                        Please select 2 seat/s.
                     </div>
                     <div class="splegend">
                         <div class="legendContainer">
                             <div class="legend">
                                 <img alt src="/images/icons/SeatAvailable.png" class="graphic available"/>
-                                <span class="label" th:text="#{select-seat-free}">Свободни места</span></div>
+                                <span class="label" th:text="#{select-seat-free}">Free seats</span></div>
                             <div class="legend">
                                 <img alt src="/images/icons/SeatUnavailable.png" class="graphic available"/>
-                                <span class="label" th:text="#{select-seat-booked}">Заети места</span>
+                                <span class="label" th:text="#{select-seat-booked}">Occupied seats</span>
                             </div>
                             <div class="legend">
                                 <img alt src="/images/icons/SeatSelected.png" class="graphic available"/>
-                                <span class="label" th:text="#{select-seat-choice}">Вашият избор</span>
+                                <span class="label" th:text="#{select-seat-choice}">Your choice</span>
                             </div>
                         </div>
                     </div>
@@ -531,7 +531,7 @@
                            <input type="submit" class="actionBtn" value="Continue"/>
 
                         <a th:href="@{/order/buy-tickets/{orderId}/movie/{movieId}/time/{timeId}(orderId=${orderDto.id}, movieId=${movieView.id}, timeId=${orderDto.bookingTimeId})}"
-                           id="backBtn" class="cancelBtn back-link" th:text="#{button-back}">Назад</a>
+                           id="backBtn" class="cancelBtn back-link" th:text="#{button-back}">Back</a>
                     </div>
                 </div>
             </div>

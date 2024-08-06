@@ -14,6 +14,7 @@ import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +31,18 @@ public class TicketServiceImpl implements TicketService {
     private final UserRepository userRepository;
     private final OrderService orderService;
     private final MovieService movieService;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public TicketServiceImpl(TicketRepository ticketRepository, OrderRepository orderRepository,
-                             UserRepository userRepository, OrderService orderService, MovieService movieService) {
+                             UserRepository userRepository, OrderService orderService,
+                             MovieService movieService, ModelMapper modelMapper) {
         this.ticketRepository = ticketRepository;
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderService = orderService;
         this.movieService = movieService;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -81,7 +85,9 @@ public class TicketServiceImpl implements TicketService {
         });
 
     }
-
+    /**
+     * Adding all ticket in map to get all quantity tickets by type
+     */
     @Override
     public Map<String, List<TicketViewDto>> addToTicketsMap(long orderId) {
         Order order = this.orderService.getOrderById(orderId);
@@ -93,6 +99,9 @@ public class TicketServiceImpl implements TicketService {
         return ticketsMap;
     }
 
+    /**
+     * I collect the seats on all the tickets and arrange them in a list by row
+     */
     @Override
     public Map<Integer, List<Integer>> getSeatsByRow(long orderId) {
         Order order = this.orderService.getOrderById(orderId);
@@ -119,18 +128,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private TicketViewDto mapTicketToTicketViewDto(Ticket ticket) {
-        return new TicketViewDto()
-                .setTicketType(ticket.getTicketType())
-                .setId(ticket.getId())
-                .setCity(ticket.getCity().getLocation().getValue())
-                .setPrice(ticket.getPrice())
-                .setHallNumber(ticket.getHallNumber())
-                .setBookingTime(ticket.getBookingTime())
-                .setMovieClass(ticket.getMovieClassDescription())
-                .setMovieName(ticket.getMovieName())
-                .setProjectionDate(ticket.getProjectionDate())
-                .setNumberOfRow(ticket.getNumberOfRow())
-                .setNumberOfSeat(ticket.getNumberOfSeat());
+        return this.modelMapper.map(ticket, TicketViewDto.class);
     }
 
     private void addSelectedSeadToTicket(Ticket ticket, AtomicInteger lastRow, String[][] cinemaHall) {

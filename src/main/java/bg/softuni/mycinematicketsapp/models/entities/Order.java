@@ -28,7 +28,7 @@ public class Order extends BaseEntity {
     private int studentQuantity;
     @Column(name = "is_finished")
     private boolean isFinished;
-    @Column
+    @Column(name = "movie_name")
     private String movieName;
     @Column(name = "booking_time")
     private String bookingTime;

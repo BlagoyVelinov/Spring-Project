@@ -1,12 +1,13 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
-import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
-import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
-import bg.softuni.mycinematicketsapp.models.entities.*;
+import bg.softuni.mycinematicketsapp.models.entities.City;
+import bg.softuni.mycinematicketsapp.models.entities.Order;
+import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
@@ -29,7 +30,6 @@ public class OrderServiceImpl implements OrderService {
     private final MovieService movieService;
     private final UserService userService;
     private final CityService cityService;
-
     public OrderServiceImpl(OrderRepository orderRepository, MovieService movieService,
                             UserService userService, CityService cityService) {
         this.orderRepository = orderRepository;
