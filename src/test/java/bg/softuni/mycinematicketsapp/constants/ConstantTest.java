@@ -17,6 +17,7 @@ public class ConstantTest {
     public static final String NOT_FOUND_USERNAME = "notFound";
     public static final String TEST_NAME = "fullName";
     public static final String TEST_PASSWORD = "123456789";
+    public static final String TEST_USER_BIRTHDATE = "28-11-1998";
 
     //==========================================UserDetailServiceImplTest
 

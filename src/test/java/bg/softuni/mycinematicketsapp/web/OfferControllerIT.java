@@ -62,6 +62,22 @@ public class OfferControllerIT {
     }
 
     @Test
+    @WithMockUser(
+            username = TEST_USER_ADMIN,
+            roles = {"USER", "ADMINISTRATOR"})
+    void testIncorrectPostAddOffer() throws Exception {
+
+        this.mockMvc.perform(post("/offers/add-offer")
+                        .param("title", "testTitle")
+                        .param("description", "testDescription")
+                        .param("imageUrl", "/images/rent-a-hall.jpg")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name(Constant.REDIRECT_ADD_OFFER));
+
+    }
+
+    @Test
     void testGetAddOffer() throws Exception {
         this.mockMvc.perform(get("/offers/add-offer")).andDo(print())
                 .andExpect(view().name("add-offer"));
