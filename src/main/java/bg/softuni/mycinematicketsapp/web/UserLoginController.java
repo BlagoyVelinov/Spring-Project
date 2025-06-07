@@ -1,37 +1,37 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 
-@Controller
-@RequestMapping("/users")
+@RestController
+@RequestMapping("/api/users")
 public class UserLoginController {
 
-
-    @ModelAttribute("badCredentials")
-    public void badCredentials(Model model) {
-        model.addAttribute(Constant.BAD_CREDENTIALS);
-    }
-
-    @GetMapping("/login")
-    public String getLogin() {
-        return "login";
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+        try {
+            return ResponseEntity.ok(Map.of("message", "Login successful"));
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(Map.of(Constant.BAD_CREDENTIALS, true));
+        }
     }
 
     @PostMapping("/login-error")
-    public String errorLogin(@ModelAttribute("username") String username,
-                             RedirectAttributes redirectAttributes) {
-        redirectAttributes
-                .addFlashAttribute("username", username)
-                .addFlashAttribute(Constant.BAD_CREDENTIALS, "true");
-        return Constant.REDIRECT_LOGIN;
+    public ResponseEntity<?> errorLogin(@RequestParam String username) {
+        return ResponseEntity.status(401).body(Map.of(
+                "username", username,
+                Constant.BAD_CREDENTIALS, true
+        ));
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        return ResponseEntity.ok(Map.of("message", "Logout successful"));
+    }
 }

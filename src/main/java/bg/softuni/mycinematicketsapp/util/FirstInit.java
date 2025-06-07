@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component("origin")
 public class FirstInit implements CommandLineRunner {
 

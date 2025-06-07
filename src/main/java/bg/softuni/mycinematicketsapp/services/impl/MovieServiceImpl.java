@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class MovieServiceImpl implements MovieService {
     private Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
+    private String BASE_URL = "http://localhost:8081/api/movies";
     private final RestClient moviesRestClient;
 
     @Autowired
@@ -32,7 +33,7 @@ public class MovieServiceImpl implements MovieService {
         LOGGER.info("Creating new movie...->");
 
         this.moviesRestClient.post()
-                .uri("http://localhost:8081/movies/add-movie")
+                .uri(BASE_URL + "/add-movie")
                 .body(createMovie)
                 .retrieve();
     }
@@ -42,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
         LOGGER.info("getAllMovies...->");
 
         return this.moviesRestClient.get()
-                .uri("http://localhost:8081/movies")
+                .uri(BASE_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
@@ -57,18 +58,27 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Set<MovieViewDto> getAllMoviesViewWithoutBookingTimes() {
+        return this.moviesRestClient.get()
+                .uri(BASE_URL + "/upcoming")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+    }
+
+    @Override
     public void addBookingTimes(long movieId, BookingTimeDto bookingTimeDto) {
         LOGGER.info("addBookingTimes...->");
 
         this.moviesRestClient.put()
-                .uri("http://localhost:8081/movies/update-projection-time/{id}", movieId)
+                .uri(BASE_URL + "/update-projection-time/{id}", movieId)
                 .body(bookingTimeDto)
                 .retrieve();
     }
     @Override
     public BookingTimeDto getBookingTimeById(long timeId) {
         BookingTime bookingTime = this.moviesRestClient.get()
-                .uri("http://localhost:8081/movies/booking-time/{id}", timeId)
+                .uri(BASE_URL + "/booking-time/{id}", timeId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(BookingTime.class);
@@ -83,7 +93,7 @@ public class MovieServiceImpl implements MovieService {
     public void deleteMovieById(long movieId) {
         LOGGER.info("deleteMovieById...->");
         this.moviesRestClient.delete()
-                .uri("http://localhost:8081/movies//delete-movie/{id}", movieId)
+                .uri(BASE_URL + "/delete-movie/{id}", movieId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve();
     }
@@ -93,7 +103,7 @@ public class MovieServiceImpl implements MovieService {
         LOGGER.info("getMovieById...->");
 
         return this.moviesRestClient.get()
-                .uri("http://localhost:8081/movies/movie/{id}", movieId)
+                .uri(BASE_URL + "/movie/{id}", movieId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(MovieViewDto.class);

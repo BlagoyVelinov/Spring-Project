@@ -1,55 +1,42 @@
 package bg.softuni.mycinematicketsapp.web;
 
-import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
-import bg.softuni.mycinematicketsapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Set;
-
-@Controller
+@RestController
+@CrossOrigin(origins = {"http://localhost:5173"})
+@RequestMapping("/api/home")
 public class HomeController {
+
     private final MovieService movieService;
+
     @Autowired
     public HomeController(MovieService movieService) {
         this.movieService = movieService;
     }
 
 
-    @GetMapping("/")
-    public String index(Model model) {
-        Set<MovieViewDto> allMoviesView = this.movieService.getAllMoviesView();
-        model.addAttribute("allViewMovies", allMoviesView);
-        return "index";
-    }
-
     @GetMapping("/about-us")
-    public String aboutUs() {
-        return "about-us";
+    public String getAboutUsInfo() {
+        return "This is the About Us information for the Cinema Tickets application.";
     }
 
     @GetMapping("/contact-us")
-    public String contactUs() {
-        return "contact-us";
+    public String getContactUsInfo() {
+        return "This is the Contact Us information for the Cinema Tickets application.";
     }
 
     @GetMapping("/4-dx")
-    public String fourDx() {
-        return "4-dx";
+    public String get4DxInfo() {
+        return "Information about 4DX cinemas.";
     }
     @GetMapping("/imax")
-    public String imax() {
-        return "imax";
+    public String getImaxInfo() {
+        return "Information about IMAX cinemas.";
     }
 
-    @GetMapping("/trailer/{id}")
-    public String trailer(@PathVariable long id, Model model) {
-        MovieViewDto movieView = this.movieService.getMovieViewById(id);
-        model.addAttribute("movie", movieView);
-        return "trailer";
-    }
 }

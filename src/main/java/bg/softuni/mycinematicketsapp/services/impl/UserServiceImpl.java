@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
@@ -66,6 +67,18 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserByUsername(String username) {
         return this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+    }
+
+    @Override
+    public UserViewDto getUserDtoByUsername(String username) {
+        UserEntity currUser = this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+        UserViewDto viewDto = this.modelMapper.map(currUser, UserViewDto.class);
+        if(this.isAdmin(username)) {
+            viewDto.setAdmin(true);
+        }
+
+        return viewDto;
     }
 
 

@@ -1,21 +1,21 @@
 package bg.softuni.mycinematicketsapp.web;
 
-import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.services.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/users")
+import jakarta.validation.Valid;
+
+import java.security.Principal;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/users")
 public class UserRegisterController {
+
     private final UserService userService;
 
     @Autowired
@@ -23,32 +23,29 @@ public class UserRegisterController {
         this.userService = userService;
     }
 
-    @ModelAttribute("registerDto")
-    public UserRegisterDto initUserRegister() {
-        return new UserRegisterDto();
-    }
-
-    @GetMapping("/register")
-    public String getRegister() {
-        return "register";
-    }
-
-    @GetMapping("/check-email")
-    public String getCheckEmail() {
-        return "check-email";
-    }
-
     @PostMapping("/register")
-    public String postRegister(@Valid UserRegisterDto registerDto,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
+    public ResponseEntity<?> postRegister(@Valid @RequestBody UserRegisterDto registerDto,
+                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute(Constant.REGISTER_ATTRIBUTE_NAME, registerDto)
-                    .addFlashAttribute(Constant.REGISTER_BINDING_RESULT_NAME, bindingResult);
-            return Constant.REDIRECT_REGISTER;
+            return ResponseEntity.badRequest().body(Map.of(
+                    "errors", bindingResult.getAllErrors()
+            ));
         }
-        this.userService.registerUser(registerDto);
-        return Constant.REDIRECT_AFTER_REGISTER;
+
+        userService.registerUser(registerDto);
+
+        return ResponseEntity.ok(Map.of("message", "User registered successfully"));
+    }
+
+    @GetMapping("/session")
+    public ResponseEntity<?> getSessionUser(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.ok(Map.of("isAuthenticated", false));
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "isAuthenticated", true,
+                "username", principal.getName()
+        ));
     }
 }

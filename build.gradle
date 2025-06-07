@@ -31,6 +31,11 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.springframework:spring-context-support'
 
+
+    implementation "io.jsonwebtoken:jjwt-api:0.11.5"
+    implementation "io.jsonwebtoken:jjwt-impl:0.12.6"
+    implementation "io.jsonwebtoken:jjwt-jackson:0.12.5"
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

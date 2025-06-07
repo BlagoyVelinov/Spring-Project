@@ -7,93 +7,83 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SpringSecurityConfig {
-    private final String rememberMeKey;
 
-    public SpringSecurityConfig(@Value("remember.me.key") String rememberMeKey) {
-        this.rememberMeKey = rememberMeKey;
+    @Value("${spring.cinema_tickets.remember.me.key}")
+    private String rememberMeKey;
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration cfg = new CorsConfiguration();
+        cfg.setAllowedOriginPatterns(List.of("http://localhost:*"));
+        cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        cfg.setAllowedHeaders(List.of("*"));
+        cfg.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cfg);
+        return source;
     }
 
-    /**
-     * Define which urls are visible by which users
-     * <p>
-     * All static resources which are situated in js, images, css are available for anyone
-     * requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-     * <p>
-     * Allow anyone to see the home page, the registration and login pages
-     * requestMatchers("/", "/users/register", "/users/login","/users/login-error").permitAll()
-     * <p>
-     * All other request are authenticated.
-     * anyRequest().authenticated()
-     */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(
-                authorizeRequests -> authorizeRequests
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/users/register", "/users/login", "/users/login-error").permitAll()
-                        .requestMatchers("/offers", "/trailer", "/users/check-email").permitAll()
-                        .requestMatchers("/program", "/4-dx", "/imax", "/about-us", "/contact-us").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/offers/**", "/offers/offer/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/trailer/**").permitAll()
-                        .requestMatchers("/order/buy-tickets/{id}", "/order/select-seats","/program/order-tickets").authenticated()
-                        .requestMatchers("/order/buy-tickets/{id}", "/order/confirm-order/**", "/order/show-tickets/**").authenticated()
+                        .requestMatchers(
+                                "/", "/users/register", "/users/login", "/users/login-error",
+                                "/api/users/register", "/api/users/login", "/api/users/session",
+                                "/movies", "/movies/upcoming", "/api/program", "/movies/{id}"
+                        ).permitAll()
+                        .requestMatchers("/api/order", "/api/order/buy-tickets/{id}", "/api/order/select-seats",
+                                "/api/program/order-tickets","/api/user/{username}").authenticated()
+                        .requestMatchers("/api/order/buy-tickets/{id}", "/api/order/confirm-order/**", "/api/order/show-tickets/**").authenticated()
                         .requestMatchers("/error", "/test-template/{orderNumber}").permitAll()
-                        .requestMatchers("/program/add-movie", "/offers/add-offer","/program/update-projection-time/{id}")
+                        .requestMatchers("/movies/add-movie", "/api/offers/add-offer",
+                                "/api/program/update-projection-time/{id}", "/api/offers/delete-offer/{id}")
                         .hasRole(UserRoleEnum.ADMINISTRATOR.name())
                         .anyRequest().authenticated()
-        ).formLogin(
-                formLogin -> {
-                    // Redirect here when we access something which is not allowed,
-                    // also this is the page where we perform login.
-                    formLogin.loginPage("/users/login")
-                            // The name of the input field (in our case in login.html)
-                            .usernameParameter("username")
-                            .passwordParameter("password")
-                            .defaultSuccessUrl("/")
-                            .failureForwardUrl("/users/login-error");
-                }
+                )
+                .formLogin(form -> form // 4) Form-login, but for REST login
+                        .loginPage("/users/login")
+                        .loginProcessingUrl("/api/users/login") // important!
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/users/login-error")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/api/users/logout") // if using REST logout
+                        .logoutSuccessUrl("/")
+                )
+                .rememberMe(rm -> rm // 5) Remember-me
+                        .key(rememberMeKey)
+                        .rememberMeParameter("rememberMe")
+                        .rememberMeCookieName("rememberMe")
+                );
 
-        ).logout(
-                logout -> {
-                    // The URL where we should POST something in order to preform the logout
-                    logout.logoutUrl("/users/logout")
-                            .logoutSuccessUrl("/")
-                            .invalidateHttpSession(true);
-                }
-        );
-
-        //TODO: Remember me!
-        return httpSecurity.rememberMe(
-                rememberMe -> {
-                    rememberMe.key(rememberMeKey)
-                            .rememberMeParameter("rememberMe")
-                            .rememberMeCookieName("rememberMe");
-                }
-        ).build();
+        return http.build();
     }
-
-    /**
-     * This service translate the CinemaTickets users and roles
-     * to representation which spring security understand.
-     */
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
+    public MyUserDetailService userDetailsService(UserRepository userRepository) {
         return new MyUserDetailService(userRepository);
     }
-
-    /**
-     * Implement which encoder to use Spring Security
-     * for this application
-     */
 
     @Bean
     public PasswordEncoder passwordEncoder() {

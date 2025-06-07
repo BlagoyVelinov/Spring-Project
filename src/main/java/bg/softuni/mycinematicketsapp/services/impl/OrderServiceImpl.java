@@ -1,14 +1,11 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
-import bg.softuni.mycinematicketsapp.models.dtos.BookingTimeDto;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
-import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.City;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
-import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
 import bg.softuni.mycinematicketsapp.services.MovieService;
@@ -30,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
     private final MovieService movieService;
     private final UserService userService;
     private final CityService cityService;
+
     public OrderServiceImpl(OrderRepository orderRepository, MovieService movieService,
                             UserService userService, CityService cityService) {
         this.orderRepository = orderRepository;
@@ -66,18 +64,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderMovieDto getOrderMovieById(long orderId, long movieId, long timeId) {
-        Order order = this.getOrderById(orderId);
-        MovieViewDto movieView = this.movieService.getMovieViewById(movieId);
-        BookingTimeDto bookingTime = this.movieService.getBookingTimeById(timeId);
-        order.setMovieName(movieView.getName());
-        order.setBookingTime(bookingTime.getBookingTimeValue());
-
-        this.orderRepository.save(order);
-        return this.mapOrderToOrderDto(order);
-    }
-
-    @Override
     public OrderMovieDto getOrderMovieById(long orderId) {
         Order order = this.getOrderById(orderId);
         return this.mapOrderToOrderDto(order);
@@ -99,42 +85,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addQuantityOfTickets(OrderMovieDto orderMovie, long orderId, long movieId, long timeId) {
-        Order order = this.getOrderById(orderId)
-                .setMovieId(movieId)
-                .setBookingTimeId(timeId);
-
-        order.setChildQuantity(orderMovie.getChildQuantity());
-        order.setOverSixtyQuantity(orderMovie.getOverSixtyQuantity());
-        order.setRegularQuantity(orderMovie.getRegularQuantity());
-        order.setStudentQuantity(orderMovie.getStudentQuantity());
-
-        double totalPricePlusTax = this.getTotalPricePlusTax(order);
-        order.setTotalPrice(totalPricePlusTax);
-
-        this.orderRepository.save(order);
-    }
-
-    @Override
     public int getCountOfTicketsByOrderId(long orderId) {
         Order order = this.getOrderById(orderId);
         return order.getChildQuantity()
                 + order.getStudentQuantity()
                 + order.getRegularQuantity()
                 + order.getOverSixtyQuantity();
-    }
-
-    private double getTotalPricePlusTax(Order order) {
-        int countTickets = this.getCountOfTicketsByOrderId(order.getId());
-
-        double childPrice = order.getChildQuantity() * TicketType.CHILDREN_UNDER_16.getPrice();
-        double studentsPrice = order.getStudentQuantity() * TicketType.PUPILS_AND_STUDENTS.getPrice();
-        double regularPrice = order.getRegularQuantity() * TicketType.REGULAR.getPrice();
-        double overSixtyPrice = order.getOverSixtyQuantity() * TicketType.PERSONS_OVER_60.getPrice();
-
-        double totalPrice = childPrice + studentsPrice + regularPrice + overSixtyPrice;
-
-        return totalPrice + (countTickets * Constant.FIX_COMMISSION_PER_TICKET);
     }
 
     private OrderMovieDto mapOrderToOrderDto(Order order) {
@@ -160,8 +116,6 @@ public class OrderServiceImpl implements OrderService {
 
         return orderMovieDto;
 
-
-//        return this.modelMapper.map(order, OrderMovieDto.class);
     }
 
     private UserViewDto mapUserToUserViewDto(UserEntity user) {
@@ -172,26 +126,40 @@ public class OrderServiceImpl implements OrderService {
 
     private Order mapOrderMovieDtoToOrder(OrderMovieDto createOrder, UserEntity user) {
         City city = this.cityService.getCityByCityName(createOrder.getLocation());
-        Order order = user.getOrders()
-                .stream()
-                .filter(ord -> !ord.isFinished())
-                .findFirst()
-                .orElse(null);
-
-
-        if (order != null) {
-            order.setCity(city);
-            order.setProjectionDate(createOrder.getProjectionDate());
-            return order;
-        }
 
         String orderNumberUUID = UUID.randomUUID().toString();
         orderNumberUUID = orderNumberUUID.replace(Constant.UUID_REPLACE, Constant.UUID_REPLACEMENT);
 
-        return new Order()
-                .setOrderNumber(orderNumberUUID)
+        Order newOrder = new Order();
+        newOrder.setOrderNumber(orderNumberUUID)
                 .setCity(city)
                 .setProjectionDate(createOrder.getProjectionDate())
-                .setUser(user);
+                .setUser(user)
+                .setMovieId(createOrder.getMovieId())
+                .setBookingTimeId(createOrder.getBookingTimeId())
+                .setMovieName(createOrder.getMovieViewName())
+                .setChildQuantity(createOrder.getChildQuantity());
+        newOrder.setOverSixtyQuantity(createOrder.getOverSixtyQuantity());
+        newOrder.setRegularQuantity(createOrder.getRegularQuantity());
+        newOrder.setStudentQuantity(createOrder.getStudentQuantity());
+        newOrder.setTotalPrice(createOrder.getTotalPrice());
+        newOrder.setBookingTime(createOrder.getBookingTime());
+
+        newOrder.setFinished(isCompleteOrder(newOrder));
+
+        return newOrder;
+    }
+
+    private static boolean isCompleteOrder(Order order) {
+        return order.getMovieId() != 0 &&
+                order.getBookingTimeId() != 0 &&
+                order.getMovieName() != null &&
+                order.getProjectionDate() != null &&
+                order.getCity() != null &&
+                order.getTotalPrice() > 0 &&
+                (order.getChildQuantity() > 0 ||
+                        order.getOverSixtyQuantity() > 0 ||
+                        order.getRegularQuantity() > 0 ||
+                        order.getStudentQuantity() > 0);
     }
 }

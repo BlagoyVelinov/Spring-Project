@@ -5,7 +5,6 @@ import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tickets")

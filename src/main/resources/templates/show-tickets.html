@@ -4,113 +4,113 @@
 <head>
     <header th:replace="~{fragments/common-order-tickets::head}"></header>
 </head>
-<body id="ctl00_pageBody" class="ltr">
-<label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
-<header th:replace="~{fragments/commons::form.language}"></header>
+<!--<body id="ctl00_pageBody" class="ltr">-->
+<!--<label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>-->
+<!--<header th:replace="~{fragments/commons::form.language}"></header>-->
 
-<div id="pagecontainer" class="pagecontainer orderformpageres">
-    <div class="wrap">
-        <div id="header">
-            <div id="logo"></div>
-        </div>
-        <div style="clear: both;"></div>
-        <div class="steps">
-            <div class="step"><span>1</span><label th:text="#{steps-step1}">Ticket selection</label></div>
-            <div class="step"><span>2</span><label th:text="#{steps-step2}">Seats selection</label></div>
-            <div class="step"><span>3</span><label th:text="#{steps-step3}">Confirmation</label></div>
-            <div class="step onstep"><span>4</span><label th:text="#{steps-step4}">Order completion</label></div>
-            <div class="clear"></div>
-        </div>
-            <div class="main fullwidth">
-                <div class="orderForm">
-                    <div class="orderformcontainer" th:object="${orderDto}">
-
-
-                        <h2 th:text="#{show-tickets-h2}">Your /s  ticket /s</h2>
-                        <div class="eventInfoContainer">
-
-                            <table class="seatSelection" cellpadding="0" cellspacing="0" th:each="ticket : ${orderDto.tickets}">
-                                <tbody >
-
-                                <tr class="header">
-                                    <th id="thTicketTypeName">
-                                        <span id="lblTicketTypeName" th:text="#{confirm-ticket-type}">Ticket Type</span></th>
-                                    <th id="thTicketMovieNameName">
-                                        <span id="lblTicketMovieNameName" th:text="#{show-movie-name}">Movie name</span></th>
-                                    <th>
-                                        <span id="lblTicketPriceCaption" th:text="#{show-movie-class}">Movie Class</span></th>
-                                    <th id="thTicketHallName">
-                                        <span id="lblTicketHallName" th:text="#{show-hall-number}">Hall</span></th>
-                                    <th id="thTicketProjectionDateName">
-                                        <span id="lblTicketsProjectionDateName" th:text="#{show-project-date}">Projection Date</span></th>
-                                    <th id="thTicketsBookTimeName">
-                                        <span id="lblTicketsBookTimeName" th:text="#{show-project-time}">Time</span></th>
-                                    <th id="thTicketPriceName">
-                                        <span id="lblTicketsPriceName" th:text="#{show-unit-price}">Unit price</span></th>
-                                    <th id="thTicketTaxName">
-                                        <span id="lblTicketsTaxName" th:text="#{buy-ticket-tax}">Adm. Tax</span></th>
-                                    <th id="thTicketCityName">
-                                        <span id="lblTicketsCityName" th:text="#{buy-ticket-city}">City</span></th>
-                                    <th id="thTicketSeatInfoName">
-                                        <span id="lblTicketsSeatInfoName" th:text="#{confirm-ticket-seat-info}">Seat Info</span></th>
-                                </tr>
-
-                                    <tr class="sums">
-
-                                        <td id="tdTicketType" rowspan="1">
-                                            <span id="lblTicketType" th:text="${ticket.ticketType.value}">Type of ticket</span></td>
-                                        <td id="tdTicketMovieName" rowspan="1">
-                                            <span id="lblTicketMovieName" th:text="${ticket.movieName}">MovieName</span>
-                                        </td>
-                                        <td id="tdTicketMovieClass" rowspan="1">
-                                            <span id="lblTicketMovieClass" th:text="${ticket.movieClassDescription}">MovieClass</span>
-                                        </td>
-                                        <td id="tdTicketHall" rowspan="1">
-                                            <span id="lblTicketHall" th:text="${ticket.hallNumber.value}">Hall number</span>
-                                        </td>
-                                        <td id="tdTicketDate" rowspan="1">
-                                            <span id="lblTicketDate" th:text="${orderDto.projectionDateView()}">Projection Date</span>
-                                        </td>
-                                        <td id="tdTicketBookTime" rowspan="1">
-                                            <span id="lblTicketBookTime" th:text="|${ticket.bookingTime} #{show-time}.|">BookingTime</span>
-                                        </td>
-
-                                        <td id="tdTicketPrice" rowspan="1">
-                                        <span id="lblTicketPrice"
-                                              th:text="|${#numbers.formatDecimal(ticket.price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}|">10.50 lv</span>
-                                        </td>
-                                        <td id="tdTicketChildCommission">
-                                            <span id="lblTicketChildCommission" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>
-                                        </td>
-                                        <td id="tdTicketTown" rowspan="1">
-                                            <span id="lblTicketTown" th:text="${orderDto.location.value}">Location</span>
-                                        </td>
+<!--<div id="pagecontainer" class="pagecontainer orderformpageres">-->
+<!--    <div class="wrap">-->
+<!--        <div id="header">-->
+<!--            <div id="logo"></div>-->
+<!--        </div>-->
+<!--        <div style="clear: both;"></div>-->
+<!--        <div class="steps">-->
+<!--            <div class="step"><span>1</span><label th:text="#{steps-step1}">Ticket selection</label></div>-->
+<!--            <div class="step"><span>2</span><label th:text="#{steps-step2}">Seats selection</label></div>-->
+<!--            <div class="step"><span>3</span><label th:text="#{steps-step3}">Confirmation</label></div>-->
+<!--            <div class="step onstep"><span>4</span><label th:text="#{steps-step4}">Order completion</label></div>-->
+<!--            <div class="clear"></div>-->
+<!--        </div>-->
+<!--            <div class="main fullwidth">-->
+<!--                <div class="orderForm">-->
+<!--                    <div class="orderformcontainer" th:object="${orderDto}">-->
 
 
-                                <td id="tdTicketChildSeats" rowspan="1">
-                                    <span id="lblTicketsRow"
-                                            th:text="|#{confirm-ticket-row}: ${ticket.numberOfRow}|">Row 7</span>
-                                    <br>
-                                    <span id="lblTicketsSeats"
-                                          th:text="|#{confirm-ticket-seat}: ${ticket.numberOfSeat}|">Seat 7</span>
-                                </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+<!--                        <h2 th:text="#{show-tickets-h2}">Your /s  ticket /s</h2>-->
+<!--                        <div class="eventInfoContainer">-->
 
-                    <div class="actionHolder">
-                        <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link" th:text="#{nav_bar_home}"
-                           href="/">Home</a>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-    </div>
-</div>
-<div id="footer" class="footer orderformpageres"></div>
+<!--                            <table class="seatSelection" cellpadding="0" cellspacing="0" th:each="ticket : ${orderDto.tickets}">-->
+<!--                                <tbody >-->
 
-</div>
-<footer th:replace="~{fragments/commons::footer}"></footer>
-</body>
-</html>
+<!--                                <tr class="header">-->
+<!--                                    <th id="thTicketTypeName">-->
+<!--                                        <span id="lblTicketTypeName" th:text="#{confirm-ticket-type}">Ticket Type</span></th>-->
+<!--                                    <th id="thTicketMovieNameName">-->
+<!--                                        <span id="lblTicketMovieNameName" th:text="#{show-movie-name}">Movie name</span></th>-->
+<!--                                    <th>-->
+<!--                                        <span id="lblTicketPriceCaption" th:text="#{show-movie-class}">Movie Class</span></th>-->
+<!--                                    <th id="thTicketHallName">-->
+<!--                                        <span id="lblTicketHallName" th:text="#{show-hall-number}">Hall</span></th>-->
+<!--                                    <th id="thTicketProjectionDateName">-->
+<!--                                        <span id="lblTicketsProjectionDateName" th:text="#{show-project-date}">Projection Date</span></th>-->
+<!--                                    <th id="thTicketsBookTimeName">-->
+<!--                                        <span id="lblTicketsBookTimeName" th:text="#{show-project-time}">Time</span></th>-->
+<!--                                    <th id="thTicketPriceName">-->
+<!--                                        <span id="lblTicketsPriceName" th:text="#{show-unit-price}">Unit price</span></th>-->
+<!--                                    <th id="thTicketTaxName">-->
+<!--                                        <span id="lblTicketsTaxName" th:text="#{buy-ticket-tax}">Adm. Tax</span></th>-->
+<!--                                    <th id="thTicketCityName">-->
+<!--                                        <span id="lblTicketsCityName" th:text="#{buy-ticket-city}">City</span></th>-->
+<!--                                    <th id="thTicketSeatInfoName">-->
+<!--                                        <span id="lblTicketsSeatInfoName" th:text="#{confirm-ticket-seat-info}">Seat Info</span></th>-->
+<!--                                </tr>-->
+
+<!--                                    <tr class="sums">-->
+
+<!--                                        <td id="tdTicketType" rowspan="1">-->
+<!--                                            <span id="lblTicketType" th:text="${ticket.ticketType.value}">Type of ticket</span></td>-->
+<!--                                        <td id="tdTicketMovieName" rowspan="1">-->
+<!--                                            <span id="lblTicketMovieName" th:text="${ticket.movieName}">MovieName</span>-->
+<!--                                        </td>-->
+<!--                                        <td id="tdTicketMovieClass" rowspan="1">-->
+<!--                                            <span id="lblTicketMovieClass" th:text="${ticket.movieClassDescription}">MovieClass</span>-->
+<!--                                        </td>-->
+<!--                                        <td id="tdTicketHall" rowspan="1">-->
+<!--                                            <span id="lblTicketHall" th:text="${ticket.hallNumber.value}">Hall number</span>-->
+<!--                                        </td>-->
+<!--                                        <td id="tdTicketDate" rowspan="1">-->
+<!--                                            <span id="lblTicketDate" th:text="${orderDto.projectionDateView()}">Projection Date</span>-->
+<!--                                        </td>-->
+<!--                                        <td id="tdTicketBookTime" rowspan="1">-->
+<!--                                            <span id="lblTicketBookTime" th:text="|${ticket.bookingTime} #{show-time}.|">BookingTime</span>-->
+<!--                                        </td>-->
+
+<!--                                        <td id="tdTicketPrice" rowspan="1">-->
+<!--                                        <span id="lblTicketPrice"-->
+<!--                                              th:text="|${#numbers.formatDecimal(ticket.price, 1, 'DEFAULT', 2, 'DEFAULT')} #{buy-ticket-price-BGN}|">10.50 lv</span>-->
+<!--                                        </td>-->
+<!--                                        <td id="tdTicketChildCommission">-->
+<!--                                            <span id="lblTicketChildCommission" th:text="|0.80 #{buy-ticket-price-BGN}|">0.80 lv</span>-->
+<!--                                        </td>-->
+<!--                                        <td id="tdTicketTown" rowspan="1">-->
+<!--                                            <span id="lblTicketTown" th:text="${orderDto.location.value}">Location</span>-->
+<!--                                        </td>-->
+
+
+<!--                                <td id="tdTicketChildSeats" rowspan="1">-->
+<!--                                    <span id="lblTicketsRow"-->
+<!--                                            th:text="|#{confirm-ticket-row}: ${ticket.numberOfRow}|">Row 7</span>-->
+<!--                                    <br>-->
+<!--                                    <span id="lblTicketsSeats"-->
+<!--                                          th:text="|#{confirm-ticket-seat}: ${ticket.numberOfSeat}|">Seat 7</span>-->
+<!--                                </td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+
+<!--                    <div class="actionHolder">-->
+<!--                        <a id="ctl00_CPH1_lbBackButton_hlBack" class="backBtn back-link" th:text="#{nav_bar_home}"-->
+<!--                           href="/">Home</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clear"></div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div id="footer" class="footer orderformpageres"></div>-->
+
+<!--</div>-->
+<!--<footer th:replace="~{fragments/commons::footer}"></footer>-->
+<!--</body>-->
+<!--</html>-->

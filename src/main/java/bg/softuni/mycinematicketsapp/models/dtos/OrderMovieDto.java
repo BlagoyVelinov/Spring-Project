@@ -5,7 +5,6 @@ import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -175,28 +174,5 @@ public class OrderMovieDto {
     public OrderMovieDto setUser(UserViewDto user) {
         this.user = user;
         return this;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public OrderMovieDto setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-        return this;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public OrderMovieDto setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-        return this;
-    }
-
-    public String projectionDateView() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return this.projectionDate.format(dateTimeFormatter);
     }
 }

@@ -1,124 +1,124 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <head th:replace="~{fragments/commons::head}"></head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" th:href="@{/css/reset-css.css}"/>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <link rel="stylesheet" href="/css/style-login-register.css"/>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/tt-octas-trial" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
-</head>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <head th:replace="~{fragments/commons::head}"></head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>-->
+<!--    <link rel="stylesheet" th:href="@{/css/reset-css.css}"/>-->
+<!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
+<!--    <link rel="stylesheet" th:href="@{/css/main.css}"/>-->
+<!--    <link rel="stylesheet" href="/css/style-login-register.css"/>-->
+<!--    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>-->
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">-->
+<!--    <link href="https://fonts.cdnfonts.com/css/tt-octas-trial" rel="stylesheet">-->
+<!--    <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">-->
+<!--</head>-->
 
-<body id="page8">
-<header class="navigation">
-    <label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>
-    <ul>
-        <li><a th:href="@{/users/login}"><img src="/images/login-icon.gif" alt="login"/></a></li>
-    </ul>
-</header>
-<div class="container">
-    <h2 class="text-center text-white">Register User</h2>
-    <form th:method="post"
-          th:action="@{/users/register}"
-          th:object="${registerDto}"
-          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-        <div class="row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="username" class="text-white font-weight-bold">Username</label>
-                <input id="username"
-                       name="username"
-                       th:field="*{username}"
-                       th:errorclass="is-invalid"
-                       type="text" class="form-control"
-                       placeholder="username"/>
-                <p th:if="${#fields.hasErrors('username')}"
-                   th:errors="*{username}" class="text-danger">
-                    Username is required.
-                </p>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label type="email" for="email" class="text-white font-weight-bold">Email</label>
-                <input id="email"
-                       name="email"
-                       th:field="*{email}"
-                       th:errorclass="is-invalid"
-                       type="email" min="2" max="20" class="form-control"
-                       placeholder="email" required="email"/>
-                <p th:if="${#fields.hasErrors('email')}"
-                   th:errors="*{email}" class="text-danger">
-                    Email is required.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="name" class="text-white font-weight-bold">Name</label>
-                <input id="name"
-                       name="name"
-                       th:field="*{name}"
-                       th:errorclass="is-invalid"
-                       type="text" min="2" max="20" class="form-control"
-                       placeholder="name" required="name"/>
-                <p th:if="${#fields.hasErrors('name')}"
-                   th:errors="*{name}" class="text-danger">
-                    Name is required.
-                </p>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <div class="col">
-                    <label for="birthdate" class="text-white font-weight-bold">Date of birth</label>
-                    <input name="birthdate" id="birthdate" type="date"
-                           class="form-control"
-                           placeholder="Birthdate"
-                           th:field="*{birthdate}">
+<!--<body id="page8">-->
+<!--<header class="navigation">-->
+<!--    <label class="logo"><a href="/">Cinema <span class="logo-name">Tickets</span></a></label>-->
+<!--    <ul>-->
+<!--        <li><a th:href="@{/users/login}"><img src="/images/login-icon.gif" alt="login"/></a></li>-->
+<!--    </ul>-->
+<!--</header>-->
+<!--<div class="container">-->
+<!--    <h2 class="text-center text-white">Register User</h2>-->
+<!--    <form th:method="post"-->
+<!--          th:action="@{/users/register}"-->
+<!--          th:object="${registerDto}"-->
+<!--          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">-->
+<!--        <div class="row">-->
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <label for="username" class="text-white font-weight-bold">Username</label>-->
+<!--                <input id="username"-->
+<!--                       name="username"-->
+<!--                       th:field="*{username}"-->
+<!--                       th:errorclass="is-invalid"-->
+<!--                       type="text" class="form-control"-->
+<!--                       placeholder="username"/>-->
+<!--                <p th:if="${#fields.hasErrors('username')}"-->
+<!--                   th:errors="*{username}" class="text-danger">-->
+<!--                    Username is required.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <label type="email" for="email" class="text-white font-weight-bold">Email</label>-->
+<!--                <input id="email"-->
+<!--                       name="email"-->
+<!--                       th:field="*{email}"-->
+<!--                       th:errorclass="is-invalid"-->
+<!--                       type="email" min="2" max="20" class="form-control"-->
+<!--                       placeholder="email" required="email"/>-->
+<!--                <p th:if="${#fields.hasErrors('email')}"-->
+<!--                   th:errors="*{email}" class="text-danger">-->
+<!--                    Email is required.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <label for="name" class="text-white font-weight-bold">Name</label>-->
+<!--                <input id="name"-->
+<!--                       name="name"-->
+<!--                       th:field="*{name}"-->
+<!--                       th:errorclass="is-invalid"-->
+<!--                       type="text" min="2" max="20" class="form-control"-->
+<!--                       placeholder="name" required="name"/>-->
+<!--                <p th:if="${#fields.hasErrors('name')}"-->
+<!--                   th:errors="*{name}" class="text-danger">-->
+<!--                    Name is required.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <div class="col">-->
+<!--                    <label for="birthdate" class="text-white font-weight-bold">Date of birth</label>-->
+<!--                    <input name="birthdate" id="birthdate" type="date"-->
+<!--                           class="form-control"-->
+<!--                           placeholder="Birthdate"-->
+<!--                           th:field="*{birthdate}">-->
 
-                    <small th:if="${#fields.hasErrors('birthdate')}"
-                           th:errors="*{birthdate}" class="text-danger">
-                        Date of birth cannot be in the present or future</small>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="password" class="text-white font-weight-bold">Password</label>
-                <input id="password"
-                       name="password"
-                       th:field="*{password}"
-                       th:errorclass="is-invalid"
-                       type="password" min="2" max="20" class="form-control"
-                       placeholder="password" required="password"/>
-                <p th:if="${#fields.hasErrors('password')}"
-                   th:errors="*{password}" class="text-danger">
-                    Password is required.
-                </p>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="confirmPassword" class="text-white font-weight-bold justify-content-center">Confirm
-                    Password</label>
-                <input id="confirmPassword"
-                       name="confirmPassword"
-                       th:field="*{confirmPassword}"
-                       th:errorclass="is-invalid"
-                       type="password" min="2" max="20" class="form-control"
-                       placeholder="confirm password" required="confirmPassword"/>
-                <p th:if="${#fields.hasErrors('confirmPassword')}"
-                   th:errors="*{confirmPassword}" class="text-danger">
-                    Confirm Password is required.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-md-4">
-                <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-</body>
-</html>
+<!--                    <small th:if="${#fields.hasErrors('birthdate')}"-->
+<!--                           th:errors="*{birthdate}" class="text-danger">-->
+<!--                        Date of birth cannot be in the present or future</small>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <label for="password" class="text-white font-weight-bold">Password</label>-->
+<!--                <input id="password"-->
+<!--                       name="password"-->
+<!--                       th:field="*{password}"-->
+<!--                       th:errorclass="is-invalid"-->
+<!--                       type="password" min="2" max="20" class="form-control"-->
+<!--                       placeholder="password" required="password"/>-->
+<!--                <p th:if="${#fields.hasErrors('password')}"-->
+<!--                   th:errors="*{password}" class="text-danger">-->
+<!--                    Password is required.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <label for="confirmPassword" class="text-white font-weight-bold justify-content-center">Confirm-->
+<!--                    Password</label>-->
+<!--                <input id="confirmPassword"-->
+<!--                       name="confirmPassword"-->
+<!--                       th:field="*{confirmPassword}"-->
+<!--                       th:errorclass="is-invalid"-->
+<!--                       type="password" min="2" max="20" class="form-control"-->
+<!--                       placeholder="confirm password" required="confirmPassword"/>-->
+<!--                <p th:if="${#fields.hasErrors('confirmPassword')}"-->
+<!--                   th:errors="*{confirmPassword}" class="text-danger">-->
+<!--                    Confirm Password is required.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col col-md-4">-->
+<!--                <div class="button-holder d-flex">-->
+<!--                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
