@@ -56,7 +56,7 @@ public class SpringSecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/movies/**",
+                        .requestMatchers("/", "/movies/**", "/api/program",
                                 "/api/users/login", "/api/users/register").permitAll()
                         .requestMatchers("/api/order/**").authenticated()
                         .requestMatchers("/api/**").hasRole(UserRoleEnum.ADMINISTRATOR.name())

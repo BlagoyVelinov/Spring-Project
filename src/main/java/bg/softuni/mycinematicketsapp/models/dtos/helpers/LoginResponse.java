@@ -3,12 +3,12 @@ package bg.softuni.mycinematicketsapp.models.dtos.helpers;
 public class LoginResponse {
     long id;
     String username;
-    String password;
+    String accessToken;
 
-    public LoginResponse(long id, String username, String password) {
+    public LoginResponse(long id, String username, String accessToken) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.accessToken = accessToken;
     }
 
     public long getId() {
@@ -29,12 +29,12 @@ public class LoginResponse {
         return this;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public LoginResponse setPassword(String password) {
-        this.password = password;
+    public LoginResponse setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
         return this;
     }
 }
