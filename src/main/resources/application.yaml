@@ -22,8 +22,12 @@ spring:
       mode: never
 
   cinema_tickets:
-    default.admin.pass: ${DEFAULT_ADMIN_PASS:123456}
-    remember.me.key: ${REMEMBER_ME_KEY:123456}
+    default:
+      admin:
+        pass: ${DEFAULT_ADMIN_PASS:123456}
+    remember:
+      me:
+        key: ${REMEMBER_ME_KEY:123456}
 
   jpa:
     hibernate:
@@ -32,6 +36,14 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+
+jwt:
+  secret: ${JWT_SECRET:ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars}
+  expiration: 900000
+
+
+
+
 mail:
   cinema_tickets: c_tickets@gmail.com
   host: localhost

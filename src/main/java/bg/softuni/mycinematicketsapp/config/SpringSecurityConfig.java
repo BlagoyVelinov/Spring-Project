@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,6 +36,7 @@ public class SpringSecurityConfig {
         cfg.setAllowedOriginPatterns(List.of("http://localhost:*"));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
+        cfg.addExposedHeader("Authorization");
         cfg.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -40,46 +45,42 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   JwtAuthFilter jwtFilter,
+                                                   DaoAuthenticationProvider daoAuthProvider)
+            throws Exception {
+
         http
                 .cors(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers(
-                                "/", "/users/register", "/users/login", "/users/login-error",
-                                "/api/users/register", "/api/users/login", "/api/users/session",
-                                "/movies", "/movies/upcoming", "/api/program", "/movies/{id}"
-                        ).permitAll()
-                        .requestMatchers("/api/order", "/api/order/buy-tickets/{id}", "/api/order/select-seats",
-                                "/api/program/order-tickets","/api/user/{username}").authenticated()
-                        .requestMatchers("/api/order/buy-tickets/{id}", "/api/order/confirm-order/**", "/api/order/show-tickets/**").authenticated()
-                        .requestMatchers("/error", "/test-template/{orderNumber}").permitAll()
-                        .requestMatchers("/movies/add-movie", "/api/offers/add-offer",
-                                "/api/program/update-projection-time/{id}", "/api/offers/delete-offer/{id}")
-                        .hasRole(UserRoleEnum.ADMINISTRATOR.name())
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form // 4) Form-login, but for REST login
-                        .loginPage("/users/login")
-                        .loginProcessingUrl("/api/users/login") // important!
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/users/login-error")
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/api/users/logout") // if using REST logout
-                        .logoutSuccessUrl("/")
-                )
-                .rememberMe(rm -> rm // 5) Remember-me
-                        .key(rememberMeKey)
-                        .rememberMeParameter("rememberMe")
-                        .rememberMeCookieName("rememberMe")
-                );
+                        .requestMatchers("/", "/movies/**",
+                                "/api/users/login", "/api/users/register").permitAll()
+                        .requestMatchers("/api/order/**").authenticated()
+                        .requestMatchers("/api/**").hasRole(UserRoleEnum.ADMINISTRATOR.name())
+                        .anyRequest().authenticated())
+                .authenticationProvider(daoAuthProvider)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthProvider(MyUserDetailService userDetailsService,
+                                                     PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
+    }
+
     @Bean
     public MyUserDetailService userDetailsService(UserRepository userRepository) {
         return new MyUserDetailService(userRepository);

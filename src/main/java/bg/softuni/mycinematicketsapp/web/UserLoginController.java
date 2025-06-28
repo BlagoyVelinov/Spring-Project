@@ -1,10 +1,19 @@
 package bg.softuni.mycinematicketsapp.web;
 
-import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.config.SecurityUserDetails;
+import bg.softuni.mycinematicketsapp.models.dtos.helpers.LoginRequest;
+import bg.softuni.mycinematicketsapp.models.dtos.helpers.LoginResponse;
+import bg.softuni.mycinematicketsapp.services.JwtService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -13,21 +22,32 @@ import java.util.Map;
 @RequestMapping("/api/users")
 public class UserLoginController {
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
-        try {
-            return ResponseEntity.ok(Map.of("message", "Login successful"));
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body(Map.of(Constant.BAD_CREDENTIALS, true));
-        }
+    private final AuthenticationManager authManager;
+    private final JwtService jwtService;
+
+    public UserLoginController(AuthenticationManager authManager, JwtService jwtService) {
+        this.authManager = authManager;
+        this.jwtService = jwtService;
     }
 
-    @PostMapping("/login-error")
-    public ResponseEntity<?> errorLogin(@RequestParam String username) {
-        return ResponseEntity.status(401).body(Map.of(
-                "username", username,
-                Constant.BAD_CREDENTIALS, true
-        ));
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest body) {
+
+        try {
+            Authentication auth = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword()));
+
+            SecurityUserDetails principal = (SecurityUserDetails) auth.getPrincipal();
+            String token = jwtService.generateToken(principal);
+
+            return ResponseEntity.ok(
+                    new LoginResponse(principal.getId(), principal.getUsername(), token));
+
+        } catch (BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("badCredentials", true));
+        }
+
     }
 
     @PostMapping("/logout")
