@@ -58,7 +58,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/movies/**", "/api/program",
                                 "/api/users/login", "/api/users/register").permitAll()
-                        .requestMatchers("/api/order/**").authenticated()
+                        .requestMatchers("/api/users/logout", "/api/order/**").authenticated()
                         .requestMatchers("/api/**").hasRole(UserRoleEnum.ADMINISTRATOR.name())
                         .anyRequest().authenticated())
                 .authenticationProvider(daoAuthProvider)
