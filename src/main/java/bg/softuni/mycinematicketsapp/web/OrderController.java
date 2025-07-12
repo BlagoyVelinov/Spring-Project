@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.config.SecurityUserDetails;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.services.MovieService;
@@ -63,11 +64,9 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> createOrder(@Valid @RequestBody OrderMovieDto createOrder,
-                                         @AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(401).body(Map.of("message", "User is not authenticated"));
-        }
-        this.orderService.createUserOrder(createOrder, userDetails.getUsername());
+                                         @AuthenticationPrincipal SecurityUserDetails user) {
+
+        this.orderService.createUserOrder(createOrder, user.getUsername());
         return ResponseEntity.ok(Map.of("message", "Order created successfully"));
     }
 }
