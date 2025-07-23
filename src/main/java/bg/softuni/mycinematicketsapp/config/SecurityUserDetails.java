@@ -19,6 +19,12 @@ public class SecurityUserDetails extends org.springframework.security.core.userd
         this.id = user.getId();
     }
 
+    public boolean isAdmin() {
+        return this.getAuthorities()
+                .stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMINISTRATOR"));
+    }
+
     public Long getId() {
         return id;
     }

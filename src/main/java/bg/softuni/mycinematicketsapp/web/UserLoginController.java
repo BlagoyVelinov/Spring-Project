@@ -41,7 +41,11 @@ public class UserLoginController {
             String token = jwtService.generateToken(principal);
 
             return ResponseEntity.ok(
-                    new LoginResponse(principal.getId(), principal.getUsername(), token));
+                    new LoginResponse(principal.getId(),
+                            principal.getUsername(),
+                            token,
+                            principal.isAdmin()
+                    ));
 
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
