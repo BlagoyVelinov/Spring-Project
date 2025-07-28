@@ -5,7 +5,7 @@ public class UserViewDto {
     private String name;
     private String username;
     private String email;
-
+    private String imageUrl;
     private boolean isAdmin;
 
     public long getId() {
@@ -41,6 +41,15 @@ public class UserViewDto {
 
     public UserViewDto setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public UserViewDto setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 
