@@ -56,9 +56,16 @@ public class SpringSecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/movies/**", "/api/program",
-                                "/api/users/login", "/api/users/register").permitAll()
-                        .requestMatchers("/api/users/**", "/api/users/logout", "/api/order/**", "/api/order").authenticated()
+                        .requestMatchers("/",
+                                "/api/program",
+                                "/api/users/login",
+                                "/api/users/register"
+                        ).permitAll()
+                        .requestMatchers("/api/users/**",
+                                "/api/users/logout",
+                                "/api/order/**",
+                                "/api/order"
+                        ).authenticated()
                         .requestMatchers("/api/**").hasRole(UserRoleEnum.ADMINISTRATOR.name())
                         .anyRequest().authenticated())
                 .authenticationProvider(daoAuthProvider)
