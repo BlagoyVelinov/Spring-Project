@@ -9,7 +9,8 @@ logging:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cinema_tickets_11_august_2024?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+#    url: jdbc:mysql://localhost:3306/cinema_tickets_11_august_2024?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql:3306/cinema_tickets_11_august_2024?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
     password: ${db_password:}
     username: ${db_username:root}
 
