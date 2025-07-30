@@ -46,4 +46,13 @@ public class Constant {
     public static final String UUID_REPLACEMENT = "";
     public static final String SOURCE_NAME = "UserService";
     public static final String ROLE_ = "ROLE_";
+
+//========================================SQL-Admin user==============================================================//
+
+    public static final String USER_USERNAME = "admin";
+    public static final String USER_BIRTHDATE = "1990-06-06";
+    public static final String USER_CREATED = "2024-05-19T12:09:30.367508";
+    public static final String USER_EMAIL = "admin@gmail.com";
+    public static final String USER_NAME = "Admin Adminov";
+    public static final String USER_PASSWORD = "$2a$10$9cgWfwwTx.fUSNnFc0tkbOERNJVAVloDgi/DIF6JwPSDD4YfY1PVy";
 }

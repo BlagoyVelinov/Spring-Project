@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.USER_NOT_FOUND;
@@ -79,6 +81,27 @@ public class UserServiceImpl implements UserService {
         }
 
         return viewDto;
+    }
+
+    @Override
+    public void initAdminUserInDb() {
+
+        if(this.userRepository.count() == 0) {
+            List<UserRole> roles = this.userRoleService.getAllRoles();
+
+            UserEntity user = new UserEntity()
+                    .setBirthdate(LocalDate.parse(Constant.USER_BIRTHDATE))
+                    .setCreated(LocalDateTime.parse(Constant.USER_CREATED))
+                    .setEmail(Constant.USER_EMAIL)
+                    .setImageUrl(null)
+                    .setModified(null)
+                    .setName(Constant.USER_NAME)
+                    .setPassword(Constant.USER_PASSWORD)
+                    .setUsername(Constant.USER_USERNAME)
+                    .setRoles(roles);
+
+            this.userRepository.save(user);
+        }
     }
 
 
