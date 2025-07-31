@@ -1,0 +1,43 @@
+services:
+  mysql-cinema:
+    image: mysql:8.0
+    container_name: mysql-cinema
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-cinema-data:/var/lib/mysql
+    networks:
+      - internal-cinema
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cinema-tickets:
+    image: blagoyvelinov/cinema-tickets
+    container_name: cinema-tickets
+    restart: on-failure
+    environment:
+      db_host: mysql-cinema
+      db_port: 3306
+      db_name: cinema_tickets_11_august_2024
+      db_username: root
+      db_password: root
+      JWT_SECRET: ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars
+    depends_on:
+      mysql-cinema:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - internal-cinema
+
+volumes:
+  mysql-cinema-data:
+
+networks:
+  internal-cinema:
