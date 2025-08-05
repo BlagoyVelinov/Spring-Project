@@ -22,12 +22,14 @@ services:
     container_name: cinema-tickets
     restart: on-failure
     environment:
-      db_host: mysql-cinema
+      db_host: ${db_host}
       db_port: 3306
-      db_name: cinema_tickets_11_august_2024
-      db_username: root
-      db_password: root
-      JWT_SECRET: ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars
+      db_name: ${db_name}
+      db_username: ${db_username}
+      db_password: ${db_password}
+      JWT_SECRET: ${JWT_SECRET}
+      MY_PUBLIC_KEY: ${MY_PUBLIC_KEY}
+      MY_SECRET_KEY: ${MY_SECRET_KEY}
     depends_on:
       mysql-cinema:
         condition: service_healthy
