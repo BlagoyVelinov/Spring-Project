@@ -1,15 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello Cinema Tickets</title>
-</head>
-<body>
-<h1>Hello, <th:block th:text="${username}">Username</th:block>!</h1>
-Welcome to Cinema Tickets!
-<!--Put sum link to follow-->
-Please follow the
-<a th:href="@{http://localhost:8080/users/login}">activation link</a>
-in order to activate your account.
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Activation email for Cinema Tickets</title>
+    </head>
+    <body style="font-family: Popins, sans-serif; background-color: #f4f4f4; padding: 3em;">
+        <table align="center" width="900px" style="background-color: #ffffff; border: 1px solid #dddddd; padding-left: 3em; display: block">
+            <tr style="padding: 3em">
+                <td style="padding: 3em">
+                    <h1 style="color: #333;">Hello, <th:block th:text="${username}">Username</th:block>!</h1>
+                    <p style="margin-bottom: 3em;">Welcome to <strong>Cinema Tickets</strong>!</p>
+                    <p style="margin-bottom: 2em;">Please click the link below to activate your account:</p>
+                    <p>
+                        <a href="http://localhost:5173/users/login" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Activate Account</a>
+                    </p>
+                    <p style="margin-top: 5em;">If you did not register, you can ignore this email.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
 </html>

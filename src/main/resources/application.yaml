@@ -13,6 +13,9 @@ spring:
     password: ${db_password:}
     username: ${db_username:root}
 
+  profiles:
+    active: dev
+
   mvc:
     hiddenmethod:
       filter:
@@ -37,28 +40,24 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
+  mail:
+    host: in-v3.mailjet.com
+    port: 587
+    username: ${MY_PUBLIC_KEY}
+    password: ${MY_SECRET_KEY}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mail:
+  cinema_tickets: "my.cinematockets@gmail.com"
+
 jwt:
   secret: ${JWT_SECRET:ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars}
   expiration: 604800000
 
-
-
-
-mail:
-  cinema_tickets: c_tickets@gmail.com
-  host: localhost
-  port: 1025
-  username: ${MAIL_USER:softuni}
-  password: ${MAIL_PASSWORD:softuni}
-
-  version: "3"
-  services:
-    mail-hog:
-      image: mailhog/mailhog:latest
-      restart: always
-      ports:
-        - 1025:1025
-        - 8025:8025
 
   movies:
     api:

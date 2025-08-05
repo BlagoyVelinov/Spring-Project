@@ -11,10 +11,10 @@ import java.util.Properties;
 @Configuration
 public class EmailConfig {
     @Bean
-    public JavaMailSender javaMailSender(@Value("${mail.host}") String host,
-                                         @Value("${mail.port}") int port,
-                                         @Value("${mail.username}") String username,
-                                         @Value("${mail.password}") String password) {
+    public JavaMailSender javaMailSender(@Value("${spring.mail.host}") String host,
+                                         @Value("${spring.mail.port}") int port,
+                                         @Value("${spring.mail.username}") String username,
+                                         @Value("${spring.mail.password}") String password) {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
         javaMailSender.setHost(host);
@@ -31,7 +31,9 @@ public class EmailConfig {
         Properties properties = new Properties();
 
         properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.transport.protocol", "smtp");
+        properties.setProperty("mail.smtp.ssl.trust", "in-v3.mailjet.com");
 
         return properties;
     }
