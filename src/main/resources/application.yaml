@@ -52,7 +52,7 @@ spring:
           starttls:
             enable: true
 mail:
-  cinema_tickets: "my.cinematockets@gmail.com"
+  cinema_tickets: ${MAIL_SENDER}
 
 jwt:
   secret: ${JWT_SECRET:ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars}
