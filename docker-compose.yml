@@ -30,6 +30,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       MY_PUBLIC_KEY: ${MY_PUBLIC_KEY}
       MY_SECRET_KEY: ${MY_SECRET_KEY}
+      MAIL_SENDER: ${MAIL_SENDER}
     depends_on:
       mysql-cinema:
         condition: service_healthy
