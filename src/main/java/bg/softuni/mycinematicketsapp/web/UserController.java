@@ -1,10 +1,12 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,6 +45,10 @@ public class UserController {
                         .getRole()
                         .name()
                         .equals(UserRoleEnum.ADMINISTRATOR.name()));
+
+        if (!isAdmin && currentUser.getId() != id) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, ExceptionMessages.NOT_ADMIN_RIGHTS);
+        }
 
         return ResponseEntity.ok(userService.getUserDetailsDtoById(id));
     }

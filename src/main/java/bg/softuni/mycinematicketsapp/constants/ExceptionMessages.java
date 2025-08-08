@@ -8,4 +8,5 @@ public class ExceptionMessages {
 
     public static final String USER_NOT_FOUND = "User is not found!";
     public static final String USERNAME_NOT_EXIST = "Username %s not exist!";
+    public static final String NOT_ADMIN_RIGHTS = "You need administrator rights for this operation!";
 }
