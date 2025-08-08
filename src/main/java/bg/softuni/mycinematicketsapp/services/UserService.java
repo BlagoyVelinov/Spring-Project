@@ -5,6 +5,8 @@ import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 
+import java.util.List;
+
 public interface UserService {
     void registerUser(UserRegisterDto registerDto);
 
@@ -17,4 +19,6 @@ public interface UserService {
     void initAdminUserInDb();
 
     UserDetailsDto getUserDetailsDtoById(long id);
+
+    List<UserViewDto> getAllUserViewDto();
 }

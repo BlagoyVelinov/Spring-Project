@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.USER_NOT_FOUND;
 
@@ -112,6 +113,20 @@ public class UserServiceImpl implements UserService {
         return this.modelMapper.map(userEntity, UserDetailsDto.class);
     }
 
+    @Override
+    public List<UserViewDto> getAllUserViewDto() {
+        List<UserEntity> allUsers = this.userRepository.findAll();
+        final int[] count = {0};
+        return allUsers.stream()
+                .map(user -> {
+                    UserViewDto userViewDto = this.modelMapper.map(user, UserViewDto.class);
+                    if (count[0] < 1) {
+                        count[0]++;
+                        userViewDto.setAdmin(this.isAdmin(user.getUsername()));
+                    }
+                    return userViewDto;
+                }).toList();
+    }
 
     private UserEntity mapUserDtoToUser(UserRegisterDto registerDto) {
         UserRole roleTypeUser = this.userRoleService.getRoleByName(UserRoleEnum.USER);

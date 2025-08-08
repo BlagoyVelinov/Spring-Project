@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,6 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
+@EnableMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig {
 
     @Value("${spring.cinema_tickets.remember.me.key}")
@@ -61,12 +63,14 @@ public class SpringSecurityConfig {
                                 "/api/users/login",
                                 "/api/users/register"
                         ).permitAll()
+                                .requestMatchers(
+                                        "/api/users/all-users"
+                                ).hasRole(UserRoleEnum.ADMINISTRATOR.name())
                         .requestMatchers("/api/users/**",
                                 "/api/users/logout",
                                 "/api/order/**",
                                 "/api/order"
                         ).authenticated()
-                        .requestMatchers("/api/**").hasRole(UserRoleEnum.ADMINISTRATOR.name())
                         .anyRequest().authenticated())
                 .authenticationProvider(daoAuthProvider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

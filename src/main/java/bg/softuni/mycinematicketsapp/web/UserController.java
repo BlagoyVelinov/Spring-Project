@@ -3,15 +3,17 @@ package bg.softuni.mycinematicketsapp.web;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
-import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -42,5 +44,11 @@ public class UserController {
                         .equals(UserRoleEnum.ADMINISTRATOR.name()));
 
         return ResponseEntity.ok(userService.getUserDetailsDtoById(id));
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    @GetMapping("/all-users")
+    public ResponseEntity<List<UserViewDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUserViewDto());
     }
 }
