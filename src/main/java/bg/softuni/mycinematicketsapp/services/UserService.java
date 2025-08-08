@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services;
 
+import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
@@ -14,4 +15,6 @@ public interface UserService {
     UserViewDto getUserDtoByUsername(String username);
 
     void initAdminUserInDb();
+
+    UserDetailsDto getUserDetailsDtoById(long id);
 }

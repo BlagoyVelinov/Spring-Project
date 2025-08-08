@@ -1,6 +1,7 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
@@ -85,7 +86,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void initAdminUserInDb() {
-
         if(this.userRepository.count() == 0) {
             List<UserRole> roles = this.userRoleService.getAllRoles();
 
@@ -104,9 +104,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public UserDetailsDto getUserDetailsDtoById(long id) {
+        UserEntity userEntity = this.userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+
+        return this.modelMapper.map(userEntity, UserDetailsDto.class);
+    }
+
 
     private UserEntity mapUserDtoToUser(UserRegisterDto registerDto) {
-
         UserRole roleTypeUser = this.userRoleService.getRoleByName(UserRoleEnum.USER);
         UserEntity user = this.modelMapper
                 .map(registerDto, UserEntity.class)
