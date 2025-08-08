@@ -1,6 +1,13 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
+import bg.softuni.mycinematicketsapp.validation.annotation.UniqueEmail;
+import bg.softuni.mycinematicketsapp.validation.annotation.UniqueUsername;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,9 +17,24 @@ import java.util.List;
 public class UserDetailsDto {
 
     private long id;
+    
+    @NotNull
+    @Size(min = 5, max = 30, message = "Username length must be between 5 and 30 characters!")
+    @UniqueUsername(message = "Username already exist!")
     private String username;
+
+    @NotNull
+    @Size(min = 5, max = 30, message = "Name length must be between 5 and 30 characters!")
     private String name;
+
+    @NotNull(message = "Please select your date of birth.")
+    @Past(message = "Date of birth cannot be in the present or future")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
+
+    @NotNull
+    @Email(message = "Entered valid email.")
+    @UniqueEmail(message = "Email address is already registered!")
     private String email;
     private boolean isActive;
     private LocalDateTime created;
