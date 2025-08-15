@@ -9,9 +9,9 @@ logging:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${db_host:localhost}:3306/${db_name:cinema_tickets_11_august_2024}?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
-    password: ${db_password:}
+    url: jdbc:mysql://${db_host:localhost}:${db_port:3306}/${db_name:cinema_tickets_11_august_2024}?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
     username: ${db_username:root}
+    password: ${db_password:}
 
   profiles:
     active: dev

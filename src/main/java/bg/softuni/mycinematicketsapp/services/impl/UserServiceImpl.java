@@ -128,6 +128,21 @@ public class UserServiceImpl implements UserService {
                 }).toList();
     }
 
+    @Override
+    public UserDetailsDto editUserDetailsDtoById(long id, UserDetailsDto userDetails) {
+        UserEntity user = this.userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+
+        user.setModified(LocalDateTime.now())
+                .setName(userDetails.getName())
+                .setImageUrl(userDetails.getImageUrl())
+                .setUsername(userDetails.getUsername());
+
+        this.userRepository.save(user);
+
+        return userDetails;
+    }
+
     private UserEntity mapUserDtoToUser(UserRegisterDto registerDto) {
         UserRole roleTypeUser = this.userRoleService.getRoleByName(UserRoleEnum.USER);
         UserEntity user = this.modelMapper

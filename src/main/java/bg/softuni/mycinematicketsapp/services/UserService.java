@@ -21,4 +21,6 @@ public interface UserService {
     UserDetailsDto getUserDetailsDtoById(long id);
 
     List<UserViewDto> getAllUserViewDto();
+
+    UserDetailsDto editUserDetailsDtoById(long id, UserDetailsDto userDetails);
 }

@@ -3,10 +3,7 @@ package bg.softuni.mycinematicketsapp.models.dtos;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.validation.annotation.UniqueEmail;
 import bg.softuni.mycinematicketsapp.validation.annotation.UniqueUsername;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -20,7 +17,7 @@ public class UserDetailsDto {
     
     @NotNull
     @Size(min = 5, max = 30, message = "Username length must be between 5 and 30 characters!")
-    @UniqueUsername(message = "Username already exist!")
+    @UniqueUsername(message = "This username already in use!")
     private String username;
 
     @NotNull

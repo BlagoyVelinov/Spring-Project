@@ -6,14 +6,12 @@ import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -28,6 +26,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    @GetMapping("/all-users")
+    public ResponseEntity<List<UserViewDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUserViewDto());
+    }
+
     @GetMapping("/{username}")
     public ResponseEntity<UserViewDto> getUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserDtoByUsername(username));
@@ -35,9 +39,23 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDetailsDto> getUserById(@PathVariable long id, Authentication authentication) {
+        validateCurrentUser(id, authentication);
+
+        return ResponseEntity.ok(userService.getUserDetailsDtoById(id));
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<UserDetailsDto> editUserById(@PathVariable long id,
+                                                       Authentication authentication,
+                                                       @Valid @RequestBody UserDetailsDto userDetails) {
+        validateCurrentUser(id, authentication);
+
+        return ResponseEntity.ok(userService.editUserDetailsDtoById(id, userDetails));
+    }
+
+    private void validateCurrentUser(long id, Authentication authentication) {
         String currentUsername = authentication.getName();
         UserEntity currentUser = userService.getUserByUsername(currentUsername);
-
 
         boolean isAdmin = currentUser.getRoles()
                 .stream()
@@ -49,13 +67,5 @@ public class UserController {
         if (!isAdmin && currentUser.getId() != id) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, ExceptionMessages.NOT_ADMIN_RIGHTS);
         }
-
-        return ResponseEntity.ok(userService.getUserDetailsDtoById(id));
-    }
-
-    @PreAuthorize("hasRole('ADMINISTRATOR')")
-    @GetMapping("/all-users")
-    public ResponseEntity<List<UserViewDto>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUserViewDto());
     }
 }

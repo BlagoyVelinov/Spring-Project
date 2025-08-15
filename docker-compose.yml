@@ -41,6 +41,7 @@ services:
 
 volumes:
   mysql-cinema-data:
+          name: mysql-cinema-data
 
 networks:
   internal-cinema:
