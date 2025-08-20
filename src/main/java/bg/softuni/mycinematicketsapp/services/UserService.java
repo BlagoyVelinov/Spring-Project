@@ -23,4 +23,6 @@ public interface UserService {
     List<UserViewDto> getAllUserViewDto();
 
     UserDetailsDto editUserDetailsDtoById(long id, UserDetailsDto userDetails);
+
+    String editProfilePhotoById(long id, String userDetails);
 }

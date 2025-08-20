@@ -53,6 +53,17 @@ public class UserController {
         return ResponseEntity.ok(userService.editUserDetailsDtoById(id, userDetails));
     }
 
+    @PutMapping("/user/{id}/profile-image")
+    public ResponseEntity<?> editProfileImageById(@PathVariable long id,
+                                                       Authentication authentication,
+                                                       @RequestBody String imageUrl) {
+        validateCurrentUser(id, authentication);
+
+        String response = userService.editProfilePhotoById(id, imageUrl);
+
+        return ResponseEntity.ok(response);
+    }
+
     private void validateCurrentUser(long id, Authentication authentication) {
         String currentUsername = authentication.getName();
         UserEntity currentUser = userService.getUserByUsername(currentUsername);

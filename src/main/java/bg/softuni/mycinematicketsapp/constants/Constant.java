@@ -55,4 +55,7 @@ public class Constant {
     public static final String USER_EMAIL = "admin@gmail.com";
     public static final String USER_NAME = "Admin Adminov";
     public static final String USER_PASSWORD = "$2a$10$9cgWfwwTx.fUSNnFc0tkbOERNJVAVloDgi/DIF6JwPSDD4YfY1PVy";
+    public static final String UPDATE_PROFILE_PHOTO = "Successfully updated profile photo!";
+
+
 }

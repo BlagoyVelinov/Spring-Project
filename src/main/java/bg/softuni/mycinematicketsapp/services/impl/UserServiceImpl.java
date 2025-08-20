@@ -135,12 +135,23 @@ public class UserServiceImpl implements UserService {
 
         user.setModified(LocalDateTime.now())
                 .setName(userDetails.getName())
-                .setImageUrl(userDetails.getImageUrl())
-                .setUsername(userDetails.getUsername());
+                .setUsername(userDetails.getUsername())
+                .setEmail(userDetails.getEmail());
 
         this.userRepository.save(user);
 
         return userDetails;
+    }
+
+    @Override
+    public String editProfilePhotoById(long id, String newImageUrl) {
+        UserEntity user = this.userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+
+        user.setImageUrl(newImageUrl);
+        userRepository.save(user);
+
+        return Constant.UPDATE_PROFILE_PHOTO;
     }
 
     private UserEntity mapUserDtoToUser(UserRegisterDto registerDto) {
