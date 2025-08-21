@@ -8,7 +8,6 @@ import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
-import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -40,9 +39,6 @@ class OrderServiceImplTest {
     @Mock
     private OrderRepository mockOrderRepository;
     @Mock
-    private MovieService mockMovieService;
-
-    @Mock
     private CityService mockCityService;
 
     @BeforeEach
@@ -50,7 +46,7 @@ class OrderServiceImplTest {
 
         this.toTest = new OrderServiceImpl(
                 this.mockOrderRepository,
-                this.mockMovieService,
+//                this.mockMovieService,
                 this.mockUserService,
                 this.mockCityService
         );

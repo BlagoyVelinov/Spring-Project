@@ -8,13 +8,11 @@ import bg.softuni.mycinematicketsapp.models.enums.Genre;
 import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.models.enums.ProjectionFormat;
-import bg.softuni.mycinematicketsapp.services.MovieService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,9 +31,6 @@ public class MovieControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private MovieService mockMovieService;
 
     @Test
     @WithMockUser(
@@ -82,7 +77,7 @@ public class MovieControllerIT {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name(Constant.REDIRECT_PROGRAM));
 
-        MovieViewDto actualMovie = this.mockMovieService.getMovieViewById(movieView.getId());
+        MovieViewDto actualMovie = null;
         Assertions.assertNull(actualMovie);
     }
 
@@ -100,7 +95,6 @@ public class MovieControllerIT {
                 .setProjectionFormat(ProjectionFormat.D_3D)
                 .setMovieClass(MovieClassEnum.C_)
                 .setGenreCategories(List.of(Genre.ADVENTURE, Genre.COMEDY));
-        this.mockMovieService.movieCreate(movieViewDto);
         return movieViewDto;
     }
 

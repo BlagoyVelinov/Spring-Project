@@ -8,7 +8,6 @@ import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
-import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
@@ -24,14 +23,12 @@ import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.ORDER_NO
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final MovieService movieService;
     private final UserService userService;
     private final CityService cityService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, MovieService movieService,
+    public OrderServiceImpl(OrderRepository orderRepository,
                             UserService userService, CityService cityService) {
         this.orderRepository = orderRepository;
-        this.movieService = movieService;
         this.userService = userService;
         this.cityService = cityService;
     }

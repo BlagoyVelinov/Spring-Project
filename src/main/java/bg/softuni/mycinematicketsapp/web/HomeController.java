@@ -1,7 +1,5 @@
 package bg.softuni.mycinematicketsapp.web;
 
-import bg.softuni.mycinematicketsapp.services.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = {"http://localhost:5173"})
 @RequestMapping("/api/home")
 public class HomeController {
-
-    private final MovieService movieService;
-
-    @Autowired
-    public HomeController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
 
     @GetMapping("/about-us")

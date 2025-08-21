@@ -3,14 +3,12 @@ package bg.softuni.mycinematicketsapp.web;
 import bg.softuni.mycinematicketsapp.config.SecurityUserDetails;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
-import bg.softuni.mycinematicketsapp.services.MovieService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,14 +17,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
-
-    private final MovieService movieService;
     private final OrderService orderService;
     private final TicketService ticketService;
 
     @Autowired
-    public OrderController(MovieService movieService, OrderService orderService, TicketService ticketService) {
-        this.movieService = movieService;
+    public OrderController(OrderService orderService, TicketService ticketService) {
         this.orderService = orderService;
         this.ticketService = ticketService;
     }
