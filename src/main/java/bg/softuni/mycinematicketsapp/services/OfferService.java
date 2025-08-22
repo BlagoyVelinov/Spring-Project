@@ -18,4 +18,6 @@ public interface OfferService {
     List<OfferViewDto> getAllBusinessOffers();
 
     void deleteOffer(long offerId);
+
+    OfferViewDto updateOffer(OfferViewDto offerDto, long id);
 }

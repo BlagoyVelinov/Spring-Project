@@ -52,6 +52,13 @@ public class OfferController {
         return ResponseEntity.status(201).body(Map.of("message", "Offer created successfully"));
     }
 
+    @PutMapping("/edit-offer/{id}")
+    public ResponseEntity<OfferViewDto> editOffer(@RequestBody OfferViewDto offerDto, @PathVariable long id) {
+
+
+        return ResponseEntity.ok(offerService.updateOffer(offerDto, id));
+    }
+
     @DeleteMapping("/delete-offer/{id}")
     public ResponseEntity<?> deleteOffer(@PathVariable("id") long id) {
         this.offerService.deleteOffer(id);

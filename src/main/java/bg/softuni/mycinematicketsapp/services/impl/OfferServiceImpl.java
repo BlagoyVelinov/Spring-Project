@@ -83,6 +83,18 @@ public class OfferServiceImpl implements OfferService {
         this.offerRepository.deleteById(offerId);
     }
 
+    @Override
+    public OfferViewDto updateOffer(OfferViewDto offerDto, long id) {
+        Offer offer = this.getOfferById(id);
+
+        offer.setTitle(offerDto.getTitle())
+                .setImageUrl(offerDto.getImageUrl())
+                .setDescription(offerDto.getDescription());
+
+        this.offerRepository.save(offer);
+        return offerDto;
+    }
+
     private Offer mapOfferDtoToOffer(AddOfferDto createOffer) {
         return this.modelMapper.map(createOffer, Offer.class);
     }

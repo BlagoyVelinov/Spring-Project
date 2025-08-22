@@ -58,8 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isAdmin(String username) {
-        UserEntity user = this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
+        UserEntity user = this.getUserByUsername(username);
 
         return user.getRoles()
                 .stream()
@@ -75,9 +74,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserViewDto getUserDtoByUsername(String username) {
-        UserEntity currUser = this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+        UserEntity currUser = this.getUserByUsername(username);
         UserViewDto viewDto = this.modelMapper.map(currUser, UserViewDto.class);
+
         if(this.isAdmin(username)) {
             viewDto.setAdmin(true);
         }
@@ -107,8 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailsDto getUserDetailsDtoById(long id) {
-        UserEntity userEntity = this.userRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+        UserEntity userEntity = this.getUserById(id);
 
         return this.modelMapper.map(userEntity, UserDetailsDto.class);
     }
@@ -130,8 +128,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailsDto editUserDetailsDtoById(long id, UserDetailsDto userDetails) {
-        UserEntity user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+        UserEntity user = this.getUserById(id);
 
         user.setModified(LocalDateTime.now())
                 .setName(userDetails.getName())
@@ -145,13 +142,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String editProfilePhotoById(long id, String newImageUrl) {
-        UserEntity user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
+        UserEntity user = this.getUserById(id);
 
         user.setImageUrl(newImageUrl);
         userRepository.save(user);
 
         return Constant.UPDATE_PROFILE_PHOTO;
+    }
+
+    private UserEntity getUserById(long id) {
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
     }
 
     private UserEntity mapUserDtoToUser(UserRegisterDto registerDto) {
