@@ -1,16 +1,13 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.models.entities.City;
-import bg.softuni.mycinematicketsapp.models.entities.MovieClass;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
-import bg.softuni.mycinematicketsapp.models.enums.MovieClassEnum;
 import bg.softuni.mycinematicketsapp.repository.CityRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

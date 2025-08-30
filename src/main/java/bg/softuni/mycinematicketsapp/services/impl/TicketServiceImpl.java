@@ -1,10 +1,8 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
-import bg.softuni.mycinematicketsapp.models.dtos.view.MovieViewDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
-import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.repository.TicketRepository;
 import bg.softuni.mycinematicketsapp.services.OrderService;
@@ -88,47 +86,5 @@ public class TicketServiceImpl implements TicketService {
         cinemaHall[i][j] = null;
         lastRow.set(i);
         return true;
-    }
-
-    private List<Ticket> getTicketList(TicketViewDto createTicket, MovieViewDto movieViewDto, Order order) {
-        List<Ticket> ticketsToSave = new ArrayList<>();
-
-        for (int i = 0; i < order.getChildQuantity(); i++) {
-            TicketType ticketType = TicketType.CHILDREN_UNDER_16;
-            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
-            ticketsToSave.add(ticket);
-        }
-        for (int i = 0; i < order.getRegularQuantity(); i++) {
-            TicketType ticketType = TicketType.REGULAR;
-            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
-            ticketsToSave.add(ticket);
-        }
-        for (int i = 0; i < order.getStudentQuantity(); i++) {
-            TicketType ticketType = TicketType.PUPILS_AND_STUDENTS;
-            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
-            ticketsToSave.add(ticket);
-        }
-        for (int i = 0; i < order.getOverSixtyQuantity(); i++) {
-            TicketType ticketType = TicketType.PERSONS_OVER_60;
-            Ticket ticket = this.mapTicketViewDtoToTicket(createTicket, movieViewDto, ticketType, order.getBookingTime(), order);
-            ticketsToSave.add(ticket);
-        }
-        return ticketsToSave;
-    }
-
-
-    private Ticket mapTicketViewDtoToTicket(TicketViewDto createTicket, MovieViewDto movieViewDto,
-                                            TicketType ticketType, String bookingTime, Order order) {
-        return new Ticket()
-                .setMovieName(movieViewDto.getName())
-                .setHallNumber(movieViewDto.getHallNumber())
-                .setPrice(ticketType.getPrice())
-                .setProjectionDate(order.getProjectionDate())
-                .setNumberOfRow(createTicket.getNumberOfRow())
-                .setNumberOfSeat(createTicket.getNumberOfSeat())
-                .setTicketType(ticketType)
-                .setBookingTime(bookingTime)
-                .setCity(order.getCity())
-                .setMovieClassDescription(movieViewDto.getMovieClass().getDescription());
     }
 }

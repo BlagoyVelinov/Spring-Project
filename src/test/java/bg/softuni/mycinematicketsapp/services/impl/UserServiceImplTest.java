@@ -1,6 +1,5 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
-import bg.softuni.mycinematicketsapp.constants.ConstantTest;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
