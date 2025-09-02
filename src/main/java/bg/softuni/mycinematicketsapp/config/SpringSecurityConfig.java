@@ -67,11 +67,13 @@ public class SpringSecurityConfig {
                         ).permitAll()
                                 .requestMatchers(
                                         "/api/users/all-users",
+                                        "/api/users/user/**",
                                         "/api/offers/add-offer",
                                         "/api/offers/edit-offer/*",
                                         "/api/offers/delete-offer/*"
                                 ).hasRole(UserRoleEnum.ADMINISTRATOR.name())
-                        .requestMatchers("/api/users/**",
+                        .requestMatchers(
+                                "/api/users/**",
                                 "/api/users/logout",
                                 "/api/order/**",
                                 "/api/order"

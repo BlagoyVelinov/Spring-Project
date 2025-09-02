@@ -150,6 +150,17 @@ public class UserServiceImpl implements UserService {
         return Constant.UPDATE_PROFILE_PHOTO;
     }
 
+    @Override
+    public boolean deleteCurrentUserById(long id) {
+        UserEntity user = this.getUserById(id);
+
+        if (user.isActive()) {
+            user.setActive(false);
+            return true;
+        }
+        return false;
+    }
+
     private UserEntity getUserById(long id) {
         return this.userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));

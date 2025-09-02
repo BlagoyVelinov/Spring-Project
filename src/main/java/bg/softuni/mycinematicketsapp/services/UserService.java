@@ -25,4 +25,6 @@ public interface UserService {
     UserDetailsDto editUserDetailsDtoById(long id, UserDetailsDto userDetails);
 
     String editProfilePhotoById(long id, String userDetails);
+
+    boolean deleteCurrentUserById(long id);
 }

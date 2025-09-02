@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -62,6 +63,22 @@ public class UserController {
         String response = userService.editProfilePhotoById(id, imageUrl);
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-user/{id}")
+    public ResponseEntity<?> deleteUserById(@PathVariable long id, Authentication authentication) {
+        validateCurrentUser(id, authentication);
+        boolean isDeletingUser = userService.deleteCurrentUserById(id);
+
+        boolean isDeleted = userService.deleteCurrentUserById(id);
+
+        if (isDeleted) {
+            return ResponseEntity.ok(Map.of("message", "User deleted successfully"));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "User could not be deleted or is not active"));
+        }
     }
 
     private void validateCurrentUser(long id, Authentication authentication) {
