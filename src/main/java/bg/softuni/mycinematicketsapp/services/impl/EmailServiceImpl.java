@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendRegistrationEmail(String userEmail, String username) {
+    public void sendRegistrationEmail(String userEmail, String username, String token) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
@@ -36,7 +36,8 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setFrom(this.cinemaTicketEmail);
             mimeMessageHelper.setReplyTo(this.cinemaTicketEmail);
             mimeMessageHelper.setSubject("Welcome to Cinema Tickets!");
-            mimeMessageHelper.setText(generateRegistrationEmailBody(username), true);
+            mimeMessageHelper.setText(generateRegistrationEmailBody(username, token), true);
+
 
             javaMailSender.send(mimeMessageHelper.getMimeMessage());
 
@@ -45,9 +46,11 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    private String generateRegistrationEmailBody(String username) {
+    private String generateRegistrationEmailBody(String username, String token) {
         Context context = new Context();
         context.setVariable("username", username);
+
+        context.setVariable("activationLink", "http://localhost:8080/api/users/activate?token=" + token);
 
         return this.templateEngine.process("email/registration-email", context);
     }

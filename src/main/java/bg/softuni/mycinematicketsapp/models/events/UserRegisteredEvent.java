@@ -6,10 +6,12 @@ public class UserRegisteredEvent extends ApplicationEvent {
 
     private final String userEmail;
     private final String usernames;
-    public UserRegisteredEvent(Object source, String userEmail, String usernames) {
+    private final String activationToken;
+    public UserRegisteredEvent(Object source, String userEmail, String usernames, String activationToken) {
         super(source);
         this.userEmail = userEmail;
         this.usernames = usernames;
+        this.activationToken = activationToken;
     }
 
     public String getUserEmail() {
@@ -19,4 +21,6 @@ public class UserRegisteredEvent extends ApplicationEvent {
     public String getUsernames() {
         return usernames;
     }
+
+    public String getActivationToken() {return  activationToken;}
 }

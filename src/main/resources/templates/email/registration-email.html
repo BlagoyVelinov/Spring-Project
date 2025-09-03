@@ -12,7 +12,10 @@
                     <p style="margin-bottom: 3em;">Welcome to <strong>Cinema Tickets</strong>!</p>
                     <p style="margin-bottom: 2em;">Please click the link below to activate your account:</p>
                     <p>
-                        <a href="http://localhost:5173/users/login" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Activate Account</a>
+                        <a th:href="${activationLink}"
+                           style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                            Activate Account
+                        </a>
                     </p>
                     <p style="margin-top: 5em;">If you did not register, you can ignore this email.</p>
                 </td>

@@ -33,7 +33,6 @@ public class UserDetailsDto {
     @Email(message = "Entered valid email.")
     @UniqueEmail(message = "Email address is already registered!")
     private String email;
-    private boolean isActive;
     private LocalDateTime created;
     private LocalDateTime modified;
     private String imageUrl;
@@ -85,15 +84,6 @@ public class UserDetailsDto {
 
     public UserDetailsDto setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public UserDetailsDto setActive(boolean active) {
-        isActive = active;
         return this;
     }
 

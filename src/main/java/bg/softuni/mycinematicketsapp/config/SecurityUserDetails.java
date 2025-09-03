@@ -1,22 +1,29 @@
 package bg.softuni.mycinematicketsapp.config;
 
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
+import bg.softuni.mycinematicketsapp.models.enums.UserStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class SecurityUserDetails extends org.springframework.security.core.userdetails.User {
 
     private final Long id;
+    private final UserStatus status;
 
     public SecurityUserDetails(UserEntity user) {
         super(
                 user.getUsername(),
                 user.getPassword(),
+                user.getStatus() == UserStatus.ACTIVE,
+                true,
+                true,
+                user.getStatus() != UserStatus.SUSPENDED,
                 user.getRoles()
                         .stream()
                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name()))
                         .toList()
         );
         this.id = user.getId();
+        this.status = user.getStatus();
     }
 
     public boolean isAdmin() {
@@ -27,6 +34,10 @@ public class SecurityUserDetails extends org.springframework.security.core.userd
 
     public Long getId() {
         return id;
+    }
+
+    public UserStatus getStatus() {
+        return status;
     }
 }
 

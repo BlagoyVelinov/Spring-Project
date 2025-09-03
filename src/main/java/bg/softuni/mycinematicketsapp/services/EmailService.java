@@ -1,5 +1,5 @@
 package bg.softuni.mycinematicketsapp.services;
 
 public interface EmailService {
-    void sendRegistrationEmail(String userEmail, String usernames);
+    void sendRegistrationEmail(String userEmail, String usernames, String token);
 }

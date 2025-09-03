@@ -1,12 +1,14 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
+import bg.softuni.mycinematicketsapp.models.enums.UserStatus;
 import bg.softuni.mycinematicketsapp.models.events.UserRegisteredEvent;
 import bg.softuni.mycinematicketsapp.repository.UserRepository;
 import bg.softuni.mycinematicketsapp.services.UserRoleService;
@@ -15,14 +17,13 @@ import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.USER_NOT_FOUND;
 
@@ -47,12 +48,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerUser(UserRegisterDto registerDto) {
         UserEntity user = this.mapUserDtoToUser(registerDto);
+
+        user.setActivationToken(UUID.randomUUID().toString());
+        user.setStatus(UserStatus.PENDING);
+
         this.userRepository.save(user);
 
         this.appEventPublisher.publishEvent(new UserRegisteredEvent(
                 Constant.SOURCE_NAME,
                 registerDto.getEmail(),
-                registerDto.getName()
+                registerDto.getName(),
+                user.getActivationToken()
         ));
     }
 
@@ -95,6 +101,7 @@ public class UserServiceImpl implements UserService {
                     .setEmail(Constant.USER_EMAIL)
                     .setImageUrl(null)
                     .setModified(null)
+                    .setStatus(UserStatus.ACTIVE)
                     .setName(Constant.USER_NAME)
                     .setPassword(Constant.USER_PASSWORD)
                     .setUsername(Constant.USER_USERNAME)
@@ -151,14 +158,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteCurrentUserById(long id) {
+    public boolean deactivateCurrentUserById(long id) {
         UserEntity user = this.getUserById(id);
 
-        if (user.isActive()) {
-            user.setActive(false);
+        if (user.getStatus() == UserStatus.ACTIVE) {
+            user.setStatus(UserStatus.DEACTIVATED);
+            this.userRepository.save(user);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void activateUserByToken(String token) {
+        UserEntity user = this.userRepository.findByActivationToken(token)
+                .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.INVALID_TOKEN));
+
+        user.setStatus(UserStatus.ACTIVE);
+        user.setActivationToken(null);
+        this.userRepository.save(user);
     }
 
     private UserEntity getUserById(long id) {

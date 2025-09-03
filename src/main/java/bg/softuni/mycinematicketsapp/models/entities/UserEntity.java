@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
+import bg.softuni.mycinematicketsapp.models.enums.UserStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -23,14 +24,17 @@ public class UserEntity extends BaseEntity {
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status;
     @Column
     private LocalDateTime created;
     @Column
     private LocalDateTime modified;
     @Column(name = "image_url")
     private String imageUrl;
+    @Column(name = "activation_token")
+    private String activationToken;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Ticket> tickets;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -94,12 +98,12 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public UserEntity setActive(boolean active) {
-        isActive = active;
+    public UserEntity setStatus(UserStatus status) {
+        this.status = status;
         return this;
     }
 
@@ -127,6 +131,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getActivationToken() {
+        return activationToken;
+    }
+
+    public UserEntity setActivationToken(String activationToken) {
+        this.activationToken = activationToken;
         return this;
     }
 

@@ -26,5 +26,7 @@ public interface UserService {
 
     String editProfilePhotoById(long id, String userDetails);
 
-    boolean deleteCurrentUserById(long id);
+    void activateUserByToken(String token);
+
+    boolean deactivateCurrentUserById(long id);
 }

@@ -20,6 +20,10 @@ public class UserActivationServiceImpl implements UserActivationService {
     @Override
     @EventListener(UserRegisteredEvent.class)
     public void userRegistered(UserRegisteredEvent event) {
-        this.emailService.sendRegistrationEmail(event.getUserEmail(), event.getUsernames());
+        this.emailService.sendRegistrationEmail(
+                event.getUserEmail(),
+                event.getUsernames(),
+                event.getActivationToken()
+        );
     }
 }

@@ -56,8 +56,8 @@ public class UserController {
 
     @PutMapping("/user/{id}/profile-image")
     public ResponseEntity<?> editProfileImageById(@PathVariable long id,
-                                                       Authentication authentication,
-                                                       @RequestBody String imageUrl) {
+                                                  Authentication authentication,
+                                                  @RequestBody String imageUrl) {
         validateCurrentUser(id, authentication);
 
         String response = userService.editProfilePhotoById(id, imageUrl);
@@ -66,11 +66,10 @@ public class UserController {
     }
 
     @DeleteMapping("/delete-user/{id}")
-    public ResponseEntity<?> deleteUserById(@PathVariable long id, Authentication authentication) {
+    public ResponseEntity<?> deactivateUserById(@PathVariable long id, Authentication authentication) {
         validateCurrentUser(id, authentication);
-        boolean isDeletingUser = userService.deleteCurrentUserById(id);
 
-        boolean isDeleted = userService.deleteCurrentUserById(id);
+        boolean isDeleted = userService.deactivateCurrentUserById(id);
 
         if (isDeleted) {
             return ResponseEntity.ok(Map.of("message", "User deleted successfully"));
