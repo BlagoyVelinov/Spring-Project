@@ -12,4 +12,6 @@ public interface CityService {
     Set<City> getAllCities();
 
     City getCityByCityName(CityName cityName);
+
+    City getCityById(long id);
 }
