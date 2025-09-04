@@ -76,8 +76,9 @@ public class SpringSecurityConfig {
                                 "/api/users/**",
                                 "/api/users/logout",
                                 "/api/order/**",
-                                "/api/order"
-                        ).authenticated()
+                                "/api/order",
+                                "/api/tickets/**"
+                                ).authenticated()
                         .anyRequest().authenticated())
                 .authenticationProvider(daoAuthProvider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
