@@ -12,4 +12,7 @@ public class ExceptionMessages {
 
 
     public static final String INVALID_TOKEN = "Invalid or expired token!";
+
+
+    public static final String CITY_NOT_FOUND = "City with Id: %d not exist!";
 }
