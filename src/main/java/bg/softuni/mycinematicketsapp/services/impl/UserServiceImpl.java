@@ -178,8 +178,8 @@ public class UserServiceImpl implements UserService {
         user.setActivationToken(null);
         this.userRepository.save(user);
     }
-
-    private UserEntity getUserById(long id) {
+    @Override
+    public UserEntity getUserById(long id) {
         return this.userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(USER_NOT_FOUND));
     }

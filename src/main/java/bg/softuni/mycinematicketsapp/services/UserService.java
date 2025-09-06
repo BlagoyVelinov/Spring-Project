@@ -14,6 +14,8 @@ public interface UserService {
 
     UserEntity getUserByUsername(String username);
 
+    UserEntity getUserById(long id);
+
     UserViewDto getUserDtoByUsername(String username);
 
     void initAdminUserInDb();

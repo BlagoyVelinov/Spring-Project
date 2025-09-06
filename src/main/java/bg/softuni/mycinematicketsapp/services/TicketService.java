@@ -9,4 +9,6 @@ public interface TicketService {
 
     List<TicketViewDto> getCurrentTickets();
     void saveTicketsForOrder(Order order);
+
+    List<TicketViewDto> getUpcomingTickets(long userId);
 }
