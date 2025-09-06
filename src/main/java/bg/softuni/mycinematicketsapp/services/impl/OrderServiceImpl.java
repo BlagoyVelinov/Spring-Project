@@ -41,14 +41,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createUserOrder(OrderMovieDto createOrder, String username) {
+    public OrderMovieDto createUserOrder(OrderMovieDto createOrder, String username) {
         UserEntity user = this.userService.getUserByUsername(username);
         Order order = this.mapOrderMovieDtoToOrder(createOrder, user);
 
         this.ticketService.saveTicketsForOrder(order);
 
-        this.orderRepository.save(order);
+        Order savedOrder = this.orderRepository.save(order);
 
+        return this.mapOrderToOrderDto(savedOrder);
     }
 
     @Override

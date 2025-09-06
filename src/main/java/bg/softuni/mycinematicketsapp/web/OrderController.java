@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.config.SecurityUserDetails;
 import bg.softuni.mycinematicketsapp.models.dtos.OrderMovieDto;
+import bg.softuni.mycinematicketsapp.models.dtos.responses.OrderResponse;
 import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.SecurityService;
 import jakarta.validation.Valid;
@@ -26,11 +27,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createOrder(@Valid @RequestBody OrderMovieDto createOrder,
-                                         @AuthenticationPrincipal SecurityUserDetails user) {
+    public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody OrderMovieDto createOrder,
+                                                     @AuthenticationPrincipal SecurityUserDetails user) {
 
-        this.orderService.createUserOrder(createOrder, user.getUsername());
-        return ResponseEntity.ok(Map.of("message", "Order created successfully"));
+        OrderMovieDto orderDto = this.orderService.createUserOrder(createOrder, user.getUsername());
+
+        return ResponseEntity.ok(new OrderResponse("Order created successfully", orderDto));
     }
 
     @GetMapping("/{id}")

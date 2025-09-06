@@ -7,7 +7,7 @@ public interface OrderService {
 
     Order getOrderById(long orderId);
 
-    void createUserOrder(OrderMovieDto createOrder, String username);
+    OrderMovieDto createUserOrder(OrderMovieDto createOrder, String username);
 
     OrderMovieDto getOrderDtoById(long id);
 }
