@@ -53,6 +53,20 @@ public class TicketServiceImpl implements TicketService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<TicketViewDto> getExpiredTickets(long userId) {
+        UserEntity user = this.userService.getUserById(userId);
+
+        List<Ticket> userTickets = user.getTickets()
+                .stream()
+                .filter(Ticket::isFinished)
+                .toList();
+
+        return userTickets.stream()
+                .map(this::mapTicketToTicketViewDto)
+                .collect(Collectors.toList());
+    }
+
     private TicketViewDto mapTicketToTicketViewDto(Ticket ticket) {
         return this.modelMapper.map(ticket, TicketViewDto.class);
     }

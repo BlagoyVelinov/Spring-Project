@@ -11,4 +11,6 @@ public interface TicketService {
     void saveTicketsForOrder(Order order);
 
     List<TicketViewDto> getUpcomingTickets(long userId);
+
+    List<TicketViewDto> getExpiredTickets(long userId);
 }

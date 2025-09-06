@@ -34,4 +34,15 @@ public class TicketController {
 
         return ResponseEntity.ok(upcomingTickets);
     }
+
+    @GetMapping("/expired-tickets/user/{id}")
+    public ResponseEntity<List<TicketViewDto>> getExpiredTicketsByUser(@PathVariable long id,
+                                                                        Authentication authentication) {
+
+        securityService.validateCurrentUser(id, authentication);
+
+        List<TicketViewDto> expiredTickets = ticketService.getExpiredTickets(id);
+
+        return ResponseEntity.ok(expiredTickets);
+    }
 }
