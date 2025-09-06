@@ -100,6 +100,8 @@ public class OrderServiceImpl implements OrderService {
 
     private UserViewDto mapUserToUserViewDto(UserEntity user) {
         return new UserViewDto()
+                .setId(user.getId())
+                .setUsername(user.getUsername())
                 .setName(user.getName())
                 .setEmail(user.getEmail());
     }
