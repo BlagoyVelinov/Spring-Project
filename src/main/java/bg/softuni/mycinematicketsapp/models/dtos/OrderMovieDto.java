@@ -1,16 +1,13 @@
 package bg.softuni.mycinematicketsapp.models.dtos;
 
-import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
-import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +24,6 @@ public class OrderMovieDto {
     private int studentQuantity;
     private double totalPrice;
     private String bookingTime;
-    private String hallNumber;
     private List<Ticket> tickets;
     @NotNull(message = "You need select a projection date.")
     @FutureOrPresent(message = "The date cannot be in the past!")
@@ -38,14 +34,8 @@ public class OrderMovieDto {
     private CityName location;
     private UserViewDto user;
 
-
-    private LocalDate startDate;
-    private LocalDate endDate;
-
     public OrderMovieDto() {
         this.tickets = new ArrayList<>();
-        this.startDate = LocalDate.now();
-        this.endDate = this.startDate.plusDays(Constant.COUNT_AVAILABLE_DAYS);
     }
 
     public long getId() {
@@ -157,15 +147,6 @@ public class OrderMovieDto {
 
     public OrderMovieDto setBookingTime(String bookingTime) {
         this.bookingTime = bookingTime;
-        return this;
-    }
-
-    public String getHallNumber() {
-        return hallNumber;
-    }
-
-    public OrderMovieDto setHallNumber(String hallNumber) {
-        this.hallNumber = hallNumber;
         return this;
     }
 

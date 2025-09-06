@@ -1,6 +1,6 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
-import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
+import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.persistence.*;
 
@@ -13,7 +13,7 @@ public class Ticket extends BaseEntity {
     @Column(name = "movie_name", nullable = false)
     private String movieName;
     @Column(name = "hall_number", nullable = false)
-    private HallNumber hallNumber;
+    private String hallNumber;
     @Column(name = "number_of_seat")
     private Integer numberOfSeat;
     @Column(name = "number_of_row")
@@ -28,9 +28,9 @@ public class Ticket extends BaseEntity {
     private String bookingTime;
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
-    @ManyToOne
-    private City city;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "city_name")
+    private CityName location;
     @Column(name ="is_finished")
     private boolean isFinished;
 
@@ -43,11 +43,11 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public HallNumber getHallNumber() {
+    public String getHallNumber() {
         return hallNumber;
     }
 
-    public Ticket setHallNumber(HallNumber hallNumber) {
+    public Ticket setHallNumber(String hallNumber) {
         this.hallNumber = hallNumber;
         return this;
     }
@@ -115,13 +115,12 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-
-    public City getCity() {
-        return city;
+    public CityName getLocation() {
+        return location;
     }
 
-    public Ticket setCity(City city) {
-        this.city = city;
+    public Ticket setLocation(CityName location) {
+        this.location = location;
         return this;
     }
 

@@ -1,16 +1,12 @@
 package bg.softuni.mycinematicketsapp.services;
 
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
+import bg.softuni.mycinematicketsapp.models.entities.Order;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TicketService {
 
-    Map<String, List<TicketViewDto>> addToTicketsMap(long orderId);
-
-    Map<Integer, List<Integer>> getSeatsByRow(long orderId);
-
-    void confirmOrder(long orderId);
-
+    List<TicketViewDto> getCurrentTickets();
+    void saveTicketsForOrder(Order order);
 }

@@ -1,6 +1,5 @@
 package bg.softuni.mycinematicketsapp.models.entities;
 
-import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,8 +32,6 @@ public class Order extends BaseEntity {
     private String movieName;
     @Column(name = "booking_time")
     private String bookingTime;
-    @Column(name = "hall_number", nullable = false)
-    private String hallNumber;
     @Column(name = "movie_id")
     private long movieId;
     @Column(name = "booking_time_id")
@@ -146,15 +143,6 @@ public class Order extends BaseEntity {
 
     public Order setBookingTime(String bookingTime) {
         this.bookingTime = bookingTime;
-        return this;
-    }
-
-    public String getHallNumber() {
-        return hallNumber;
-    }
-
-    public Order setHallNumber(String hallNumber) {
-        this.hallNumber = hallNumber;
         return this;
     }
 

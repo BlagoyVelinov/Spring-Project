@@ -9,28 +9,29 @@ import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.repository.OrderRepository;
 import bg.softuni.mycinematicketsapp.services.CityService;
 import bg.softuni.mycinematicketsapp.services.OrderService;
+import bg.softuni.mycinematicketsapp.services.TicketService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.ORDER_NOT_EXIST;
-import static bg.softuni.mycinematicketsapp.constants.ExceptionMessages.ORDER_NOT_FOUND;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserService userService;
     private final CityService cityService;
+    private final TicketService ticketService;
 
     public OrderServiceImpl(OrderRepository orderRepository,
-                            UserService userService, CityService cityService) {
+                            UserService userService, CityService cityService, TicketService ticketService) {
         this.orderRepository = orderRepository;
         this.userService = userService;
         this.cityService = cityService;
+        this.ticketService = ticketService;
     }
 
     @Override
@@ -44,51 +45,33 @@ public class OrderServiceImpl implements OrderService {
         UserEntity user = this.userService.getUserByUsername(username);
         Order order = this.mapOrderMovieDtoToOrder(createOrder, user);
 
+        this.ticketService.saveTicketsForOrder(order);
+
         this.orderRepository.save(order);
+
     }
 
     @Override
-    public OrderMovieDto getUnfinishedOrderByUser(String username) {
-        UserEntity user = this.userService.getUserByUsername(username);
-
-        Order order = user.getOrders()
-                .stream()
-                .filter(ord -> !ord.isFinished())
-                .findFirst()
-                .orElseThrow(() -> new ObjectNotFoundException(ORDER_NOT_FOUND));
-
+    public OrderMovieDto getOrderDtoById(long id) {
+        Order order = this.getOrderById(id);
         return this.mapOrderToOrderDto(order);
     }
 
-    @Override
-    public OrderMovieDto getOrderMovieById(long orderId) {
-        Order order = this.getOrderById(orderId);
-        return this.mapOrderToOrderDto(order);
-    }
 
     /**
      * This method start every day at 00:00h by dint of Scheduling and cron!
      * Check for not finished orders in all DB and delete them!
      */
-    @Override
-    @Scheduled(cron = "0 0 0 * * *")
-    public void deleteAllNotFinishedOrders() {
-        List<Order> notFinishedOrders = this.orderRepository.findAll();
-        notFinishedOrders.stream()
-                .filter(order -> !order.isFinished())
-                .forEach(order -> {
-                    this.orderRepository.deleteById(order.getId());
-                });
-    }
 
-    @Override
-    public int getCountOfTicketsByOrderId(long orderId) {
-        Order order = this.getOrderById(orderId);
-        return order.getChildQuantity()
-                + order.getStudentQuantity()
-                + order.getRegularQuantity()
-                + order.getOverSixtyQuantity();
-    }
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void deleteAllNotFinishedOrders() {
+//        List<Order> notFinishedOrders = this.orderRepository.findAll();
+//        notFinishedOrders.stream()
+//                .filter(order -> !order.isFinished())
+//                .forEach(order -> {
+//                    this.orderRepository.deleteById(order.getId());
+//                });
+//    }
 
     private OrderMovieDto mapOrderToOrderDto(Order order) {
         UserViewDto userViewDto = this.mapUserToUserViewDto(order.getUser());
@@ -141,6 +124,7 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setStudentQuantity(createOrder.getStudentQuantity());
         newOrder.setTotalPrice(createOrder.getTotalPrice());
         newOrder.setBookingTime(createOrder.getBookingTime());
+        newOrder.setTickets(createOrder.getTickets());
 
         newOrder.setFinished(isCompleteOrder(newOrder));
 
@@ -154,6 +138,7 @@ public class OrderServiceImpl implements OrderService {
                 order.getProjectionDate() != null &&
                 order.getCity() != null &&
                 order.getTotalPrice() > 0 &&
+                !order.getTickets().isEmpty() &&
                 (order.getChildQuantity() > 0 ||
                         order.getOverSixtyQuantity() > 0 ||
                         order.getRegularQuantity() > 0 ||

@@ -1,6 +1,5 @@
 package bg.softuni.mycinematicketsapp.models.dtos.view;
 
-import bg.softuni.mycinematicketsapp.models.enums.HallNumber;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,7 +8,7 @@ import java.time.LocalDate;
 public class TicketViewDto {
     private long id;
     private String movieName;
-    private HallNumber hallNumber;
+    private String hallNumber;
     @NotNull
     private Integer numberOfSeat;
     @NotNull
@@ -18,7 +17,7 @@ public class TicketViewDto {
     private LocalDate projectionDate;
     private TicketType ticketType;
     private String bookingTime;
-    private String city;
+    private String cityName;
     private String movieClassDescription;
 
     public long getId() {
@@ -39,11 +38,11 @@ public class TicketViewDto {
         return this;
     }
 
-    public HallNumber getHallNumber() {
+    public String getHallNumber() {
         return hallNumber;
     }
 
-    public TicketViewDto setHallNumber(HallNumber hallNumber) {
+    public TicketViewDto setHallNumber(String hallNumber) {
         this.hallNumber = hallNumber;
         return this;
     }
@@ -102,12 +101,12 @@ public class TicketViewDto {
         return this;
     }
 
-    public String getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public TicketViewDto setCity(String city) {
-        this.city = city;
+    public TicketViewDto setCityName(String cityName) {
+        this.cityName = cityName;
         return this;
     }
 
