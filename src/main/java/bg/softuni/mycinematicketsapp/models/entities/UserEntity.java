@@ -35,7 +35,7 @@ public class UserEntity extends BaseEntity {
     private String imageUrl;
     @Column(name = "activation_token")
     private String activationToken;
-    @OneToMany(mappedBy = "user")
+    @OneToMany
     private List<Ticket> tickets;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

@@ -33,9 +33,8 @@ public class Ticket extends BaseEntity {
     private CityName location;
     @Column(name ="is_finished")
     private boolean isFinished;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column(name = "user_id")
+    private long userId;
 
     public String getMovieName() {
         return movieName;
@@ -136,12 +135,12 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public long getUserId() {
+        return userId;
     }
 
-    public Ticket setUser(UserEntity user) {
-        this.user = user;
+    public Ticket setUserId(long userId) {
+        this.userId = userId;
         return this;
     }
 }

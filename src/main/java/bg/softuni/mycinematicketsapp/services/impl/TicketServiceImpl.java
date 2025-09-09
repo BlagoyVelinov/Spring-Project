@@ -29,6 +29,8 @@ public class TicketServiceImpl implements TicketService {
     public void saveTicketsForOrder(Order order) {
         List<Ticket> tickets = order.getTickets();
 
+        tickets.forEach(ticket -> ticket.setUserId(order.getUser().getId()));
+
         this.ticketRepository.saveAll(tickets);
     }
 
@@ -78,6 +80,7 @@ public class TicketServiceImpl implements TicketService {
         TicketViewDto ticketDto = this.modelMapper.map(ticket, TicketViewDto.class);
 
         ticketDto.setCityName(ticket.getLocation().name());
+        ticketDto.setUserId(ticket.getUserId());
 
         return ticketDto;
     }
