@@ -37,12 +37,23 @@ public class TicketController {
 
     @GetMapping("/expired-tickets/user/{id}")
     public ResponseEntity<List<TicketViewDto>> getExpiredTicketsByUser(@PathVariable long id,
-                                                                        Authentication authentication) {
+                                                                       Authentication authentication) {
 
         securityService.validateCurrentUser(id, authentication);
 
         List<TicketViewDto> expiredTickets = ticketService.getExpiredTickets(id);
 
         return ResponseEntity.ok(expiredTickets);
+    }
+
+    @GetMapping("/ticket/{id}")
+    public ResponseEntity<TicketViewDto> getTicketById(@PathVariable long id,
+                                                       Authentication authentication) {
+
+        securityService.validateUserForTicket(id, authentication);
+
+        TicketViewDto ticketDto = ticketService.getTicketDto(id);
+
+        return ResponseEntity.ok(ticketDto);
     }
 }

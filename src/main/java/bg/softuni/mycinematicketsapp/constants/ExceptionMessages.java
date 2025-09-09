@@ -15,4 +15,8 @@ public class ExceptionMessages {
 
 
     public static final String CITY_NOT_FOUND = "City with Id: %d not exist!";
+
+
+    public static final String TICKET_NOT_FOUND = "Ticket with Id: %d not found!";
+    public static final String TICKET_ACCESS_DENIED = "You can't access this ticket!";
 }

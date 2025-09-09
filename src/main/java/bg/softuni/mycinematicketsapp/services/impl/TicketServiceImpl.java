@@ -1,12 +1,12 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
-import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.repository.TicketRepository;
 import bg.softuni.mycinematicketsapp.services.TicketService;
-import bg.softuni.mycinematicketsapp.services.UserService;
+import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,19 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
-    private final UserService userService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository, UserService userService, ModelMapper modelMapper) {
+    public TicketServiceImpl(TicketRepository ticketRepository, ModelMapper modelMapper) {
         this.ticketRepository = ticketRepository;
-        this.userService = userService;
         this.modelMapper = modelMapper;
-    }
-
-    @Override
-    public List<TicketViewDto> getCurrentTickets() {
-        return null;
     }
 
     @Override
@@ -39,11 +32,11 @@ public class TicketServiceImpl implements TicketService {
         this.ticketRepository.saveAll(tickets);
     }
 
+
     @Override
     public List<TicketViewDto> getUpcomingTickets(long userId) {
-        UserEntity user = this.userService.getUserById(userId);
 
-        List<Ticket> userTickets = user.getTickets()
+        List<Ticket> userTickets = this.ticketRepository.findAllByUserId(userId)
                 .stream()
                 .filter(ticket -> !ticket.isFinished())
                 .toList();
@@ -55,9 +48,8 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketViewDto> getExpiredTickets(long userId) {
-        UserEntity user = this.userService.getUserById(userId);
 
-        List<Ticket> userTickets = user.getTickets()
+        List<Ticket> userTickets = this.ticketRepository.findAllByUserId(userId)
                 .stream()
                 .filter(Ticket::isFinished)
                 .toList();
@@ -67,7 +59,26 @@ public class TicketServiceImpl implements TicketService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Ticket getTicket(long ticketId) {
+        return this.ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ObjectNotFoundException(String.format(
+                        ExceptionMessages.TICKET_NOT_FOUND, ticketId)
+                ));
+    }
+
+    @Override
+    public TicketViewDto getTicketDto(long ticketId) {
+        Ticket ticket = this.getTicket(ticketId);
+
+        return this.mapTicketToTicketViewDto(ticket);
+    }
+
     private TicketViewDto mapTicketToTicketViewDto(Ticket ticket) {
-        return this.modelMapper.map(ticket, TicketViewDto.class);
+        TicketViewDto ticketDto = this.modelMapper.map(ticket, TicketViewDto.class);
+
+        ticketDto.setCityName(ticket.getLocation().name());
+
+        return ticketDto;
     }
 }

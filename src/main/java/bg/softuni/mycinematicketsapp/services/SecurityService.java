@@ -5,4 +5,5 @@ import org.springframework.security.core.Authentication;
 public interface SecurityService {
 
     void validateCurrentUser(long userId, Authentication authentication);
+    void validateUserForTicket(long ticketId, Authentication authentication);
 }

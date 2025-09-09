@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public class TicketViewDto {
     private long id;
+    private long userId;
     private String movieName;
     private String hallNumber;
     @NotNull
@@ -19,6 +20,7 @@ public class TicketViewDto {
     private String bookingTime;
     private String cityName;
     private String movieClassDescription;
+    private boolean isFinished;
 
     public long getId() {
         return id;
@@ -26,6 +28,15 @@ public class TicketViewDto {
 
     public TicketViewDto setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public TicketViewDto setUserId(long userId) {
+        this.userId = userId;
         return this;
     }
 
@@ -116,6 +127,15 @@ public class TicketViewDto {
 
     public TicketViewDto setMovieClassDescription(String movieClassDescription) {
         this.movieClassDescription = movieClassDescription;
+        return this;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public TicketViewDto setFinished(boolean finished) {
+        isFinished = finished;
         return this;
     }
 }
