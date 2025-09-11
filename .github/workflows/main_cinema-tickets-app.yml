@@ -63,7 +63,10 @@ jobs:
           app-name: 'cinema-tickets-app'
           slot-name: 'Production'
           package: 'app.jar'
+          type: jar
 
           
+
+
 
 
