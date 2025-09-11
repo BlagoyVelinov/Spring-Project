@@ -51,6 +51,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
+          
+      - name: List downloaded artifact folder
+        run: ls -R java-app
 
       - name: Move JAR to root for easy deploy
         run: |
@@ -73,6 +76,7 @@ jobs:
           slot-name: 'Production'
           package: 'deploy/app.jar'
           
+
 
 
 
