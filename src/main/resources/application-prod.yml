@@ -21,6 +21,20 @@ spring:
   application:
     name: CinemaTicketsAPI
 
+  mail:
+    host: in-v3.mailjet.com
+    port: 587
+    username: ${MY_PUBLIC_KEY}
+    password: ${MY_SECRET_KEY}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mail:
+  cinema_tickets: ${MAIL_SENDER}
+
 server:
   port: ${PORT:8080}
   address: 0.0.0.0
