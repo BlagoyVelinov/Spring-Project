@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${AZURE_MYSQL_CONNECTIONSTRING}
+    url: jdbc:mysql://${DB_HOST}:3306/${DB_NAME}?useSSL=true&requireSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
