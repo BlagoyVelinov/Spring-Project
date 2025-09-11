@@ -62,8 +62,9 @@ jobs:
         with:
           app-name: 'cinema-tickets-app'
           slot-name: 'Production'
-          package: 'build/libs/*.jar'
+          package: './java-app/*.jar'
           
+
 
 
 
