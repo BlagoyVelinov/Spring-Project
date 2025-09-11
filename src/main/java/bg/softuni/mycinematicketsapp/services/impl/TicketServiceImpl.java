@@ -38,7 +38,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketViewDto> getUpcomingTickets(long userId) {
 
-        List<Ticket> userTickets = this.ticketRepository.findAllByUserId(userId)
+        List<Ticket> userTickets = this.ticketRepository.findAllByUserIdOrderByProjectionDate(userId)
                 .stream()
                 .filter(ticket -> !ticket.isFinished())
                 .toList();
@@ -51,7 +51,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketViewDto> getExpiredTickets(long userId) {
 
-        List<Ticket> userTickets = this.ticketRepository.findAllByUserId(userId)
+        List<Ticket> userTickets = this.ticketRepository.findAllByUserIdOrderByProjectionDate(userId)
                 .stream()
                 .filter(Ticket::isFinished)
                 .toList();
