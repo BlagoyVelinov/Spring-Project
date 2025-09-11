@@ -12,7 +12,6 @@ import bg.softuni.mycinematicketsapp.services.OrderService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -57,22 +56,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = this.getOrderById(id);
         return this.mapOrderToOrderDto(order);
     }
-
-
-    /**
-     * This method start every day at 00:00h by dint of Scheduling and cron!
-     * Check for not finished orders in all DB and delete them!
-     */
-
-//    @Scheduled(cron = "0 0 0 * * *")
-//    public void deleteAllNotFinishedOrders() {
-//        List<Order> notFinishedOrders = this.orderRepository.findAll();
-//        notFinishedOrders.stream()
-//                .filter(order -> !order.isFinished())
-//                .forEach(order -> {
-//                    this.orderRepository.deleteById(order.getId());
-//                });
-//    }
 
     private OrderMovieDto mapOrderToOrderDto(Order order) {
         UserViewDto userViewDto = this.mapUserToUserViewDto(order.getUser());

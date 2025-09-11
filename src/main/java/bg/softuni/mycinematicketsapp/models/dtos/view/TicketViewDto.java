@@ -1,9 +1,11 @@
 package bg.softuni.mycinematicketsapp.models.dtos.view;
 
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class TicketViewDto {
     private long id;
@@ -17,7 +19,8 @@ public class TicketViewDto {
     private Double price;
     private LocalDate projectionDate;
     private TicketType ticketType;
-    private String bookingTime;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime bookingTime;
     private String cityName;
     private String movieClassDescription;
     private boolean isFinished;
@@ -103,11 +106,11 @@ public class TicketViewDto {
         return this;
     }
 
-    public String getBookingTime() {
+    public LocalTime getBookingTime() {
         return bookingTime;
     }
 
-    public TicketViewDto setBookingTime(String bookingTime) {
+    public TicketViewDto setBookingTime(LocalTime bookingTime) {
         this.bookingTime = bookingTime;
         return this;
     }

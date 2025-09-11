@@ -9,8 +9,10 @@ import bg.softuni.mycinematicketsapp.services.TicketService;
 import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,10 +40,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketViewDto> getUpcomingTickets(long userId) {
 
-        List<Ticket> userTickets = this.ticketRepository.findAllByUserIdOrderByProjectionDate(userId)
-                .stream()
-                .filter(ticket -> !ticket.isFinished())
-                .toList();
+        List<Ticket> userTickets = this.ticketRepository.findAllByUserIdAndFinishedIsFalseOrderByProjectionDate(userId);
 
         return userTickets.stream()
                 .map(this::mapTicketToTicketViewDto)
@@ -51,10 +50,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketViewDto> getExpiredTickets(long userId) {
 
-        List<Ticket> userTickets = this.ticketRepository.findAllByUserIdOrderByProjectionDate(userId)
-                .stream()
-                .filter(Ticket::isFinished)
-                .toList();
+        List<Ticket> userTickets = this.ticketRepository.findAllByUserIdAndFinishedIsTrueOrderByProjectionDate(userId);
 
         return userTickets.stream()
                 .map(this::mapTicketToTicketViewDto)
@@ -83,5 +79,17 @@ public class TicketServiceImpl implements TicketService {
         ticketDto.setUserId(ticket.getUserId());
 
         return ticketDto;
+    }
+
+    /**
+     * This method start every hour by dint of Scheduling and cron!
+     * Check for expired tickets in all not finished tickets and set them of finish!
+     */
+
+    @Scheduled(cron = "0 0 * * * *")
+    public void updateFinishedTickets() {
+        LocalTime nowTime = LocalTime.now();
+        int updated = ticketRepository.markFinishedTickets(nowTime);
+        System.out.println("Updated tickets: " + updated);
     }
 }

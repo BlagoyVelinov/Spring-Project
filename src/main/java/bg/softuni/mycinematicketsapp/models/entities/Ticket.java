@@ -2,9 +2,11 @@ package bg.softuni.mycinematicketsapp.models.entities;
 
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.models.enums.TicketType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "tickets")
@@ -25,14 +27,15 @@ public class Ticket extends BaseEntity {
     @Column
     private String movieClassDescription;
     @Column(name = "booking_time")
-    private String bookingTime;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime bookingTime;
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
     @Enumerated(EnumType.STRING)
     @Column(name = "city_name")
     private CityName location;
     @Column(name ="is_finished")
-    private boolean isFinished;
+    private boolean finished;
     @Column(name = "user_id")
     private long userId;
 
@@ -99,11 +102,11 @@ public class Ticket extends BaseEntity {
         return this;
     }
 
-    public String getBookingTime() {
+    public LocalTime getBookingTime() {
         return bookingTime;
     }
 
-    public Ticket setBookingTime(String bookingTime) {
+    public Ticket setBookingTime(LocalTime bookingTime) {
         this.bookingTime = bookingTime;
         return this;
     }
@@ -127,11 +130,11 @@ public class Ticket extends BaseEntity {
     }
 
     public boolean isFinished() {
-        return isFinished;
+        return finished;
     }
 
     public Ticket setFinished(boolean finished) {
-        isFinished = finished;
+        this.finished = finished;
         return this;
     }
 
