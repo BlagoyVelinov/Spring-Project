@@ -23,9 +23,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'microsoft'
+      
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x gradlew 
 
-      - name: Build with Maven
-        run: mvn clean install
+      - name: Build with Gradle
+        run: ./gradlew clean bootJar -x test
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -60,4 +63,5 @@ jobs:
           app-name: 'cinema-tickets-app'
           slot-name: 'Production'
           package: '*.jar'
+
           
