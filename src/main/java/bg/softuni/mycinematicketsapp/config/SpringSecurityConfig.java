@@ -64,7 +64,8 @@ public class SpringSecurityConfig {
                                 "/api/offers/offer/*",
                                 "/api/users/login",
                                 "/api/users/register",
-                                "/api/users/activate"
+                                "/api/users/activate",
+                                "/api/contact"
                         ).permitAll()
                                 .requestMatchers(
                                         "/api/users/all-users",

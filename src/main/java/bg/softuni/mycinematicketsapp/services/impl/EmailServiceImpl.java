@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.models.dtos.requests.ContactRequest;
 import bg.softuni.mycinematicketsapp.services.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -16,6 +17,9 @@ public class EmailServiceImpl implements EmailService {
     private final TemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
     private final String cinemaTicketEmail;
+
+    @Value("${mail.cinema_tickets}")
+    private String cinemaTicketsEmail;
 
     @Autowired
     public EmailServiceImpl(TemplateEngine templateEngine, JavaMailSender javaMailSender,
@@ -44,6 +48,21 @@ public class EmailServiceImpl implements EmailService {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void sendContactMessage(ContactRequest request) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom(cinemaTicketsEmail);
+        helper.setTo(cinemaTicketsEmail);
+        helper.setSubject(request.getSubject());
+
+        String body = "Reply-To: " + request.getFrom() + "\n\n" + request.getMessage();
+        helper.setText(body);
+
+        javaMailSender.send(message);
     }
 
     private String generateRegistrationEmailBody(String username, String token) {
