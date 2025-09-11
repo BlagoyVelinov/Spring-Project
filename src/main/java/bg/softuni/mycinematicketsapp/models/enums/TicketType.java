@@ -2,10 +2,10 @@ package bg.softuni.mycinematicketsapp.models.enums;
 
 public enum TicketType {
 
-    CHILDREN_UNDER_16("Children under 16", 10.50),
-    PUPILS_AND_STUDENTS("Pupils and Students", 12.50),
-    PERSONS_OVER_60("People Over 60", 11.50),
-    REGULAR("Regular", 15.50);
+    CHILDREN_UNDER_16("Children under 16", 5.37),
+    PUPILS_AND_STUDENTS("Pupils and Students", 6.39),
+    PERSONS_OVER_60("People Over 60", 5.88),
+    REGULAR("Regular", 7.92);
 
 
     private String value;
