@@ -53,7 +53,7 @@ jobs:
           name: java-app
           
       - name: List downloaded artifact folder
-        run: ls -R java-app
+        run: ls -R
 
       - name: Move JAR to root for easy deploy
         run: |
@@ -74,8 +74,9 @@ jobs:
         with:
           app-name: 'cinema-tickets-app'
           slot-name: 'Production'
-          package: 'deploy/app.jar'
+          package: '*.jar'
           
+
 
 
 
