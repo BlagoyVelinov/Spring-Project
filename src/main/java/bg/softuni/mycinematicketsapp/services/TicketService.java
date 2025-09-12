@@ -15,4 +15,6 @@ public interface TicketService {
 
     Ticket getTicket(long ticketId);
     TicketViewDto getTicketDto(long ticketId);
+
+    void updateFinishedTickets(long id);
 }

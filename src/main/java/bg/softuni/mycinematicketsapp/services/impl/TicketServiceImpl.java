@@ -72,6 +72,15 @@ public class TicketServiceImpl implements TicketService {
         return this.mapTicketToTicketViewDto(ticket);
     }
 
+    @Override
+    public void updateFinishedTickets(long id) {
+        Ticket ticket = getTicket(id);
+
+        ticket.setFinished(true);
+
+        this.ticketRepository.save(ticket);
+    }
+
     private TicketViewDto mapTicketToTicketViewDto(Ticket ticket) {
         TicketViewDto ticketDto = this.modelMapper.map(ticket, TicketViewDto.class);
 
@@ -86,7 +95,7 @@ public class TicketServiceImpl implements TicketService {
      * Check for expired tickets in all not finished tickets and set them of finish!
      */
 
-    @Scheduled(cron = "0 0 * * * *")
+//    @Scheduled(cron = "0 0 * * * *")
     public void updateFinishedTickets() {
         LocalTime nowTime = LocalTime.now();
         int updated = ticketRepository.markFinishedTickets(nowTime);

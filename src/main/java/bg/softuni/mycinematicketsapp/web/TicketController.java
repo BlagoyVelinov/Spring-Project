@@ -5,12 +5,10 @@ import bg.softuni.mycinematicketsapp.services.SecurityService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tickets")
@@ -55,5 +53,16 @@ public class TicketController {
         TicketViewDto ticketDto = ticketService.getTicketDto(id);
 
         return ResponseEntity.ok(ticketDto);
+    }
+
+    @PutMapping("/ticket-update/{id}")
+    public ResponseEntity<?> updateTicketById(@PathVariable long id,
+                                                       Authentication authentication) {
+
+        securityService.validateUserForTicket(id, authentication);
+
+        ticketService.updateFinishedTickets(id);
+
+        return ResponseEntity.ok(Map.of("message", "Ticket updates successfully"));
     }
 }
