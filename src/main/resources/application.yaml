@@ -57,3 +57,6 @@ mail:
 jwt:
   secret: ${JWT_SECRET:ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars}
   expiration: 604800000
+
+app:
+  activation_base_url: ${ACTIVATION_BASE_URL}

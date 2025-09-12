@@ -44,3 +44,6 @@ management:
   endpoint:
     health:
       show-details: never
+
+app:
+  activation_base_url: ${ACTIVATION_BASE_URL}

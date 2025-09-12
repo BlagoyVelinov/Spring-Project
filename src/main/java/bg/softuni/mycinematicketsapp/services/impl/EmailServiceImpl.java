@@ -21,12 +21,17 @@ public class EmailServiceImpl implements EmailService {
     @Value("${mail.cinema_tickets}")
     private String cinemaTicketsEmail;
 
+    @Value("${app.activation_base_url}")
+    private final String activationBaseUrl;
+
     @Autowired
     public EmailServiceImpl(TemplateEngine templateEngine, JavaMailSender javaMailSender,
-                        @Value("${mail.cinema_tickets}") String cinemaTicketEmail) {
+                            @Value("${mail.cinema_tickets}") String cinemaTicketEmail,
+                            @Value("${app.activation_base_url}")String activationBaseUrl) {
         this.templateEngine = templateEngine;
         this.javaMailSender = javaMailSender;
         this.cinemaTicketEmail = cinemaTicketEmail;
+        this.activationBaseUrl = activationBaseUrl;
     }
 
     @Override
@@ -69,7 +74,7 @@ public class EmailServiceImpl implements EmailService {
         Context context = new Context();
         context.setVariable("username", username);
 
-        context.setVariable("activationLink", "http://localhost:8080/api/users/activate?token=" + token);
+        context.setVariable("activationLink", activationBaseUrl + "?token=" + token);
 
         return this.templateEngine.process("email/registration-email", context);
     }
