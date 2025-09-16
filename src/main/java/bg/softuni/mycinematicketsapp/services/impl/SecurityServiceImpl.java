@@ -4,6 +4,7 @@ import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
 import bg.softuni.mycinematicketsapp.services.SecurityService;
+import bg.softuni.mycinematicketsapp.services.TicketService;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class SecurityServiceImpl implements SecurityService {
 
     private final UserService userService;
+    private final TicketService ticketService;
 
-    public SecurityServiceImpl(UserService userService) {
+    public SecurityServiceImpl(UserService userService, TicketService ticketService) {
         this.userService = userService;
+        this.ticketService = ticketService;
     }
 
 
@@ -52,7 +55,7 @@ public class SecurityServiceImpl implements SecurityService {
                         .equals(UserRoleEnum.ADMINISTRATOR.name()));
 
         if (!isAdmin) {
-            currentUser.getTickets().stream()
+            ticketService.getAllTicketsByUser(currentUser.getId()).stream()
                     .filter(t -> t.getId() == ticketId)
                     .findFirst()
                     .orElseThrow(() -> new ResponseStatusException(

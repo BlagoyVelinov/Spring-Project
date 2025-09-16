@@ -10,7 +10,7 @@ public class AddOfferDto {
 
     @NotEmpty
     @UniqueOfferName(message = "Offer with this name already exist!")
-    @Size(min = 5, max = 20, message = "Offer title length must be between 5 and 20 characters!")
+    @Size(min = 5, max = 100, message = "Offer title length must be between 5 and 20 characters!")
     private String title;
     @NotEmpty
     @Size(min = 5, max = 2000, message = "Description length must be between 5 and 2000 characters!")

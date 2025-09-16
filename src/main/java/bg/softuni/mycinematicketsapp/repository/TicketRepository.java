@@ -14,6 +14,8 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
+    List<Ticket> findAllByUserId(long userId);
+
     List<Ticket> findAllByUserIdAndFinishedIsFalseOrderByProjectionDate(long userId);
 
     List<Ticket> findAllByUserIdAndFinishedIsTrueOrderByProjectionDate(long userId);
@@ -26,4 +28,15 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             "AND (t.projectionDate < CURRENT_DATE " +
             "OR (t.projectionDate = CURRENT_DATE AND t.bookingTime <= :currentTime))")
     int markFinishedTickets(@Param("currentTime") LocalTime currentTime);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM orders_tickets WHERE ticket_id = :ticketId", nativeQuery = true)
+    int deleteRelationOrderTicket(@Param("ticketId") long ticketId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Ticket WHERE id = :ticketId AND finished = true")
+    int deleteTicketById(@Param("ticketId") long ticketId);
+
 }

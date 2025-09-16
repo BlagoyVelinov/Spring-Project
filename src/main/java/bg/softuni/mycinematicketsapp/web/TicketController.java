@@ -55,14 +55,14 @@ public class TicketController {
         return ResponseEntity.ok(ticketDto);
     }
 
-    @PutMapping("/ticket-update/{id}")
-    public ResponseEntity<?> updateTicketById(@PathVariable long id,
+    @DeleteMapping("/ticket-delete/{id}")
+    public ResponseEntity<?> deleteTicketById(@PathVariable long id,
                                                        Authentication authentication) {
 
         securityService.validateUserForTicket(id, authentication);
 
-        ticketService.updateFinishedTickets(id);
+        String response = ticketService.deleteFinishedTicket(id);
 
-        return ResponseEntity.ok(Map.of("message", "Ticket updates successfully"));
+        return ResponseEntity.ok(Map.of("message", response));
     }
 }

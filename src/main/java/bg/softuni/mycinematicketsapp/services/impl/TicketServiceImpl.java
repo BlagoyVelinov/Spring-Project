@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
@@ -34,6 +35,11 @@ public class TicketServiceImpl implements TicketService {
         tickets.forEach(ticket -> ticket.setUserId(order.getUser().getId()));
 
         this.ticketRepository.saveAll(tickets);
+    }
+
+    @Override
+    public List<Ticket> getAllTicketsByUser(long userId) {
+        return this.ticketRepository.findAllByUserId(userId);
     }
 
 
@@ -73,12 +79,25 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void updateFinishedTickets(long id) {
-        Ticket ticket = getTicket(id);
+    public String deleteFinishedTicket(long ticketId) {
+        this.ticketRepository.deleteRelationOrderTicket(ticketId);
+        int deletedTickets = this.ticketRepository.deleteTicketById(ticketId);
 
-        ticket.setFinished(true);
+        if (deletedTickets > 0) {
+            return String.format(Constant.SUCCESSFULLY_DELETED_TICKET, ticketId);
+        }
+        return String.format(ExceptionMessages.DELETE_TICKET_FAILED, ticketId);
+    }
 
-        this.ticketRepository.save(ticket);
+    /**
+     * This method start every day by dint of Scheduling and cron!
+     * Check for expired tickets in all not finished tickets and set them of finish!
+     */
+    @Scheduled(cron = "0 0 0 * * *")
+    public void updateFinishedTickets() {
+        LocalTime nowTime = LocalTime.now();
+        int updated = ticketRepository.markFinishedTickets(nowTime);
+        System.out.println("Updated tickets: " + updated);
     }
 
     private TicketViewDto mapTicketToTicketViewDto(Ticket ticket) {
@@ -88,17 +107,5 @@ public class TicketServiceImpl implements TicketService {
         ticketDto.setUserId(ticket.getUserId());
 
         return ticketDto;
-    }
-
-    /**
-     * This method start every hour by dint of Scheduling and cron!
-     * Check for expired tickets in all not finished tickets and set them of finish!
-     */
-
-//    @Scheduled(cron = "0 0 * * * *")
-    public void updateFinishedTickets() {
-        LocalTime nowTime = LocalTime.now();
-        int updated = ticketRepository.markFinishedTickets(nowTime);
-        System.out.println("Updated tickets: " + updated);
     }
 }

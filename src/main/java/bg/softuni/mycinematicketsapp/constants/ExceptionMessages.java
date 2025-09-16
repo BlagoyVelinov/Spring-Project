@@ -2,7 +2,6 @@ package bg.softuni.mycinematicketsapp.constants;
 
 public class ExceptionMessages {
     public static final String OFFER_NOT_FOUND = "Offer is not found";
-    public static final String ORDER_NOT_FOUND = "Order is not found!";
     public static final String ORDER_NOT_EXIST = "Order with Id: %d not exist!";
 
 
@@ -19,4 +18,5 @@ public class ExceptionMessages {
 
     public static final String TICKET_NOT_FOUND = "Ticket with Id: %d not found!";
     public static final String TICKET_ACCESS_DENIED = "You can't access this ticket!";
+    public static final String DELETE_TICKET_FAILED = "Can not delete ticket with ID: %d";
 }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface TicketService {
     void saveTicketsForOrder(Order order);
 
+    List<Ticket> getAllTicketsByUser(long userId);
+
     List<TicketViewDto> getUpcomingTickets(long userId);
 
     List<TicketViewDto> getExpiredTickets(long userId);
@@ -16,5 +18,5 @@ public interface TicketService {
     Ticket getTicket(long ticketId);
     TicketViewDto getTicketDto(long ticketId);
 
-    void updateFinishedTickets(long id);
+    String deleteFinishedTicket(long ticketId);
 }
