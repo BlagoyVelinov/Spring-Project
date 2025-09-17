@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.requests.ContactRequest;
 import bg.softuni.mycinematicketsapp.services.EmailService;
 import jakarta.mail.MessagingException;
@@ -44,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo(userEmail);
             mimeMessageHelper.setFrom(this.cinemaTicketEmail);
             mimeMessageHelper.setReplyTo(this.cinemaTicketEmail);
-            mimeMessageHelper.setSubject("Welcome to Cinema Tickets!");
+            mimeMessageHelper.setSubject(Constant.EMAIL_WELCOME);
             mimeMessageHelper.setText(generateRegistrationEmailBody(username, token), true);
 
 
@@ -72,10 +73,10 @@ public class EmailServiceImpl implements EmailService {
 
     private String generateRegistrationEmailBody(String username, String token) {
         Context context = new Context();
-        context.setVariable("username", username);
+        context.setVariable(Constant.USERNAME, username);
 
-        context.setVariable("activationLink", activationBaseUrl + "?token=" + token);
+        context.setVariable(Constant.ACTIVATION_LINK, activationBaseUrl + "?token=" + token);
 
-        return this.templateEngine.process("email/registration-email", context);
+        return this.templateEngine.process(Constant.EMAIL_TEMPLATE, context);
     }
 }

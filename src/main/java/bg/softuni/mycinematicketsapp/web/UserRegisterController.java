@@ -1,9 +1,10 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
-import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,17 +15,19 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserRegisterController {
 
     private final UserService userService;
-
+    @Value("${app.redirect_login_uri}")
+    private final String redirectUri;
     @Autowired
-    public UserRegisterController(UserService userService) {
+    public UserRegisterController(UserService userService,
+                                  @Value("${app.redirect_login_uri}") String redirectUri) {
         this.userService = userService;
+        this.redirectUri = redirectUri;
     }
 
     @PostMapping("/register")
@@ -32,13 +35,13 @@ public class UserRegisterController {
                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "errors", bindingResult.getAllErrors()
+                    Constant.ERROR, bindingResult.getAllErrors()
             ));
         }
 
         userService.registerUser(registerDto);
 
-        return ResponseEntity.ok(Map.of("message", "User registered successfully"));
+        return ResponseEntity.ok(Map.of(Constant.MESSAGE, Constant.SUCCESS_SIGNUP_USER));
     }
 
     @GetMapping("/activate")
@@ -46,9 +49,9 @@ public class UserRegisterController {
         try {
             userService.activateUserByToken(token);
 
-            URI redirectUri = URI.create("http://localhost:5173/users/login");
+            URI redirectedUri = URI.create(this.redirectUri);
 
-            return ResponseEntity.status(HttpStatus.FOUND).location(redirectUri).build();
+            return ResponseEntity.status(HttpStatus.FOUND).location(redirectedUri).build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -57,12 +60,12 @@ public class UserRegisterController {
     @GetMapping("/session")
     public ResponseEntity<?> getSessionUser(Principal principal) {
         if (principal == null) {
-            return ResponseEntity.ok(Map.of("isAuthenticated", false));
+            return ResponseEntity.ok(Map.of(Constant.IS_AUTHENTICATED, false));
         }
 
         return ResponseEntity.ok(Map.of(
-                "isAuthenticated", true,
-                "username", principal.getName()
+                Constant.IS_AUTHENTICATED, true,
+                Constant.USERNAME, principal.getName()
         ));
     }
 }

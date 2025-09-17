@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services.exception;
 
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,7 +24,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGenericException(Exception ex) {
-        return ResponseEntity.status(500).body("Internal Server Error: " + ex.getMessage());
+        return ResponseEntity.status(500).body(ExceptionMessages.SERVER_ERROR + ex.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

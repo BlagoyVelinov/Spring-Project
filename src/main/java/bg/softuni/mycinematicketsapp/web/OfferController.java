@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.AddOfferDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.OfferViewDto;
 import bg.softuni.mycinematicketsapp.services.OfferService;
@@ -46,10 +47,10 @@ public class OfferController {
     public ResponseEntity<?> addOffer(@Valid @RequestBody AddOfferDto createOffer,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(Map.of("errors", bindingResult.getAllErrors()));
+            return ResponseEntity.badRequest().body(Map.of(Constant.ERROR, bindingResult.getAllErrors()));
         }
         this.offerService.createOffer(createOffer);
-        return ResponseEntity.status(201).body(Map.of("message", "Offer created successfully"));
+        return ResponseEntity.status(201).body(Map.of(Constant.MESSAGE, Constant.SUCCESS_CREATED_OFFER));
     }
 
     @PutMapping("/edit-offer/{id}")
@@ -62,6 +63,6 @@ public class OfferController {
     @DeleteMapping("/delete-offer/{id}")
     public ResponseEntity<?> deleteOffer(@PathVariable("id") long id) {
         this.offerService.deleteOffer(id);
-        return ResponseEntity.ok(Map.of("message", "Offer deleted successfully"));
+        return ResponseEntity.ok(Map.of(Constant.MESSAGE, Constant.SUCCESS_DELETED_OFFER));
     }
 }
