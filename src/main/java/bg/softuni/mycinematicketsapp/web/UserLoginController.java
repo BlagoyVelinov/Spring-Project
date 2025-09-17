@@ -1,6 +1,7 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.config.SecurityUserDetails;
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.helpers.LoginRequest;
 import bg.softuni.mycinematicketsapp.models.dtos.helpers.LoginResponse;
 import bg.softuni.mycinematicketsapp.services.JwtService;
@@ -49,13 +50,13 @@ public class UserLoginController {
 
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("badCredentials", true));
+                    .body(Map.of(Constant.BAD_CREDENTIALS, true));
         }
 
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
-        return ResponseEntity.ok(Map.of("message", "Logout successful"));
+        return ResponseEntity.ok(Map.of(Constant.MESSAGE, Constant.SUCCESS_LOGOUT_USER));
     }
 }

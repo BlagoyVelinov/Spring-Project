@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.services;
 
+import bg.softuni.mycinematicketsapp.models.dtos.ChangePasswordDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
@@ -31,4 +32,6 @@ public interface UserService {
     void activateUserByToken(String token);
 
     boolean deactivateCurrentUserById(long id);
+
+    void updatePasswordByUserId(long userId, ChangePasswordDto changePasswordDto);
 }

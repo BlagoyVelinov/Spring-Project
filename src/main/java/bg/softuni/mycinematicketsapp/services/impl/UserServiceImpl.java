@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
+import bg.softuni.mycinematicketsapp.models.dtos.ChangePasswordDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
@@ -167,6 +168,24 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void updatePasswordByUserId(long userId, ChangePasswordDto changePasswordDto) {
+        UserEntity user = this.getUserById(userId);
+
+        if (!passwordEncoder.matches(changePasswordDto.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException(ExceptionMessages.INCORRECT_PASSWORD);
+        }
+
+        if (!changePasswordDto.getNewPassword().equals(changePasswordDto.getConfirmNewPassword())) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_MATCH_PASSWORDS);
+        }
+
+        String encodeNewPass = passwordEncoder.encode(changePasswordDto.getNewPassword());
+        user.setPassword(encodeNewPass);
+
+        userRepository.save(user);
     }
 
     @Override

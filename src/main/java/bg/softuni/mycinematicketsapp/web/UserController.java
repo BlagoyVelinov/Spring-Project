@@ -1,5 +1,8 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
+import bg.softuni.mycinematicketsapp.models.dtos.ChangePasswordDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
 import bg.softuni.mycinematicketsapp.services.SecurityService;
@@ -71,11 +74,27 @@ public class UserController {
         boolean isDeleted = userService.deactivateCurrentUserById(id);
 
         if (isDeleted) {
-            return ResponseEntity.ok(Map.of("message", "User deleted successfully"));
+            return ResponseEntity.ok(Map.of(Constant.MESSAGE, Constant.SUCCESS_DELETE_USER));
         } else {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("error", "User could not be deleted or is not active"));
+                    .body(Map.of(Constant.ERROR, ExceptionMessages.DELETE_USER_FAILED));
         }
+    }
+
+    @PostMapping("/change-password/{id}")
+    public ResponseEntity<?> changeUserPassword(@PathVariable long id,
+                                                @RequestBody ChangePasswordDto changePasswordDto,
+                                                Authentication authentication) {
+        securityService.validateCurrentUser(id, authentication);
+
+        try {
+            userService.updatePasswordByUserId(id, changePasswordDto);
+            return ResponseEntity.ok(Map.of(Constant.MESSAGE, Constant.SUCCESS_PASSWORD_UPDATE));
+        }catch (IllegalArgumentException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of(Constant.ERROR, exception.getMessage()));
+        }
+
     }
 }

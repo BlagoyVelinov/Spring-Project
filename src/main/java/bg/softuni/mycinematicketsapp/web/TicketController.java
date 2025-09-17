@@ -1,5 +1,6 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.services.SecurityService;
 import bg.softuni.mycinematicketsapp.services.TicketService;
@@ -63,6 +64,6 @@ public class TicketController {
 
         String response = ticketService.deleteFinishedTicket(id);
 
-        return ResponseEntity.ok(Map.of("message", response));
+        return ResponseEntity.ok(Map.of(Constant.MESSAGE, response));
     }
 }

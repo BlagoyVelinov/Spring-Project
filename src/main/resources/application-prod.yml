@@ -47,3 +47,4 @@ management:
 
 app:
   activation_base_url: ${ACTIVATION_BASE_URL}
+  redirect_login_uri: ${REDIRECT_URI}

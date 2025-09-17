@@ -1,5 +1,7 @@
 package bg.softuni.mycinematicketsapp.web;
 
+import bg.softuni.mycinematicketsapp.constants.Constant;
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.requests.ContactRequest;
 import bg.softuni.mycinematicketsapp.services.EmailService;
 import jakarta.mail.MessagingException;
@@ -24,9 +26,9 @@ public class ContactController {
         try {
             emailService.sendContactMessage(request);
 
-            return ResponseEntity.ok().body("Message sent successfully");
+            return ResponseEntity.ok().body(Constant.SUCCESS_SEND_MESSAGE);
         } catch (MessagingException e) {
-            return ResponseEntity.status(500).body("Failed to send message: " + e.getMessage());
+            return ResponseEntity.status(500).body(ExceptionMessages.SEND_MESSAGE_FAILED + e.getMessage());
         }
     }
 }
