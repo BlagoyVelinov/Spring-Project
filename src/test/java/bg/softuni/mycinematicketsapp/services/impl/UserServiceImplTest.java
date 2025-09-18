@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
 import bg.softuni.mycinematicketsapp.constants.ConstantTest;
+import bg.softuni.mycinematicketsapp.models.dtos.ChangePasswordDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserDetailsDto;
 import bg.softuni.mycinematicketsapp.models.dtos.UserRegisterDto;
 import bg.softuni.mycinematicketsapp.models.dtos.view.UserViewDto;
@@ -283,6 +284,62 @@ class UserServiceImplTest {
 
         assertFalse(isDeactivate);
         assertEquals(user.getStatus(), UserStatus.PENDING);
+    }
+
+    @Test
+    void testUpdateUserPassword_Success() {
+        UserEntity user = getUserEntityById();
+
+        ChangePasswordDto passwordDto = new ChangePasswordDto()
+                .setCurrentPassword(ConstantTest.TEST_PASSWORD)
+                .setNewPassword(ConstantTest.TEST_NEW_PASSWORD)
+                .setConfirmNewPassword(ConstantTest.TEST_NEW_PASSWORD);
+
+        Mockito.when(passwordEncoder.matches(passwordDto.getCurrentPassword(), user.getPassword()))
+                .thenReturn(true);
+
+        Mockito.when(passwordEncoder.encode(passwordDto.getNewPassword()))
+                .thenReturn(ConstantTest.TEST_ENCODED_PASSWORD);
+
+
+        userService.updatePasswordByUserId(user.getId(), passwordDto);
+
+        assertEquals(ConstantTest.TEST_ENCODED_PASSWORD, user.getPassword());
+        Mockito.verify(userRepository).save(user);
+    }
+
+    @Test
+    void testUpdateUserPassword_IncorrectCurrentPassword() {
+        UserEntity user = getUserEntityById();
+        user.setPassword(ConstantTest.TEST_ENCODED_PASSWORD);
+
+        ChangePasswordDto passwordDto = new ChangePasswordDto()
+                .setCurrentPassword(ConstantTest.TEST_WRONG_PASSWORD)
+                .setNewPassword(ConstantTest.TEST_NEW_PASSWORD)
+                .setConfirmNewPassword(ConstantTest.TEST_NEW_PASSWORD);
+
+        Mockito.when(passwordEncoder.matches(passwordDto.getCurrentPassword(), user.getPassword()))
+                .thenReturn(false);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> userService.updatePasswordByUserId(user.getId(), passwordDto));
+    }
+
+    @Test
+    void testUpdateUserPassword_PasswordsDoNotMatch() {
+        UserEntity user = getUserEntityById();
+        user.setPassword(ConstantTest.TEST_ENCODED_PASSWORD);
+
+        ChangePasswordDto passwordDto = new ChangePasswordDto()
+                .setCurrentPassword(ConstantTest.TEST_PASSWORD)
+                .setNewPassword(ConstantTest.TEST_NEW_PASSWORD)
+                .setConfirmNewPassword(ConstantTest.TEST_WRONG_PASSWORD);
+
+        Mockito.when(passwordEncoder.matches(passwordDto.getCurrentPassword(), user.getPassword()))
+                .thenReturn(true);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> userService.updatePasswordByUserId(user.getId(), passwordDto));
     }
 
     @Test

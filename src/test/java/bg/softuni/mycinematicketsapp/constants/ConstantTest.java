@@ -16,6 +16,9 @@ public class ConstantTest {
     public static final String USER_EMAIL = "test@mail.com";
     public static final String TEST_NAME = "fullName";
     public static final String TEST_PASSWORD = "secret123";
+    public static final String TEST_NEW_PASSWORD = "secret1234";
+    public static final String TEST_WRONG_PASSWORD = "wrongPassword";
+    public static final String TEST_ENCODED_PASSWORD = "encodedNewPassword";
     public static final String TEST_USER_BIRTHDATE = "28-11-1998";
 
     //==========================================UserDetailServiceImplTest
