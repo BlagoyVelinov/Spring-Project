@@ -186,11 +186,9 @@ class UserServiceImplTest {
 
     @Test
     void testGetUserDetailsDtoById() {
-        UserEntity user = getUserEntity();
+        UserEntity user = getUserEntityById();
 
-        Mockito.when(userRepository.findById(10L))
-                .thenReturn(Optional.of(user));
-        UserDetailsDto userDetails = userService.getUserDetailsDtoById(10L);
+        UserDetailsDto userDetails = userService.getUserDetailsDtoById(user.getId());
 
         Assertions.assertNotNull(userDetails);
         assertEquals(ConstantTest.TEST_USERNAME, userDetails.getUsername());
@@ -225,10 +223,7 @@ class UserServiceImplTest {
 
     @Test
     void testEditUserDetailsDto() {
-        UserEntity user = getUserEntity();
-
-        Mockito.when(userRepository.findById(10L))
-                .thenReturn(Optional.of(user));
+        UserEntity user = getUserEntityById();
 
         UserDetailsDto userDetails = new UserDetailsDto()
                 .setModified(LocalDateTime.now())
@@ -253,10 +248,7 @@ class UserServiceImplTest {
 
     @Test
     void testEditProfilePhoto() {
-        UserEntity user = getUserEntity();
-
-        Mockito.when(userRepository.findById(10L))
-                .thenReturn(Optional.of(user));
+        UserEntity user = getUserEntityById();
 
         user.setImageUrl("Image URL");
 
@@ -267,6 +259,30 @@ class UserServiceImplTest {
         assertEquals(Constant.UPDATE_PROFILE_PHOTO, result);
 
         Mockito.verify(userRepository, Mockito.times(1)).save(user);
+    }
+
+    @Test
+    void testDeactivateCurrentUser_True() {
+        UserEntity user = getUserEntityById();
+
+        user.setStatus(UserStatus.ACTIVE);
+        boolean isDeactivate = userService.deactivateCurrentUserById(user.getId());
+
+        assertTrue(isDeactivate);
+        assertEquals(user.getStatus(), UserStatus.DEACTIVATED);
+
+        Mockito.verify(userRepository, Mockito.times(1)).save(user);
+    }
+
+    @Test
+    void testDeactivateCurrentUser_False() {
+        UserEntity user = getUserEntityById();
+
+        user.setStatus(UserStatus.PENDING);
+        boolean isDeactivate = userService.deactivateCurrentUserById(user.getId());
+
+        assertFalse(isDeactivate);
+        assertEquals(user.getStatus(), UserStatus.PENDING);
     }
 
     @Test
@@ -331,6 +347,13 @@ class UserServiceImplTest {
                 .setEmail(ConstantTest.USER_EMAIL)
                 .setRoles(List.of(new UserRole(UserRoleEnum.USER)));
         user.setId(10L);
+        return user;
+    }
+    private UserEntity getUserEntityById() {
+        UserEntity user = getUserEntity();
+
+        Mockito.when(userRepository.findById(10L))
+                .thenReturn(Optional.of(user));
         return user;
     }
 
