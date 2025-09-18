@@ -247,6 +247,26 @@ class UserServiceImplTest {
         assertEquals(ConstantTest.TEST_NAME, user.getName());
         assertEquals(ConstantTest.TEST_USERNAME, user.getUsername());
         assertEquals(ConstantTest.USER_EMAIL, user.getEmail());
+
+        Mockito.verify(userRepository, Mockito.times(1)).save(user);
+    }
+
+    @Test
+    void testEditProfilePhoto() {
+        UserEntity user = getUserEntity();
+
+        Mockito.when(userRepository.findById(10L))
+                .thenReturn(Optional.of(user));
+
+        user.setImageUrl("Image URL");
+
+        String result = userService.editProfilePhotoById(10L, "Image URL");
+
+        Assertions.assertNotNull(result);
+        assertEquals("Image URL", user.getImageUrl());
+        assertEquals(Constant.UPDATE_PROFILE_PHOTO, result);
+
+        Mockito.verify(userRepository, Mockito.times(1)).save(user);
     }
 
     @Test
