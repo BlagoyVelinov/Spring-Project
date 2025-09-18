@@ -27,6 +27,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -220,6 +221,32 @@ class UserServiceImplTest {
 
         assertEquals(ConstantTest.TEST_USERNAME, userViewList.get(1).getUsername());
         assertFalse(userViewList.get(1).isAdmin());
+    }
+
+    @Test
+    void testEditUserDetailsDto() {
+        UserEntity user = getUserEntity();
+
+        Mockito.when(userRepository.findById(10L))
+                .thenReturn(Optional.of(user));
+
+        UserDetailsDto userDetails = new UserDetailsDto()
+                .setModified(LocalDateTime.now())
+                .setName(user.getName())
+                .setUsername(user.getUsername())
+                .setEmail(user.getEmail());
+
+        UserDetailsDto result = userService.editUserDetailsDtoById(10L, userDetails);
+
+        Assertions.assertNotNull(result);
+        assertEquals(user.getName(), result.getName());
+        assertEquals(user.getUsername(), result.getUsername());
+        assertEquals(user.getEmail(), result.getEmail());
+
+        Assertions.assertNotNull(user.getModified());
+        assertEquals(ConstantTest.TEST_NAME, user.getName());
+        assertEquals(ConstantTest.TEST_USERNAME, user.getUsername());
+        assertEquals(ConstantTest.USER_EMAIL, user.getEmail());
     }
 
     @Test
