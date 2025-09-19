@@ -28,6 +28,15 @@ public class CityServiceImplTest {
         verify(cityRepository, times(1)).saveAll(anySet());
     }
 
+    @Test
+    void testInitCitiesNamesInDb_NotSuccess() {
+        when(cityRepository.count()).thenReturn(1L);
+
+        cityService.initCitiesNamesInDb();
+
+        verify(cityRepository, times(0)).saveAll(anySet());
+    }
+
     @AfterEach
     void tearDown() {
         reset(cityRepository);
