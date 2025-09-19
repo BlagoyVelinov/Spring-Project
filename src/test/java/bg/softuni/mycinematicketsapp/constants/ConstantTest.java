@@ -33,4 +33,11 @@ public class ConstantTest {
     public static final String MESSAGE_ADMINISTRATOR = "User is not Admin.";
     public static final String ROLE_ = "ROLE_";
 
+
+    //==========================================UserDetailServiceImplTest
+
+    public static final String TEST_OFFER_TITLE = "Test offer";
+    public static final String TEST_OFFER_DESCRIPTION = "This is created test offer!";
+    public static final String TEST_OFFER_IMAGE_URL = "Image URL";
+
 }
