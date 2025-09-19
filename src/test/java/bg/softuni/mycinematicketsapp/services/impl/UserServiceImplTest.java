@@ -343,7 +343,7 @@ class UserServiceImplTest {
 
     @Test
     void testActivateUserByToken_Success() {
-        String token = "abc123";
+        String token = ConstantTest.TEST_TOKEN;
         UserEntity user = getUserEntity()
                 .setActivationToken(token)
                 .setStatus(UserStatus.PENDING);
@@ -359,7 +359,7 @@ class UserServiceImplTest {
 
     @Test
     void testActivateUserByToken_InvalidTokenThrows() {
-        String token = "invalid";
+        String token = ConstantTest.TEST_TOKEN;
         when(userRepository.findByActivationToken(token)).thenReturn(Optional.empty());
 
         assertThrows(IllegalArgumentException.class, () -> userService.activateUserByToken(token));

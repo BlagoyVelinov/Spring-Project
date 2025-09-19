@@ -2,10 +2,11 @@ package bg.softuni.mycinematicketsapp.constants;
 
 public class ConstantTest {
 
-    //==========================================OrderServiceImplTest
-    public static final int TEST_YEAR = 2024;
-    public static final int TEST_MOUNT = 8;
-    public static final int TEST_DAY = 12;
+    //==========================================EmailServiceImplTest
+    public static final String TEST_COMPANY_EMAIL = "cinematickets@example.com";
+    public static final String TEST_ACTIVATION_BASE_URL = "http://localhost:8080/activate";
+    public static final String TEST_EMAIL_TEMPLATE = "email/registration-email";
+    public static final String TEST_RESPONSE_HTML = "<html>Test Email</html>";
 
     //==========================================UserServiceImplTest
 
@@ -20,6 +21,7 @@ public class ConstantTest {
     public static final String TEST_WRONG_PASSWORD = "wrongPassword";
     public static final String TEST_ENCODED_PASSWORD = "encodedNewPassword";
     public static final String TEST_USER_BIRTHDATE = "28-11-1998";
+    public static final String TEST_TOKEN = "abc123";
 
     //==========================================UserDetailServiceImplTest
 
