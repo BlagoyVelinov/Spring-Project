@@ -3,6 +3,7 @@ package bg.softuni.mycinematicketsapp.services.impl;
 import bg.softuni.mycinematicketsapp.models.entities.City;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.repository.CityRepository;
+import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
@@ -66,6 +68,28 @@ public class CityServiceImplTest {
         assertEquals(CityName.SOFIA, result.getLocation());
 
         Mockito.verify(cityRepository, Mockito.times(1)).findByLocation(CityName.SOFIA);
+    }
+
+    @Test
+    void testGetCityById_Success() {
+        City city = new City(CityName.SOFIA);
+        city.setId(1L);
+
+        Mockito.when(cityRepository.findById(1L)).thenReturn(Optional.of(city));
+
+        City result = cityService.getCityById(1L);
+
+        Assertions.assertNotNull(city);
+        assertEquals(CityName.SOFIA, result.getLocation());
+        assertEquals(1L, result.getId());
+
+        Mockito.verify(cityRepository, Mockito.times(1)).findById(city.getId());
+    }
+
+    @Test
+    void testGetCityById_NotFound() {
+        Mockito.when(cityRepository.findById(100L)).thenReturn(Optional.empty());
+        assertThrows(ObjectNotFoundException.class, () -> cityService.getCityById(100L));
     }
 
     @AfterEach
