@@ -195,6 +195,23 @@ public class OfferServiceImplTest {
         verify(offerRepository, Mockito.times(1)).deleteById(offerId);
     }
 
+    @Test
+    void testUpdateOffer() {
+        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.FOR_THE_SCHOOLS, 1L);
+        OfferViewDto viewDto = getOfferViewDto();
+
+        when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
+
+        OfferViewDto result = offerService.updateOffer(viewDto, offer.getId());
+
+        Assertions.assertNotNull(result);
+        assertEquals(offer.getTitle(), result.getTitle());
+        assertEquals(offer.getDescription(), result.getDescription());
+        assertEquals(offer.getOfferCategory(), result.getOfferCategory());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).save(offer);
+    }
+
 
     private static AddOfferDto getAddOfferDto() {
         return new AddOfferDto()
