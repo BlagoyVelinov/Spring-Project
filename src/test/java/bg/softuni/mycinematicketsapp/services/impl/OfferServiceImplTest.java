@@ -2,9 +2,11 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.ConstantTest;
 import bg.softuni.mycinematicketsapp.models.dtos.AddOfferDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.OfferViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Offer;
 import bg.softuni.mycinematicketsapp.models.enums.OfferType;
 import bg.softuni.mycinematicketsapp.repository.OfferRepository;
+import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import org.modelmapper.ModelMapper;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static reactor.core.publisher.Mono.when;
 
@@ -76,6 +79,29 @@ public class OfferServiceImplTest {
         Mockito.verify(offerRepository, Mockito.times(1)).findById(offer.getId());
     }
 
+    @Test
+    void testGetOfferById_NotFound() {
+        Mockito.when(offerRepository.findById(100L)).thenReturn(Optional.empty());
+        assertThrows(ObjectNotFoundException.class, () -> offerService.getOfferById(100L));
+    }
+
+    @Test
+    void testGetOfferViewById() {
+        Offer offer = getOffer();
+
+        Mockito.when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
+
+        OfferViewDto result = offerService.getOfferViewById(offer.getId());
+
+        Assertions.assertNotNull(result);
+        assertEquals(offer.getTitle(), result.getTitle());
+        assertEquals(offer.getOfferCategory(), result.getOfferCategory());
+        assertEquals(offer.getDescription(), result.getDescription());
+        assertEquals(offer.getImageUrl(), result.getImageUrl());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).findById(offer.getId());
+    }
+
     private static AddOfferDto getAddOfferDto() {
         return new AddOfferDto()
                 .setTitle(ConstantTest.TEST_OFFER_TITLE)
@@ -94,5 +120,14 @@ public class OfferServiceImplTest {
         offer.setId(1L);
 
         return offer;
+    }
+
+    private static OfferViewDto getOfferViewDto() {
+        return new OfferViewDto()
+                .setId(10L)
+                .setTitle(ConstantTest.TEST_OFFER_TITLE)
+                .setOfferCategory(OfferType.CINEMA_OFFERS)
+                .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
+                .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
     }
 }
