@@ -23,7 +23,10 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class OfferServiceImplTest {
@@ -33,6 +36,9 @@ public class OfferServiceImplTest {
     @Mock
     private OfferRepository offerRepository;
 
+    @Mock
+    private ModelMapper modelMapper;
+
     @Captor
     private ArgumentCaptor<Offer> offerCaptor;
 
@@ -40,7 +46,7 @@ public class OfferServiceImplTest {
     void setUp() {
         this.offerService = new OfferServiceImpl(
                 offerRepository,
-                new ModelMapper()
+                modelMapper
         );
     }
 
@@ -64,9 +70,9 @@ public class OfferServiceImplTest {
 
     @Test
     void testGetOfferById_Success() {
-        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, ConstantTest.TEST_OFFER_DESCRIPTION, 1L);
+        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.CINEMA_OFFERS, 1L);
 
-        Mockito.when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
+        when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
 
         Offer result = offerService.getOfferById(offer.getId());
 
@@ -81,15 +87,15 @@ public class OfferServiceImplTest {
 
     @Test
     void testGetOfferById_NotFound() {
-        Mockito.when(offerRepository.findById(100L)).thenReturn(Optional.empty());
+        when(offerRepository.findById(100L)).thenReturn(Optional.empty());
         assertThrows(ObjectNotFoundException.class, () -> offerService.getOfferById(100L));
     }
 
     @Test
     void testGetOfferViewById() {
-        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, ConstantTest.TEST_OFFER_DESCRIPTION, 1L);
+        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.CINEMA_OFFERS, 1L);
 
-        Mockito.when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
+        when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
 
         OfferViewDto result = offerService.getOfferViewById(offer.getId());
 
@@ -104,11 +110,11 @@ public class OfferServiceImplTest {
 
     @Test
     void testGetAllOffers() {
-        Offer offer1 = getOffer(ConstantTest.TEST_OFFER_TITLE, ConstantTest.TEST_OFFER_DESCRIPTION, 1L);
-        Offer offer2 = getOffer("Test title 2", "Test description 2", 2L);
+        Offer offer1 = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.CINEMA_OFFERS, 1L);
+        Offer offer2 = getOffer("Test title 2", OfferType.FOR_THE_BUSINESS, 2L);
 
         List<Offer> offers = List.of(offer1, offer2);
-        Mockito.when(offerRepository.findAll()).thenReturn(offers);
+        when(offerRepository.findAll()).thenReturn(offers);
 
         List<Offer> foundedOffers = offerService.getAllOffers();
 
@@ -120,6 +126,28 @@ public class OfferServiceImplTest {
         Mockito.verify(offerRepository, Mockito.times(1)).findAll();
     }
 
+    @Test
+    void testGetAllCinemaOffers() {
+        Offer offer1 = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.CINEMA_OFFERS, 1L);
+        Offer offer2 = getOffer("Test title 2", OfferType.CINEMA_OFFERS, 2L);
+        Offer offer3 = getOffer("Test title 3", OfferType.FOR_THE_SCHOOLS, 3L);
+
+        List<Offer> offers = List.of(offer1, offer2, offer3);
+        when(offerRepository.findAll()).thenReturn(offers);
+
+        Mockito.when(modelMapper.map(offer1, OfferViewDto.class)).thenReturn(new OfferViewDto());
+        Mockito.when(modelMapper.map(offer2, OfferViewDto.class)).thenReturn(new OfferViewDto());
+
+        List<OfferViewDto> cinemaOffers = offerService.getAllCinemaOffers();
+
+        Assertions.assertNotNull(cinemaOffers);
+        Assertions.assertEquals(2, cinemaOffers.size());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).findAll();
+    }
+
+
+
     private static AddOfferDto getAddOfferDto() {
         return new AddOfferDto()
                 .setTitle(ConstantTest.TEST_OFFER_TITLE)
@@ -128,11 +156,11 @@ public class OfferServiceImplTest {
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
     }
 
-    private static Offer getOffer(String title, String description, long offerId) {
+    private static Offer getOffer(String title, OfferType offerType, long offerId) {
         Offer offer = new Offer()
                 .setTitle(title)
-                .setOfferCategory(OfferType.CINEMA_OFFERS)
-                .setDescription(description)
+                .setOfferCategory(offerType)
+                .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
 
         offer.setId(offerId);
