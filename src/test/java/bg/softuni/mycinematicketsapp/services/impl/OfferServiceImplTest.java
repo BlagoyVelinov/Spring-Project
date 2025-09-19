@@ -18,12 +18,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
-import static reactor.core.publisher.Mono.when;
 
 @ExtendWith(MockitoExtension.class)
 public class OfferServiceImplTest {
@@ -64,7 +64,7 @@ public class OfferServiceImplTest {
 
     @Test
     void testGetOfferById_Success() {
-        Offer offer = getOffer();
+        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, ConstantTest.TEST_OFFER_DESCRIPTION, 1L);
 
         Mockito.when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
 
@@ -87,7 +87,7 @@ public class OfferServiceImplTest {
 
     @Test
     void testGetOfferViewById() {
-        Offer offer = getOffer();
+        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, ConstantTest.TEST_OFFER_DESCRIPTION, 1L);
 
         Mockito.when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
 
@@ -102,22 +102,40 @@ public class OfferServiceImplTest {
         Mockito.verify(offerRepository, Mockito.times(1)).findById(offer.getId());
     }
 
+    @Test
+    void testGetAllOffers() {
+        Offer offer1 = getOffer(ConstantTest.TEST_OFFER_TITLE, ConstantTest.TEST_OFFER_DESCRIPTION, 1L);
+        Offer offer2 = getOffer("Test title 2", "Test description 2", 2L);
+
+        List<Offer> offers = List.of(offer1, offer2);
+        Mockito.when(offerRepository.findAll()).thenReturn(offers);
+
+        List<Offer> foundedOffers = offerService.getAllOffers();
+
+        Assertions.assertNotNull(foundedOffers);
+        assertEquals(2, foundedOffers.size());
+        assertEquals(offer1.getTitle(), foundedOffers.get(0).getTitle());
+        assertEquals(offer2.getTitle(), foundedOffers.get(1).getTitle());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).findAll();
+    }
+
     private static AddOfferDto getAddOfferDto() {
         return new AddOfferDto()
                 .setTitle(ConstantTest.TEST_OFFER_TITLE)
-                .setOfferCategory(OfferType.CINEMA_OFFERS)
+                .setOfferCategory(OfferType.FOR_THE_BUSINESS)
                 .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
     }
 
-    private static Offer getOffer() {
+    private static Offer getOffer(String title, String description, long offerId) {
         Offer offer = new Offer()
-                .setTitle(ConstantTest.TEST_OFFER_TITLE)
+                .setTitle(title)
                 .setOfferCategory(OfferType.CINEMA_OFFERS)
-                .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
+                .setDescription(description)
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
 
-        offer.setId(1L);
+        offer.setId(offerId);
 
         return offer;
     }
@@ -126,7 +144,7 @@ public class OfferServiceImplTest {
         return new OfferViewDto()
                 .setId(10L)
                 .setTitle(ConstantTest.TEST_OFFER_TITLE)
-                .setOfferCategory(OfferType.CINEMA_OFFERS)
+                .setOfferCategory(OfferType.FOR_THE_SCHOOLS)
                 .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
     }
