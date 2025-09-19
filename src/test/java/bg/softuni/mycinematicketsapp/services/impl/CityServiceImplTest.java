@@ -54,7 +54,19 @@ public class CityServiceImplTest {
         assertEquals(CityName.values().length, cities.size());
     }
 
+    @Test
+    void testGetCityByCityName() {
+        City city = new City(CityName.SOFIA);
 
+        Mockito.when(cityRepository.findByLocation(CityName.SOFIA)).thenReturn(city);
+
+        City result = cityService.getCityByCityName(CityName.SOFIA);
+
+        Assertions.assertNotNull(city);
+        assertEquals(CityName.SOFIA, result.getLocation());
+
+        Mockito.verify(cityRepository, Mockito.times(1)).findByLocation(CityName.SOFIA);
+    }
 
     @AfterEach
     void tearDown() {
