@@ -186,6 +186,15 @@ public class OfferServiceImplTest {
         Mockito.verify(offerRepository, Mockito.times(1)).findAll();
     }
 
+    @Test
+    void testDeleteOffer() {
+        long offerId = 10L;
+
+        offerService.deleteOffer(offerId);
+
+        verify(offerRepository, Mockito.times(1)).deleteById(offerId);
+    }
+
 
     private static AddOfferDto getAddOfferDto() {
         return new AddOfferDto()
