@@ -62,7 +62,7 @@ public class CityServiceImplTest {
 
         City result = cityService.getCityByCityName(CityName.SOFIA);
 
-        Assertions.assertNotNull(city);
+        Assertions.assertNotNull(result);
         assertEquals(CityName.SOFIA, result.getLocation());
 
         Mockito.verify(cityRepository, Mockito.times(1)).findByLocation(CityName.SOFIA);
@@ -77,7 +77,7 @@ public class CityServiceImplTest {
 
         City result = cityService.getCityById(1L);
 
-        Assertions.assertNotNull(city);
+        Assertions.assertNotNull(result);
         assertEquals(CityName.SOFIA, result.getLocation());
         assertEquals(1L, result.getId());
 

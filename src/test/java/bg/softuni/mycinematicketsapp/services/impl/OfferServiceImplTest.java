@@ -12,8 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -52,6 +55,25 @@ public class OfferServiceImplTest {
         assertEquals(offerDto.getOfferCategory(), offer.getOfferCategory());
         assertEquals(offerDto.getDescription(), offer.getDescription());
         assertEquals(offerDto.getImageUrl(), offer.getImageUrl());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).save(offer);
+    }
+
+    @Test
+    void testGetOfferById_Success() {
+        Offer offer = getOffer();
+
+        Mockito.when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
+
+        Offer result = offerService.getOfferById(offer.getId());
+
+        Assertions.assertNotNull(result);
+        assertEquals(offer.getTitle(), result.getTitle());
+        assertEquals(offer.getOfferCategory(), result.getOfferCategory());
+        assertEquals(offer.getDescription(), result.getDescription());
+        assertEquals(offer.getImageUrl(), result.getImageUrl());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).findById(offer.getId());
     }
 
     private static AddOfferDto getAddOfferDto() {
@@ -60,5 +82,17 @@ public class OfferServiceImplTest {
                 .setOfferCategory(OfferType.CINEMA_OFFERS)
                 .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
+    }
+
+    private static Offer getOffer() {
+        Offer offer = new Offer()
+                .setTitle(ConstantTest.TEST_OFFER_TITLE)
+                .setOfferCategory(OfferType.CINEMA_OFFERS)
+                .setDescription(ConstantTest.TEST_OFFER_DESCRIPTION)
+                .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
+
+        offer.setId(1L);
+
+        return offer;
     }
 }
