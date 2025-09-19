@@ -7,6 +7,8 @@ public class ConstantTest {
     public static final String TEST_ACTIVATION_BASE_URL = "http://localhost:8080/activate";
     public static final String TEST_EMAIL_TEMPLATE = "email/registration-email";
     public static final String TEST_RESPONSE_HTML = "<html>Test Email</html>";
+    public static final String TEST_SUBJECT = "Test Subject";
+    public static final String TEST_MESSAGE = "This is a test email message!";
 
     //==========================================UserServiceImplTest
 

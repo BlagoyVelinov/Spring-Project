@@ -1,6 +1,8 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.ConstantTest;
+import bg.softuni.mycinematicketsapp.models.dtos.requests.ContactRequest;
+import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,11 +13,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EmailServiceImplTest {
@@ -37,11 +39,13 @@ public class EmailServiceImplTest {
                 ConstantTest.TEST_COMPANY_EMAIL,
                 ConstantTest.TEST_ACTIVATION_BASE_URL
         );
+        ReflectionTestUtils.setField(emailService, "cinemaTicketsEmail", ConstantTest.TEST_COMPANY_EMAIL);
     }
 
     @Test
     void testSendRegistrationEmail() {
         MimeMessage mimeMessage = new MimeMessage((Session) null);
+
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
         when(templateEngine.process(eq(ConstantTest.TEST_EMAIL_TEMPLATE), any(Context.class)))
                 .thenReturn(ConstantTest.TEST_RESPONSE_HTML);
@@ -50,5 +54,21 @@ public class EmailServiceImplTest {
 
         verify(javaMailSender, times(1)).send(any(MimeMessage.class));
         verify(templateEngine, times(1)).process(eq(ConstantTest.TEST_EMAIL_TEMPLATE), any(Context.class));
+    }
+
+    @Test
+    void testSendContactMessage() throws MessagingException {
+        MimeMessage mimeMessage = new MimeMessage((Session) null);
+
+        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
+
+        ContactRequest request = new ContactRequest();
+        request.setFrom(ConstantTest.USER_EMAIL);
+        request.setSubject(ConstantTest.TEST_SUBJECT);
+        request.setMessage(ConstantTest.TEST_MESSAGE);
+
+        emailService.sendContactMessage(request);
+
+        verify(javaMailSender, times(1)).send(any(MimeMessage.class));
     }
 }
