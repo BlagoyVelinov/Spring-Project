@@ -146,6 +146,26 @@ public class OfferServiceImplTest {
         Mockito.verify(offerRepository, Mockito.times(1)).findAll();
     }
 
+    @Test
+    void testGetAllSchoolsOffers() {
+        Offer offer1 = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.FOR_THE_SCHOOLS, 1L);
+        Offer offer2 = getOffer("Test title 2", OfferType.CINEMA_OFFERS, 2L);
+        Offer offer3 = getOffer("Test title 3", OfferType.FOR_THE_SCHOOLS, 3L);
+
+        List<Offer> offers = List.of(offer1, offer2, offer3);
+        when(offerRepository.findAll()).thenReturn(offers);
+
+        Mockito.when(modelMapper.map(offer1, OfferViewDto.class)).thenReturn(new OfferViewDto());
+        Mockito.when(modelMapper.map(offer3, OfferViewDto.class)).thenReturn(new OfferViewDto());
+
+        List<OfferViewDto> cinemaOffers = offerService.getAllSchoolsOffers();
+
+        Assertions.assertNotNull(cinemaOffers);
+        Assertions.assertEquals(2, cinemaOffers.size());
+
+        Mockito.verify(offerRepository, Mockito.times(1)).findAll();
+    }
+
 
 
     private static AddOfferDto getAddOfferDto() {
