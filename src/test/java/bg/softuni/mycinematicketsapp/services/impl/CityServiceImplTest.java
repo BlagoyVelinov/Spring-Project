@@ -1,14 +1,23 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.models.entities.City;
+import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.repository.CityRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CityServiceImplTest {
@@ -36,6 +45,16 @@ public class CityServiceImplTest {
 
         verify(cityRepository, times(0)).saveAll(anySet());
     }
+
+    @Test
+    void testGetAllCities() {
+        Set<City> cities = cityService.getAllCities();
+
+        Assertions.assertNotNull(cities);
+        assertEquals(CityName.values().length, cities.size());
+    }
+
+
 
     @AfterEach
     void tearDown() {
