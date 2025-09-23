@@ -16,6 +16,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -201,6 +202,15 @@ public class TicketServiceImplTest {
 
         verify(ticketRepository, times(1)).deleteRelationOrderTicket(ticketId);
         verify(ticketRepository, times(1)).deleteTicketById(ticketId);
+    }
+
+    @Test
+    void testUpdateFinishedTickets() {
+        when(ticketRepository.markFinishedTickets(any(LocalTime.class))).thenReturn(5);
+
+        ticketService.updateFinishedTickets();
+
+        verify(ticketRepository, times(1)).markFinishedTickets(any(LocalTime.class));
     }
 
     private Order getOrder() {
