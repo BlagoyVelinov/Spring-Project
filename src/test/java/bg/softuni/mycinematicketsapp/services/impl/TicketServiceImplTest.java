@@ -45,6 +45,36 @@ public class TicketServiceImplTest {
         assertEquals(42L, savedTickets.get(1).getUserId());
     }
 
+    @Test
+    void testGetAllTicketsByUser() {
+        Ticket ticket1 = getticket(1L, 2L);
+        Ticket ticket2 = getticket(2L, 2L);
+        Ticket ticket3 = getticket(3L, 3L);
+
+        List<Ticket> tickets = List.of(ticket1, ticket2, ticket3);
+
+        Mockito.when(ticketRepository.findAllByUserId(Mockito.anyLong()))
+                .thenAnswer(invocation -> {
+                    Long userId = invocation.getArgument(0, Long.class);
+                    return tickets.stream()
+                            .filter(t -> t.getUserId() == userId)
+                            .toList();
+                });
+
+        List<Ticket> ticketsByUser = ticketService.getAllTicketsByUser(2L);
+
+        Assertions.assertNotNull(ticketsByUser);
+        assertEquals(2, ticketsByUser.size());
+        Assertions.assertTrue(ticketsByUser.stream().allMatch(t -> t.getUserId() == 2L));
+
+        List<Ticket> ticketsByUser1 = ticketService.getAllTicketsByUser(3L);
+        Assertions.assertEquals(1, ticketsByUser1.size());
+        Assertions.assertEquals(3L, ticketsByUser1.get(0).getUserId());
+
+        List<Ticket> ticketsByUser99 = ticketService.getAllTicketsByUser(99L);
+        Assertions.assertTrue(ticketsByUser99.isEmpty());
+    }
+
     private Order getOrder() {
         UserEntity user = new UserEntity();
         user.setId(42L);
@@ -59,4 +89,11 @@ public class TicketServiceImplTest {
         return order;
     }
 
+    private Ticket getticket(long id, long userId) {
+        Ticket ticket = new Ticket();
+        ticket.setId(id);
+        ticket.setUserId(userId);
+
+        return ticket;
+    }
 }
