@@ -11,10 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
@@ -51,6 +48,10 @@ public class OfferServiceImplTest {
     @Test
     void testCreateOffer() {
         AddOfferDto offerDto = getAddOfferDto();
+        Offer mappedOffer = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.FOR_THE_BUSINESS, 1L);
+
+        when(modelMapper.map(offerDto, Offer.class)).thenReturn(mappedOffer);
+
         offerService.createOffer(offerDto);
 
         verify(offerRepository).save(offerCaptor.capture());
@@ -91,9 +92,12 @@ public class OfferServiceImplTest {
 
     @Test
     void testGetOfferViewById() {
-        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.CINEMA_OFFERS, 1L);
+        Offer offer = getOffer(ConstantTest.TEST_OFFER_TITLE, OfferType.FOR_THE_SCHOOLS, 10L);
+        OfferViewDto mappedOffer = getOfferViewDto();
 
         when(offerRepository.findById(offer.getId())).thenReturn(Optional.of(offer));
+
+        when(modelMapper.map(offer, OfferViewDto.class)).thenReturn(mappedOffer);
 
         OfferViewDto result = offerService.getOfferViewById(offer.getId());
 
@@ -211,7 +215,7 @@ public class OfferServiceImplTest {
     }
 
 
-    private static AddOfferDto getAddOfferDto() {
+    private AddOfferDto getAddOfferDto() {
         return new AddOfferDto()
                 .setTitle(ConstantTest.TEST_OFFER_TITLE)
                 .setOfferCategory(OfferType.FOR_THE_BUSINESS)
@@ -219,7 +223,7 @@ public class OfferServiceImplTest {
                 .setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
     }
 
-    private static Offer getOffer(String title, OfferType offerType, long offerId) {
+    private Offer getOffer(String title, OfferType offerType, long offerId) {
         Offer offer = new Offer()
                 .setTitle(title)
                 .setOfferCategory(offerType)
@@ -231,7 +235,7 @@ public class OfferServiceImplTest {
         return offer;
     }
 
-    private static OfferViewDto getOfferViewDto() {
+    private OfferViewDto getOfferViewDto() {
         return new OfferViewDto()
                 .setId(10L)
                 .setTitle(ConstantTest.TEST_OFFER_TITLE)

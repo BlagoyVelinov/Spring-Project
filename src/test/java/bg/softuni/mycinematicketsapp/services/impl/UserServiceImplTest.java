@@ -100,7 +100,7 @@ class UserServiceImplTest {
 
     @Test
     void testUserIsAdmin() {
-        UserEntity adminEntity = getAdmin();;
+        UserEntity adminEntity = getAdmin();
 
         Mockito.when(userRepository.findByUsername(ConstantTest.ADMIN_USERNAME))
                 .thenReturn(Optional.of(adminEntity));
