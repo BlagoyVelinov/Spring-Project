@@ -156,6 +156,24 @@ public class TicketServiceImplTest {
         assertThrows(ObjectNotFoundException.class, () -> ticketService.getTicket(10L));
     }
 
+    @Test
+    void testGetTicketViewDto() {
+        Ticket ticket = getticket(1L, 1L);
+
+        when(ticketRepository.findById(ticket.getId())).thenReturn(Optional.of(ticket));
+
+        TicketViewDto mappedDto = getTicketViewDto(ticket);
+
+        when(modelMapper.map(ticket, TicketViewDto.class)).thenReturn(mappedDto);
+
+        TicketViewDto result = ticketService.getTicketDto(ticket.getId());
+
+        Assertions.assertNotNull(result);
+        assertEquals(ticket.getId(), result.getId());
+        assertEquals(ticket.getUserId(), result.getUserId());
+        assertEquals(ticket.getLocation().getValue().toUpperCase(), result.getCityName());
+    }
+
     private Order getOrder() {
         UserEntity user = new UserEntity();
         user.setId(42L);
@@ -178,5 +196,13 @@ public class TicketServiceImplTest {
         ticket.setLocation(CityName.SOFIA);
 
         return ticket;
+    }
+
+    private TicketViewDto getTicketViewDto(Ticket ticket) {
+        TicketViewDto mappedDto = new TicketViewDto();
+        mappedDto.setId(ticket.getId());
+        mappedDto.setUserId(ticket.getUserId());
+        mappedDto.setCityName(ticket.getLocation().name());
+        return mappedDto;
     }
 }
