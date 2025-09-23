@@ -1,8 +1,11 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.models.dtos.view.OfferViewDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
+import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.repository.TicketRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +18,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
-import static reactor.core.publisher.Mono.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceImplTest {
@@ -75,6 +77,33 @@ public class TicketServiceImplTest {
         Assertions.assertTrue(ticketsByUser99.isEmpty());
     }
 
+    @Test
+    void testGetUpcomingTickets() {
+        Ticket ticket1 = getticket(1L, 2L);
+        Ticket ticket2 = getticket(2L, 2L);
+        Ticket ticket3 = getticket(3L, 2L);
+        ticket3.setFinished(true);
+
+        List<Ticket> tickets = List.of(ticket1, ticket2, ticket3);
+
+        Mockito.when(ticketRepository.findAllByUserIdAndFinishedIsFalseOrderByProjectionDate(Mockito.anyLong()))
+                .thenAnswer(invocation -> {
+                    Long userId = invocation.getArgument(0, Long.class);
+                    return tickets.stream()
+                            .filter(t -> t.getUserId() == userId && !t.isFinished())
+                            .toList();
+                });
+        Mockito.when(modelMapper.map(ticket1, TicketViewDto.class)).thenReturn(new TicketViewDto());
+        Mockito.when(modelMapper.map(ticket2, TicketViewDto.class)).thenReturn(new TicketViewDto());
+
+        List<TicketViewDto> upcomingTickets = ticketService.getUpcomingTickets(2L);
+
+        Assertions.assertNotNull(upcomingTickets);
+        assertEquals(2, upcomingTickets.size());
+
+        Mockito.verify(ticketRepository, Mockito.times(1)).findAllByUserIdAndFinishedIsFalseOrderByProjectionDate(2L);
+    }
+
     private Order getOrder() {
         UserEntity user = new UserEntity();
         user.setId(42L);
@@ -93,6 +122,8 @@ public class TicketServiceImplTest {
         Ticket ticket = new Ticket();
         ticket.setId(id);
         ticket.setUserId(userId);
+        ticket.setFinished(false);
+        ticket.setLocation(CityName.SOFIA);
 
         return ticket;
     }
