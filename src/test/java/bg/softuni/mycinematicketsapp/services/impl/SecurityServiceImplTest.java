@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -100,5 +99,21 @@ public class SecurityServiceImplTest {
         when(ticketService.getAllTicketsByUser(normalUser.getId())).thenReturn(List.of(ticket));
 
         assertDoesNotThrow(() -> securityService.validateUserForTicket(10L, authentication));
+    }
+
+    @Test
+    void validateUserForTicket_AsOwnerWithoutTicket_ShouldThrowForbidden() {
+        Ticket ticket = new Ticket().setUserId(normalUser.getId());
+        ticket.setId(11L);
+
+        when(authentication.getName()).thenReturn(ConstantTest.TEST_USERNAME);
+        when(userService.getUserByUsername(ConstantTest.TEST_USERNAME)).thenReturn(normalUser);
+        when(ticketService.getAllTicketsByUser(normalUser.getId())).thenReturn(List.of(ticket));
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> securityService.validateUserForTicket(10L, authentication));
+
+        assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
+        assertEquals(ExceptionMessages.TICKET_ACCESS_DENIED, exception.getReason());
     }
 }
