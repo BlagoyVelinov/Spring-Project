@@ -2,6 +2,7 @@ package bg.softuni.mycinematicketsapp.services.impl;
 
 import bg.softuni.mycinematicketsapp.constants.ConstantTest;
 import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
+import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.entities.UserRole;
 import bg.softuni.mycinematicketsapp.models.enums.UserRoleEnum;
@@ -87,5 +88,17 @@ public class SecurityServiceImplTest {
         when(userService.getUserByUsername(ConstantTest.ADMIN_USERNAME)).thenReturn(adminUser);
 
         assertDoesNotThrow(() -> securityService.validateUserForTicket(5L, authentication));
+    }
+
+    @Test
+    void validateUserForTicket_AsOwnerWithTicket_ShouldPass() {
+        Ticket ticket = new Ticket().setUserId(normalUser.getId());
+        ticket.setId(10L);
+
+        when(authentication.getName()).thenReturn(ConstantTest.TEST_USERNAME);
+        when(userService.getUserByUsername(ConstantTest.TEST_USERNAME)).thenReturn(normalUser);
+        when(ticketService.getAllTicketsByUser(normalUser.getId())).thenReturn(List.of(ticket));
+
+        assertDoesNotThrow(() -> securityService.validateUserForTicket(10L, authentication));
     }
 }
