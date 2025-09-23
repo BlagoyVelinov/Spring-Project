@@ -56,4 +56,11 @@ public class SecurityServiceImplTest {
         assertDoesNotThrow(() -> securityService.validateCurrentUser(99L, authentication));
     }
 
+    @Test
+    void validateCurrentUser_AsOwner_ShouldPass() {
+        when(authentication.getName()).thenReturn("user");
+        when(userService.getUserByUsername("user")).thenReturn(normalUser);
+
+        assertDoesNotThrow(() -> securityService.validateCurrentUser(2L, authentication));
+    }
 }
