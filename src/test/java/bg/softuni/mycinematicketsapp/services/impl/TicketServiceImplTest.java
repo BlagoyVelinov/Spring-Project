@@ -1,5 +1,7 @@
 package bg.softuni.mycinematicketsapp.services.impl;
 
+import bg.softuni.mycinematicketsapp.constants.ConstantTest;
+import bg.softuni.mycinematicketsapp.constants.ExceptionMessages;
 import bg.softuni.mycinematicketsapp.models.dtos.view.TicketViewDto;
 import bg.softuni.mycinematicketsapp.models.entities.Order;
 import bg.softuni.mycinematicketsapp.models.entities.Ticket;
@@ -19,8 +21,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceImplTest {
@@ -104,7 +105,7 @@ public class TicketServiceImplTest {
         Assertions.assertNotNull(upcomingTickets);
         assertEquals(2, upcomingTickets.size());
 
-        Mockito.verify(ticketRepository, Mockito.times(1)).findAllByUserIdAndFinishedIsFalseOrderByProjectionDate(2L);
+        Mockito.verify(ticketRepository, times(1)).findAllByUserIdAndFinishedIsFalseOrderByProjectionDate(2L);
     }
 
     @Test
@@ -132,7 +133,7 @@ public class TicketServiceImplTest {
         Assertions.assertNotNull(expiredTickets);
         assertEquals(2, expiredTickets.size());
 
-        Mockito.verify(ticketRepository, Mockito.times(1)).findAllByUserIdAndFinishedIsTrueOrderByProjectionDate(2L);
+        Mockito.verify(ticketRepository, times(1)).findAllByUserIdAndFinishedIsTrueOrderByProjectionDate(2L);
     }
 
     @Test
@@ -172,6 +173,34 @@ public class TicketServiceImplTest {
         assertEquals(ticket.getId(), result.getId());
         assertEquals(ticket.getUserId(), result.getUserId());
         assertEquals(ticket.getLocation().getValue().toUpperCase(), result.getCityName());
+    }
+
+    @Test
+    void testDeleteFinishedTicket_Success() {
+        long ticketId = 1L;
+
+        when(ticketRepository.deleteTicketById(ticketId)).thenReturn(1);
+
+        String result = ticketService.deleteFinishedTicket(ticketId);
+
+        assertEquals(String.format(ConstantTest.SUCCESSFULLY_DELETED_TICKET, ticketId), result);
+
+        verify(ticketRepository, times(1)).deleteRelationOrderTicket(ticketId);
+        verify(ticketRepository, times(1)).deleteTicketById(ticketId);
+    }
+
+    @Test
+    void testDeleteFinishedTicket_Failure() {
+        long ticketId = 2L;
+
+        when(ticketRepository.deleteTicketById(ticketId)).thenReturn(0);
+
+        String result = ticketService.deleteFinishedTicket(ticketId);
+
+        assertEquals(String.format(ExceptionMessages.DELETE_TICKET_FAILED, ticketId), result);
+
+        verify(ticketRepository, times(1)).deleteRelationOrderTicket(ticketId);
+        verify(ticketRepository, times(1)).deleteTicketById(ticketId);
     }
 
     private Order getOrder() {

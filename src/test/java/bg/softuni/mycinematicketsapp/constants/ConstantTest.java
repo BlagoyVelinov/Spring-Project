@@ -34,6 +34,9 @@ public class ConstantTest {
     public static final String ROLE_ = "ROLE_";
 
 
+    //==========================================TicketServiceImplTest
+    public static final String SUCCESSFULLY_DELETED_TICKET = "Deleted ticket with ID: %d - successfully";
+
     //==========================================UserDetailServiceImplTest
 
     public static final String TEST_OFFER_TITLE = "Test offer";
