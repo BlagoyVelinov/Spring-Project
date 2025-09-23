@@ -3,8 +3,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
     defer-datasource-initialization: true
-#  autoconfigure:
-#      exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
   sql:
     init:
@@ -14,33 +12,31 @@ spring:
       filter:
         enabled: true
 
-cinema_tickets:
-  default.admin.pass: 123456789
-  remember.me.key: 123456789
-
+  cinema_tickets:
+    default:
+      admin:
+        pass: 123456
+    remember:
+      me:
+        key: 123456
+  mail:
+    cinema_tickets: "test@mail.com"
+    host: "localhost"
+    port: 3333
+    username: "test@example.com"
+    password: "123456789"
 
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
 
-
-open.exchange.rates:
-  schema: https
-  host: dummy
-  path: /api/latest.json
-  app_id: test
-  symbols: EUR,BGN
-  enabled: false
+jwt:
+  secret: "ThisIsAVeryLongSuperSecretKeyThatIsAtLeast32Chars"
+  expiration: 604800000
 
 
-mail:
-  cinema_tickets: "c_tickets@example.com"
-  host: localhost
-  port: 3333
-  username: test@example.com
-  password: 123456789
 
-movies:
-  api:
-    baseUrl: "http://localhost:8081"
+app:
+  activation_base_url: "http://localhost:8080/activate"
+  redirect_login_uri: "http://localhost:8082/users/login"

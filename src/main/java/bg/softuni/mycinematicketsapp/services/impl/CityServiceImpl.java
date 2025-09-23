@@ -50,6 +50,4 @@ public class CityServiceImpl implements CityService {
         return this.cityRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format(CITY_NOT_FOUND, id)));
     }
-
-
 }

@@ -71,7 +71,6 @@ public class MyUserDetailServiceTest {
         return new UserEntity()
                 .setUsername(TEST_USERNAME)
                 .setName(TEST_NAME)
-                .setActive(false)
                 .setPassword(TEST_PASSWORD)
                 .setRoles(List.of(
                         new UserRole().setRole(UserRoleEnum.ADMINISTRATOR),
