@@ -80,4 +80,12 @@ public class SecurityServiceImplTest {
         assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
         assertEquals(ExceptionMessages.NOT_ADMIN_RIGHTS, exception.getReason());
     }
+
+    @Test
+    void validateUserForTicket_AsAdmin_ShouldPass() {
+        when(authentication.getName()).thenReturn(ConstantTest.ADMIN_USERNAME);
+        when(userService.getUserByUsername(ConstantTest.ADMIN_USERNAME)).thenReturn(adminUser);
+
+        assertDoesNotThrow(() -> securityService.validateUserForTicket(5L, authentication));
+    }
 }
