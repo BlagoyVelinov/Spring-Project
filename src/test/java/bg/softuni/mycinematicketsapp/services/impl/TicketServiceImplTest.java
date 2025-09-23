@@ -6,6 +6,7 @@ import bg.softuni.mycinematicketsapp.models.entities.Ticket;
 import bg.softuni.mycinematicketsapp.models.entities.UserEntity;
 import bg.softuni.mycinematicketsapp.models.enums.CityName;
 import bg.softuni.mycinematicketsapp.repository.TicketRepository;
+import bg.softuni.mycinematicketsapp.services.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,9 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceImplTest {
@@ -129,6 +133,27 @@ public class TicketServiceImplTest {
         assertEquals(2, expiredTickets.size());
 
         Mockito.verify(ticketRepository, Mockito.times(1)).findAllByUserIdAndFinishedIsTrueOrderByProjectionDate(2L);
+    }
+
+    @Test
+    void testGetTicketById_Success() {
+        Ticket ticket = getticket(1L, 1L);
+
+        when(ticketRepository.findById(ticket.getId())).thenReturn(Optional.of(ticket));
+
+        Ticket result = ticketService.getTicket(ticket.getId());
+
+        Assertions.assertNotNull(result);
+        assertEquals(result.getId(), ticket.getId());
+        assertEquals(result.getUserId(), ticket.getUserId());
+        assertEquals(result.getLocation(), ticket.getLocation());
+    }
+
+    @Test
+    void testGetTicketById_NotFound() {
+
+        when(ticketRepository.findById(10L)).thenReturn(Optional.empty());
+        assertThrows(ObjectNotFoundException.class, () -> ticketService.getTicket(10L));
     }
 
     private Order getOrder() {
