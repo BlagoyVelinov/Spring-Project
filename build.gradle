@@ -44,6 +44,8 @@ dependencies {
 
     implementation 'com.google.cloud.sql:mysql-socket-factory-connector-j-8:1.17.0'
 
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0")
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'com.icegreen:greenmail:2.0.0'
