@@ -19,12 +19,21 @@ spring:
     remember:
       me:
         key: 123456
+
   mail:
-    cinema_tickets: "test@mail.com"
-    host: "localhost"
-    port: 3333
-    username: "test@example.com"
-    password: "123456789"
+    host: localhost
+    port: 587
+    username: ${MY_PUBLIC_KEY}
+    password: ${MY_SECRET_KEY}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mail:
+  cinema_tickets: "test@mail.com"
 
 logging:
   level:
