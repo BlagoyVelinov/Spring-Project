@@ -1,129 +1,111 @@
 package bg.softuni.mycinematicketsapp.web;
 
 import bg.softuni.mycinematicketsapp.constants.Constant;
-import bg.softuni.mycinematicketsapp.models.entities.Offer;
+import bg.softuni.mycinematicketsapp.constants.ConstantTest;
+import bg.softuni.mycinematicketsapp.models.dtos.AddOfferDto;
+import bg.softuni.mycinematicketsapp.models.dtos.view.OfferViewDto;
 import bg.softuni.mycinematicketsapp.models.enums.OfferType;
-import bg.softuni.mycinematicketsapp.repository.OfferRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+import bg.softuni.mycinematicketsapp.services.OfferService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Optional;
+import java.util.List;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class OfferControllerIT {
-    private static final String TEST_USER_ADMIN = "admin";
-
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private OfferRepository offerRepository;
-
-    @AfterEach
-    public void tearDown() {
-        this.offerRepository.deleteAll();
-    }
-    @Test
-    @WithMockUser(
-            username = TEST_USER_ADMIN,
-            roles = {"USER", "ADMINISTRATOR"})
-    void testPostAddOffer() throws Exception {
-
-        this.mockMvc.perform(post("/offers/add-offer")
-                .param("title", "testTitle")
-                .param("description", "testDescription")
-                .param("imageUrl", "/images/rent-a-hall.jpg")
-                .param("offerCategory", "CINEMA_OFFERS")
-                        .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name(Constant.REDIRECT_OFFERS));
-        Optional<Offer> testOfferOpt = this.offerRepository.findByTitle("testTitle");
-
-        Assertions.assertTrue(testOfferOpt.isPresent());
-
-        Offer offer = testOfferOpt.get();
-        Assertions.assertEquals("testDescription", offer.getDescription());
-        Assertions.assertEquals("/images/rent-a-hall.jpg", offer.getImageUrl());
-        Assertions.assertEquals("CINEMA_OFFERS", offer.getOfferCategory().name());
-    }
+    @MockBean
+    private OfferService offerService;
 
     @Test
-    @WithMockUser(
-            username = TEST_USER_ADMIN,
-            roles = {"USER", "ADMINISTRATOR"})
-    void testIncorrectPostAddOffer() throws Exception {
+    void testGetOffers() throws Exception {
+        OfferViewDto cinemaOffer = new OfferViewDto();
+        cinemaOffer.setTitle(ConstantTest.TEST_OFFER_TITLE_1);
 
-        this.mockMvc.perform(post("/offers/add-offer")
-                        .param("title", "testTitle")
-                        .param("description", "testDescription")
-                        .param("imageUrl", "/images/rent-a-hall.jpg")
-                        .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name(Constant.REDIRECT_ADD_OFFER));
+        OfferViewDto schoolOffer = new OfferViewDto();
+        schoolOffer.setTitle(ConstantTest.TEST_OFFER_TITLE_2);
 
-    }
+        OfferViewDto businessOffer = new OfferViewDto();
+        businessOffer.setTitle(ConstantTest.TEST_OFFER_TITLE_3);
 
-    @Test
-    void testGetAddOffer() throws Exception {
-        this.mockMvc.perform(get("/offers/add-offer")).andDo(print())
-                .andExpect(view().name("add-offer"));
+        when(offerService.getAllCinemaOffers()).thenReturn(List.of(cinemaOffer));
+        when(offerService.getAllSchoolsOffers()).thenReturn(List.of(schoolOffer));
+        when(offerService.getAllBusinessOffers()).thenReturn(List.of(businessOffer));
 
-    }
-
-    @Test
-    void testGetAllOffers() throws Exception {
-        this.mockMvc.perform(get("/offers")).andDo(print())
-                .andExpect(view().name("offers"));
-
+        mockMvc.perform(get("/api/offers"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.cinemaOffers[0].title").value(ConstantTest.TEST_OFFER_TITLE_1))
+                .andExpect(jsonPath("$.schoolOffers[0].title").value(ConstantTest.TEST_OFFER_TITLE_2))
+                .andExpect(jsonPath("$.businessOffers[0].title").value(ConstantTest.TEST_OFFER_TITLE_3));
     }
 
     @Test
     void testGetOfferById() throws Exception {
-        Offer offer = this.createOffer();
-        this.mockMvc.perform(get("/offers/offer/{id}", offer.getId()))
-                .andDo(print())
-                .andExpect(view().name("offer"));
+        OfferViewDto offerViewDto = new OfferViewDto();
+        offerViewDto.setTitle(ConstantTest.TEST_OFFER_TITLE);
+
+        when(offerService.getOfferViewById(1L)).thenReturn(offerViewDto);
+
+        mockMvc.perform(get("/api/offers/offer/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(ConstantTest.TEST_OFFER_TITLE));
     }
 
     @Test
-    @WithMockUser(
-            username = TEST_USER_ADMIN,
-            roles = {"USER", "ADMINISTRATOR"})
-    void testDeleteOfferById() throws Exception {
-        Offer offer = this.createOffer();
-        this.mockMvc.perform(delete("/offers/delete-offer/{id}", offer.getId())
-                .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name(Constant.REDIRECT_OFFERS));
+    void testAddOffer_Success() throws Exception {
+        AddOfferDto addOfferDto = new AddOfferDto();
+        addOfferDto.setTitle(ConstantTest.TEST_OFFER_TITLE_1);
+        addOfferDto.setDescription(ConstantTest.TEST_OFFER_DESCRIPTION);
+        addOfferDto.setImageUrl(ConstantTest.TEST_OFFER_IMAGE_URL);
+        addOfferDto.setOfferCategory(OfferType.FOR_THE_SCHOOLS);
 
-        Optional<Offer> testOfferOpt = this.offerRepository.findById(offer.getId());
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        Assertions.assertTrue(testOfferOpt.isEmpty());
+        mockMvc.perform(post("/api/offers/add-offer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(addOfferDto)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.message").value(Constant.SUCCESS_CREATED_OFFER));
 
+        verify(offerService, times(1)).createOffer(any(AddOfferDto.class));
     }
 
-    private Offer createOffer() {
+    @Test
+    void testEditOffer() throws Exception {
+        OfferViewDto offerViewDto = new OfferViewDto();
+        offerViewDto.setTitle(ConstantTest.TEST_OFFER_TITLE_3);
 
-        Offer offer = new Offer();
-        offer.setId(1);
-        offer.setTitle("NewOffer")
-                .setDescription("Testing creating new Offer!")
-                .setImageUrl("/images/rent-a-hall.jpg")
-                .setOfferCategory(OfferType.CINEMA_OFFERS);
-        return this.offerRepository.save(offer);
+        when(offerService.updateOffer(any(OfferViewDto.class), eq(1L))).thenReturn(offerViewDto);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(put("/api/offers/edit-offer/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(offerViewDto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(ConstantTest.TEST_OFFER_TITLE_3));
+    }
+
+    @Test
+    void testDeleteOffer() throws Exception {
+        mockMvc.perform(delete("/api/offers/delete-offer/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value(Constant.SUCCESS_DELETED_OFFER));
+
+        verify(offerService, times(1)).deleteOffer(1L);
     }
 }

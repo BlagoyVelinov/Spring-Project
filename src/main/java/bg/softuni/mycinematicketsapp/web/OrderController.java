@@ -13,8 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
@@ -30,7 +28,6 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody OrderMovieDto createOrder,
                                                      @AuthenticationPrincipal SecurityUserDetails user) {
-
         OrderMovieDto orderDto = this.orderService.createUserOrder(createOrder, user.getUsername());
 
         return ResponseEntity.ok(new OrderResponse(Constant.SUCCESS_CREATED_ORDER, orderDto));
