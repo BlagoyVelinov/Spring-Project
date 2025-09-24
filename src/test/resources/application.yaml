@@ -23,8 +23,8 @@ spring:
   mail:
     host: localhost
     port: 587
-    username: ${MY_PUBLIC_KEY}
-    password: ${MY_SECRET_KEY}
+    username: test_public_key
+    password: test_secret_key
     properties:
       mail:
         smtp:

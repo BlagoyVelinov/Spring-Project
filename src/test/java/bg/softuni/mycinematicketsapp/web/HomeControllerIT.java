@@ -19,7 +19,7 @@ class HomeControllerIT {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("GET /api/home/about-us връща ABOUT_US")
+    @DisplayName("GET /api/home/about-us return ABOUT_US")
     void testGetAboutUsInfo() throws Exception {
         mockMvc.perform(get("/api/home/about-us"))
                 .andExpect(status().isOk())
@@ -27,7 +27,7 @@ class HomeControllerIT {
     }
 
     @Test
-    @DisplayName("GET /api/home/contact-us връща CONTACT_US")
+    @DisplayName("GET /api/home/contact-us return CONTACT_US")
     void testGetContactUsInfo() throws Exception {
         mockMvc.perform(get("/api/home/contact-us"))
                 .andExpect(status().isOk())
@@ -35,7 +35,7 @@ class HomeControllerIT {
     }
 
     @Test
-    @DisplayName("GET /api/home/4-dx връща FOUR_DX")
+    @DisplayName("GET /api/home/4-dx return FOUR_DX")
     void testGet4DxInfo() throws Exception {
         mockMvc.perform(get("/api/home/4-dx"))
                 .andExpect(status().isOk())
@@ -43,7 +43,7 @@ class HomeControllerIT {
     }
 
     @Test
-    @DisplayName("GET /api/home/imax връща IMAX")
+    @DisplayName("GET /api/home/imax return IMAX")
     void testGetImaxInfo() throws Exception {
         mockMvc.perform(get("/api/home/imax"))
                 .andExpect(status().isOk())
