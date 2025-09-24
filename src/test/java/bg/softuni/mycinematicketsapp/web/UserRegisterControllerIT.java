@@ -12,10 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.security.Principal;
 import java.time.LocalDate;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -57,7 +55,7 @@ public class UserRegisterControllerIT {
     @Test
     void testRegister_InvalidInput() throws Exception {
         UserRegisterDto dto = new UserRegisterDto();
-        dto.setUsername(""); // невалиден username
+        dto.setUsername("");
         dto.setEmail("not-an-email");
 
         mockMvc.perform(post("/api/users/register")
