@@ -31,6 +31,8 @@ services:
       MY_PUBLIC_KEY: ${MY_PUBLIC_KEY}
       MY_SECRET_KEY: ${MY_SECRET_KEY}
       MAIL_SENDER: ${MAIL_SENDER}
+      ACTIVATION_BASE_URL: ${ACTIVATION_BASE_URL}
+      REDIRECT_URI: ${REDIRECT_URI}
     depends_on:
       mysql-cinema:
         condition: service_healthy
