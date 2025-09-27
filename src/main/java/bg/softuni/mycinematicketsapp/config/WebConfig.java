@@ -24,7 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOriginPatterns( "http://localhost:*",
-                        "https://cinematickets-staging.onrender.com")
+                        "https://cinematickets-staging.onrender.com",
+                        "https://cinematickets-booking-app.onrender.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization")
