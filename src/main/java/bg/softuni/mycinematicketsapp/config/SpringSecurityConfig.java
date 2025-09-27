@@ -36,7 +36,9 @@ public class SpringSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOriginPatterns(List.of("http://localhost:*", "https://cinematickets-staging.onrender.com"));
+        cfg.setAllowedOriginPatterns(List.of("http://localhost:*",
+                "https://cinematickets-staging.onrender.com",
+                "https://cinematickets-booking-app.onrender.com"));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.addExposedHeader("Authorization");
