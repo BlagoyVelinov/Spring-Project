@@ -1,11 +1,30 @@
-# Cinema Tickets Spring-Project
+# 🎬 Cinema Tickets – Spring Project
 
-This is the backend of my final project for Java Web Spring MVC - August 2024 from SoftUni!
+This repository contains the **main backend service** of the Cinema Tickets application.  
+It was developed as my final project for **Java Web Spring MVC – August 2024 @ SoftUni**.
 
-For testing the app should to use this Rest-api:
-[Cinema Tickets Movies API - GitHub Repo](https://github.com/BlagoyVelinov/Spring-Project-REST-API)
 
-and the front-end of the project is: [Front-End GitHub Repo](https://github.com/BlagoyVelinov/CinemaTickets-React)
+The Cinema Tickets system is built as a **microservices architecture** and consists of:
+
+- 🗂 **Main Backend (this project)** – user management, authentication, orders, tickets
+- 🎬 [Movies Service (Cinema Tickets Movies API)](https://github.com/BlagoyVelinov/Spring-Project-REST-API) – movie catalog and movie management
+- 💻 [Frontend (React)](https://github.com/BlagoyVelinov/CinemaTickets-React) – client-facing web app
+
+Both backend services (`Spring-Project` and `Cinema Tickets Movies`) together provide the complete API consumed by the React frontend.
+
+---
+
+## 🗄️ Database
+The application uses **MySQL 8.0** as its database.
+
+Default configuration (can be overridden via environment variables):
+- **Username:** `root`
+- **Password:** `root`
+- **Database name:** `cinema_tickets`
+
+When running with Docker, a MySQL container will be started alongside the backend service.
+
+---
 
 ## 📧 User Registration & Email Verification
 When a user registers, the system automatically sends a verification email using https://app.mailjet.com as the SMTP provider.
