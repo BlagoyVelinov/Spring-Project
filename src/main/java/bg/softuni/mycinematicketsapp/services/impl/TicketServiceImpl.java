@@ -90,10 +90,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     /**
-     * This method start every day by dint of Scheduling and cron!
+     * This method start every week by dint of Scheduling and cron!
      * Check for expired tickets in all not finished tickets and set them of finish!
      */
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * 0")
     public void updateFinishedTickets() {
         LocalTime nowTime = LocalTime.now();
         int updated = ticketRepository.markFinishedTickets(nowTime);
